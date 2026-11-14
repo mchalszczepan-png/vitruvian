@@ -24,9 +24,11 @@ const shortDate = (iso: string) => `${Number(iso.slice(8, 10))} ${MONTHS[Number(
 
 type Urgency = 'urgent' | 'routine';
 
-/** Per-patient state. The note is the GP's; the Aid runs only when the GP clicks Check note. */
+/** Per-patient state. The note is the GP's; Save stores it and Vitruvian checks it in the background (Michal, 15 Nov). */
 interface Draft {
   note: string;
+  /** the note text as last saved */
+  saved?: string;
   checking: boolean;
   aid?: AidResult;
   template?: ReferralTemplate;
@@ -56,18 +58,30 @@ export function GpWorkspace({ patients, patientId, onPatient }: Props) {
     });
   // Visits lit in the history while the GP points at a matched Rule.
   const [lit, setLit] = useState<string[]>([]);
+  const [query, setQuery] = useState('');
   const noteRef = useRef<HTMLTextAreaElement>(null);
   useEffect(() => {
     noteRef.current?.focus();
     setLit([]);
   }, [patient.id]);
 
-  async function check() {
+  // Small pop-up after a background check, only when a Rule matched.
+  const [toast, setToast] = useState<{ id: string; text: string }>();
+  useEffect(() => {
+    if (!toast) return;
+    const t = setTimeout(() => setToast(undefined), 6000);
+    return () => clearTimeout(t);
+  }, [toast]);
+
+  async function save() {
     const id = patient.id;
-    update(id, { checking: true });
+    const name = patient.name;
+    if (!draft.note.trim() || draft.checking) return;
+    update(id, { saved: draft.note, checking: true });
     const aid = await getAid(id);
     const template = await getReferralTemplate(aid.suspectedCancer);
     update(id, { aid, template, checking: false });
+    if (!aid.noRuleMatched) setToast({ id, text: `${name}: ${cancerName[aid.suspectedCancer]} Rule matched. See the Vitruvian card.` });
   }
 
   async function startReferral(urgency: Urgency) {
@@ -101,11 +115,29 @@ export function GpWorkspace({ patients, patientId, onPatient }: Props) {
   }
 
   const earlier = [...patient.visits].slice(0, -1).reverse();
+  const q = query.trim().toLowerCase();
+  const shown = q ? patients.filter((p) => `${p.name} ${p.id} ${p.visits.at(-1)?.reason ?? ''}`.toLowerCase().includes(q)) : patients;
+  const status = draft.checking
+    ? 'Saved. Vitruvian is checking…'
+    : draft.saved === undefined
+      ? 'Ctrl + Enter to save'
+      : draft.saved === draft.note
+        ? 'Saved'
+        : 'Not saved yet';
 
   return (
     <div className="nf">
       <nav className="nf-list" aria-label="Today's patients">
-        {patients.map((p) => (
+        <input
+          type="search"
+          className="nf-search"
+          placeholder="Search patients"
+          aria-label="Search patients"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+        />
+        {shown.length === 0 && <p className="nf-list-none">No patient matches.</p>}
+        {shown.map((p) => (
           <button key={p.id} aria-current={p.id === patient.id} onClick={() => onPatient(p.id)}>
             <span>{p.name}</span>
             <small>{p.visits.at(-1)?.reason}</small>
@@ -114,54 +146,69 @@ export function GpWorkspace({ patients, patientId, onPatient }: Props) {
       </nav>
 
       <section className="nf-main" aria-label="Today's visit">
-        <p className="nf-who">
-          <b>{patient.name}</b>
-          <span>
-            {patient.id} · {patient.age} · {patient.sex === 'female' ? 'Female' : 'Male'} · {fmtDate(today.date)}
-          </span>
-        </p>
-        <form
-          className="nf-note"
-          onSubmit={(e) => {
-            e.preventDefault();
-            check();
-          }}
-        >
-          <label htmlFor="nf-note-text">Today's note</label>
-          <textarea
-            id="nf-note-text"
-            ref={noteRef}
-            className="input"
-            placeholder="Symptoms, findings, plan"
-            value={draft.note}
-            onChange={(e) => update(patient.id, { note: e.target.value })}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
+        <table className="nf-who">
+          <thead>
+            <tr>
+              <th scope="col">Patient</th>
+              <th scope="col">ID</th>
+              <th scope="col">Age</th>
+              <th scope="col">Sex</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <b>{patient.name}</b>
+              </td>
+              <td className="num">{patient.id}</td>
+              <td className="num">{patient.age}</td>
+              <td>{patient.sex === 'female' ? 'Female' : 'Male'}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <ol className="nf-tl" aria-label="Visits, newest first">
+          <li className="nf-tl-today">
+            <form
+              className="nf-note"
+              onSubmit={(e) => {
                 e.preventDefault();
-                check();
-              }
-            }}
-          />
-          <div className="nf-note-foot">
-            <small>Ctrl + Enter to check</small>
-            <button className="btn primary" type="submit" disabled={draft.checking || !draft.note.trim()}>
-              <Mark size={14} /> {draft.checking ? 'Checking…' : 'Check note'}
-            </button>
-          </div>
-        </form>
-        <section className="nf-hist" aria-labelledby="nf-hist-h">
-          <h2 id="nf-hist-h">Earlier visits</h2>
-          {earlier.length === 0 && <p className="muted">No earlier visits.</p>}
-          <ol>
-            {earlier.map((v) => (
-              <li key={v.id} id={`visit-${v.id}`} className={lit.includes(v.id) ? 'lit' : undefined}>
-                <More key={`${patient.id}-${v.id}`} extra={<p className="nf-hist-note">{v.note}</p>}>
-                  <time className="num">{fmtDate(v.date)}</time> {v.reason}
-                </More>
-              </li>
-            ))}
-          </ol>
-        </section>
+                save();
+              }}
+            >
+              <label htmlFor="nf-note-text">
+                Today <span className="num">· {fmtDate(today.date)}</span>
+              </label>
+              <textarea
+                id="nf-note-text"
+                ref={noteRef}
+                className="input"
+                placeholder="Symptoms, findings, plan"
+                value={draft.note}
+                onChange={(e) => update(patient.id, { note: e.target.value })}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
+                    e.preventDefault();
+                    save();
+                  }
+                }}
+              />
+              <div className="nf-note-foot">
+                <small role="status">{status}</small>
+                <button className="btn primary" type="submit" disabled={draft.checking || !draft.note.trim() || draft.saved === draft.note}>
+                  Save
+                </button>
+              </div>
+            </form>
+          </li>
+          {earlier.map((v) => (
+            <li key={v.id} id={`visit-${v.id}`} className={lit.includes(v.id) ? 'lit' : undefined}>
+              <More key={`${patient.id}-${v.id}`} extra={<p className="nf-hist-note">{v.note}</p>}>
+                <time className="num">{fmtDate(v.date)}</time> {v.reason}
+              </More>
+            </li>
+          ))}
+        </ol>
       </section>
 
       <Pointer
@@ -171,6 +218,19 @@ export function GpWorkspace({ patients, patientId, onPatient }: Props) {
         onStart={startReferral}
         onDecide={(decision) => update(patient.id, { decision })}
       />
+
+      {toast && (
+        <button
+          className="nf-toast"
+          role="status"
+          onClick={() => {
+            onPatient(toast.id);
+            setToast(undefined);
+          }}
+        >
+          <Mark size={16} /> {toast.text}
+        </button>
+      )}
 
       {draft.sheet && draft.aid && (
         <ReferralSheet
@@ -206,12 +266,21 @@ function Pointer({
   const aid = draft.aid;
 
   return (
-    <aside className="nf-ptr" aria-label="Vitruvian" aria-live="polite">
+    <aside className={`nf-ptr${draft.checking ? ' checking' : ''}`} aria-label="Vitruvian" aria-live="polite">
       <header>
         <Mark size={16} /> <span className="wordmark">Vitruvian</span>
       </header>
       {!aid ? (
-        <p className="muted">{draft.checking ? 'Reading the note and earlier visits…' : 'Write the note, then click Check note.'}</p>
+        draft.checking ? (
+          <div className="nf-ptr-wait">
+            <p className="muted">Checking the note and earlier visits…</p>
+            <i />
+            <i />
+            <i />
+          </div>
+        ) : (
+          <p className="muted">Save the note. Vitruvian checks it in the background.</p>
+        )
       ) : (
         <>
           <p className="nf-ptr-head">
