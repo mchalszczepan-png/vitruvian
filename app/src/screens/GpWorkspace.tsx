@@ -30,6 +30,8 @@ interface Draft {
   /** the note text as last saved */
   saved?: string;
   checking: boolean;
+  /** GP reopened a saved note */
+  editing?: boolean;
   aid?: AidResult;
   template?: ReferralTemplate;
   fields?: FieldValues;
@@ -64,6 +66,9 @@ export function GpWorkspace({ patients, patientId, onPatient }: Props) {
     noteRef.current?.focus();
     setLit([]);
   }, [patient.id]);
+  useEffect(() => {
+    if (draft.editing) noteRef.current?.focus();
+  }, [draft.editing]);
 
   // Small pop-up after a background check, only when a Rule matched.
   const [toast, setToast] = useState<{ id: string; text: string }>();
@@ -77,7 +82,7 @@ export function GpWorkspace({ patients, patientId, onPatient }: Props) {
     const id = patient.id;
     const name = patient.name;
     if (!draft.note.trim() || draft.checking) return;
-    update(id, { saved: draft.note, checking: true });
+    update(id, { saved: draft.note, checking: true, editing: false });
     const aid = await getAid(id);
     const template = await getReferralTemplate(aid.suspectedCancer);
     update(id, { aid, template, checking: false });
@@ -117,6 +122,8 @@ export function GpWorkspace({ patients, patientId, onPatient }: Props) {
   const earlier = [...patient.visits].slice(0, -1).reverse();
   const q = query.trim().toLowerCase();
   const shown = q ? patients.filter((p) => `${p.name} ${p.id} ${p.visits.at(-1)?.reason ?? ''}`.toLowerCase().includes(q)) : patients;
+  // After Save the note folds into a read-only box; the analysis shows on the right (Michal, 15 Nov).
+  const collapsed = draft.saved !== undefined && draft.saved === draft.note && !draft.editing;
   const status = draft.checking
     ? 'Saved. Vitruvian is checking…'
     : draft.saved === undefined
@@ -169,37 +176,52 @@ export function GpWorkspace({ patients, patientId, onPatient }: Props) {
 
         <ol className="nf-tl" aria-label="Visits, newest first">
           <li className="nf-tl-today">
-            <form
-              className="nf-note"
-              onSubmit={(e) => {
-                e.preventDefault();
-                save();
-              }}
-            >
-              <label htmlFor="nf-note-text">
-                Today <span className="num">· {fmtDate(today.date)}</span>
-              </label>
-              <textarea
-                id="nf-note-text"
-                ref={noteRef}
-                className="input"
-                placeholder="Symptoms, findings, plan"
-                value={draft.note}
-                onChange={(e) => update(patient.id, { note: e.target.value })}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
-                    e.preventDefault();
-                    save();
-                  }
-                }}
-              />
-              <div className="nf-note-foot">
-                <small role="status">{status}</small>
-                <button className="btn primary" type="submit" disabled={draft.checking || !draft.note.trim() || draft.saved === draft.note}>
-                  Save
-                </button>
+            {collapsed ? (
+              <div className="nf-note nf-note-saved">
+                <p className="nf-note-label">
+                  Today <span className="num">· {fmtDate(today.date)}</span>
+                </p>
+                <p className="nf-note-text">{draft.note}</p>
+                <div className="nf-note-foot">
+                  <small role="status">{status}</small>
+                  <button className="btn small" type="button" onClick={() => update(patient.id, { editing: true })}>
+                    Edit
+                  </button>
+                </div>
               </div>
-            </form>
+            ) : (
+              <form
+                className="nf-note"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  save();
+                }}
+              >
+                <label htmlFor="nf-note-text">
+                  Today <span className="num">· {fmtDate(today.date)}</span>
+                </label>
+                <textarea
+                  id="nf-note-text"
+                  ref={noteRef}
+                  className="input"
+                  placeholder="Symptoms, findings, plan"
+                  value={draft.note}
+                  onChange={(e) => update(patient.id, { note: e.target.value })}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
+                      e.preventDefault();
+                      save();
+                    }
+                  }}
+                />
+                <div className="nf-note-foot">
+                  <small role="status">{status}</small>
+                  <button className="btn primary" type="submit" disabled={draft.checking || !draft.note.trim() || draft.saved === draft.note}>
+                    Save
+                  </button>
+                </div>
+              </form>
+            )}
           </li>
           {earlier.map((v) => (
             <li key={v.id} id={`visit-${v.id}`} className={lit.includes(v.id) ? 'lit' : undefined}>
@@ -219,7 +241,7 @@ export function GpWorkspace({ patients, patientId, onPatient }: Props) {
         onDecide={(decision) => update(patient.id, { decision })}
       />
 
-      {toast && (
+      {toast && !draft.sheet && (
         <button
           className="nf-toast"
           role="status"
@@ -268,7 +290,7 @@ function Pointer({
   return (
     <aside className={`nf-ptr${draft.checking ? ' checking' : ''}`} aria-label="Vitruvian" aria-live="polite">
       <header>
-        <Mark size={16} /> <span className="wordmark">Vitruvian</span>
+        <Mark size={22} /> <span className="wordmark">Vitruvian</span>
       </header>
       {!aid ? (
         draft.checking ? (
@@ -301,34 +323,20 @@ function Pointer({
           <p className="nf-ptr-reason">{aid.riskReason}</p>
           {aid.publishedRisk && (
             <div className="nf-ptr-ppv">
-              <p>
-                Published risk:{' '}
-                <b>
+              <p className="nf-ppv-row">
+                <span className="muted">Published risk</span>
+                <b className="num">
                   {Math.round(aid.publishedRisk.pct * 10) / 10}%{aid.publishedRisk.isLowerBound ? ' or more' : ''}
-                </b>{' '}
+                </b>
+              </p>
+              <p className="nf-ppv-row">
+                {aid.publishedRisk.aboveNg12Threshold && <span className="tag">Above NG12 3%</span>}
                 <Source
                   short
                   source={{ label: aid.publishedRisk.sourceLabel, short: aid.publishedRisk.sourceLabel.split(',')[0], url: aid.publishedRisk.sourceUrl }}
-                />{' '}
-                · decided by AI
-                {aid.publishedRisk.aboveNg12Threshold && <span className="muted"> · at or above NICE NG12's 3% threshold</span>}
+                />
               </p>
-              <More
-                className="muted"
-                extra={
-                  <div className="nf-ppv-more">
-                    <p>{aid.publishedRisk.because}</p>
-                    {(aid.publishedRisk.studyPopulation || aid.publishedRisk.quote) && (
-                      <p className="muted">
-                        {aid.publishedRisk.studyPopulation}
-                        {aid.publishedRisk.quote && <> “{aid.publishedRisk.quote}”</>}
-                      </p>
-                    )}
-                  </div>
-                }
-              >
-                UK primary-care aggregate figure, not a personal probability.
-              </More>
+              <p className="muted nf-ppv-note">UK primary-care aggregate figure, not a personal probability. Matched by AI.</p>
             </div>
           )}
 
@@ -405,6 +413,17 @@ function Why({ patient, aid, onLight }: { patient: Patient; aid: AidResult; onLi
               </li>
             ))}
           </ul>
+        </div>
+      )}
+      {aid.publishedRisk && (
+        <div className="nf-why-item">
+          <p>Published risk: {aid.publishedRisk.because}</p>
+          {(aid.publishedRisk.studyPopulation || aid.publishedRisk.quote) && (
+            <p className="muted">
+              {aid.publishedRisk.studyPopulation}
+              {aid.publishedRisk.quote && <> “{aid.publishedRisk.quote}”</>}
+            </p>
+          )}
         </div>
       )}
       {aid.riskModelPointer && (

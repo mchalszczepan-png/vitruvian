@@ -28,8 +28,8 @@ export function optionLabel(v: string): string {
 }
 
 export const originLabel: Record<FieldOrigin, string> = {
-  record: 'Record system',
-  gemma: 'Gemma',
+  record: 'Record',
+  gemma: 'AI',
   gp: 'Edited by GP',
   empty: 'Empty',
 };

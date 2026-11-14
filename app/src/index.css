@@ -627,13 +627,10 @@ button {
 }
 .field {
   display: grid;
-  gap: 6px;
+  align-content: start;
+  gap: 8px;
   padding: 12px 14px;
   border-radius: var(--r);
-  transition: background 180ms var(--ease);
-}
-.field:hover {
-  background: var(--paper);
 }
 .field.missing {
   background: var(--wine-soft);
@@ -2045,20 +2042,39 @@ textarea.input {
   gap: 16px;
 }
 /* Patient: one compact table row (Michal, 15 Nov) */
+/* Patient: a visible full-width table (Michal, 15 Nov) */
 .nf-who {
   flex-shrink: 0;
-  border-collapse: collapse;
-  width: fit-content;
+  width: 100%;
+  box-sizing: border-box;
+  table-layout: fixed;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--card);
+  border: 1px solid #e3dfdc;
+  border-radius: var(--r-sm);
+  overflow: hidden;
 }
 .nf-who th,
 .nf-who td {
   text-align: left;
-  padding: 0 24px 0 0;
+  padding: 8px 16px;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .nf-who th {
   font-weight: 400;
   color: var(--muted);
+  background: var(--paper-2);
+  border-bottom: 1px solid #e3dfdc;
+}
+.nf-who th + th,
+.nf-who td + td {
+  border-left: 1px solid #e3dfdc;
+}
+.nf-who th:first-child {
+  width: 40%;
 }
 .nf-who b {
   font-family: var(--title);
@@ -2306,13 +2322,13 @@ textarea.input {
     overflow: auto;
   }
   .topbar {
-    gap: 16px;
+    gap: 8px;
     padding: 12px 16px;
   }
   .topbar .who {
     display: none;
   }
-  .topbar .signout {
+  .topbar .lang {
     margin-left: auto;
   }
   .nf {
@@ -2364,19 +2380,22 @@ textarea.input {
 /* Published risk (PPV) next to the Risk gradient: evidence, not a decision */
 .nf-ptr-ppv {
   display: grid;
-  gap: 0;
+  gap: 4px;
+  padding: 12px 16px;
+  background: var(--paper);
+  border-radius: var(--r-sm);
 }
 .nf-ptr-ppv p {
   margin: 0;
+}
+.nf-ppv-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 8px;
+}
+.nf-ppv-note {
   text-wrap: pretty;
-}
-.nf-ppv-more {
-  display: grid;
-  gap: 8px;
-  padding-top: 8px;
-}
-.nf-ppv-more p {
-  margin: 0;
 }
 
 /* Patient search above the list */
@@ -2413,7 +2432,7 @@ textarea.input {
   padding: 0 0 0 32px;
   position: relative;
   display: grid;
-  gap: 4px;
+  gap: 8px;
 }
 .nf-tl::before {
   content: '';
@@ -2426,15 +2445,17 @@ textarea.input {
 }
 .nf-tl > li {
   position: relative;
-  padding: 4px 8px;
-  border-radius: 6px;
-  transition: background 180ms var(--ease);
+  padding: 8px 16px;
+  background: var(--card);
+  border: 1px solid #e9e1dd;
+  border-radius: var(--r-sm);
+  transition: background 180ms var(--ease), border-color 180ms var(--ease);
 }
 .nf-tl > li::before {
   content: '';
   position: absolute;
-  left: -32px;
-  top: 10px;
+  left: -33px;
+  top: 12px;
   width: 16px;
   height: 16px;
   box-sizing: border-box;
@@ -2444,6 +2465,7 @@ textarea.input {
 }
 .nf-tl > li.lit {
   background: var(--amber-soft);
+  border-color: var(--amber);
 }
 .nf-tl > li.lit::before {
   background: var(--amber);
@@ -2455,7 +2477,9 @@ textarea.input {
 }
 .nf-tl > .nf-tl-today {
   padding: 0;
-  margin-bottom: 16px;
+  margin-bottom: 8px;
+  background: none;
+  border: 0;
 }
 .nf-tl > .nf-tl-today::before {
   top: 20px;
@@ -2469,6 +2493,23 @@ textarea.input {
 .nf-tl-today .nf-note textarea {
   min-height: 280px;
 }
+.nf-note-label {
+  margin: 0;
+  font-family: var(--title);
+  font-weight: 600;
+}
+/* Saved note folds into a read-only box */
+.nf-note-saved {
+  border-width: 1px;
+  border-color: #e3dfdc;
+  box-shadow: none;
+}
+.nf-note-text {
+  margin: 0;
+  white-space: pre-wrap;
+  line-height: 1.6;
+}
+.nf-tl-today .nf-note-label .num,
 .nf-tl-today label .num {
   font-family: var(--sans);
   font-weight: 400;
@@ -2497,7 +2538,7 @@ textarea.input {
 .nf-ptr-wait i:nth-of-type(3) {
   width: 55%;
 }
-.nf-ptr.checking header svg {
+.nf-ptr.checking header .mark {
   animation: nf-pulse 1s ease-in-out infinite alternate;
 }
 @keyframes nf-shimmer {
@@ -2550,7 +2591,7 @@ textarea.input {
 }
 @media (prefers-reduced-motion: reduce) {
   .nf-ptr-wait i,
-  .nf-ptr.checking header svg,
+  .nf-ptr.checking header .mark,
   .nf-toast {
     animation: none;
   }
@@ -2561,4 +2602,79 @@ textarea.input {
 .btn.primary:disabled::before {
   background: var(--paper-2);
   box-shadow: none;
+}
+/* EN / FI label switch */
+.lang {
+  display: flex;
+  gap: 4px;
+}
+.lang .btn {
+  min-width: 48px;
+}
+.login-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.login-head h2 {
+  margin-bottom: 8px;
+}
+
+/* Logo */
+img.mark {
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+/* Referral form: two columns, wide fields span both (Michal, 15 Nov) */
+.nf-sheet {
+  width: min(760px, 100%);
+}
+.nf-sheet .fields {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 8px 16px;
+}
+.nf-sheet .field.wide {
+  grid-column: 1 / -1;
+}
+.nf-sheet .field:not(.missing) {
+  background: var(--paper);
+}
+.field .input:focus,
+.field .input:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 1px;
+}
+.nf-sheet .field .input {
+  background: #fff;
+  border: 1px solid #e3dfdc;
+}
+@media (max-width: 720px) {
+  .nf-sheet .fields {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .nf-sheet footer {
+    flex-wrap: wrap;
+  }
+}
+.nf-toast img.mark {
+  filter: brightness(0) invert(1);
+}
+@media (max-width: 720px) {
+  .nf-who {
+    table-layout: auto;
+  }
+  .nf-who th,
+  .nf-who td {
+    padding: 8px 12px;
+    white-space: normal;
+  }
+  .nf-who th:first-child {
+    width: auto;
+  }
+  .nf-who .num {
+    white-space: nowrap;
+  }
 }

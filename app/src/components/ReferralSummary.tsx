@@ -2,6 +2,7 @@ import type { GpDecision, Patient, ReferralView } from '../data/types';
 import { More } from './More';
 import { Source, SourceIcon } from './Source';
 import { fmtDate, optionLabel } from './labels';
+import { useBi } from './lang';
 
 /**
  * Referral summary for the Referral desk (decision 16, docs/SPEC.md "Who sees the Risk gradient").
@@ -19,6 +20,7 @@ const shortDate = (iso: string) => new Date(iso).toLocaleDateString('en-GB', { d
 const plain = (label: string) => label.replace(/\s*\(.*\)\s*$/, '');
 
 export function ReferralSummary({ referral: ref, patient }: { referral: ReferralView; patient: Patient }) {
+  const t = useBi();
   const s = ref.summary;
   const uniq = (xs: string[]) => [...new Map(xs.map((x) => [plain(x).toLowerCase(), x])).values()];
   const present = uniq(s.redFlags.present);
@@ -101,7 +103,7 @@ export function ReferralSummary({ referral: ref, patient }: { referral: Referral
             {present.length ? (
               present.map((f) => (
                 <span key={f} className="chip on">
-                  {plain(f)}
+                  {t(f)}
                 </span>
               ))
             ) : (
@@ -113,7 +115,7 @@ export function ReferralSummary({ referral: ref, patient }: { referral: Referral
             {ruledOut.length ? (
               ruledOut.map((f) => (
                 <span key={f} className="chip">
-                  {plain(f)}
+                  {t(f)}
                 </span>
               ))
             ) : (
@@ -130,7 +132,7 @@ export function ReferralSummary({ referral: ref, patient }: { referral: Referral
             <div>
               {s.missingFields.map((f) => (
                 <span key={f.key} className="chip miss">
-                  {plain(f.label)}
+                  {t(f.label)}
                 </span>
               ))}
             </div>
