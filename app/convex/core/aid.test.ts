@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { analyze, lastingCount, mapLimit, pickCancer, snippetOf, TRIAGE_BADGE, techUsedFor, withoutSafetyNet, type RepeatSource } from './aid';
+import { analyze, lastingCount, mapLimit, MEDGEMMA_BADGE, pickCancer, snippetOf, TRIAGE_BADGE, techUsedFor, withoutSafetyNet, type RepeatSource } from './aid';
 import { buildRuleBook, type RuleBook } from './rulebook';
 import { stubPort } from './ports/stub';
 import type { ModelPort } from './port';
@@ -20,6 +20,43 @@ describe('techUsedFor: the triage risk', () => {
   it('a fallback or no triage keeps the prompted risk on gemma, with no detail', () => {
     expect(riskOf('gemma')).toEqual({ step: 'risk', provider: 'gemma' });
     expect(riskOf()).toEqual({ step: 'risk', provider: 'gemma' });
+  });
+});
+
+describe('techUsedFor: the MedGemma risk', () => {
+  const riskOf = (servedBy?: 'medgemma' | 'modal-lora' | 'gemma') => techUsedFor('modal-lora', 'symptom-match', servedBy).find((t) => t.step === 'risk');
+
+  it('a MedGemma answer gives the risk step modal-lora (no new provider) with the MEDGEMMA_BADGE detail', () => {
+    expect(riskOf('medgemma')).toEqual({ step: 'risk', provider: 'modal-lora', detail: MEDGEMMA_BADGE });
+    expect(MEDGEMMA_BADGE).toBe('MedGemma 27B, fine-tuned on synthetic GP notes, Gemini-teacher labels, not clinically validated');
+  });
+
+  it('the E4B triage still gives TRIAGE_BADGE, and a fallback keeps the prompted risk on gemma', () => {
+    expect(riskOf('modal-lora')).toEqual({ step: 'risk', provider: 'modal-lora', detail: TRIAGE_BADGE });
+    expect(riskOf('gemma')).toEqual({ step: 'risk', provider: 'gemma' });
+  });
+});
+
+describe('analyze: a MedGemma answer shows its pointer and evidence', () => {
+  const book: RuleBook = buildRuleBook({ rules: rulesJson as never, severities: severityJson as never });
+  const visits = visitsJson as { patientId: string; visitId: string; order: number; date: string; reason: string; symptom: string; note: string; reasonFi?: string; gpNoteFi?: string }[];
+  const patient: Patient = (() => {
+    const p = (patientsJson as Omit<Patient, 'visits'>[])[0];
+    const vs: Visit[] = visits
+      .filter((v) => v.patientId === p.id)
+      .sort((a, b) => a.order - b.order)
+      .map((v) => ({ id: v.visitId, date: v.date, reason: v.reason, symptom: v.symptom, note: v.note, reasonFi: v.reasonFi, gpNoteFi: v.gpNoteFi }));
+    return { ...p, visits: vs };
+  })();
+
+  it('riskModelPointer, riskEvidence and the MedGemma techUsed detail are set for servedBy medgemma', async () => {
+    const base = await analyze({ patient, book, model: stubPort() });
+    const other = base.aid.suspectedCancer === 'lung' ? 'colorectal' : 'lung';
+    const model: ModelPort = { ...stubPort(), risk: async () => ({ score: 5, reason: 'r', pointer: other, evidence: ['a phrase'], servedBy: 'medgemma' }) };
+    const out = await analyze({ patient, book, model });
+    expect(out.aid.riskModelPointer).toBe(other);
+    expect(out.aid.riskEvidence).toEqual(['a phrase']);
+    expect(out.aid.techUsed?.find((t) => t.step === 'risk')).toEqual({ step: 'risk', provider: 'modal-lora', detail: MEDGEMMA_BADGE });
   });
 });
 

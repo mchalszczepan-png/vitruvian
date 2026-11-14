@@ -11,7 +11,7 @@ import { internal } from './_generated/api';
 import type { AidResult } from '../src/data/types';
 import { mapLimit, runAid, type RepeatOverride } from './core/aid';
 import { fillReferral } from './core/fill';
-import { loraCfg, makePort } from './core/ports';
+import { loraCfg, makePort, medgemmaCfg } from './core/ports';
 import { buildRuleBook } from './core/rulebook';
 import { embedderFrom } from './model/embed';
 import { convexStore } from './lib/store';
@@ -50,6 +50,35 @@ async function vectorRepeatOrUndefined(ctx: ActionCtx, patientId: string): Promi
 const FILL_CONCURRENCY = 4;
 /** Under the 10 min action limit. A cold LoRA start takes ~13 min, so this may end with ok false; the next call then warms it. */
 const WARM_TIMEOUT_MS = 9 * 60 * 1000;
+/** MedGemma's cold start is ~4m20s: 6 min, still under the action limit. */
+const MEDGEMMA_WARM_TIMEOUT_MS = 6 * 60 * 1000;
+
+/** GET {baseUrl}/models with the Bearer key, one attempt, redirects followed. Logs `label: status ...` and ms only. */
+async function wakeModels(label: string, cfg: { baseUrl: string; apiKey: string }, timeoutMs: number) {
+  const started = Date.now();
+  const ctl = new AbortController();
+  const timer = setTimeout(() => ctl.abort(), timeoutMs);
+  let status: number | null = null;
+  let ok = false;
+  try {
+    const res = await fetch(`${cfg.baseUrl.replace(/\/+$/, '')}/models`, {
+      headers: { authorization: `Bearer ${cfg.apiKey}` },
+      signal: ctl.signal,
+    });
+    status = res.status;
+    ok = res.ok;
+    await res.text(); // drain the small body so the connection closes
+  } catch {
+    status = null; // network error or the timeout: no reason text, it could carry a URL or key
+  } finally {
+    clearTimeout(timer);
+  }
+  const ms = Date.now() - started;
+  console.log(`${label}: status ${status ?? 'none'} in ${ms} ms`);
+  return { ok, status, ms };
+}
+
+const WARM_RESULT = v.object({ ok: v.boolean(), status: v.union(v.number(), v.null()), ms: v.number() });
 
 /**
  * Wakes the Modal LoRA: GET {LORA_BASE_URL}/models with the Bearer key, redirects followed, one attempt. Logs status and ms only.
@@ -57,30 +86,18 @@ const WARM_TIMEOUT_MS = 9 * 60 * 1000;
  */
 export const warmLora = internalAction({
   args: {},
-  returns: v.object({ ok: v.boolean(), status: v.union(v.number(), v.null()), ms: v.number() }),
+  returns: WARM_RESULT,
+  handler: async () => wakeModels('warmLora', loraCfg(process.env), WARM_TIMEOUT_MS),
+});
+
+/** Wakes MedGemma 27B (MEDGEMMA_TRIAGE_*): the same GET, with 6 min for its ~4m20s cold start. Logs status and ms only. */
+export const warmMedgemma = internalAction({
+  args: {},
+  returns: WARM_RESULT,
   handler: async () => {
-    const cfg = loraCfg(process.env);
-    const started = Date.now();
-    const ctl = new AbortController();
-    const timer = setTimeout(() => ctl.abort(), WARM_TIMEOUT_MS);
-    let status: number | null = null;
-    let ok = false;
-    try {
-      const res = await fetch(`${cfg.baseUrl.replace(/\/+$/, '')}/models`, {
-        headers: { authorization: `Bearer ${cfg.apiKey}` },
-        signal: ctl.signal,
-      });
-      status = res.status;
-      ok = res.ok;
-      await res.text(); // drain the small body so the connection closes
-    } catch {
-      status = null; // network error or the timeout: no reason text, it could carry a URL or key
-    } finally {
-      clearTimeout(timer);
-    }
-    const ms = Date.now() - started;
-    console.log(`warmLora: status ${status ?? 'none'} in ${ms} ms`);
-    return { ok, status, ms };
+    const cfg = medgemmaCfg(process.env);
+    if (!cfg) throw new Error('MEDGEMMA_TRIAGE_BASE_URL, MEDGEMMA_TRIAGE_API_KEY and MEDGEMMA_TRIAGE_MODEL must be set in Convex env');
+    return wakeModels('warmMedgemma', cfg, MEDGEMMA_WARM_TIMEOUT_MS);
   },
 });
 
