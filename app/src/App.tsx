@@ -48,7 +48,9 @@ export default function App() {
             </span>
             {role && (
               <span className="who">
-                <b>{role.label}</b> · {role.user}
+                <span className="who-role">{role.label}</span>
+                <span className="who-name">{role.user.split(', ')[0]}</span>
+                <span className="who-place">{role.user.split(', ')[1]}</span>
               </span>
             )}
             <LangSwitch />
