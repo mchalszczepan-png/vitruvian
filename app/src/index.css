@@ -1453,7 +1453,7 @@ textarea.input {
 }
 .ehr-list button[aria-current='true'] {
   background: var(--amber-soft);
-  box-shadow: inset 4px 0 0 var(--amber);
+  font-weight: 600;
 }
 
 /* Record: the chart fills the height; the visit timeline scrolls in its own box */
@@ -2148,8 +2148,17 @@ textarea.input {
   gap: 8px;
   margin-bottom: 8px;
 }
+.nf-ptr-head {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
 .nf-ptr-label {
   color: var(--muted);
+}
+.nf-ptr-reason {
+  margin: 0;
+  text-wrap: pretty;
 }
 .nf-ptr-cancer {
   font-family: var(--title);
@@ -2281,5 +2290,33 @@ textarea.input {
   }
   .nf-list {
     display: none;
+  }
+}
+
+/* Phone width: one column, note first, then the Vitruvian card. */
+@media (max-width: 720px) {
+  .main {
+    padding: 0 16px 16px;
+    overflow: auto;
+  }
+  .topbar {
+    gap: 16px;
+    padding: 12px 16px;
+  }
+  .topbar .who {
+    display: none;
+  }
+  .topbar .signout {
+    margin-left: auto;
+  }
+  .nf {
+    grid-template-columns: minmax(0, 1fr);
+    height: auto;
+  }
+  .nf-main {
+    overflow: visible;
+  }
+  .nf-note {
+    min-height: 360px;
   }
 }

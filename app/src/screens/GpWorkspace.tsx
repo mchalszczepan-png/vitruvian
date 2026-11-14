@@ -213,8 +213,10 @@ function Pointer({
         <p className="muted">{draft.checking ? 'Reading the note and earlier visits…' : 'Write the note, then click Check note.'}</p>
       ) : (
         <>
-          <span className="nf-ptr-label">Points to</span>
-          <b className="nf-ptr-cancer">{aid.noRuleMatched ? 'No cancer Rule matched' : cancerName[aid.suspectedCancer]}</b>
+          <p className="nf-ptr-head">
+            <b className="nf-ptr-cancer">{aid.noRuleMatched ? 'No cancer Rule matched' : cancerName[aid.suspectedCancer]}</b>
+            {!aid.noRuleMatched && <span className="nf-ptr-label">Suspected cancer type</span>}
+          </p>
           <div className="nf-ptr-risk">
             <div className="meter" aria-label={`Risk gradient ${aid.riskGradient} of 10, AI estimate, not validated`}>
               {Array.from({ length: 10 }, (_, i) => (
@@ -226,7 +228,7 @@ function Pointer({
             </span>
             <span className="tag ai">AI estimate, not validated</span>
           </div>
-          <More>{aid.riskReason}</More>
+          <p className="nf-ptr-reason">{aid.riskReason}</p>
 
           {aid.testNeeded && !draft.sent && (
             <p className="nf-ptr-gate">
