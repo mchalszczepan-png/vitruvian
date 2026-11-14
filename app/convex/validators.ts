@@ -290,6 +290,19 @@ export const aidResultV = v.object({
   matchedRules: v.array(matchedRuleV),
   severity: severityV,
   testNeeded: v.optional(v.object({ test: v.string(), threshold: v.string(), why: v.string(), source: sourceV })),
+  publishedRisk: v.optional(
+    v.object({
+      pct: v.number(),
+      isLowerBound: v.boolean(),
+      rowId: v.string(),
+      sourceLabel: v.string(),
+      sourceUrl: v.string(),
+      because: v.string(),
+      aboveNg12Threshold: v.boolean(),
+      studyPopulation: v.string(),
+      quote: v.string(),
+    }),
+  ),
 });
 
 /** Mirrors ReferralView in app/src/data/types.ts: referralV without riskGradient and matchedRules, plus summary. */

@@ -9,6 +9,7 @@ import { severityForPatient } from '../lib/severity';
 import { factsJson, mergeFacts, type Facts } from './facts';
 import type { Decision, ModelPort, Question, Who } from './port';
 import type { RuleBook, RuleRow } from './rulebook';
+import { ppvQuestionsFor, ppvRiskFrom, type PublishedRisk } from './ppvRisk';
 
 /** Visits read, and distinct fact sets decided, at most this many in flight. */
 const CONCURRENCY = 6;
@@ -124,6 +125,34 @@ export async function mapLimit<T, R>(items: T[], limit: number, fn: (item: T, in
   return out;
 }
 
+/** The published-risk step: one decide call for the suspected cancer's rows that apply by age and sex. A failure logs one line and gives none. */
+async function publishedRiskFor(model: ModelPort, cancer: CancerType, who: Who, facts: Facts): Promise<PublishedRisk | null> {
+  const questions = ppvQuestionsFor(cancer, who);
+  if (questions.length === 0) return null;
+  try {
+    const decisions = await model.decide({ facts, who, questions });
+    return ppvRiskFrom(cancer, who, decisions);
+  } catch (e) {
+    console.log(`published risk: skipped (${e instanceof Error ? e.message : 'error'})`);
+    return null;
+  }
+}
+
+/** The AidResult shape of a published risk: the row's study population and quote, not the whole row. */
+function toAidPublishedRisk(r: PublishedRisk): NonNullable<AidResult['publishedRisk']> {
+  return {
+    pct: r.pct,
+    isLowerBound: r.isLowerBound,
+    rowId: r.rowId,
+    sourceLabel: r.sourceLabel,
+    sourceUrl: r.sourceUrl,
+    because: r.because,
+    aboveNg12Threshold: r.aboveNg12Threshold,
+    studyPopulation: r.row.studyPopulation,
+    quote: r.row.quote,
+  };
+}
+
 export async function analyze({ patient, book, model, repeat: override }: AidInput): Promise<Analysis> {
   const visits = patient.visits;
   if (visits.length === 0) throw new Error(`Patient ${patient.id} has no visits`);
@@ -195,6 +224,9 @@ export async function analyze({ patient, book, model, repeat: override }: AidInp
   const facts = cumulative[cumulative.length - 1];
   const testNeeded = book.testNeeded({ cancer, age: patient.age, facts, matched });
 
+  // 6b. Published risk (PPV): the suspected cancer's evidence rows, answered on the same facts. Never breaks the Aid.
+  const publishedRisk = noRuleMatched ? undefined : await publishedRiskFor(model, cancer, who, facts);
+
   // 7. Severity: the all-ages headline plus the matching age band.
   const sev = book.severityFor(cancer);
   if (!sev) throw new Error(`No severity row for ${cancer}`);
@@ -211,6 +243,7 @@ export async function analyze({ patient, book, model, repeat: override }: AidInp
       matchedRules: matched,
       severity: severityForPatient(sev, patient.age, patient.sex),
       testNeeded,
+      ...(publishedRisk ? { publishedRisk: toAidPublishedRisk(publishedRisk) } : {}),
     },
     facts,
     allMatched,

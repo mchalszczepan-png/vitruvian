@@ -163,3 +163,49 @@ describe('mapLimit', () => {
     expect(peak).toBeLessThanOrEqual(2);
   });
 });
+
+describe('analyze: published risk (PPV)', () => {
+  const book: RuleBook = buildRuleBook({ rules: rulesJson as never, severities: severityJson as never });
+  const visits = visitsJson as { patientId: string; visitId: string; order: number; date: string; reason: string; symptom: string; note: string }[];
+  const patientFor = (id: string): Patient => {
+    const p = (patientsJson as Omit<Patient, 'visits'>[]).find((x) => x.id === id)!;
+    const vs: Visit[] = visits
+      .filter((v) => v.patientId === id)
+      .sort((a, b) => a.order - b.order)
+      .map((v) => ({ id: v.visitId, date: v.date, reason: v.reason, symptom: v.symptom, note: v.note }));
+    return { ...p, visits: vs };
+  };
+
+  it('SYN-001 (lung) shows the highest applicable PPV row, with its population and quote', async () => {
+    const out = await analyze({ patient: patientFor('SYN-001'), book, model: stubPort() });
+    expect(out.aid.suspectedCancer).toBe('lung');
+    expect(out.aid.publishedRisk).toMatchObject({ pct: 8.37, rowId: 'LUNG-PPV-06', isLowerBound: false, aboveNg12Threshold: true });
+    expect(out.aid.publishedRisk?.studyPopulation).toBeTruthy();
+    expect(out.aid.publishedRisk?.quote).toBeTruthy();
+  });
+
+  it('is absent when no Rule matched', async () => {
+    const silent: ModelPort = { ...stubPort(), decide: async () => ({}) };
+    const out = await analyze({ patient: patientFor('SYN-001'), book, model: silent });
+    expect(out.aid.noRuleMatched).toBe(true);
+    expect(out.aid).not.toHaveProperty('publishedRisk');
+  });
+
+  it('a decide that throws for the PPV questions leaves publishedRisk absent and the rest of the Aid intact', async () => {
+    const patient = patientFor('SYN-001');
+    const base = await analyze({ patient, book, model: stubPort() });
+    const ppvThrows: ModelPort = {
+      ...stubPort(),
+      decide: async (args) => {
+        if (args.questions.some((q) => q.id.includes('-PPV-'))) throw new Error('Decisions API call failed: HTTP 503');
+        return stubPort().decide(args);
+      },
+    };
+    const out = await analyze({ patient, book, model: ppvThrows });
+    expect(out.aid).not.toHaveProperty('publishedRisk');
+    expect(out.aid.matchedRules).toEqual(base.aid.matchedRules);
+    expect(out.aid.suspectedCancer).toBe(base.aid.suspectedCancer);
+    expect(out.aid.riskGradient).toBe(base.aid.riskGradient);
+    expect(out.aid.testNeeded).toEqual(base.aid.testNeeded);
+  });
+});

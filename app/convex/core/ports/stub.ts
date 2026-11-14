@@ -5,6 +5,10 @@
 import type { Facts } from '../facts';
 import type { Decision, FillInput, ModelPort, PatientView, Who } from '../port';
 import type { FillOutput } from '../../model/contract';
+import { decideRowsFromFacts } from '../ppvRisk';
+import { PPV_ROWS } from '../ppvRows';
+
+const PPV_IDS = new Set(PPV_ROWS.map((r) => r.id));
 
 const neg = (text: string, word: string) => new RegExp(`\\bno (\\w+ ){0,2}${word}|not noticed any ${word}|${word}[^.]*not noticed`, 'i').test(text);
 const sentenceWith = (text: string, re: RegExp) => text.split(/(?<=\.)\s+/).find((s) => re.test(s))?.trim();
@@ -208,11 +212,13 @@ export function stubPort(): ModelPort {
     },
     async decide({ facts, who, questions }) {
       const out: Record<string, Decision> = {};
-      for (const q of questions) {
+      // Evidence-row questions (PPV) are decided from Facts by decideRowsFromFacts; Rule ids never clash with them.
+      const ppvQs = questions.filter((q) => PPV_IDS.has(q.id));
+      for (const q of questions.filter((q) => !PPV_IDS.has(q.id))) {
         const because = checkRule(q.id, facts, who);
         out[q.id] = because === false ? { yes: false } : { yes: true, because };
       }
-      return out;
+      return { ...out, ...decideRowsFromFacts(facts, who, ppvQs) };
     },
     async risk({ matched, history }) {
       const input = { matchedCount: matched.length, lastingCount: history.lasting, repeatVisit: history.repeatVisit, age: history.age, visitCount: history.visitCount };

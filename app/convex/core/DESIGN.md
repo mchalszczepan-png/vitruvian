@@ -64,7 +64,7 @@ The base is candidate A, with three pieces taken from B.
   3. Decide numeric Rules in code.
   4. Run `overTimeMatch`.
   5. `pickCancer`, then `repeatFlag`, then `risk`, which is clamped once.
-  6. Gates and scan from the book.
+  6. Gates and scan from the book. Published risk: one `decide` call on the last cumulative facts for the suspected cancer's PPV evidence rows (`ppvRisk.ts`), skipped when no Rule matched; a failure logs one line and leaves it absent. It is UK primary-care aggregate evidence for the GP, not a personal probability, and does not change the risk gradient.
   7. Severity.
 
   `because` is the decision's fact sentence if the port gave one, otherwise the Rule text plus the backing visit's snippet (SPEC: "why it matched, in the patient's facts").
