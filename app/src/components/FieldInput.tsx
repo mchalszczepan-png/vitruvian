@@ -89,7 +89,7 @@ export function FieldInput({ field, value, onChange, showOrigin = true }: Props)
   }
 
   return (
-    <div className={`field${missing ? ' missing' : ''}`}>
+    <div className={`field${missing ? ' missing' : ''}`} title={value?.evidence && origin === 'gemma' ? `From the note: ${value.evidence}` : undefined}>
       <div className="field-top">
         <label id={`${id}-l`} htmlFor={id}>
           {field.label}
