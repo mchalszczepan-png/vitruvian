@@ -13,6 +13,16 @@ describe('techUsedFor', () => {
     const steps = (src: RepeatSource) => techUsedFor('stub', src).filter((t) => t.step !== 'repeat');
     expect(steps('convex-vector')).toEqual(steps('symptom-match'));
   });
+
+  it('modal-lora: facts and risk on Featherless (gemma), decisions on Gemini, the fill on the LoRA', () => {
+    expect(techUsedFor('modal-lora')).toEqual([
+      { step: 'facts', provider: 'gemma' },
+      { step: 'decisions', provider: 'gemini' },
+      { step: 'risk', provider: 'gemma' },
+      { step: 'repeat', provider: 'symptom-match' },
+      { step: 'fill', provider: 'modal-lora' },
+    ]);
+  });
 });
 
 const cat = { lung: 9, colorectal: 9, ovarian: 8 };
