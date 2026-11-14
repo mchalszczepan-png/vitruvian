@@ -1,11 +1,22 @@
 import { useEffect, useMemo, useState } from 'react';
 import { MOCK_NOTICE, fillTemplateFromNote, getAid, getReferralTemplate, repeatVisit, sendReferral } from '../data/api';
-import type { AidResult, FieldValues, GpDecision, Patient, Referral, ReferralTemplate, Visit } from '../data/types';
+import type { AidResult, TechUsed, FieldValues, GpDecision, Patient, Referral, ReferralTemplate, Visit } from '../data/types';
 import { FieldInput } from '../components/FieldInput';
 import { Icon, Mark } from '../components/Icon';
 import { More } from '../components/More';
 import { Source } from '../components/Source';
 import { cancerName, fmtDate } from '../components/labels';
+
+const techStep: Record<TechUsed['step'], string> = { facts: 'Facts', decisions: 'Decisions', risk: 'Risk', repeat: 'Repeat visit', fill: 'Fill' };
+const techProvider: Record<TechUsed['provider'], string> = {
+  gemma: 'Gemma',
+  'modal-lora': 'Gemma on Modal',
+  gemini: 'Gemini',
+  'convex-vector': 'Vector search',
+  'symptom-match': 'Symptom match',
+  stub: 'No model',
+  mock: 'No model',
+};
 
 type Step = 'patient' | 'template' | 'aid';
 
@@ -325,7 +336,7 @@ function PatientStep({ patient, aid, onFill, filled, onNext }: { patient: Patien
         ) : (
           <button className="btn primary" onClick={onFill} disabled={!aid}>
             <Icon name="doc" />
-            {aid ? `Fill the ${cancerName[aid.suspectedCancer]} Referral template` : 'Reading the record…'}
+            {!aid ? 'Reading the record…' : aid.noRuleMatched ? 'Fill a Referral template' : `Fill the ${cancerName[aid.suspectedCancer]} Referral template`}
           </button>
         )}
       </div>
@@ -426,7 +437,7 @@ function AidStep({
       <div className="aid-tiles">
         <div className="tile">
           <h3>Suspected cancer type</h3>
-          <div className="big">{cancerName[aid.suspectedCancer]}</div>
+          <div className="big">{aid.noRuleMatched ? 'No cancer Rule matched' : cancerName[aid.suspectedCancer]}</div>
         </div>
         <div className="tile">
           <h3 style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
@@ -468,6 +479,16 @@ function AidStep({
           <Source source={sev.source} short />
         </div>
       </div>
+
+      {aid.techUsed && aid.techUsed.length > 0 && (
+        <ul className="tech-used" aria-label="Tech used">
+          {aid.techUsed.map((t) => (
+            <li key={t.step} className={`tag ${t.provider === 'stub' || t.provider === 'mock' ? 'record' : 'gemma'}`}>
+              {techStep[t.step]}: {techProvider[t.provider]}
+            </li>
+          ))}
+        </ul>
+      )}
 
       {aid.testNeeded && (
         <div className="gate" role="status">
