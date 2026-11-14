@@ -1,5 +1,5 @@
 // Seeding from docs/build data (built into convex/seed/*.json by app/scripts/build-seed.mjs).
-// seed:run clears and reinserts the seeded tables (idempotent). It keeps `referrals` and `decisionCache`.
+// seed:run clears and reinserts the seeded tables (idempotent). It keeps `referrals`, `stagingSubmissions` and `decisionCache`.
 // seed:embedVisits (internal) embeds visit notes with Gemini gemini-embedding-001 at 768 dims. No-op without GEMINI_API_KEY.
 // seed:run schedules seed:embedVisits, so a reseed re-embeds.
 // Research prototype. Not a medical device. Not for clinical use. All patients are made up.

@@ -17,6 +17,7 @@ import type {
   StagingReport,
   StagingTemplate,
 } from './types';
+import type { SavedStagingReport } from './types';
 
 /** The part of ConvexHttpClient (or convex-test's client) this adapter uses. */
 export type ConvexLike = Pick<ConvexHttpClient, 'query' | 'mutation' | 'action'>;
@@ -52,6 +53,9 @@ const refs = {
   referralTemplate: query<ReferralTemplate>('templates:referral'),
   stagingTemplate: query<StagingTemplate>('templates:staging'),
   demoStaging: query<StagingReport>('staging:demo'),
+  stagingDraft: query<StagingReport>('staging:draft'),
+  stagingSave: mutation<SavedStagingReport>('staging:save'),
+  stagingSaved: query<SavedStagingReport[]>('staging:saved'),
   countyGet: query<CountyGap>('county:get'),
   referralsList: query<ReferralView[]>('referrals:list'),
   referralsSend: mutation<Referral>('referrals:send'),
@@ -85,6 +89,21 @@ export async function getStagingTemplate(cancer: CancerType): Promise<StagingTem
 
 export async function getDemoStaging(cancer: CancerType): Promise<StagingReport> {
   return run(refs.demoStaging, { cancer });
+}
+
+/** Story 32: the draft Staging report for a Referral. */
+export async function getStagingDraft(referralId: string): Promise<StagingReport> {
+  return run(refs.stagingDraft, { referralId });
+}
+
+/** Story 33: save a Staging report. The server sets the status and the id. */
+export async function saveStagingReport(report: StagingReport): Promise<SavedStagingReport> {
+  return client().mutation(refs.stagingSave, { report });
+}
+
+/** Story 33: saved Staging reports, newest first. */
+export async function getSavedStagingReports(): Promise<SavedStagingReport[]> {
+  return run(refs.stagingSaved, {});
 }
 
 export async function getCountyGap(): Promise<CountyGap> {
