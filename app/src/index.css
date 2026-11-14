@@ -1641,17 +1641,33 @@ textarea.input {
   color: var(--muted);
 }
 
-/* Cancer risk row in the Patient Information table */
-.ehr-risk {
+/* New entry box at the top of Visit history */
+.ehr-entry {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: end;
+  margin-bottom: 16px;
+}
+.ehr-entry textarea {
+  background: #fff;
+  border: 1px solid #d6d2cf;
+  resize: vertical;
+  min-height: 48px;
+  font: inherit;
+}
+
+/* Potential cancer risk warning in the Vitruvian panel */
+.risk-note {
   display: flex;
   align-items: center;
-  gap: 12px;
-  font-weight: 600;
+  gap: 10px;
+  padding: 14px 18px;
+  border-radius: var(--r);
+  background: #fbe3e6;
+  border-left: 4px solid var(--wine);
+  color: var(--wine);
 }
-.ehr-risk .meter {
-  width: 160px;
-  flex: none;
-}
-.ehr-risk .tag {
-  font-weight: 400;
+.risk-note .tag {
+  margin-left: auto;
 }

@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { MOCK_NOTICE, fillTemplateFromNote, getAid, getReferralTemplate, repeatVisit, sendReferral } from '../data/api';
-import type { AidResult, FieldValues, GpDecision, Patient, Referral, ReferralTemplate } from '../data/types';
+import type { AidResult, FieldValues, GpDecision, Patient, Referral, ReferralTemplate, Visit } from '../data/types';
 import { FieldInput } from '../components/FieldInput';
 import { Icon, Mark } from '../components/Icon';
 import { More } from '../components/More';
@@ -67,7 +67,7 @@ export function GpWorkspace({ patients, patientId, onPatient, onOpenDesk }: Prop
 
   return (
     <div className="gp-layout">
-      <RecordSystem patients={patients} patient={patient} onPatient={onPatient} lit={lit} fed={fed} aid={draft.aid} />
+      <RecordSystem patients={patients} patient={patient} onPatient={onPatient} lit={lit} fed={fed} />
       <section className="dock" aria-label="Vitruvian panel">
         <header className="dock-head">
           <Mark size={20} />
@@ -143,21 +143,33 @@ function RecordSystem({
   onPatient,
   lit,
   fed,
-  aid,
 }: {
   patients: Patient[];
   patient: Patient;
   onPatient: (id: string) => void;
   lit: string[];
   fed: Map<string, string[]>;
-  aid?: AidResult;
 }) {
-  const visits = [...patient.visits].reverse();
+  const [added, setAdded] = useState<Record<string, Visit[]>>({});
+  const [entry, setEntry] = useState('');
+  const openId = patient.visits.at(-1)?.id;
+  const mine = new Set((added[patient.id] ?? []).map((v) => v.id));
+  const visits = [...patient.visits, ...(added[patient.id] ?? [])].reverse();
   const [query, setQuery] = useState('');
-  useEffect(() => setQuery(''), [patient.id]);
+  useEffect(() => {
+    setQuery('');
+    setEntry('');
+  }, [patient.id]);
+  function addEntry() {
+    const note = entry.trim();
+    if (!note) return;
+    const v: Visit = { id: `${patient.id}-new-${Date.now()}`, date: '2026-11-14', reason: 'New entry', symptom: '', note };
+    setAdded((a) => ({ ...a, [patient.id]: [...(a[patient.id] ?? []), v] }));
+    setEntry('');
+  }
   const q = query.trim().toLowerCase();
   const shown = visits
-    .map((v, i) => ({ v, i }))
+    .map((v) => ({ v }))
     .filter(({ v }) => !q || [fmtDate(v.date), v.date, v.reason, v.note].some((t) => t.toLowerCase().includes(q)));
   return (
     <section className="ehr" aria-label="Your existing record system (example)">
@@ -185,24 +197,6 @@ function RecordSystem({
                 <tr><th scope="row">Patient ID</th><td>{patient.id}</td></tr>
                 <tr><th scope="row">Age</th><td>{patient.age}</td></tr>
                 <tr><th scope="row">Sex</th><td>{patient.sex === 'female' ? 'Female' : 'Male'}</td></tr>
-                <tr>
-                  <th scope="row">Cancer risk</th>
-                  <td>
-                    {aid ? (
-                      <div className="ehr-risk">
-                        <div className="meter" role="img" aria-label={`Risk gradient ${aid.riskGradient} of 10, AI estimate`}>
-                          {Array.from({ length: 10 }, (_, i) => (
-                            <i key={i} className={i < aid.riskGradient ? 'on' : ''} />
-                          ))}
-                        </div>
-                        <span>{aid.riskGradient} / 10</span>
-                        <span className="tag ai">AI estimate</span>
-                      </div>
-                    ) : (
-                      <span className="grey">Reading the record…</span>
-                    )}
-                  </td>
-                </tr>
               </tbody>
             </table>
           </section>
@@ -219,24 +213,49 @@ function RecordSystem({
               />
             </div>
             <div className="ehr-tl-box">
+              <form
+                className="ehr-entry"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  addEntry();
+                }}
+              >
+                <textarea
+                  className="input"
+                  rows={2}
+                  placeholder="Add a new entry"
+                  aria-label="New visit entry"
+                  value={entry}
+                  onChange={(e) => setEntry(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
+                      e.preventDefault();
+                      addEntry();
+                    }
+                  }}
+                />
+                <button className="btn primary" type="submit" disabled={!entry.trim()}>
+                  Add entry
+                </button>
+              </form>
               {shown.length === 0 ? (
                 <p className="ehr-empty">No visits match “{query}”.</p>
               ) : (
                 <ol className="ehr-tl">
-                  {shown.map(({ v, i }) => (
-                    <li key={v.id} className={i === 0 ? 'today' : undefined}>
-                      <article id={`visit-${v.id}`} className={`ehr-visit${i === 0 ? ' today' : ''}${lit.includes(v.id) ? ' lit' : ''}`}>
+                  {shown.map(({ v }) => (
+                    <li key={v.id} className={v.id === openId ? 'today' : undefined}>
+                      <article id={`visit-${v.id}`} className={`ehr-visit${v.id === openId ? ' today' : ''}${lit.includes(v.id) ? ' lit' : ''}`}>
                         <header>
                           {fmtDate(v.date)}
-                          <span>{i === 0 ? 'Open visit' : 'Visit'}</span>
-                          <span>{v.reason}</span>
+                          <span>{v.id === openId ? 'Open visit' : mine.has(v.id) ? 'New entry' : 'Visit'}</span>
+                          {!mine.has(v.id) && <span>{v.reason}</span>}
                         </header>
                         {fed.has(v.id) && (
                           <span className="fed">
                             <Mark size={12} /> Read by Vitruvian: {fed.get(v.id)!.join(', ')}
                           </span>
                         )}
-                        <More key={`${patient.id}-${v.id}`} defaultOpen={i === 0}>{v.note}</More>
+                        <More key={`${patient.id}-${v.id}`} defaultOpen={v.id === openId || mine.has(v.id)}>{v.note}</More>
                       </article>
                     </li>
                   ))}
@@ -263,6 +282,13 @@ function PatientStep({ patient, aid, onFill, filled, onNext }: { patient: Patien
           {patient.name}, {patient.age}
         </h2>
       </div>
+      {aid && aid.riskGradient >= 2 && (
+        <div className="risk-note" role="alert">
+          <Icon name="alert" />
+          <b>Potential cancer risk</b>
+          <span className="tag ai">AI estimate</span>
+        </div>
+      )}
       {flag ? (
         <div className="flag" role="status">
           <h3>
