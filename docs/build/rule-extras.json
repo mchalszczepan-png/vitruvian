@@ -1,0 +1,181 @@
+{
+  "_readme": "Structured restatement of docs/build/rules.md for code (age/sex limits, FIT and CA-125 bands, ultrasound scan role, snippet cue). Merged into convex/seed/rules.json by app/scripts/build-seed.mjs. rules.md stays the medical source: every age and threshold here must match its Threshold lines. No new medical numbers. Fields: limits {minAge,maxAge,sex,smokedEver}; numeric {test,fact,unit,bands[{minAge,maxAge,atLeast}]}; scan asks|settles (asks: Rule leads to an urgent ultrasound; settles: Rule leads straight to a Referral, so no ultrasound first; the scan-result Rule is listed last); cue: JS regex literal that shows where the Rule's evidence sits in a note (snippet only). 'smokedEver' means smoking status is not 'never'.",
+  "LUNG-01": {
+    "cue": "/x-ray|shadow|nodule/i"
+  },
+  "LUNG-02": {
+    "limits": {
+      "minAge": 40
+    },
+    "cue": "/blood/i"
+  },
+  "LUNG-03": {
+    "limits": {
+      "minAge": 40
+    },
+    "cue": "/cough|breathless|tired|lost|appetite/i"
+  },
+  "LUNG-04": {
+    "limits": {
+      "minAge": 40,
+      "smokedEver": true
+    },
+    "cue": "/cough/i"
+  },
+  "LUNG-05": {
+    "limits": {
+      "minAge": 40
+    }
+  },
+  "LUNG-06": {
+    "limits": {
+      "minAge": 40
+    }
+  },
+  "LUNG-07": {
+    "limits": {
+      "minAge": 40
+    }
+  },
+  "LUNG-08": {
+    "limits": {
+      "minAge": 40
+    }
+  },
+  "LUNG-09": {
+    "limits": {
+      "minAge": 40
+    },
+    "cue": "/reduced (air )?entry|dull/i"
+  },
+  "COLO-01": {
+    "numeric": {
+      "test": "FIT",
+      "fact": "fit",
+      "unit": "µg Hb/g",
+      "bands": [
+        {
+          "minAge": 0,
+          "maxAge": null,
+          "atLeast": 10
+        }
+      ]
+    },
+    "cue": "/FIT/"
+  },
+  "COLO-02": {
+    "cue": "/\\bmass\\b/i"
+  },
+  "COLO-03": {
+    "cue": "/rectal exam|rectum/i"
+  },
+  "COLO-04": {
+    "cue": "/bowel|stools/i"
+  },
+  "COLO-05": {
+    "cue": "/iron|ferritin|Hb/i"
+  },
+  "COLO-06": {
+    "limits": {
+      "minAge": 60
+    },
+    "cue": "/Hb/i"
+  },
+  "COLO-07": {
+    "limits": {
+      "minAge": 40
+    },
+    "cue": "/weight|lost|pain/i"
+  },
+  "COLO-08": {
+    "limits": {
+      "minAge": 50
+    },
+    "cue": "/bleeding|blood|weight|lost/i"
+  },
+  "COLO-09": {
+    "limits": {
+      "maxAge": 49
+    },
+    "cue": "/bleeding|blood/i"
+  },
+  "OVAR-01": {
+    "scan": "settles",
+    "cue": "/ascites|mass/i"
+  },
+  "OVAR-02": {
+    "limits": {
+      "sex": "female"
+    },
+    "cue": "/bloat/i"
+  },
+  "OVAR-03": {
+    "limits": {
+      "sex": "female"
+    },
+    "cue": "/full|appetite|eating less/i"
+  },
+  "OVAR-04": {
+    "limits": {
+      "sex": "female"
+    },
+    "cue": "/pelvic|abdominal pain/i"
+  },
+  "OVAR-05": {
+    "limits": {
+      "sex": "female"
+    },
+    "cue": "/urin/i"
+  },
+  "OVAR-06": {
+    "limits": {
+      "sex": "female"
+    },
+    "numeric": {
+      "test": "CA-125",
+      "fact": "ca125",
+      "unit": "IU/mL",
+      "bands": [
+        {
+          "minAge": 40,
+          "maxAge": 49,
+          "atLeast": 35
+        },
+        {
+          "minAge": 50,
+          "maxAge": 59,
+          "atLeast": 31
+        },
+        {
+          "minAge": 60,
+          "maxAge": 69,
+          "atLeast": 24
+        },
+        {
+          "minAge": 70,
+          "maxAge": 79,
+          "atLeast": 25
+        },
+        {
+          "minAge": 80,
+          "maxAge": null,
+          "atLeast": 31
+        }
+      ]
+    },
+    "scan": "asks",
+    "cue": "/CA-?125/i"
+  },
+  "OVAR-07": {
+    "scan": "settles",
+    "cue": "/ultrasound|scan/i"
+  },
+  "OVAR-08": {
+    "limits": {
+      "sex": "female",
+      "maxAge": 39
+    },
+    "scan": "asks",
+    "cue": "/bloat|full|pelvic|urin/i"
+  }
+}

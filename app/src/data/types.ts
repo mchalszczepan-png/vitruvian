@@ -22,6 +22,10 @@ export interface Visit {
   symptom: string;
   /** GP free-text note */
   note: string;
+  /** Finnish translation of `reason`, for display only (the Aid reads English `note`) */
+  reasonFi?: string;
+  /** Finnish translation of `note`, for display only (the Aid reads English `note`) */
+  gpNoteFi?: string;
 }
 
 export type SmokingStatus = 'never' | 'former' | 'current' | 'unknown';
@@ -88,6 +92,8 @@ export interface Rule {
   gate?: { test: string; threshold: string; source: Source };
   /** age limits or other plain-language conditions, shown on hover */
   conditions?: string;
+  /** how the Rule reads the visit history (docs/build/rules.md "Over time"); optional, only the Convex seed sets it */
+  overTime?: { pattern: 'single' | 'persistent' | 'recurrent' | 'worsening'; minVisits: number; windowDays: number | null; minDurationDays: number | null; basis: string };
 }
 
 export interface MatchedRule {
@@ -117,8 +123,20 @@ export interface Severity {
   source: Source;
 }
 
+/** Story 40: which tech served one Aid step, for the tech-used badges. */
+export interface TechUsed {
+  step: 'facts' | 'decisions' | 'risk' | 'repeat' | 'fill';
+  /** 'stub' and 'mock' mean no model ran (offline demo) */
+  provider: 'gemma' | 'modal-lora' | 'gemini' | 'convex-vector' | 'symptom-match' | 'stub' | 'mock';
+}
+
 export interface AidResult {
+  /** the cancer whose Referral template opens; when noRuleMatched is true it is only a fallback for that template, not a suspicion */
   suspectedCancer: CancerType;
+  /** true when no Rule of any cancer matched: show "No cancer Rule matched" instead of a suspected cancer */
+  noRuleMatched?: boolean;
+  /** story 40 tech-used badges; absent on old results */
+  techUsed?: TechUsed[];
   riskGradient: number; // 0–10, AI estimate
   riskReason: string;
   matchedRules: MatchedRule[];
@@ -142,6 +160,48 @@ export interface Referral {
   severity: Severity;
   repeatVisit?: RepeatVisitFlag;
 }
+
+/** A key test value against its threshold, e.g. FIT against >= 10 µg Hb/g, CA-125 against the NICE age band. */
+export interface ReferralTestValue {
+  test: string; // "FIT", "CA-125"
+  /** null when the test is not done or not recorded */
+  value: number | null;
+  unit: string;
+  threshold: string;
+  /** null when there is no value */
+  meetsThreshold: boolean | null;
+  source: Source;
+}
+
+/**
+ * Checkable facts for the Referral desk and Specialist (decision 16, docs/SPEC.md "Who sees the Risk gradient").
+ * It never carries the Risk gradient.
+ */
+export interface ReferralSummary {
+  gpDecision: GpDecision;
+  urgency: 'urgent' | 'routine';
+  /** every visit, oldest first */
+  timeline: { visitId: string; date: string; reason: string; reasonFi?: string }[];
+  matchedRules: { ruleId: string; text: string; source: Source; because: string; visitDates: string[] }[];
+  tests: ReferralTestValue[];
+  /** red-flag labels: present = yes in the Referral fields or a matched Rule; ruledOut = an explicit no in the Referral fields */
+  redFlags: { present: string[]; ruledOut: string[] };
+  /** required Referral template fields with no value */
+  missingFields: { key: string; label: string }[];
+}
+
+/** What getReferrals returns (Referral desk, Specialist): the stored Referral without the Risk gradient, plus the summary. */
+export interface ReferralView extends Omit<Referral, 'riskGradient' | 'matchedRules'> {
+  /** `fields` never contains riskGradientAiEstimate */
+  summary: ReferralSummary;
+  /** stories 29b/30: the Referral desk's answer; 'sent' until it acts */
+  status: ReferralStatus;
+  /** required when status is 'returned' */
+  statusReason?: string;
+  statusAt?: string;
+}
+
+export type ReferralStatus = 'sent' | 'accepted' | 'returned';
 
 export interface StagingField extends TemplateField {
   group: 'tumour' | 'tnm' | 'diagnosis' | 'registry';

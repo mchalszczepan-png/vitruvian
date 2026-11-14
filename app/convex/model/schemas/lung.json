@@ -1,0 +1,244 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "urn:vitruvian:referral-template:lung:v1",
+ "title": "Lung Referral template",
+ "type": "object",
+ "additionalProperties": false,
+ "required": [
+  "patientId",
+  "age",
+  "sex",
+  "smokingStatus",
+  "mainSymptom",
+  "symptomDurationWeeks",
+  "symptomVisitCount",
+  "examFindings",
+  "generalCondition",
+  "testsDone",
+  "currentMedicines",
+  "otherIllnesses",
+  "suspectedDiagnosis",
+  "suspectedCancerType",
+  "gpQuestion",
+  "urgency",
+  "referralDate",
+  "referringGpId",
+  "lungSymptoms",
+  "haemoptysis",
+  "chestXrayResult"
+ ],
+ "properties": {
+  "patientId": {
+   "type": "string",
+   "pattern": "^SYN-[0-9]{3}$",
+   "description": "Made-up demo ID only."
+  },
+  "age": {
+   "type": "integer",
+   "minimum": 0,
+   "maximum": 120
+  },
+  "sex": {
+   "type": "string",
+   "enum": [
+    "female",
+    "male",
+    "other",
+    "unknown"
+   ]
+  },
+  "smokingStatus": {
+   "type": "string",
+   "enum": [
+    "never",
+    "former",
+    "current",
+    "unknown"
+   ]
+  },
+  "packYears": {
+   "type": "number",
+   "minimum": 0
+  },
+  "mainSymptom": {
+   "type": "string",
+   "minLength": 1
+  },
+  "symptomDurationWeeks": {
+   "type": "integer",
+   "minimum": 0
+  },
+  "symptomVisitCount": {
+   "type": "integer",
+   "minimum": 0
+  },
+  "examFindings": {
+   "type": "string",
+   "minLength": 1
+  },
+  "generalCondition": {
+   "type": "string",
+   "minLength": 1
+  },
+  "weightLossKg": {
+   "type": "number",
+   "minimum": 0
+  },
+  "testsDone": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+     "name",
+     "result"
+    ],
+    "properties": {
+     "name": {
+      "type": "string",
+      "minLength": 1
+     },
+     "date": {
+      "type": "string",
+      "format": "date"
+     },
+     "result": {
+      "type": "string",
+      "minLength": 1
+     }
+    }
+   }
+  },
+  "currentMedicines": {
+   "type": "array",
+   "items": {
+    "type": "string"
+   }
+  },
+  "otherIllnesses": {
+   "type": "array",
+   "items": {
+    "type": "string"
+   }
+  },
+  "priorCancer": {
+   "type": [
+    "object",
+    "null"
+   ],
+   "additionalProperties": false,
+   "required": [
+    "type",
+    "yearDiagnosed",
+    "treatment"
+   ],
+   "properties": {
+    "type": {
+     "type": "string"
+    },
+    "yearDiagnosed": {
+     "type": "integer"
+    },
+    "treatment": {
+     "type": "string"
+    }
+   }
+  },
+  "suspectedDiagnosis": {
+   "type": "string",
+   "minLength": 1
+  },
+  "suspectedCancerType": {
+   "const": "lung"
+  },
+  "gpQuestion": {
+   "type": "string",
+   "minLength": 1
+  },
+  "urgency": {
+   "type": "string",
+   "enum": [
+    "urgent_2_week",
+    "urgent"
+   ]
+  },
+  "referralDate": {
+   "type": "string",
+   "format": "date"
+  },
+  "referringGpId": {
+   "type": "string",
+   "minLength": 1
+  },
+  "matchedRuleIds": {
+   "type": "array",
+   "items": {
+    "type": "string"
+   }
+  },
+  "riskGradientAiEstimate": {
+   "type": "integer",
+   "minimum": 0,
+   "maximum": 10
+  },
+  "lungSymptoms": {
+   "type": "array",
+   "uniqueItems": true,
+   "items": {
+    "type": "string",
+    "enum": [
+     "cough",
+     "fatigue",
+     "breathlessness",
+     "chest_pain",
+     "weight_loss",
+     "appetite_loss",
+     "finger_clubbing",
+     "lymph_node_enlargement",
+     "recurrent_pneumonia"
+    ]
+   }
+  },
+  "haemoptysis": {
+   "type": "boolean"
+  },
+  "chestXrayResult": {
+   "type": "string",
+   "enum": [
+    "normal",
+    "abnormal",
+    "not_done"
+   ]
+  },
+  "chestXrayFindings": {
+   "type": "string",
+   "minLength": 1
+  },
+  "chestXrayDate": {
+   "type": "string",
+   "format": "date"
+  },
+  "asbestosExposure": {
+   "type": "boolean"
+  }
+ },
+ "allOf": [
+  {
+   "if": {
+    "properties": {
+     "chestXrayResult": {
+      "const": "abnormal"
+     }
+    },
+    "required": [
+     "chestXrayResult"
+    ]
+   },
+   "then": {
+    "required": [
+     "chestXrayFindings"
+    ]
+   }
+  }
+ ]
+}
