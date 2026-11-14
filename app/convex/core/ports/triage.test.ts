@@ -4,7 +4,7 @@
 // back to the prompted risk with one log line, no triage model meaning no call, and the cache keys.
 // Research prototype. Not a medical device. Not for clinical use.
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { buildTriageMessages } from '../../model/triagePrompt';
+import { buildTriageMessages, TRIAGE_SYSTEM, TRIAGE_SYSTEM_PPV } from '../../model/triagePrompt';
 import { withCache, type Store } from '../cached';
 import type { RiskInput } from '../port';
 import { llmPort } from './llm';
@@ -107,12 +107,14 @@ describe('triage risk: the answer', () => {
       pointer: 'lung',
       evidence: ['Yskä 6 viikkoa', 'smoker'],
       servedBy: 'modal-lora',
+      servedModel: 'vitruvian-triage',
     });
     const triageCalls = calls.filter((c) => c.url === LORA_URL);
     expect(triageCalls).toHaveLength(1);
     expect((triageCalls[0].init.headers as Record<string, string>).authorization).toBe(`Bearer ${LORA_KEY}`);
     expect(triageCalls[0].body).toMatchObject({ model: 'vitruvian-triage', temperature: 0, max_tokens: 1024 });
     expect(triageCalls[0].body.messages).toEqual(buildTriageMessages(input.notes.today, input.notes.earlier, { age: 64, sex: 'male' }));
+    expect((triageCalls[0].body.messages as { role: string; content: string }[])[0].content).toBe(TRIAGE_SYSTEM);
   });
 
   it('with no Rule matched the score is the riskGradient, not a cancer score', async () => {
@@ -238,5 +240,49 @@ describe('triage risk: the cache', () => {
     const facts = makePort(env, store, mockFetch(routeWith(() => chatBody('{}'))).fetchImpl);
     await facts.extractFacts('Cough for 4 weeks.');
     expect(writes.at(-1)).toMatch(/^facts:v1:modal-lora:gemma-model-not-real\+vitruvian-lora:[0-9a-f]{64}$/);
+  });
+});
+
+describe('triage risk: the published-risk model (LORA_TRIAGE_MODEL ending -ppv)', () => {
+  const ppvEnv: Env = { ...env, LORA_TRIAGE_MODEL: 'vitruvian-triage-ppv' };
+  const PPV_REPLY = {
+    suspectedCancer: 'none',
+    riskGradient: 0,
+    scores: { lung: 0, colorectal: 0, ovarian: 0 },
+    riskReason: 'No recorded symptom has a published figure for this age and sex.',
+    evidence: [],
+  };
+
+  it('sends the SYSTEM_PPV system message and the same user message, with the -ppv model id', async () => {
+    const { fetchImpl, calls } = mockFetch(routeWith(() => chatBody(JSON.stringify(TRIAGE_REPLY))));
+    await makePort(ppvEnv, undefined, fetchImpl).risk(input);
+
+    const triageCalls = calls.filter((c) => c.url === LORA_URL);
+    expect(triageCalls).toHaveLength(1);
+    expect(triageCalls[0].body).toMatchObject({ model: 'vitruvian-triage-ppv', temperature: 0, max_tokens: 1024 });
+    const messages = triageCalls[0].body.messages as { role: string; content: string }[];
+    expect(messages[0]).toEqual({ role: 'system', content: TRIAGE_SYSTEM_PPV });
+    expect(messages[1]).toEqual(buildTriageMessages(input.notes.today, input.notes.earlier, { age: 64, sex: 'male' })[1]);
+  });
+
+  it('a score of 0 (no published figure) is accepted, and empty evidence is ok; servedModel is the -ppv id', async () => {
+    const { fetchImpl } = mockFetch(routeWith(() => chatBody(JSON.stringify(PPV_REPLY))));
+    const out = await makePort(ppvEnv, undefined, fetchImpl).risk(input);
+
+    expect(out).toEqual({
+      score: 0,
+      reason: 'No recorded symptom has a published figure for this age and sex.',
+      pointer: 'none',
+      evidence: [],
+      servedBy: 'modal-lora',
+      servedModel: 'vitruvian-triage-ppv',
+    });
+  });
+
+  it('the -ppv model answering with no Rule matched: the riskGradient 0 is the score', async () => {
+    const { fetchImpl } = mockFetch(routeWith(() => chatBody(JSON.stringify(PPV_REPLY))));
+    const out = await makePort(ppvEnv, undefined, fetchImpl).risk({ ...input, matched: [], noRuleMatched: true });
+    expect(out.score).toBe(0);
+    expect(out.servedModel).toBe('vitruvian-triage-ppv');
   });
 });

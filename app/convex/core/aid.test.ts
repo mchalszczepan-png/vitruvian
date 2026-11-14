@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { analyze, lastingCount, mapLimit, MEDGEMMA_BADGE, pickCancer, snippetOf, TRIAGE_BADGE, techUsedFor, withoutSafetyNet, type RepeatSource } from './aid';
+import { analyze, lastingCount, mapLimit, MEDGEMMA_BADGE, pickCancer, snippetOf, TRIAGE_BADGE, TRIAGE_PPV_BADGE, techUsedFor, withoutSafetyNet, type RepeatSource } from './aid';
 import { buildRuleBook, type RuleBook } from './rulebook';
 import { stubPort } from './ports/stub';
 import type { ModelPort } from './port';
@@ -20,6 +20,26 @@ describe('techUsedFor: the triage risk', () => {
   it('a fallback or no triage keeps the prompted risk on gemma, with no detail', () => {
     expect(riskOf('gemma')).toEqual({ step: 'risk', provider: 'gemma' });
     expect(riskOf()).toEqual({ step: 'risk', provider: 'gemma' });
+  });
+});
+
+describe('techUsedFor: the published-risk (-ppv) triage badge', () => {
+  const riskOf = (servedBy: 'modal-lora' | 'medgemma' | 'gemma' | undefined, servedModel?: string) =>
+    techUsedFor('modal-lora', 'symptom-match', servedBy, servedModel).find((t) => t.step === 'risk');
+
+  it('a -ppv triage model gives TRIAGE_PPV_BADGE, with the exact wording', () => {
+    expect(riskOf('modal-lora', 'vitruvian-triage-ppv')).toEqual({ step: 'risk', provider: 'modal-lora', detail: TRIAGE_PPV_BADGE });
+    expect(TRIAGE_PPV_BADGE).toBe('Gemma 4 E4B, fine-tuned on synthetic GP notes; scores computed from published UK primary-care PPVs; not clinically validated.');
+  });
+
+  it('a non-ppv triage model keeps TRIAGE_BADGE, and a -ppv MedGemma keeps MEDGEMMA_BADGE', () => {
+    expect(riskOf('modal-lora', 'vitruvian-triage')).toEqual({ step: 'risk', provider: 'modal-lora', detail: TRIAGE_BADGE });
+    expect(riskOf('modal-lora', undefined)).toEqual({ step: 'risk', provider: 'modal-lora', detail: TRIAGE_BADGE });
+    expect(riskOf('medgemma', 'vitruvian-triage-ppv')).toEqual({ step: 'risk', provider: 'modal-lora', detail: MEDGEMMA_BADGE });
+  });
+
+  it('a prompted fallback (gemma) is never shown with a triage badge', () => {
+    expect(riskOf('gemma', 'vitruvian-triage-ppv')).toEqual({ step: 'risk', provider: 'gemma' });
   });
 });
 
