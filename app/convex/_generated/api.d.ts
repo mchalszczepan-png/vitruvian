@@ -25,6 +25,7 @@ import type * as fill from "../fill.js";
 import type * as lib_overTime from "../lib/overTime.js";
 import type * as lib_read from "../lib/read.js";
 import type * as lib_repeat from "../lib/repeat.js";
+import type * as lib_repeatVector from "../lib/repeatVector.js";
 import type * as lib_severity from "../lib/severity.js";
 import type * as lib_store from "../lib/store.js";
 import type * as model_contract from "../model/contract.js";
@@ -62,6 +63,7 @@ declare const fullApi: ApiFromModules<{
   "lib/overTime": typeof lib_overTime;
   "lib/read": typeof lib_read;
   "lib/repeat": typeof lib_repeat;
+  "lib/repeatVector": typeof lib_repeatVector;
   "lib/severity": typeof lib_severity;
   "lib/store": typeof lib_store;
   "model/contract": typeof model_contract;

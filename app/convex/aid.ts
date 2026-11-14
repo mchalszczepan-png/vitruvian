@@ -4,14 +4,15 @@
 // Security: no auth yet (prototype with made-up patients). Anyone with the deployment URL can call it.
 // Research prototype. Not a medical device. Not for clinical use.
 import { v } from 'convex/values';
-import { action, internalAction } from './_generated/server';
+import { action, internalAction, type ActionCtx } from './_generated/server';
 import { internal } from './_generated/api';
 import type { AidResult } from '../src/data/types';
-import { mapLimit, runAid } from './core/aid';
+import { mapLimit, runAid, type RepeatOverride } from './core/aid';
 import { fillReferral } from './core/fill';
 import { makePort } from './core/ports';
 import { buildRuleBook } from './core/rulebook';
 import { convexStore } from './lib/store';
+import { vectorRepeat } from './lib/repeatVector';
 import { aidResultV } from './validators';
 
 export const get = action({
@@ -19,9 +20,25 @@ export const get = action({
   returns: aidResultV,
   handler: async (ctx, { patientId }): Promise<AidResult> => {
     const { patient, rules, severities } = await ctx.runQuery(internal.data.aidInputs, { patientId });
-    return runAid({ patient, book: buildRuleBook({ rules, severities }), model: makePort(process.env, convexStore(ctx)) });
+    const repeat = await vectorRepeatOrUndefined(ctx, patientId);
+    return runAid({ patient, book: buildRuleBook({ rules, severities }), model: makePort(process.env, convexStore(ctx)), repeat });
   },
 });
+
+/**
+ * Repeat from vector search over the stored embeddings (techUsed 'convex-vector'). Undefined when today's visit has no
+ * embedding or vector search throws: core/aid.ts then counts the symptom field ('symptom-match'). Logs the error message only.
+ */
+async function vectorRepeatOrUndefined(ctx: ActionCtx, patientId: string): Promise<RepeatOverride | undefined> {
+  try {
+    const docs = await ctx.runQuery(internal.data.visitDocs, { patientId });
+    const vector = await vectorRepeat(ctx, patientId, docs);
+    return vector ? { flag: vector.flag, source: 'convex-vector' } : undefined;
+  } catch (e) {
+    console.log(`aid:get ${patientId} vector Repeat failed, using the symptom field: ${e instanceof Error ? e.message : 'error'}`);
+    return undefined;
+  }
+}
 
 /** Fill calls in flight at once while prewarming. Each is a slow model call (~1 min on Gemma). */
 const FILL_CONCURRENCY = 4;

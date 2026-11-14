@@ -1,5 +1,19 @@
 import { describe, expect, it } from 'vitest';
-import { lastingCount, mapLimit, pickCancer, snippetOf, withoutSafetyNet } from './aid';
+import { lastingCount, mapLimit, pickCancer, snippetOf, techUsedFor, withoutSafetyNet, type RepeatSource } from './aid';
+
+describe('techUsedFor', () => {
+  it('repeat step names the source: symptom field by default, convex-vector when the caller ran vector search', () => {
+    const repeatOf = (src?: RepeatSource) => techUsedFor('stub', src).find((t) => t.step === 'repeat')?.provider;
+    expect(repeatOf()).toBe('symptom-match');
+    expect(repeatOf('symptom-match')).toBe('symptom-match');
+    expect(repeatOf('convex-vector')).toBe('convex-vector');
+  });
+
+  it('keeps the other four steps unchanged whatever the repeat source', () => {
+    const steps = (src: RepeatSource) => techUsedFor('stub', src).filter((t) => t.step !== 'repeat');
+    expect(steps('convex-vector')).toEqual(steps('symptom-match'));
+  });
+});
 
 const cat = { lung: 9, colorectal: 9, ovarian: 8 };
 const m = (cancer: 'lung' | 'colorectal' | 'ovarian', visits = 1) => ({ rule: { cancer }, visits: Array.from({ length: visits }, () => ({})) }) as never;

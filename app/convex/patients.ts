@@ -5,7 +5,8 @@ import { v } from 'convex/values';
 import type { Patient, RepeatVisitFlag } from '../src/data/types';
 import { internal } from './_generated/api';
 import { action, query } from './_generated/server';
-import { repeatFlag, SIMILARITY_MIN } from './lib/repeat';
+import { repeatFlag } from './lib/repeat';
+import { vectorRepeat } from './lib/repeatVector';
 import { readPatient, readVisits } from './lib/read';
 
 export const list = query({
@@ -43,17 +44,8 @@ export const repeatVisitSimilar = action({
   args: { id: v.string() },
   handler: async (ctx, { id }): Promise<RepeatVisitFlag | null> => {
     const docs = await ctx.runQuery(internal.data.visitDocs, { patientId: id });
-    const flat = docs.map((d) => ({ id: d.visitId, date: d.date, symptom: d.symptom }));
-    const today = docs.at(-1);
-    if (!today?.embedding) return repeatFlag(flat);
-
-    const hits = await ctx.vectorSearch('visits', 'by_embedding', {
-      vector: today.embedding,
-      limit: 20,
-      filter: (q) => q.eq('patientId', id),
-    });
-    const hitIds = new Set(hits.filter((h) => h._score >= SIMILARITY_MIN).map((h) => h._id));
-    const similarIds = new Set(docs.filter((d) => hitIds.has(d._id)).map((d) => d.visitId));
-    return repeatFlag(flat, { similarIds });
+    const vector = await vectorRepeat(ctx, id, docs);
+    if (vector) return vector.flag;
+    return repeatFlag(docs.map((d) => ({ id: d.visitId, date: d.date, symptom: d.symptom })));
   },
 });

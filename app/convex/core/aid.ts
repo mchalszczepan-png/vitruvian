@@ -1,7 +1,7 @@
 // The Aid pipeline (docs/SPEC.md "Aid pipeline"), pure: patient + Rule book + ModelPort in, AidResult out. No Convex, no env.
 // analyze() is the one place the pipeline order is written. The model sets only the Risk gradient and its reason.
 // Research prototype. Not a medical device. Not for clinical use.
-import type { AidResult, CancerType, MatchedRule, Patient, TechUsed } from '../../src/data/types';
+import type { AidResult, CancerType, MatchedRule, Patient, RepeatVisitFlag, TechUsed } from '../../src/data/types';
 import { overTimeMatch, type OverTime } from '../lib/overTime';
 import { repeatFlag } from '../lib/repeat';
 import { severityForPatient } from '../lib/severity';
@@ -12,10 +12,21 @@ import type { RuleBook, RuleRow } from './rulebook';
 /** Visits read, and distinct fact sets decided, at most this many in flight. */
 const CONCURRENCY = 6;
 
+/** Where the Repeat flag came from: vector search (aid:get) or the symptom field (the default). */
+export type RepeatSource = 'convex-vector' | 'symptom-match';
+
+/** A Repeat flag the caller computed (aid:get runs vector search; core cannot call Convex). `flag: null` is a real answer: no Repeat. */
+export interface RepeatOverride {
+  flag: RepeatVisitFlag | null;
+  source: RepeatSource;
+}
+
 export interface AidInput {
   patient: Patient;
   book: RuleBook;
   model: ModelPort;
+  /** Repeat from the caller. Absent: count the symptom field. */
+  repeat?: RepeatOverride;
 }
 
 /** The Aid plus what Referral filling reuses. */
@@ -67,15 +78,15 @@ function portProvider(name: string): 'stub' | 'gemma' | 'modal-lora' {
 /**
  * Story 40: which tech served each Aid step. Gemma and modal-lora answer the yes/no Rules on the Gemini Decisions API,
  * so the decisions step is 'gemini' there and 'stub' only for the stub port.
- * The Repeat flag here is the symptom-field count (aid:get never runs vector search), so repeat is always 'symptom-match'.
+ * The repeat step names the source analyze() was given: vector search in aid:get, else the symptom field.
  */
-export function techUsedFor(portName: string): TechUsed[] {
+export function techUsedFor(portName: string, repeatSource: RepeatSource = 'symptom-match'): TechUsed[] {
   const port = portProvider(portName);
   return [
     { step: 'facts', provider: port },
     { step: 'decisions', provider: port === 'stub' ? 'stub' : 'gemini' },
     { step: 'risk', provider: port },
-    { step: 'repeat', provider: 'symptom-match' },
+    { step: 'repeat', provider: repeatSource },
     { step: 'fill', provider: port },
   ];
 }
@@ -97,7 +108,7 @@ export async function mapLimit<T, R>(items: T[], limit: number, fn: (item: T, in
   return out;
 }
 
-export async function analyze({ patient, book, model }: AidInput): Promise<Analysis> {
+export async function analyze({ patient, book, model, repeat: override }: AidInput): Promise<Analysis> {
   const visits = patient.visits;
   if (visits.length === 0) throw new Error(`Patient ${patient.id} has no visits`);
   const who: Who = { age: patient.age, sex: patient.sex, smokingStatus: patient.smokingStatus };
@@ -138,7 +149,9 @@ export async function analyze({ patient, book, model }: AidInput): Promise<Analy
   const last = visits[visits.length - 1];
   const cancer = pickCancer(allMatched, book.catalogueCount, last.symptom, patient.sex);
   const matched = allMatched.filter((m) => m.rule.cancer === cancer);
-  const repeat = repeatFlag(visits);
+  // An override is used as given, even when its flag is null: vector search answered "no Repeat", so the symptom field is not counted.
+  const repeat = override ? override.flag : repeatFlag(visits);
+  const repeatSource: RepeatSource = override ? override.source : 'symptom-match';
 
   // 5. Risk gradient (the only model output that reaches the Aid) and its one-line reason. Clamped once, here.
   const risk = await model.risk({
@@ -167,7 +180,7 @@ export async function analyze({ patient, book, model }: AidInput): Promise<Analy
     aid: {
       suspectedCancer: cancer,
       noRuleMatched: allMatched.length === 0,
-      techUsed: techUsedFor(model.name),
+      techUsed: techUsedFor(model.name, repeatSource),
       riskGradient,
       riskReason: risk.reason,
       matchedRules: matched,
