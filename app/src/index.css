@@ -87,6 +87,15 @@ h3 {
   scrollbar-width: thin;
   scrollbar-color: rgb(58 65 76 / 0.35) transparent;
 }
+/* Patient lists scroll without a bar: it clipped the rounded corner (Michal, 15 Nov). The cut-off last row shows there is more. */
+.nf-list,
+.inbox {
+  scrollbar-width: none;
+}
+.nf-list::-webkit-scrollbar,
+.inbox::-webkit-scrollbar {
+  display: none;
+}
 a {
   color: var(--wine);
   text-underline-offset: 3px;
