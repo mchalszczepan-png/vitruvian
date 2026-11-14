@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
 import { getReferralTemplate, getReferrals } from '../data/api';
-import type { Patient, Referral, ReferralTemplate } from '../data/types';
+import type { Patient, ReferralTemplate, ReferralView } from '../data/types';
 import { Icon } from '../components/Icon';
-import { ReferralSummary, HIDDEN_DESK_FIELDS } from '../components/ReferralSummary';
+import { ReferralSummary } from '../components/ReferralSummary';
 import { Source } from '../components/Source';
 import { cancerName, fmtDate, optionLabel, originLabel } from '../components/labels';
 
 type Status = 'new' | 'accepted' | 'returned';
 
 export function ReferralDesk({ patients, focusId, onGoGp }: { patients: Patient[]; focusId?: string; onGoGp: () => void }) {
-  const [refs, setRefs] = useState<Referral[] | null>(null);
+  const [refs, setRefs] = useState<ReferralView[] | null>(null);
   const [openId, setOpenId] = useState<string | undefined>(focusId);
   const [template, setTemplate] = useState<ReferralTemplate>();
   const [status, setStatus] = useState<Record<string, Status>>({});
@@ -110,13 +110,13 @@ export function ReferralDesk({ patients, focusId, onGoGp }: { patients: Patient[
             </div>
           </div>
 
-          <ReferralSummary referral={open} patient={patient} template={template} />
+          <ReferralSummary referral={open} patient={patient} />
 
           <section>
             <h2>Referral template</h2>
             {template && (
               <dl className="kv">
-                {template.fields.filter((f) => !HIDDEN_DESK_FIELDS.has(f.key)).map((f) => {
+                {template.fields.filter((f) => f.key !== 'riskGradientAiEstimate').map((f) => {
                   const v = open.fields[f.key];
                   const val = v?.value ? (f.kind === 'choice' || f.kind === 'yesno' ? v.value.split(', ').map(optionLabel).join(', ') : v.value) : '—';
                   return (
