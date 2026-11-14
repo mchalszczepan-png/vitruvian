@@ -9,7 +9,7 @@ export const S = {
   uicc8: { label: 'UICC TNM 8th edition', url: 'https://www.uicc.org/resources/tnm', placeholder: true },
   yleKuittinen: { label: 'Yle MOT on the Kuittinen study (unpublished)', url: 'https://yle.fi/a/74-20251023' },
   registry2024: {
-    label: 'Cancer Registry 2024 factsheet',
+    label: 'Cancer Registry 2024 factsheet (figure not yet checked by hand)',
     url: 'https://syoparekisteri.fi/assets/themes/ssy3/factsheets/syopa_2024_tilastoraportti.html',
   },
   registryLung: {
@@ -76,7 +76,7 @@ export const S = {
     url: 'https://dovepress.com/survival-in-lung-cancer-in-the-nordic-countries-through-a-half-century-peer-reviewed-fulltext-article-CLEP',
   },
   sotkanetColon: {
-    label: 'THL Sotkanet indicator 3627 (colon cancer, Finland, 2024)',
+    label: 'THL Sotkanet indicator 3627 (bowel cancer, Finland, 2024)',
     short: 'THL Sotkanet 3627',
     url: 'https://sotkanet.fi/rest/1.1/json?indicator=3627&genders=total&years=2024&region=658',
   },

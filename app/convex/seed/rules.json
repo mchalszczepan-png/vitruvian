@@ -236,7 +236,7 @@
       "test": "FIT",
       "threshold": "≥ 10 µg Hb/g",
       "source": {
-        "label": "NICE NG12 1.3.2 [2023]",
+        "label": "NICE NG12 1.3.2 [2023]; UK threshold, Finnish cut-off not confirmed",
         "url": "https://www.nice.org.uk/guidance/ng12/chapter/recommendations-organised-by-site-of-cancer"
       }
     },
@@ -282,7 +282,7 @@
       "test": "FIT",
       "threshold": "≥ 10 µg Hb/g",
       "source": {
-        "label": "NICE NG12 1.3.2 [2023]",
+        "label": "NICE NG12 1.3.2 [2023]; UK threshold, Finnish cut-off not confirmed",
         "url": "https://www.nice.org.uk/guidance/ng12/chapter/recommendations-organised-by-site-of-cancer"
       }
     },
@@ -309,7 +309,7 @@
       "test": "FIT",
       "threshold": "≥ 10 µg Hb/g",
       "source": {
-        "label": "NICE NG12 1.3.2 [2023]",
+        "label": "NICE NG12 1.3.2 [2023]; UK threshold, Finnish cut-off not confirmed",
         "url": "https://www.nice.org.uk/guidance/ng12/chapter/recommendations-organised-by-site-of-cancer"
       }
     },
@@ -336,7 +336,7 @@
       "test": "FIT",
       "threshold": "≥ 10 µg Hb/g",
       "source": {
-        "label": "NICE NG12 1.3.2 [2023]",
+        "label": "NICE NG12 1.3.2 [2023]; UK threshold, Finnish cut-off not confirmed",
         "url": "https://www.nice.org.uk/guidance/ng12/chapter/recommendations-organised-by-site-of-cancer"
       }
     },
@@ -366,7 +366,7 @@
       "test": "FIT",
       "threshold": "≥ 10 µg Hb/g",
       "source": {
-        "label": "NICE NG12 1.3.2 [2023]",
+        "label": "NICE NG12 1.3.2 [2023]; UK threshold, Finnish cut-off not confirmed",
         "url": "https://www.nice.org.uk/guidance/ng12/chapter/recommendations-organised-by-site-of-cancer"
       }
     },
@@ -396,7 +396,7 @@
       "test": "FIT",
       "threshold": "≥ 10 µg Hb/g",
       "source": {
-        "label": "NICE NG12 1.3.2 [2023]",
+        "label": "NICE NG12 1.3.2 [2023]; UK threshold, Finnish cut-off not confirmed",
         "url": "https://www.nice.org.uk/guidance/ng12/chapter/recommendations-organised-by-site-of-cancer"
       }
     },
@@ -426,7 +426,7 @@
       "test": "FIT",
       "threshold": "≥ 10 µg Hb/g",
       "source": {
-        "label": "NICE NG12 1.3.2 [2023]",
+        "label": "NICE NG12 1.3.2 [2023]; UK threshold, Finnish cut-off not confirmed",
         "url": "https://www.nice.org.uk/guidance/ng12/chapter/recommendations-organised-by-site-of-cancer"
       }
     },
@@ -476,7 +476,7 @@
       "test": "CA-125",
       "threshold": "by age: 35 IU/mL at 40–49, 31 at 50–59, 24 at 60–69, 25 at 70–79, 31 at 80+",
       "source": {
-        "label": "NICE NG12 1.5.9 and Table 1 [2026]",
+        "label": "NICE NG12 1.5.9 and Table 1 [2026]; not yet checked against the NICE PDF",
         "url": "https://www.nice.org.uk/guidance/ng12/chapter/recommendations-organised-by-site-of-cancer"
       }
     },
@@ -506,7 +506,7 @@
       "test": "CA-125",
       "threshold": "by age: 35 IU/mL at 40–49, 31 at 50–59, 24 at 60–69, 25 at 70–79, 31 at 80+",
       "source": {
-        "label": "NICE NG12 1.5.9 and Table 1 [2026]",
+        "label": "NICE NG12 1.5.9 and Table 1 [2026]; not yet checked against the NICE PDF",
         "url": "https://www.nice.org.uk/guidance/ng12/chapter/recommendations-organised-by-site-of-cancer"
       }
     },
@@ -536,7 +536,7 @@
       "test": "CA-125",
       "threshold": "by age: 35 IU/mL at 40–49, 31 at 50–59, 24 at 60–69, 25 at 70–79, 31 at 80+",
       "source": {
-        "label": "NICE NG12 1.5.9 and Table 1 [2026]",
+        "label": "NICE NG12 1.5.9 and Table 1 [2026]; not yet checked against the NICE PDF",
         "url": "https://www.nice.org.uk/guidance/ng12/chapter/recommendations-organised-by-site-of-cancer"
       }
     },
@@ -566,7 +566,7 @@
       "test": "CA-125",
       "threshold": "by age: 35 IU/mL at 40–49, 31 at 50–59, 24 at 60–69, 25 at 70–79, 31 at 80+",
       "source": {
-        "label": "NICE NG12 1.5.9 and Table 1 [2026]",
+        "label": "NICE NG12 1.5.9 and Table 1 [2026]; not yet checked against the NICE PDF",
         "url": "https://www.nice.org.uk/guidance/ng12/chapter/recommendations-organised-by-site-of-cancer"
       }
     },

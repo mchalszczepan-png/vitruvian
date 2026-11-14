@@ -196,7 +196,7 @@
           "conditions": "no age in NG12",
           "gate": {
             "source": {
-              "label": "NICE NG12 1.3.2 [2023]",
+              "label": "NICE NG12 1.3.2 [2023]; UK threshold, Finnish cut-off not confirmed",
               "url": "https://www.nice.org.uk/guidance/ng12/chapter/recommendations-organised-by-site-of-cancer"
             },
             "test": "FIT",
@@ -235,7 +235,7 @@
           "conditions": "no age in NG12",
           "gate": {
             "source": {
-              "label": "NICE NG12 1.3.2 [2023]",
+              "label": "NICE NG12 1.3.2 [2023]; UK threshold, Finnish cut-off not confirmed",
               "url": "https://www.nice.org.uk/guidance/ng12/chapter/recommendations-organised-by-site-of-cancer"
             },
             "test": "FIT",
@@ -269,7 +269,7 @@
           "conditions": "age 50 and over; any one of the three",
           "gate": {
             "source": {
-              "label": "NICE NG12 1.3.2 [2023]",
+              "label": "NICE NG12 1.3.2 [2023]; UK threshold, Finnish cut-off not confirmed",
               "url": "https://www.nice.org.uk/guidance/ng12/chapter/recommendations-organised-by-site-of-cancer"
             },
             "test": "FIT",
@@ -314,9 +314,9 @@
       ],
       "cancer": "colorectal",
       "fiveYearSurvivalPct": 68,
-      "population": "Finland, colon only, both sexes, age-standardised, national, Sotkanet statistical year 2024 (indicator 3627, region 658). Rectum not covered.",
+      "population": "Finland, bowel cancer (as the indicator is titled), both sexes, age-standardised, national, Sotkanet statistical year 2024 (indicator 3627, region 658).",
       "source": {
-        "label": "THL Sotkanet indicator 3627 (colon cancer, Finland, 2024)",
+        "label": "THL Sotkanet indicator 3627 (bowel cancer, Finland, 2024)",
         "short": "THL Sotkanet 3627",
         "url": "https://sotkanet.fi/rest/1.1/json?indicator=3627&genders=total&years=2024&region=658"
       }
@@ -354,7 +354,7 @@
           "conditions": "any age, especially 50 and over; CA-125 from age 40 (OVAR-06)",
           "gate": {
             "source": {
-              "label": "NICE NG12 1.5.9 and Table 1 [2026]",
+              "label": "NICE NG12 1.5.9 and Table 1 [2026]; not yet checked against the NICE PDF",
               "url": "https://www.nice.org.uk/guidance/ng12/chapter/recommendations-organised-by-site-of-cancer"
             },
             "test": "CA-125",
@@ -393,7 +393,7 @@
           "conditions": "any age, especially 50 and over; CA-125 from age 40",
           "gate": {
             "source": {
-              "label": "NICE NG12 1.5.9 and Table 1 [2026]",
+              "label": "NICE NG12 1.5.9 and Table 1 [2026]; not yet checked against the NICE PDF",
               "url": "https://www.nice.org.uk/guidance/ng12/chapter/recommendations-organised-by-site-of-cancer"
             },
             "test": "CA-125",
@@ -432,7 +432,7 @@
           "conditions": "any age, especially 50 and over; CA-125 from age 40",
           "gate": {
             "source": {
-              "label": "NICE NG12 1.5.9 and Table 1 [2026]",
+              "label": "NICE NG12 1.5.9 and Table 1 [2026]; not yet checked against the NICE PDF",
               "url": "https://www.nice.org.uk/guidance/ng12/chapter/recommendations-organised-by-site-of-cancer"
             },
             "test": "CA-125",
@@ -680,7 +680,7 @@
           "conditions": "no age in NG12",
           "gate": {
             "source": {
-              "label": "NICE NG12 1.3.2 [2023]",
+              "label": "NICE NG12 1.3.2 [2023]; UK threshold, Finnish cut-off not confirmed",
               "url": "https://www.nice.org.uk/guidance/ng12/chapter/recommendations-organised-by-site-of-cancer"
             },
             "test": "FIT",
@@ -725,9 +725,9 @@
       ],
       "cancer": "colorectal",
       "fiveYearSurvivalPct": 68,
-      "population": "Finland, colon only, both sexes, age-standardised, national, Sotkanet statistical year 2024 (indicator 3627, region 658). Rectum not covered.",
+      "population": "Finland, bowel cancer (as the indicator is titled), both sexes, age-standardised, national, Sotkanet statistical year 2024 (indicator 3627, region 658).",
       "source": {
-        "label": "THL Sotkanet indicator 3627 (colon cancer, Finland, 2024)",
+        "label": "THL Sotkanet indicator 3627 (bowel cancer, Finland, 2024)",
         "short": "THL Sotkanet 3627",
         "url": "https://sotkanet.fi/rest/1.1/json?indicator=3627&genders=total&years=2024&region=658"
       }
@@ -757,7 +757,7 @@
     ],
     "testNeeded": {
       "source": {
-        "label": "NICE NG12 1.3.2 [2023]",
+        "label": "NICE NG12 1.3.2 [2023]; UK threshold, Finnish cut-off not confirmed",
         "url": "https://www.nice.org.uk/guidance/ng12/chapter/recommendations-organised-by-site-of-cancer"
       },
       "test": "FIT",

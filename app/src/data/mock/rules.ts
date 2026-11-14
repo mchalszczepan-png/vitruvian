@@ -4,8 +4,8 @@ import type { CancerType, Rule, Severity, Source } from '../types';
 import { S } from './sources';
 
 const ng12 = (section: string): Source => ({ label: `NICE NG12 ${section}`, url: S.ng12Sites.url });
-const CA125_GATE = { test: 'CA-125', threshold: 'by age: 35 IU/mL at 40–49, 31 at 50–59, 24 at 60–69, 25 at 70–79, 31 at 80+', source: ng12('1.5.9 and Table 1 [2026]') };
-const FIT_GATE = { test: 'FIT', threshold: '≥ 10 µg Hb/g', source: ng12('1.3.2 [2023]') };
+const CA125_GATE = { test: 'CA-125', threshold: 'by age: 35 IU/mL at 40–49, 31 at 50–59, 24 at 60–69, 25 at 70–79, 31 at 80+', source: ng12('1.5.9 and Table 1 [2026]; not yet checked against the NICE PDF') };
+const FIT_GATE = { test: 'FIT', threshold: '≥ 10 µg Hb/g', source: ng12('1.3.2 [2023]; UK threshold, Finnish cut-off not confirmed') };
 
 export const rules: Rule[] = [
   // Lung. Finnish Käypä hoito lung recommendation was removed 15.12.2023; NG12 only.
@@ -88,7 +88,7 @@ export const rules: Rule[] = [
     cancer: 'colorectal',
     text: 'FIT result of 10 µg Hb/g or more',
     question: 'Does the note give a FIT result of 10 micrograms of haemoglobin per gram of faeces or more?',
-    source: ng12('1.3.2 [2023]'),
+    source: ng12('1.3.2 [2023]; UK threshold, Finnish cut-off not confirmed'),
     conditions: 'Any age. Finnish FIT cut-off not confirmed [unverified]; NG12 figure used.',
   },
   {
@@ -214,7 +214,7 @@ export const rules: Rule[] = [
     cancer: 'ovarian',
     text: 'CA-125 at or above the threshold for her age',
     question: 'Does the note say the CA-125 is at or above the age threshold: 35 IU/mL at ages 40–49, 31 at 50–59, 24 at 60–69, 25 at 70–79, or 31 at 80 and over?',
-    source: ng12('1.5.9 and Table 1 [2026]'),
+    source: ng12('1.5.9 and Table 1 [2026]; not yet checked against the NICE PDF'),
     conditions: 'Age 40+. Next step: urgent ultrasound of the abdomen and pelvis. The lab limit of 35 IU/mL is not the referral rule.',
   },
   {
@@ -258,7 +258,7 @@ export const severity: Record<CancerType, Severity> = {
     cancer: 'colorectal',
     fiveYearSurvivalPct: 68,
     population:
-      'Finland, colon only, both sexes, age-standardised, national, Sotkanet statistical year 2024 (indicator 3627, region 658). Rectum not covered.',
+      'Finland, bowel cancer (as the indicator is titled), both sexes, age-standardised, national, Sotkanet statistical year 2024 (indicator 3627, region 658).',
     breakdown: [
       { label: 'Men, aged 60–69, 2017–2021, age-specific (Johansson 2024)', pct: 68.1 },
       { label: 'Women, aged 60–69, 2017–2021, age-specific (Johansson 2024)', pct: 72.4 },
