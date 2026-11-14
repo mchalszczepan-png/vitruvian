@@ -37,7 +37,7 @@ interface Props {
   patients: Patient[];
   patientId: string;
   onPatient: (id: string) => void;
-  onOpenDesk: (referralId: string) => void;
+  onOpenDesk?: (referralId: string) => void;
 }
 
 export function GpWorkspace({ patients, patientId, onPatient, onOpenDesk }: Props) {
@@ -424,7 +424,7 @@ function AidStep({
   onLight: (visitIds: string[]) => void;
   onDecide: (d: GpDecision) => void;
   onFixFields: () => void;
-  onOpenDesk: (id: string) => void;
+  onOpenDesk?: (id: string) => void;
 }) {
   const aid = draft.aid!;
   const sev = aid.severity;
@@ -569,11 +569,13 @@ function AidStep({
           <b style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
             <Icon name="check" /> {draft.sent.urgency === 'urgent' ? 'Urgent' : 'Routine'} Referral sent to the Referral desk
           </b>
-          <div>
-            <button className="btn primary small" onClick={() => onOpenDesk(draft.sent!.id)}>
-              See it as the Referral desk sees it <Icon name="arrow" size={14} />
-            </button>
-          </div>
+          {onOpenDesk && (
+            <div>
+              <button className="btn primary small" onClick={() => onOpenDesk(draft.sent!.id)}>
+                See it as the Referral desk sees it <Icon name="arrow" size={14} />
+              </button>
+            </div>
+          )}
         </div>
       ) : (
         <div className="decide">

@@ -9,7 +9,7 @@ import { cancerName, fmtDate, optionLabel, originLabel } from '../components/lab
 
 const statusLabel: Record<ReferralStatus, string> = { sent: 'New', accepted: 'Accepted', returned: 'Returned to the GP' };
 
-export function ReferralDesk({ patients, focusId, onGoGp }: { patients: Patient[]; focusId?: string; onGoGp: () => void }) {
+export function ReferralDesk({ patients, focusId, onGoGp }: { patients: Patient[]; focusId?: string; onGoGp?: () => void }) {
   const [refs, setRefs] = useState<ReferralView[] | null>(null);
   const [openId, setOpenId] = useState<string | undefined>(focusId);
   const [template, setTemplate] = useState<ReferralTemplate>();
@@ -36,9 +36,11 @@ export function ReferralDesk({ patients, focusId, onGoGp }: { patients: Patient[
       <div className="empty-state">
         <Icon name="doc" size={28} />
         <h2>No Referrals yet</h2>
-        <button className="btn primary" onClick={onGoGp}>
-          Go to the GP view
-        </button>
+        {onGoGp && (
+          <button className="btn primary" onClick={onGoGp}>
+            Go to the GP view
+          </button>
+        )}
       </div>
     );
   }

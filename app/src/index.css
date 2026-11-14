@@ -1825,3 +1825,108 @@ textarea.input {
   margin: 32px 0 0;
   color: var(--muted);
 }
+
+/* ---------- Fake sign-in (14 Nov) ---------- */
+.shell-login {
+  grid-template-rows: auto minmax(0, 1fr);
+}
+.login {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  min-height: 0;
+}
+.login-brand {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.login-logo {
+  width: 64px;
+  height: 64px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--r);
+  background: rgb(248 241 238 / 0.08);
+}
+.login-brand h1 {
+  font-family: var(--title);
+  font-size: var(--fs-3);
+  font-weight: 600;
+  margin: 0;
+}
+.login-brand p {
+  margin: 0;
+  color: var(--lilac);
+}
+.login-form {
+  align-self: center;
+  justify-self: center;
+  width: min(420px, 100% - 64px);
+  display: grid;
+  gap: 12px;
+}
+.login-form h2 {
+  font-family: var(--title);
+  font-size: var(--fs-2);
+  margin: 0 0 8px;
+}
+.login-hint {
+  margin: 4px 0 0;
+  color: var(--muted);
+}
+.login-roles {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+.login-roles button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 18px;
+  border: 1px solid var(--paper-2);
+  border-radius: var(--r);
+  background: var(--card);
+  color: var(--ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 180ms var(--ease), transform 180ms var(--ease);
+}
+.login-roles button:hover {
+  border-color: var(--wine);
+  transform: translateX(4px);
+}
+.login-roles b {
+  display: block;
+}
+.login-roles small {
+  color: var(--muted);
+  font-size: var(--fs-1);
+}
+.topbar .who b {
+  color: var(--ink);
+}
+.topbar .signout {
+  margin-left: 0;
+}
+@media (max-width: 760px) {
+  .login {
+    grid-template-columns: 1fr;
+  }
+  .login-brand {
+    padding: 24px;
+    gap: 16px;
+  }
+}
+.login-logo svg {
+  width: 32px;
+  height: 32px;
+}
