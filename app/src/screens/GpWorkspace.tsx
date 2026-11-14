@@ -74,7 +74,9 @@ export function GpWorkspace({ patients, patientId, onPatient }: Props) {
     update(id, { sheet: urgency });
     if (draft.fields || !draft.aid) return;
     update(id, { filling: true });
-    const fields = await fillTemplateFromNote(id, draft.aid.suspectedCancer, draft.aid.matchedRules);
+    const fields = { ...(await fillTemplateFromNote(id, draft.aid.suspectedCancer, draft.aid.matchedRules)) };
+    // Nothing in the notes about other illnesses: suggest "None known" so the GP can send in one click. Still editable.
+    if (!fields.otherIllnesses?.value) fields.otherIllnesses = { value: 'None known', origin: 'gemma' };
     update(id, { fields, filling: false });
   }
 
