@@ -230,6 +230,16 @@ function Pointer({
             <span className="tag ai">AI estimate, not validated</span>
           </div>
           <p className="nf-ptr-reason">{aid.riskReason}</p>
+          {aid.publishedRisk && (
+            <div className="nf-ptr-ppv" title={aid.publishedRisk.because}>
+              <p>
+                Published risk: <b>{aid.publishedRisk.pct}%{aid.publishedRisk.isLowerBound ? ' or more' : ''}</b>{' '}
+                <Source source={{ label: aid.publishedRisk.sourceLabel, url: aid.publishedRisk.sourceUrl }} /> · matched by AI
+                {aid.publishedRisk.aboveNg12Threshold && <> · at or above the NICE NG12 3% line</>}
+              </p>
+              <p className="muted">UK primary-care data, not Finnish, not a personal probability.</p>
+            </div>
+          )}
 
           {aid.testNeeded && !draft.sent && (
             <p className="nf-ptr-gate">

@@ -2355,3 +2355,12 @@ textarea.input {
   accent-color: var(--wine);
   cursor: pointer;
 }
+/* Published risk (PPV) next to the Risk gradient: evidence, not a decision */
+.nf-ptr-ppv {
+  display: grid;
+  gap: 0;
+}
+.nf-ptr-ppv p {
+  margin: 0;
+  text-wrap: pretty;
+}
