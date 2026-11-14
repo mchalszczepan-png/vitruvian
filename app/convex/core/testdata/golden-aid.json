@@ -1,0 +1,1300 @@
+{
+  "SYN-001": {
+    "matchedRules": [
+      {
+        "because": "Coughed up blood, no cause found. Age 40+.",
+        "rule": {
+          "cancer": "lung",
+          "conditions": "age 40 and over",
+          "id": "LUNG-02",
+          "question": "Does the note say the patient has coughed up blood, with no clear cause found?",
+          "source": {
+            "label": "NICE NG12 1.1.1 [2015]",
+            "url": "https://www.nice.org.uk/guidance/ng12/chapter/recommendations-organised-by-site-of-cancer"
+          },
+          "text": "Unexplained haemoptysis"
+        },
+        "visits": [
+          {
+            "date": "2026-11-14",
+            "snippet": "Past week: coughed up streaks of fresh blood on three mornings.",
+            "visitId": "SYN-001-v3"
+          }
+        ]
+      },
+      {
+        "because": "cough, tiredness, breathlessness, weight loss, appetite loss. Age 40+.",
+        "rule": {
+          "cancer": "lung",
+          "conditions": "age 40 and over; no duration in NG12",
+          "id": "LUNG-03",
+          "question": "Does the note say the patient has two or more of these unexplained symptoms: cough, tiredness, breathlessness, chest pain, weight loss, or loss of appetite?",
+          "source": {
+            "label": "NICE NG12 1.1.2 [2015]",
+            "url": "https://www.nice.org.uk/guidance/ng12/chapter/recommendations-organised-by-site-of-cancer"
+          },
+          "text": "Two or more unexplained symptoms: cough, fatigue, shortness of breath, chest pain, weight loss, appetite loss"
+        },
+        "visits": [
+          {
+            "date": "2026-10-01",
+            "snippet": "Cough still here, about 7 weeks now, small amount of white sputum.",
+            "visitId": "SYN-001-v2"
+          },
+          {
+            "date": "2026-11-14",
+            "snippet": "Cough now 10 weeks, not settling.",
+            "visitId": "SYN-001-v3"
+          }
+        ]
+      },
+      {
+        "because": "Ex-smoker, 30 pack-years, with cough.",
+        "rule": {
+          "cancer": "lung",
+          "conditions": "age 40 and over; ever smoked; no duration in NG12",
+          "id": "LUNG-04",
+          "question": "Does the note say the patient has at least one of these unexplained symptoms: cough, tiredness, breathlessness, chest pain, weight loss, or loss of appetite?",
+          "source": {
+            "label": "NICE NG12 1.1.2 [2015]",
+            "url": "https://www.nice.org.uk/guidance/ng12/chapter/recommendations-organised-by-site-of-cancer"
+          },
+          "text": "One or more unexplained symptoms (as LUNG-03) in someone who has ever smoked"
+        },
+        "visits": [
+          {
+            "date": "2026-09-03",
+            "snippet": "Dry cough for 3 weeks, worse at night.",
+            "visitId": "SYN-001-v1"
+          },
+          {
+            "date": "2026-10-01",
+            "snippet": "Cough still here, about 7 weeks now, small amount of white sputum.",
+            "visitId": "SYN-001-v2"
+          },
+          {
+            "date": "2026-11-14",
+            "snippet": "Cough now 10 weeks, not settling.",
+            "visitId": "SYN-001-v3"
+          }
+        ]
+      },
+      {
+        "because": "Chest: reduced entry right lower zone, no wheeze.",
+        "rule": {
+          "cancer": "lung",
+          "conditions": "age 40 and over",
+          "id": "LUNG-09",
+          "question": "Does the note describe chest examination findings that could fit lung cancer?",
+          "source": {
+            "label": "NICE NG12 1.1.3 [2015]",
+            "url": "https://www.nice.org.uk/guidance/ng12/chapter/recommendations-organised-by-site-of-cancer"
+          },
+          "text": "Chest signs consistent with lung cancer"
+        },
+        "visits": [
+          {
+            "date": "2026-11-14",
+            "snippet": "Chest: reduced entry right lower zone, no wheeze.",
+            "visitId": "SYN-001-v3"
+          }
+        ]
+      }
+    ],
+    "noRuleMatched": false,
+    "publishedRisk": {
+      "aboveNg12Threshold": true,
+      "because": "Haemoptysis recorded.",
+      "isLowerBound": false,
+      "pct": 8.37,
+      "quote": "Haemoptysis <45 2 553 0.36 (0.04 to 1.30) 2 954 0.21 (0.03 to 7.55) 45-54 5 272 1.84 (0.60 to 4.24) 7 424 1.65 (0.67 to 3.37) 55 to 64 15 364 4.12 (2.32 to 6.71) 43 514 8.37 (6.12 to 11.1) 65 to 74 30 358 8.38 (5.73 to 11.8) 82 552 14.86 (12.0 to 18.1) 75 to 84 27 258 10.47 (7.01 to 14.9) 67 393 17.05 (13.5 to 21.1) ≥85 2 77 2.60 (0.32 to 9.07) 19 93 20.43 (12.8 to 30.1)",
+      "rowId": "LUNG-PPV-06",
+      "sourceLabel": "Jones 2007 BMJ, alarm symptoms in UK primary care (GPRD), PPV for cancer diagnosed within 3 years",
+      "sourceUrl": "https://pmc.ncbi.nlm.nih.gov/articles/PMC1871798/",
+      "studyPopulation": "first episode of the symptom in UK primary care (GPRD 1995-2000); cancer diagnosed within 3 years; outcome is respiratory tract cancer (lung is most of it)"
+    },
+    "riskGradient": 9,
+    "riskReason": "4 matched Rules (2 seen on 2+ visits), Repeat visit, age 60+. Read from today's note and 2 earlier visits.",
+    "severity": {
+      "ageBands": [
+        {
+          "max": 69,
+          "min": 60,
+          "pct": 16.7,
+          "period": "2017–2021",
+          "sex": "male",
+          "source": {
+            "label": "Johansson et al., Acta Oncologica 2024, Table 2",
+            "short": "Johansson 2024, Table 2",
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11332520/"
+          }
+        }
+      ],
+      "breakdown": [
+        {
+          "label": "Women, all ages 0–89, 2016–2020, age-standardised (Clin Epidemiol 2023)",
+          "pct": 25.5
+        },
+        {
+          "label": "Men, aged 60–69, 2017–2021, age-specific (Johansson 2024)",
+          "pct": 16.7
+        },
+        {
+          "label": "Women, aged 60–69, 2017–2021, age-specific (Johansson 2024)",
+          "pct": 25.5
+        }
+      ],
+      "cancer": "lung",
+      "fiveYearSurvivalPct": 16.4,
+      "population": "Finland, men, all ages 0–89, 2016–2020. Age-standardised 5-year relative survival (Pohar Perme), from the Nordic paper, Table 2(b). Women: 25.5%.",
+      "source": {
+        "label": "Clin Epidemiol 2023, lung cancer survival in the Nordic countries (Table 2b)",
+        "short": "Clin Epidemiol 2023, Table 2b",
+        "url": "https://dovepress.com/survival-in-lung-cancer-in-the-nordic-countries-through-a-half-century-peer-reviewed-fulltext-article-CLEP"
+      }
+    },
+    "suspectedCancer": "lung",
+    "techUsed": [
+      {
+        "provider": "stub",
+        "step": "facts"
+      },
+      {
+        "provider": "stub",
+        "step": "decisions"
+      },
+      {
+        "provider": "stub",
+        "step": "risk"
+      },
+      {
+        "provider": "symptom-match",
+        "step": "repeat"
+      },
+      {
+        "provider": "stub",
+        "step": "fill"
+      }
+    ]
+  },
+  "SYN-002": {
+    "matchedRules": [
+      {
+        "because": "FIT 186 µg Hb/g.",
+        "rule": {
+          "cancer": "colorectal",
+          "conditions": "10 µg Hb/g or more; any age; Finnish cut-off [unverified]",
+          "id": "COLO-01",
+          "question": "Does the note give a FIT result of 10 micrograms of haemoglobin per gram of faeces or more?",
+          "source": {
+            "label": "NICE NG12 1.3.2 [2023]",
+            "url": "https://www.nice.org.uk/guidance/ng12/chapter/recommendations-organised-by-site-of-cancer"
+          },
+          "text": "FIT at or above 10 µg Hb/g"
+        },
+        "visits": [
+          {
+            "date": "2026-10-27",
+            "snippet": "FIT back today: 186 µg Hb/g, positive.",
+            "visitId": "SYN-002-v3"
+          }
+        ]
+      },
+      {
+        "because": "Change in bowel habit, 14 weeks.",
+        "rule": {
+          "cancer": "colorectal",
+          "conditions": "no age in NG12",
+          "gate": {
+            "source": {
+              "label": "NICE NG12 1.3.2 [2023]; UK threshold, Finnish cut-off not confirmed",
+              "url": "https://www.nice.org.uk/guidance/ng12/chapter/recommendations-organised-by-site-of-cancer"
+            },
+            "test": "FIT",
+            "threshold": "≥ 10 µg Hb/g"
+          },
+          "id": "COLO-04",
+          "question": "Does the note say the patient has had a change in their bowel habit, such as new diarrhoea or constipation?",
+          "source": {
+            "label": "NICE NG12 1.3.1 [2023]",
+            "url": "https://www.nice.org.uk/guidance/ng12/chapter/recommendations-organised-by-site-of-cancer"
+          },
+          "text": "Change in bowel habit (offer FIT)"
+        },
+        "visits": [
+          {
+            "date": "2026-08-18",
+            "snippet": "About 6 weeks of looser stools, going 4 to 5 times a day, some strai…",
+            "visitId": "SYN-002-v1"
+          },
+          {
+            "date": "2026-09-22",
+            "snippet": "Bowel change persisting, now about 10 weeks, alternating loose and n…",
+            "visitId": "SYN-002-v2"
+          },
+          {
+            "date": "2026-10-27",
+            "snippet": "Still tired, 14 weeks of change in bowel habit, rectal bleeding with…",
+            "visitId": "SYN-002-v3"
+          }
+        ]
+      },
+      {
+        "because": "Iron-deficiency anaemia, Hb 98 g/L.",
+        "rule": {
+          "cancer": "colorectal",
+          "conditions": "no age in NG12",
+          "gate": {
+            "source": {
+              "label": "NICE NG12 1.3.2 [2023]; UK threshold, Finnish cut-off not confirmed",
+              "url": "https://www.nice.org.uk/guidance/ng12/chapter/recommendations-organised-by-site-of-cancer"
+            },
+            "test": "FIT",
+            "threshold": "≥ 10 µg Hb/g"
+          },
+          "id": "COLO-05",
+          "question": "Does the note say the patient has iron-deficiency anaemia?",
+          "source": {
+            "label": "NICE NG12 1.3.1 [2023]",
+            "url": "https://www.nice.org.uk/guidance/ng12/chapter/recommendations-organised-by-site-of-cancer"
+          },
+          "text": "Iron-deficiency anaemia (offer FIT)"
+        },
+        "visits": [
+          {
+            "date": "2026-09-22",
+            "snippet": "Bloods back: Hb 109 g/L (low), MCV 78, ferritin 9.",
+            "visitId": "SYN-002-v2"
+          },
+          {
+            "date": "2026-10-27",
+            "snippet": "Iron-deficiency anaemia.",
+            "visitId": "SYN-002-v3"
+          }
+        ]
+      },
+      {
+        "because": "Rectal bleeding, 3 kg weight loss. Age 50+.",
+        "rule": {
+          "cancer": "colorectal",
+          "conditions": "age 50 and over; any one of the three",
+          "gate": {
+            "source": {
+              "label": "NICE NG12 1.3.2 [2023]; UK threshold, Finnish cut-off not confirmed",
+              "url": "https://www.nice.org.uk/guidance/ng12/chapter/recommendations-organised-by-site-of-cancer"
+            },
+            "test": "FIT",
+            "threshold": "≥ 10 µg Hb/g"
+          },
+          "id": "COLO-08",
+          "question": "Does the note say the patient has unexplained rectal bleeding, unexplained abdominal pain, or unexplained weight loss?",
+          "source": {
+            "label": "NICE NG12 1.3.1 [2023]",
+            "url": "https://www.nice.org.uk/guidance/ng12/chapter/recommendations-organised-by-site-of-cancer"
+          },
+          "text": "Unexplained rectal bleeding, abdominal pain or weight loss (offer FIT)"
+        },
+        "visits": [
+          {
+            "date": "2026-09-22",
+            "snippet": "Small amount of bright red blood on toilet paper for the last 2 weeks.",
+            "visitId": "SYN-002-v2"
+          },
+          {
+            "date": "2026-10-27",
+            "snippet": "Still tired, 14 weeks of change in bowel habit, rectal bleeding with…",
+            "visitId": "SYN-002-v3"
+          }
+        ]
+      }
+    ],
+    "noRuleMatched": false,
+    "publishedRisk": {
+      "aboveNg12Threshold": true,
+      "because": "Iron deficiency with Hb below the sex cut-off.",
+      "isLowerBound": false,
+      "pct": 7.7,
+      "quote": "for women with a haemoglobin <10 g dl −1 and iron deficiency, the positive predictive value was 7.7% (5.7, 11)",
+      "rowId": "COLO-PPV-14",
+      "sourceLabel": "Hamilton 2008 Br J Cancer, anaemia and iron deficiency and colorectal cancer (THIN primary care)",
+      "sourceUrl": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2361444/",
+      "studyPopulation": "UK primary care (THIN), same study as above"
+    },
+    "riskGradient": 8,
+    "riskReason": "4 matched Rules (3 seen on 2+ visits), Repeat visit. Read from today's note and 2 earlier visits.",
+    "severity": {
+      "ageBands": [],
+      "breakdown": [
+        {
+          "label": "Men, aged 60–69, 2017–2021, age-specific (Johansson 2024)",
+          "pct": 68.1
+        },
+        {
+          "label": "Women, aged 60–69, 2017–2021, age-specific (Johansson 2024)",
+          "pct": 72.4
+        }
+      ],
+      "cancer": "colorectal",
+      "fiveYearSurvivalPct": 68,
+      "population": "Finland, bowel cancer (as the indicator is titled), both sexes, age-standardised, national, Sotkanet statistical year 2024 (indicator 3627, region 658).",
+      "source": {
+        "label": "THL Sotkanet indicator 3627 (bowel cancer, Finland, 2024)",
+        "short": "THL Sotkanet 3627",
+        "url": "https://sotkanet.fi/rest/1.1/json?indicator=3627&genders=total&years=2024&region=658"
+      }
+    },
+    "suspectedCancer": "colorectal",
+    "techUsed": [
+      {
+        "provider": "stub",
+        "step": "facts"
+      },
+      {
+        "provider": "stub",
+        "step": "decisions"
+      },
+      {
+        "provider": "stub",
+        "step": "risk"
+      },
+      {
+        "provider": "symptom-match",
+        "step": "repeat"
+      },
+      {
+        "provider": "stub",
+        "step": "fill"
+      }
+    ]
+  },
+  "SYN-003": {
+    "matchedRules": [
+      {
+        "because": "Bloating in the notes.",
+        "rule": {
+          "cancer": "ovarian",
+          "conditions": "any age, especially 50 and over; CA-125 from age 40 (OVAR-06)",
+          "gate": {
+            "source": {
+              "label": "NICE NG12 1.5.9 and Table 1 [2026]; not yet checked against the NICE PDF",
+              "url": "https://www.nice.org.uk/guidance/ng12/chapter/recommendations-organised-by-site-of-cancer"
+            },
+            "test": "CA-125",
+            "threshold": "by age: 35 IU/mL at 40–49, 31 at 50–59, 24 at 60–69, 25 at 70–79, 31 at 80+"
+          },
+          "id": "OVAR-02",
+          "question": "Does the note say the patient has had persistent or frequent bloating or abdominal swelling?",
+          "source": {
+            "label": "NICE NG12 1.5.2 [2011]",
+            "url": "https://www.nice.org.uk/guidance/ng12/chapter/recommendations-organised-by-site-of-cancer"
+          },
+          "text": "Persistent or frequent bloating (abdominal distension); CA-125 needed"
+        },
+        "visits": [
+          {
+            "date": "2026-09-18",
+            "snippet": "Bloating for about 3 months, worse by evening.",
+            "visitId": "SYN-003-v1"
+          },
+          {
+            "date": "2026-10-23",
+            "snippet": "Bloating now constant for about 6 weeks, trousers tight by evening.",
+            "visitId": "SYN-003-v2"
+          },
+          {
+            "date": "2026-11-14",
+            "snippet": "Bloating and early fullness persist, now about 5 months, plus interm…",
+            "visitId": "SYN-003-v3"
+          }
+        ]
+      },
+      {
+        "because": "Early fullness, poor appetite.",
+        "rule": {
+          "cancer": "ovarian",
+          "conditions": "any age, especially 50 and over; CA-125 from age 40",
+          "gate": {
+            "source": {
+              "label": "NICE NG12 1.5.9 and Table 1 [2026]; not yet checked against the NICE PDF",
+              "url": "https://www.nice.org.uk/guidance/ng12/chapter/recommendations-organised-by-site-of-cancer"
+            },
+            "test": "CA-125",
+            "threshold": "by age: 35 IU/mL at 40–49, 31 at 50–59, 24 at 60–69, 25 at 70–79, 31 at 80+"
+          },
+          "id": "OVAR-03",
+          "question": "Does the note say the patient has had persistent or frequent early fullness after small amounts of food, or loss of appetite?",
+          "source": {
+            "label": "NICE NG12 1.5.2 [2011]",
+            "url": "https://www.nice.org.uk/guidance/ng12/chapter/recommendations-organised-by-site-of-cancer"
+          },
+          "text": "Persistent or frequent feeling full early, or loss of appetite; CA-125 needed"
+        },
+        "visits": [
+          {
+            "date": "2026-09-18",
+            "snippet": "Feels full after small meals, appetite slightly down.",
+            "visitId": "SYN-003-v1"
+          },
+          {
+            "date": "2026-10-23",
+            "snippet": "Still full after a few mouthfuls, eating less, appetite poor.",
+            "visitId": "SYN-003-v2"
+          },
+          {
+            "date": "2026-11-14",
+            "snippet": "Bloating and early fullness persist, now about 5 months, plus interm…",
+            "visitId": "SYN-003-v3"
+          }
+        ]
+      },
+      {
+        "because": "Pelvic pain on and off.",
+        "rule": {
+          "cancer": "ovarian",
+          "conditions": "any age, especially 50 and over; CA-125 from age 40",
+          "gate": {
+            "source": {
+              "label": "NICE NG12 1.5.9 and Table 1 [2026]; not yet checked against the NICE PDF",
+              "url": "https://www.nice.org.uk/guidance/ng12/chapter/recommendations-organised-by-site-of-cancer"
+            },
+            "test": "CA-125",
+            "threshold": "by age: 35 IU/mL at 40–49, 31 at 50–59, 24 at 60–69, 25 at 70–79, 31 at 80+"
+          },
+          "id": "OVAR-04",
+          "question": "Does the note say the patient has had pelvic or abdominal pain that persists or keeps coming back?",
+          "source": {
+            "label": "NICE NG12 1.5.2 [2011]",
+            "url": "https://www.nice.org.uk/guidance/ng12/chapter/recommendations-organised-by-site-of-cancer"
+          },
+          "text": "Persistent or frequent pelvic or abdominal pain; CA-125 needed"
+        },
+        "visits": [
+          {
+            "date": "2026-10-23",
+            "snippet": "Dull lower pelvic pain on and off for 4 weeks, not linked to food.",
+            "visitId": "SYN-003-v2"
+          },
+          {
+            "date": "2026-11-14",
+            "snippet": "Bloating and early fullness persist, now about 5 months, plus interm…",
+            "visitId": "SYN-003-v3"
+          }
+        ]
+      },
+      {
+        "because": "CA-125 180 IU/mL. Threshold at age 57 is 31.",
+        "rule": {
+          "cancer": "ovarian",
+          "conditions": "age 40 and over; 40–49: 35 IU/mL; 50–59: 31; 60–69: 24; 70–79: 25; 80+: 31 (NG12 Table 1, 2026)",
+          "id": "OVAR-06",
+          "question": "Does the note say the CA-125 is at or above the age threshold: 35 IU/mL at ages 40–49, 31 at 50–59, 24 at 60–69, 25 at 70–79, or 31 at 80 and over?",
+          "source": {
+            "label": "NICE NG12 1.5.9 and Table 1 [2026]",
+            "url": "https://www.nice.org.uk/guidance/ng12/chapter/recommendations-organised-by-site-of-cancer"
+          },
+          "text": "CA-125 at or above the age-band threshold: urgent direct-access ultrasound"
+        },
+        "visits": [
+          {
+            "date": "2026-11-14",
+            "snippet": "CA-125 back today: 180 IU/mL (sent 23 Oct).",
+            "visitId": "SYN-003-v3"
+          }
+        ]
+      }
+    ],
+    "noRuleMatched": false,
+    "publishedRisk": {
+      "aboveNg12Threshold": true,
+      "because": "CA-125 35 U/mL or more.",
+      "isLowerBound": false,
+      "pct": 12.5,
+      "quote": "2025: 12.5 (11.9, 13.1)",
+      "rowId": "OVAR-PPV-10",
+      "sourceLabel": "NICE NG12 evidence review B (CA125), April 2026: Arendse 2025, invasive ovarian cancer within 12 months of a CA-125 test",
+      "sourceUrl": "https://www.nice.org.uk/guidance/ng12/evidence/b-dual-testing-with-serum-ca125-and-ultrasound-scan-compared-to-serum-ca125-alone-and-age-and-serum-pdf-15669144110",
+      "studyPopulation": "UK CPRD, serum CA-125 >=35 U/ml, invasive ovarian cancer within 12 months of test (NICE evidence review B, pooled from Arendse 2025 and Funston 2020); pooled sensitivity analysis, 2 studies, n=230066"
+    },
+    "riskGradient": 8,
+    "riskReason": "4 matched Rules (3 seen on 2+ visits), Repeat visit. Read from today's note and 2 earlier visits.",
+    "severity": {
+      "ageBands": [
+        {
+          "max": 59,
+          "min": 50,
+          "pct": 65.6,
+          "period": "2017–2021",
+          "sex": "female",
+          "source": {
+            "label": "Hemminki et al., Cancers 2024, Supplementary Table S3 (NORDCAN data)",
+            "short": "Hemminki 2024, Table S3",
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11201377"
+          }
+        }
+      ],
+      "breakdown": [
+        {
+          "label": "Women, aged 0–49, 2017–2021, age-specific (Hemminki 2024, Table S3)",
+          "pct": 77.7
+        },
+        {
+          "label": "Women, aged 50–59, 2017–2021, age-specific (Hemminki 2024, Table S3)",
+          "pct": 65.6
+        },
+        {
+          "label": "Women, aged 60–69, 2017–2021, age-specific (Hemminki 2024, Table S3)",
+          "pct": 49.4
+        },
+        {
+          "label": "Women, aged 70–79, 2017–2021, age-specific (Hemminki 2024, Table S3)",
+          "pct": 40.8
+        },
+        {
+          "label": "Women, aged 80–89, 2017–2021, age-specific (Hemminki 2024, Table S3)",
+          "pct": 23.4
+        }
+      ],
+      "cancer": "ovarian",
+      "fiveYearSurvivalPct": 49.1,
+      "population": "Finland, women, all ages, 2017–2021. Age-standardised 5-year relative survival (Pohar Perme), NORDCAN data, Supplementary Table S3. 95% CI 47.1–51.3.",
+      "source": {
+        "label": "Hemminki et al., Cancers 2024, Supplementary Table S3 (NORDCAN data)",
+        "short": "Hemminki 2024, Table S3",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11201377"
+      }
+    },
+    "suspectedCancer": "ovarian",
+    "techUsed": [
+      {
+        "provider": "stub",
+        "step": "facts"
+      },
+      {
+        "provider": "stub",
+        "step": "decisions"
+      },
+      {
+        "provider": "stub",
+        "step": "risk"
+      },
+      {
+        "provider": "symptom-match",
+        "step": "repeat"
+      },
+      {
+        "provider": "stub",
+        "step": "fill"
+      }
+    ],
+    "testNeeded": {
+      "source": {
+        "label": "NICE NG12 1.5.9 and Table 1 [2026]",
+        "url": "https://www.nice.org.uk/guidance/ng12/chapter/recommendations-organised-by-site-of-cancer"
+      },
+      "test": "Urgent ultrasound",
+      "threshold": "",
+      "why": "OVAR-06 says: arrange an urgent direct-access ultrasound of the abdomen and pelvis. Refer if the scan suggests ovarian cancer (OVAR-07)."
+    }
+  },
+  "SYN-004": {
+    "matchedRules": [],
+    "noRuleMatched": true,
+    "riskGradient": 0,
+    "riskReason": "0 matched Rules. Read from today's note and 2 earlier visits.",
+    "severity": {
+      "ageBands": [],
+      "breakdown": [
+        {
+          "label": "Women, all ages 0–89, 2016–2020, age-standardised (Clin Epidemiol 2023)",
+          "pct": 25.5
+        },
+        {
+          "label": "Men, aged 60–69, 2017–2021, age-specific (Johansson 2024)",
+          "pct": 16.7
+        },
+        {
+          "label": "Women, aged 60–69, 2017–2021, age-specific (Johansson 2024)",
+          "pct": 25.5
+        }
+      ],
+      "cancer": "lung",
+      "fiveYearSurvivalPct": 16.4,
+      "population": "Finland, men, all ages 0–89, 2016–2020. Age-standardised 5-year relative survival (Pohar Perme), from the Nordic paper, Table 2(b). Women: 25.5%.",
+      "source": {
+        "label": "Clin Epidemiol 2023, lung cancer survival in the Nordic countries (Table 2b)",
+        "short": "Clin Epidemiol 2023, Table 2b",
+        "url": "https://dovepress.com/survival-in-lung-cancer-in-the-nordic-countries-through-a-half-century-peer-reviewed-fulltext-article-CLEP"
+      }
+    },
+    "suspectedCancer": "lung",
+    "techUsed": [
+      {
+        "provider": "stub",
+        "step": "facts"
+      },
+      {
+        "provider": "stub",
+        "step": "decisions"
+      },
+      {
+        "provider": "stub",
+        "step": "risk"
+      },
+      {
+        "provider": "symptom-match",
+        "step": "repeat"
+      },
+      {
+        "provider": "stub",
+        "step": "fill"
+      }
+    ]
+  },
+  "SYN-005": {
+    "matchedRules": [],
+    "noRuleMatched": true,
+    "riskGradient": 0,
+    "riskReason": "0 matched Rules. Read from today's note and 2 earlier visits.",
+    "severity": {
+      "ageBands": [],
+      "breakdown": [
+        {
+          "label": "Women, all ages 0–89, 2016–2020, age-standardised (Clin Epidemiol 2023)",
+          "pct": 25.5
+        },
+        {
+          "label": "Men, aged 60–69, 2017–2021, age-specific (Johansson 2024)",
+          "pct": 16.7
+        },
+        {
+          "label": "Women, aged 60–69, 2017–2021, age-specific (Johansson 2024)",
+          "pct": 25.5
+        }
+      ],
+      "cancer": "lung",
+      "fiveYearSurvivalPct": 16.4,
+      "population": "Finland, men, all ages 0–89, 2016–2020. Age-standardised 5-year relative survival (Pohar Perme), from the Nordic paper, Table 2(b). Women: 25.5%.",
+      "source": {
+        "label": "Clin Epidemiol 2023, lung cancer survival in the Nordic countries (Table 2b)",
+        "short": "Clin Epidemiol 2023, Table 2b",
+        "url": "https://dovepress.com/survival-in-lung-cancer-in-the-nordic-countries-through-a-half-century-peer-reviewed-fulltext-article-CLEP"
+      }
+    },
+    "suspectedCancer": "lung",
+    "techUsed": [
+      {
+        "provider": "stub",
+        "step": "facts"
+      },
+      {
+        "provider": "stub",
+        "step": "decisions"
+      },
+      {
+        "provider": "stub",
+        "step": "risk"
+      },
+      {
+        "provider": "symptom-match",
+        "step": "repeat"
+      },
+      {
+        "provider": "stub",
+        "step": "fill"
+      }
+    ]
+  },
+  "SYN-006": {
+    "matchedRules": [
+      {
+        "because": "Change in bowel habit, 2 weeks.",
+        "rule": {
+          "cancer": "colorectal",
+          "conditions": "no age in NG12",
+          "gate": {
+            "source": {
+              "label": "NICE NG12 1.3.2 [2023]; UK threshold, Finnish cut-off not confirmed",
+              "url": "https://www.nice.org.uk/guidance/ng12/chapter/recommendations-organised-by-site-of-cancer"
+            },
+            "test": "FIT",
+            "threshold": "≥ 10 µg Hb/g"
+          },
+          "id": "COLO-04",
+          "question": "Does the note say the patient has had a change in their bowel habit, such as new diarrhoea or constipation?",
+          "source": {
+            "label": "NICE NG12 1.3.1 [2023]",
+            "url": "https://www.nice.org.uk/guidance/ng12/chapter/recommendations-organised-by-site-of-cancer"
+          },
+          "text": "Change in bowel habit (offer FIT)"
+        },
+        "visits": [
+          {
+            "date": "2026-04-07",
+            "snippet": "No saddle numbness, no bladder or bowel change, no fever, no weight…",
+            "visitId": "SYN-006-v1"
+          },
+          {
+            "date": "2026-07-22",
+            "snippet": "No leg symptoms, no numbness, no bladder or bowel change.",
+            "visitId": "SYN-006-v2"
+          }
+        ]
+      }
+    ],
+    "noRuleMatched": false,
+    "riskGradient": 3,
+    "riskReason": "1 matched Rule (1 seen on 2+ visits). Read from today's note and 1 earlier visit.",
+    "severity": {
+      "ageBands": [],
+      "breakdown": [
+        {
+          "label": "Men, aged 60–69, 2017–2021, age-specific (Johansson 2024)",
+          "pct": 68.1
+        },
+        {
+          "label": "Women, aged 60–69, 2017–2021, age-specific (Johansson 2024)",
+          "pct": 72.4
+        }
+      ],
+      "cancer": "colorectal",
+      "fiveYearSurvivalPct": 68,
+      "population": "Finland, bowel cancer (as the indicator is titled), both sexes, age-standardised, national, Sotkanet statistical year 2024 (indicator 3627, region 658).",
+      "source": {
+        "label": "THL Sotkanet indicator 3627 (bowel cancer, Finland, 2024)",
+        "short": "THL Sotkanet 3627",
+        "url": "https://sotkanet.fi/rest/1.1/json?indicator=3627&genders=total&years=2024&region=658"
+      }
+    },
+    "suspectedCancer": "colorectal",
+    "techUsed": [
+      {
+        "provider": "stub",
+        "step": "facts"
+      },
+      {
+        "provider": "stub",
+        "step": "decisions"
+      },
+      {
+        "provider": "stub",
+        "step": "risk"
+      },
+      {
+        "provider": "symptom-match",
+        "step": "repeat"
+      },
+      {
+        "provider": "stub",
+        "step": "fill"
+      }
+    ],
+    "testNeeded": {
+      "source": {
+        "label": "NICE NG12 1.3.2 [2023]; UK threshold, Finnish cut-off not confirmed",
+        "url": "https://www.nice.org.uk/guidance/ng12/chapter/recommendations-organised-by-site-of-cancer"
+      },
+      "test": "FIT",
+      "threshold": "≥ 10 µg Hb/g",
+      "why": "Colorectal symptom Rules lead to a Referral only after a FIT result."
+    }
+  },
+  "SYN-007": {
+    "matchedRules": [],
+    "noRuleMatched": true,
+    "riskGradient": 0,
+    "riskReason": "0 matched Rules. Read from today's note.",
+    "severity": {
+      "ageBands": [],
+      "breakdown": [
+        {
+          "label": "Women, all ages 0–89, 2016–2020, age-standardised (Clin Epidemiol 2023)",
+          "pct": 25.5
+        },
+        {
+          "label": "Men, aged 60–69, 2017–2021, age-specific (Johansson 2024)",
+          "pct": 16.7
+        },
+        {
+          "label": "Women, aged 60–69, 2017–2021, age-specific (Johansson 2024)",
+          "pct": 25.5
+        }
+      ],
+      "cancer": "lung",
+      "fiveYearSurvivalPct": 16.4,
+      "population": "Finland, men, all ages 0–89, 2016–2020. Age-standardised 5-year relative survival (Pohar Perme), from the Nordic paper, Table 2(b). Women: 25.5%.",
+      "source": {
+        "label": "Clin Epidemiol 2023, lung cancer survival in the Nordic countries (Table 2b)",
+        "short": "Clin Epidemiol 2023, Table 2b",
+        "url": "https://dovepress.com/survival-in-lung-cancer-in-the-nordic-countries-through-a-half-century-peer-reviewed-fulltext-article-CLEP"
+      }
+    },
+    "suspectedCancer": "lung",
+    "techUsed": [
+      {
+        "provider": "stub",
+        "step": "facts"
+      },
+      {
+        "provider": "stub",
+        "step": "decisions"
+      },
+      {
+        "provider": "stub",
+        "step": "risk"
+      },
+      {
+        "provider": "symptom-match",
+        "step": "repeat"
+      },
+      {
+        "provider": "stub",
+        "step": "fill"
+      }
+    ]
+  },
+  "SYN-008": {
+    "matchedRules": [],
+    "noRuleMatched": true,
+    "riskGradient": 1,
+    "riskReason": "0 matched Rules, age 60+. Read from today's note.",
+    "severity": {
+      "ageBands": [],
+      "breakdown": [
+        {
+          "label": "Women, all ages 0–89, 2016–2020, age-standardised (Clin Epidemiol 2023)",
+          "pct": 25.5
+        },
+        {
+          "label": "Men, aged 60–69, 2017–2021, age-specific (Johansson 2024)",
+          "pct": 16.7
+        },
+        {
+          "label": "Women, aged 60–69, 2017–2021, age-specific (Johansson 2024)",
+          "pct": 25.5
+        }
+      ],
+      "cancer": "lung",
+      "fiveYearSurvivalPct": 16.4,
+      "population": "Finland, men, all ages 0–89, 2016–2020. Age-standardised 5-year relative survival (Pohar Perme), from the Nordic paper, Table 2(b). Women: 25.5%.",
+      "source": {
+        "label": "Clin Epidemiol 2023, lung cancer survival in the Nordic countries (Table 2b)",
+        "short": "Clin Epidemiol 2023, Table 2b",
+        "url": "https://dovepress.com/survival-in-lung-cancer-in-the-nordic-countries-through-a-half-century-peer-reviewed-fulltext-article-CLEP"
+      }
+    },
+    "suspectedCancer": "lung",
+    "techUsed": [
+      {
+        "provider": "stub",
+        "step": "facts"
+      },
+      {
+        "provider": "stub",
+        "step": "decisions"
+      },
+      {
+        "provider": "stub",
+        "step": "risk"
+      },
+      {
+        "provider": "symptom-match",
+        "step": "repeat"
+      },
+      {
+        "provider": "stub",
+        "step": "fill"
+      }
+    ]
+  },
+  "SYN-009": {
+    "matchedRules": [],
+    "noRuleMatched": true,
+    "riskGradient": 0,
+    "riskReason": "0 matched Rules. Read from today's note.",
+    "severity": {
+      "ageBands": [],
+      "breakdown": [
+        {
+          "label": "Women, all ages 0–89, 2016–2020, age-standardised (Clin Epidemiol 2023)",
+          "pct": 25.5
+        },
+        {
+          "label": "Men, aged 60–69, 2017–2021, age-specific (Johansson 2024)",
+          "pct": 16.7
+        },
+        {
+          "label": "Women, aged 60–69, 2017–2021, age-specific (Johansson 2024)",
+          "pct": 25.5
+        }
+      ],
+      "cancer": "lung",
+      "fiveYearSurvivalPct": 16.4,
+      "population": "Finland, men, all ages 0–89, 2016–2020. Age-standardised 5-year relative survival (Pohar Perme), from the Nordic paper, Table 2(b). Women: 25.5%.",
+      "source": {
+        "label": "Clin Epidemiol 2023, lung cancer survival in the Nordic countries (Table 2b)",
+        "short": "Clin Epidemiol 2023, Table 2b",
+        "url": "https://dovepress.com/survival-in-lung-cancer-in-the-nordic-countries-through-a-half-century-peer-reviewed-fulltext-article-CLEP"
+      }
+    },
+    "suspectedCancer": "lung",
+    "techUsed": [
+      {
+        "provider": "stub",
+        "step": "facts"
+      },
+      {
+        "provider": "stub",
+        "step": "decisions"
+      },
+      {
+        "provider": "stub",
+        "step": "risk"
+      },
+      {
+        "provider": "symptom-match",
+        "step": "repeat"
+      },
+      {
+        "provider": "stub",
+        "step": "fill"
+      }
+    ]
+  },
+  "SYN-010": {
+    "matchedRules": [],
+    "noRuleMatched": true,
+    "riskGradient": 0,
+    "riskReason": "0 matched Rules. Read from today's note.",
+    "severity": {
+      "ageBands": [],
+      "breakdown": [
+        {
+          "label": "Women, all ages 0–89, 2016–2020, age-standardised (Clin Epidemiol 2023)",
+          "pct": 25.5
+        },
+        {
+          "label": "Men, aged 60–69, 2017–2021, age-specific (Johansson 2024)",
+          "pct": 16.7
+        },
+        {
+          "label": "Women, aged 60–69, 2017–2021, age-specific (Johansson 2024)",
+          "pct": 25.5
+        }
+      ],
+      "cancer": "lung",
+      "fiveYearSurvivalPct": 16.4,
+      "population": "Finland, men, all ages 0–89, 2016–2020. Age-standardised 5-year relative survival (Pohar Perme), from the Nordic paper, Table 2(b). Women: 25.5%.",
+      "source": {
+        "label": "Clin Epidemiol 2023, lung cancer survival in the Nordic countries (Table 2b)",
+        "short": "Clin Epidemiol 2023, Table 2b",
+        "url": "https://dovepress.com/survival-in-lung-cancer-in-the-nordic-countries-through-a-half-century-peer-reviewed-fulltext-article-CLEP"
+      }
+    },
+    "suspectedCancer": "lung",
+    "techUsed": [
+      {
+        "provider": "stub",
+        "step": "facts"
+      },
+      {
+        "provider": "stub",
+        "step": "decisions"
+      },
+      {
+        "provider": "stub",
+        "step": "risk"
+      },
+      {
+        "provider": "symptom-match",
+        "step": "repeat"
+      },
+      {
+        "provider": "stub",
+        "step": "fill"
+      }
+    ]
+  },
+  "SYN-011": {
+    "matchedRules": [],
+    "noRuleMatched": true,
+    "riskGradient": 1,
+    "riskReason": "0 matched Rules, age 60+. Read from today's note.",
+    "severity": {
+      "ageBands": [
+        {
+          "max": 69,
+          "min": 60,
+          "pct": 16.7,
+          "period": "2017–2021",
+          "sex": "male",
+          "source": {
+            "label": "Johansson et al., Acta Oncologica 2024, Table 2",
+            "short": "Johansson 2024, Table 2",
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11332520/"
+          }
+        }
+      ],
+      "breakdown": [
+        {
+          "label": "Women, all ages 0–89, 2016–2020, age-standardised (Clin Epidemiol 2023)",
+          "pct": 25.5
+        },
+        {
+          "label": "Men, aged 60–69, 2017–2021, age-specific (Johansson 2024)",
+          "pct": 16.7
+        },
+        {
+          "label": "Women, aged 60–69, 2017–2021, age-specific (Johansson 2024)",
+          "pct": 25.5
+        }
+      ],
+      "cancer": "lung",
+      "fiveYearSurvivalPct": 16.4,
+      "population": "Finland, men, all ages 0–89, 2016–2020. Age-standardised 5-year relative survival (Pohar Perme), from the Nordic paper, Table 2(b). Women: 25.5%.",
+      "source": {
+        "label": "Clin Epidemiol 2023, lung cancer survival in the Nordic countries (Table 2b)",
+        "short": "Clin Epidemiol 2023, Table 2b",
+        "url": "https://dovepress.com/survival-in-lung-cancer-in-the-nordic-countries-through-a-half-century-peer-reviewed-fulltext-article-CLEP"
+      }
+    },
+    "suspectedCancer": "lung",
+    "techUsed": [
+      {
+        "provider": "stub",
+        "step": "facts"
+      },
+      {
+        "provider": "stub",
+        "step": "decisions"
+      },
+      {
+        "provider": "stub",
+        "step": "risk"
+      },
+      {
+        "provider": "symptom-match",
+        "step": "repeat"
+      },
+      {
+        "provider": "stub",
+        "step": "fill"
+      }
+    ]
+  },
+  "SYN-012": {
+    "matchedRules": [],
+    "noRuleMatched": true,
+    "riskGradient": 0,
+    "riskReason": "0 matched Rules. Read from today's note.",
+    "severity": {
+      "ageBands": [],
+      "breakdown": [
+        {
+          "label": "Women, all ages 0–89, 2016–2020, age-standardised (Clin Epidemiol 2023)",
+          "pct": 25.5
+        },
+        {
+          "label": "Men, aged 60–69, 2017–2021, age-specific (Johansson 2024)",
+          "pct": 16.7
+        },
+        {
+          "label": "Women, aged 60–69, 2017–2021, age-specific (Johansson 2024)",
+          "pct": 25.5
+        }
+      ],
+      "cancer": "lung",
+      "fiveYearSurvivalPct": 16.4,
+      "population": "Finland, men, all ages 0–89, 2016–2020. Age-standardised 5-year relative survival (Pohar Perme), from the Nordic paper, Table 2(b). Women: 25.5%.",
+      "source": {
+        "label": "Clin Epidemiol 2023, lung cancer survival in the Nordic countries (Table 2b)",
+        "short": "Clin Epidemiol 2023, Table 2b",
+        "url": "https://dovepress.com/survival-in-lung-cancer-in-the-nordic-countries-through-a-half-century-peer-reviewed-fulltext-article-CLEP"
+      }
+    },
+    "suspectedCancer": "lung",
+    "techUsed": [
+      {
+        "provider": "stub",
+        "step": "facts"
+      },
+      {
+        "provider": "stub",
+        "step": "decisions"
+      },
+      {
+        "provider": "stub",
+        "step": "risk"
+      },
+      {
+        "provider": "symptom-match",
+        "step": "repeat"
+      },
+      {
+        "provider": "stub",
+        "step": "fill"
+      }
+    ]
+  },
+  "SYN-013": {
+    "matchedRules": [],
+    "noRuleMatched": true,
+    "riskGradient": 1,
+    "riskReason": "0 matched Rules, age 60+. Read from today's note.",
+    "severity": {
+      "ageBands": [],
+      "breakdown": [
+        {
+          "label": "Women, all ages 0–89, 2016–2020, age-standardised (Clin Epidemiol 2023)",
+          "pct": 25.5
+        },
+        {
+          "label": "Men, aged 60–69, 2017–2021, age-specific (Johansson 2024)",
+          "pct": 16.7
+        },
+        {
+          "label": "Women, aged 60–69, 2017–2021, age-specific (Johansson 2024)",
+          "pct": 25.5
+        }
+      ],
+      "cancer": "lung",
+      "fiveYearSurvivalPct": 16.4,
+      "population": "Finland, men, all ages 0–89, 2016–2020. Age-standardised 5-year relative survival (Pohar Perme), from the Nordic paper, Table 2(b). Women: 25.5%.",
+      "source": {
+        "label": "Clin Epidemiol 2023, lung cancer survival in the Nordic countries (Table 2b)",
+        "short": "Clin Epidemiol 2023, Table 2b",
+        "url": "https://dovepress.com/survival-in-lung-cancer-in-the-nordic-countries-through-a-half-century-peer-reviewed-fulltext-article-CLEP"
+      }
+    },
+    "suspectedCancer": "lung",
+    "techUsed": [
+      {
+        "provider": "stub",
+        "step": "facts"
+      },
+      {
+        "provider": "stub",
+        "step": "decisions"
+      },
+      {
+        "provider": "stub",
+        "step": "risk"
+      },
+      {
+        "provider": "symptom-match",
+        "step": "repeat"
+      },
+      {
+        "provider": "stub",
+        "step": "fill"
+      }
+    ]
+  },
+  "SYN-014": {
+    "matchedRules": [],
+    "noRuleMatched": true,
+    "riskGradient": 0,
+    "riskReason": "0 matched Rules. Read from today's note.",
+    "severity": {
+      "ageBands": [],
+      "breakdown": [
+        {
+          "label": "Women, all ages 0–89, 2016–2020, age-standardised (Clin Epidemiol 2023)",
+          "pct": 25.5
+        },
+        {
+          "label": "Men, aged 60–69, 2017–2021, age-specific (Johansson 2024)",
+          "pct": 16.7
+        },
+        {
+          "label": "Women, aged 60–69, 2017–2021, age-specific (Johansson 2024)",
+          "pct": 25.5
+        }
+      ],
+      "cancer": "lung",
+      "fiveYearSurvivalPct": 16.4,
+      "population": "Finland, men, all ages 0–89, 2016–2020. Age-standardised 5-year relative survival (Pohar Perme), from the Nordic paper, Table 2(b). Women: 25.5%.",
+      "source": {
+        "label": "Clin Epidemiol 2023, lung cancer survival in the Nordic countries (Table 2b)",
+        "short": "Clin Epidemiol 2023, Table 2b",
+        "url": "https://dovepress.com/survival-in-lung-cancer-in-the-nordic-countries-through-a-half-century-peer-reviewed-fulltext-article-CLEP"
+      }
+    },
+    "suspectedCancer": "lung",
+    "techUsed": [
+      {
+        "provider": "stub",
+        "step": "facts"
+      },
+      {
+        "provider": "stub",
+        "step": "decisions"
+      },
+      {
+        "provider": "stub",
+        "step": "risk"
+      },
+      {
+        "provider": "symptom-match",
+        "step": "repeat"
+      },
+      {
+        "provider": "stub",
+        "step": "fill"
+      }
+    ]
+  },
+  "SYN-015": {
+    "matchedRules": [],
+    "noRuleMatched": true,
+    "riskGradient": 0,
+    "riskReason": "0 matched Rules. Read from today's note.",
+    "severity": {
+      "ageBands": [],
+      "breakdown": [
+        {
+          "label": "Women, all ages 0–89, 2016–2020, age-standardised (Clin Epidemiol 2023)",
+          "pct": 25.5
+        },
+        {
+          "label": "Men, aged 60–69, 2017–2021, age-specific (Johansson 2024)",
+          "pct": 16.7
+        },
+        {
+          "label": "Women, aged 60–69, 2017–2021, age-specific (Johansson 2024)",
+          "pct": 25.5
+        }
+      ],
+      "cancer": "lung",
+      "fiveYearSurvivalPct": 16.4,
+      "population": "Finland, men, all ages 0–89, 2016–2020. Age-standardised 5-year relative survival (Pohar Perme), from the Nordic paper, Table 2(b). Women: 25.5%.",
+      "source": {
+        "label": "Clin Epidemiol 2023, lung cancer survival in the Nordic countries (Table 2b)",
+        "short": "Clin Epidemiol 2023, Table 2b",
+        "url": "https://dovepress.com/survival-in-lung-cancer-in-the-nordic-countries-through-a-half-century-peer-reviewed-fulltext-article-CLEP"
+      }
+    },
+    "suspectedCancer": "lung",
+    "techUsed": [
+      {
+        "provider": "stub",
+        "step": "facts"
+      },
+      {
+        "provider": "stub",
+        "step": "decisions"
+      },
+      {
+        "provider": "stub",
+        "step": "risk"
+      },
+      {
+        "provider": "symptom-match",
+        "step": "repeat"
+      },
+      {
+        "provider": "stub",
+        "step": "fill"
+      }
+    ]
+  }
+}

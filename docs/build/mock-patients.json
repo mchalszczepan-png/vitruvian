@@ -6,7 +6,7 @@
     "age": 62,
     "sex": "male",
     "smokingStatus": "former",
-    "wellbeingServicesCounty": "Pirkanmaa",
+    "wellbeingServicesCounty": "Lappi",
     "visits": [
       {
         "date": "2026-09-03",
@@ -16,7 +16,7 @@
       {
         "date": "2026-10-01",
         "reason": "Cough not settling, 7 weeks",
-        "gpNote": "Cough still here, about 7 weeks now, small amount of white sputum. Salbutamol from last time made no difference, I have stopped it. No wheeze. Mild breathlessness on stairs only, none at rest. Chest clear. SpO2 96% on air, HR 84, T 36.8. CRP 6. Weight not recorded today. Plan: repeat bloods with FBC, review in 4 weeks, sooner if worse or any blood in sputum."
+        "gpNote": "Cough still here, about 7 weeks now, small amount of white sputum. Fluids and paracetamol made no difference. No wheeze. Mild breathlessness on stairs only, none at rest. Chest clear. SpO2 96% on air, HR 84, T 36.8. CRP 6. Weight not recorded today. Plan: repeat bloods with FBC, review in 4 weeks, sooner if worse or any blood in sputum."
       },
       {
         "date": "2026-11-14",
@@ -32,12 +32,12 @@
     "age": 58,
     "sex": "female",
     "smokingStatus": "never",
-    "wellbeingServicesCounty": "Varsinais-Suomi",
+    "wellbeingServicesCounty": "Kymenlaakso",
     "visits": [
       {
         "date": "2026-08-18",
         "reason": "Change in bowel habit, bloating",
-        "gpNote": "58F. About 6 weeks of looser stools, going 4 to 5 times a day, some straining. Bloating after meals. No weight loss reported, appetite fine. She has not noticed any blood. Never smoker. Abdomen soft, mild diffuse tenderness, no palpable mass. BMI 24. Mother had bowel polyps in her 70s. Plan: FBC, ferritin, CRP, coeliac screen, fluids. Review in 4 weeks. Return if rectal bleeding or weight loss."
+        "gpNote": "58F. About 6 weeks of looser stools, going 4 to 5 times a day, some straining. Bloating after meals. No weight loss reported, appetite fine. She has not noticed any blood. Never smoker. Abdomen soft, mild diffuse tenderness, no palpable mass. BMI 24. Mother had bowel polyps in her 70s. Plan: FBC, ferritin, CRP, coeliac screen, kidney function. Review in 4 weeks. Return if rectal bleeding or weight loss."
       },
       {
         "date": "2026-09-22",
@@ -73,7 +73,7 @@
       {
         "date": "2026-11-14",
         "reason": "CA-125 raised, third visit for bloating",
-        "gpNote": "CA-125 back today: 180 IU/mL (sent 23 Oct). Bloating and early fullness persist, now about 8 weeks, plus intermittent lower pelvic pain. Appetite still poor, weight down 1 kg. Abdomen mildly distended, soft, no palpable mass, no ascites on clinical exam. Afebrile, BP 124/78. Third visit for the same bloating, patient worried, wants to know what it is. Plan: urgent direct access pelvic and abdominal ultrasound, suspected gynae cancer pathway referral if the scan is abnormal. Explained the result and next steps, patient agrees, given direct line to the surgery."
+        "gpNote": "CA-125 back today: 180 IU/mL (sent 23 Oct). Bloating and early fullness persist, now about 5 months, plus intermittent lower pelvic pain. Appetite still poor, weight down 1 kg. Abdomen mildly distended, soft, no palpable mass, no ascites on clinical exam. Afebrile, BP 124/78. Third visit for the same bloating, patient worried, wants to know what it is. Plan: urgent direct access pelvic and abdominal ultrasound, suspected gynae cancer pathway referral if the scan is abnormal. Explained the result and next steps, patient agrees, given direct line to the surgery."
       }
     ]
   },
@@ -210,7 +210,7 @@
       {
         "date": "2026-09-29",
         "reason": "Cough 3 weeks, one blood streak",
-        "gpNote": "44F, cough for 3 weeks after a cold, yellow sputum. Noticed one streak of blood once after a coughing fit, none since. Current smoker, about 5 a day for 20 years (roughly 5 pack-years). No weight loss, no night sweats, no fever. Chest clear, SpO2 98%, T 36.8, HR 80, RR 16. Likely post-viral. Plan: no antibiotics, honey and fluids, smoking cessation advice given. Chest X-ray if cough persists past 3 weeks or blood recurs."
+        "gpNote": "44F, cough for 3 weeks after a cold, yellow sputum. Noticed one streak of blood once after a coughing fit, none since. Current smoker, about 5 a day for 20 years (roughly 5 pack-years). No weight loss, no night sweats, no fever. Chest clear, SpO2 98%, T 36.8, HR 80, RR 16. Likely post-viral. Plan: no antibiotics, honey and fluids, smoking cessation advice given. Over 40 and smokes, so low threshold for chest X-ray: X-ray if cough persists another 3 weeks or blood recurs."
       }
     ]
   },

@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
-import { getDemoStaging, getStagingTemplate } from '../data/api';
-import { stageGroup } from '../data/mock/staging';
-import type { CancerType, StagingField, StagingReport, StagingTemplate } from '../data/types';
+import { checkStaging, getDemoStaging, getReferrals, getSavedStagingReports, getStagingDraft, getStagingTemplate, saveStagingReport } from '../data/api';
+import type { CancerType, Patient, ReferralView, SavedStagingReport, StagingField, StagingReport, StagingTemplate } from '../data/types';
 import { FieldInput } from '../components/FieldInput';
 import { Icon } from '../components/Icon';
 import { Source } from '../components/Source';
-import { cancerName } from '../components/labels';
+import { cancerName, fmtDate } from '../components/labels';
 
 const ORDER: CancerType[] = ['lung', 'colorectal', 'ovarian'];
 const GROUPS: { key: StagingField['group']; title: string }[] = [
@@ -14,42 +13,111 @@ const GROUPS: { key: StagingField['group']; title: string }[] = [
   { key: 'registry', title: 'Cancer Registry' },
 ];
 
-export function Specialist() {
+/** Stories 31–33: Staging report. Opens a draft from a Referral (story 32), checks it, saves it as "ready for registry" (story 33). */
+export function Specialist({ patients }: { patients: Patient[] }) {
   const [cancer, setCancer] = useState<CancerType>('lung');
+  const [referralId, setReferralId] = useState<string>();
+  const [refs, setRefs] = useState<ReferralView[]>([]);
   const [tpl, setTpl] = useState<StagingTemplate>();
   const [report, setReport] = useState<StagingReport>();
-  const [sent, setSent] = useState(false);
+  const [saved, setSaved] = useState<SavedStagingReport[]>([]);
+  const [last, setLast] = useState<SavedStagingReport>();
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState('');
 
   useEffect(() => {
-    setSent(false);
-    Promise.all([getStagingTemplate(cancer), getDemoStaging(cancer)]).then(([t, r]) => {
-      setTpl(t);
-      setReport(r);
-    });
-  }, [cancer]);
+    getReferrals().then(setRefs).catch(() => setRefs([]));
+    getSavedStagingReports().then(setSaved).catch(() => setSaved([]));
+  }, []);
 
-  if (!tpl || !report || tpl.cancer !== cancer) return <div className="loading" aria-busy><i /><i /><i /></div>;
-  const set = (key: string, value: string) => setReport({ ...report, values: { ...report.values, [key]: value } });
+  useEffect(() => {
+    setLast(undefined);
+    setError('');
+    const draft = referralId ? getStagingDraft(referralId) : getDemoStaging(cancer);
+    Promise.all([getStagingTemplate(cancer), draft])
+      .then(([t, r]) => {
+        setTpl(t);
+        setReport(r);
+      })
+      .catch((e) => setError(e instanceof Error ? e.message : 'Could not open the draft.'));
+  }, [cancer, referralId]);
+
+  const pickCancer = (c: CancerType) => {
+    setReferralId(undefined);
+    setCancer(c);
+  };
+  const pickReferral = (id: string) => {
+    const r = refs.find((x) => x.id === id);
+    if (!r) return setReferralId(undefined);
+    setCancer(r.cancer);
+    setReferralId(r.id);
+  };
+
+  if (!tpl || !report || tpl.cancer !== cancer || report.cancer !== cancer) {
+    return error ? <p className="form-error" role="alert">{error}</p> : <div className="loading" aria-busy><i /><i /><i /></div>;
+  }
+  const prefilled = new Set(report.prefilled ?? []);
+  const set = (key: string, value: string) => {
+    setLast(undefined);
+    setReport({ ...report, values: { ...report.values, [key]: value }, prefilled: report.prefilled?.filter((k) => k !== key) });
+  };
+  const field = (f: StagingField) => (
+    <FieldInput
+      key={f.key}
+      field={f}
+      value={{ value: report.values[f.key] ?? '', origin: prefilled.has(f.key) ? 'record' : 'gp' }}
+      showOrigin={prefilled.has(f.key)}
+      onChange={(v) => set(f.key, v)}
+    />
+  );
+
   const figo = cancer === 'ovarian';
   const stageKey = figo ? 'figoStage' : 'stageGroup';
-  const calc = stageGroup(cancer, report.values);
-  const chosen = report.values[stageKey];
-  const mismatch = calc && chosen && calc !== chosen;
+  const check = checkStaging(tpl, report.values);
+  const calc = check.computedStage;
+  const mismatch = check.stageMismatch;
   const tnmFields = tpl.fields.filter((f) => f.group === 'tnm');
-  const missing = tpl.fields.filter((f) => f.required && !report.values[f.key]).length;
+  const name = (r: { patientId?: string }) => patients.find((p) => p.id === r.patientId)?.name;
+  const mine = refs.filter((r) => r.cancer === cancer);
+
+  const save = async () => {
+    setBusy(true);
+    setError('');
+    try {
+      const s = await saveStagingReport(report);
+      setLast(s);
+      setSaved((xs) => [s, ...xs.filter((x) => x.id !== s.id)]);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Could not save the Staging report.');
+    } finally {
+      setBusy(false);
+    }
+  };
 
   return (
     <div className="doc" style={{ height: '100%' }}>
       <header className="doc-head">
         <div className="ptabs" role="tablist" aria-label="Cancer type" style={{ marginBottom: 12 }}>
           {ORDER.map((c) => (
-            <button key={c} role="tab" className="ptab" aria-selected={c === cancer} onClick={() => setCancer(c)}>
+            <button key={c} role="tab" className="ptab" aria-selected={c === cancer} onClick={() => pickCancer(c)}>
               {cancerName[c]}
             </button>
           ))}
         </div>
         <h1>{tpl.title}</h1>
-        <div className="meta">
+        <div className="meta stg-meta">
+          <label>
+            <span>Referral</span>
+            <select value={referralId ?? ''} onChange={(e) => pickReferral(e.target.value)}>
+              <option value="">Demo patient</option>
+              {mine.map((r) => (
+                <option key={r.id} value={r.id}>
+                  {name(r) ?? r.patientId} · {fmtDate(r.decidedAt)}
+                </option>
+              ))}
+            </select>
+          </label>
+          {prefilled.size > 0 && <span className="tag record">{prefilled.size} {prefilled.size === 1 ? 'field' : 'fields'} copied from the record</span>}
           <Source source={tpl.source} short />
         </div>
       </header>
@@ -57,18 +125,14 @@ export function Specialist() {
       <section>
         <h2>{figo ? 'FIGO stage' : 'TNM and stage group'}</h2>
         <div className="tnm">
-          {tnmFields
-            .filter((f) => f.key !== stageKey)
-            .map((f) => (
-              <FieldInput key={f.key} field={f} value={{ value: report.values[f.key] ?? '', origin: 'gp' }} showOrigin={false} onChange={(v) => set(f.key, v)} />
-            ))}
+          {tnmFields.filter((f) => f.key !== stageKey).map(field)}
           <div className="stage-result" aria-live="polite">
             <small>{figo ? 'FIGO stage' : 'Stage group'}</small>
             <span className="v">{calc ?? '—'}</span>
-            <small>{calc ? (mismatch ? `Report says ${chosen}. Check before sending.` : 'Matches the report.') : figo ? 'No substage. Pick the stage by hand.' : 'Not in the grid. Pick the stage by hand.'}</small>
+            <small>{calc ? (mismatch ? `Report says ${mismatch.reported}. Check before saving.` : 'Matches the report.') : figo ? 'No substage. Pick the stage by hand.' : 'Not in the grid. Pick the stage by hand.'}</small>
           </div>
         </div>
-        {calc && chosen !== calc && (
+        {calc && report.values[stageKey] !== calc && (
           <button className="linkbtn" style={{ marginTop: 10 }} onClick={() => set(stageKey, calc)}>
             Use {calc} as the {figo ? 'FIGO stage' : 'stage group'}
           </button>
@@ -79,30 +143,55 @@ export function Specialist() {
         {GROUPS.map((g) => (
           <section key={g.key}>
             <h2>{g.title}</h2>
-            <div className="fields">
-              {tpl.fields
-                .filter((f) => f.group === g.key)
-                .map((f) => (
-                  <FieldInput key={f.key} field={f} value={{ value: report.values[f.key] ?? '', origin: 'gp' }} showOrigin={false} onChange={(v) => set(f.key, v)} />
-                ))}
-            </div>
+            <div className="fields">{tpl.fields.filter((f) => f.group === g.key).map(field)}</div>
           </section>
         ))}
       </div>
 
       <div className="toolbar">
-        {sent ? (
-          <span className="tag gemma">
-            <Icon name="check" size={12} /> Staging report sent to the Cancer Registry (mock)
+        <button className="btn primary" disabled={busy} onClick={save}>
+          <Icon name="send" /> Save Staging report
+        </button>
+        {last ? (
+          <span className={`tag ${last.status === 'ready-for-registry' ? 'gemma' : 'warn'}`}>
+            {last.status === 'ready-for-registry' ? (
+              <>
+                <Icon name="check" size={12} /> Ready for registry
+              </>
+            ) : (
+              'Saved as draft'
+            )}
           </span>
         ) : (
-          <button className="btn primary" disabled={missing > 0 || !!mismatch} onClick={() => setSent(true)}>
-            <Icon name="send" /> Send to the Cancer Registry
-          </button>
+          <>
+            {check.readyForRegistry && <span className="tag gemma">Ready for registry when saved</span>}
+            {check.missingFields.length > 0 && <span className="notice">{check.missingFields.length} required fields empty.</span>}
+            {mismatch && <span className="notice">{figo ? 'FIGO stage does not match the substage.' : 'Stage group does not match T, N and M.'}</span>}
+          </>
         )}
-        {missing > 0 && <span className="notice">{missing} required fields empty.</span>}
-        {mismatch && <span className="notice">{figo ? 'FIGO stage does not match the substage.' : 'Stage group does not match T, N and M.'}</span>}
+        {error && (
+          <span className="form-error" role="alert">
+            {error}
+          </span>
+        )}
       </div>
+
+      {saved.length > 0 && (
+        <section className="stg-saved">
+          <h2>Saved Staging reports</h2>
+          <ul>
+            {saved.map((s) => (
+              <li key={s.id}>
+                <b>{name(s) ?? s.patientLabel}</b>
+                <span>{cancerName[s.cancer]}</span>
+                <span>Stage {s.values[s.cancer === 'ovarian' ? 'figoStage' : 'stageGroup'] || '—'}</span>
+                <span className={`tag ${s.status === 'ready-for-registry' ? 'gemma' : 'warn'}`}>{s.status === 'ready-for-registry' ? 'Ready for registry' : 'Draft'}</span>
+                <small>{fmtDate(s.savedAt)}</small>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
     </div>
   );
 }

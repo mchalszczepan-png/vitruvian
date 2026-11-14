@@ -1,0 +1,522 @@
+[
+  {
+    "cancer": "lung",
+    "title": "Lung Staging report",
+    "tnmEdition": "TNM 8th edition (UICC/AJCC)",
+    "source": {
+      "label": "NCI lung cancer treatment summary (TNM categories)",
+      "url": "https://www.cancer.gov/types/lung/hp/non-small-cell-lung-treatment-pdq"
+    },
+    "fields": [
+      {
+        "key": "histology",
+        "label": "Histology",
+        "kind": "choice",
+        "required": true,
+        "group": "tumour",
+        "options": [
+          "Adenocarcinoma",
+          "Squamous cell",
+          "Other non-small cell",
+          "Small cell",
+          "Unknown"
+        ]
+      },
+      {
+        "key": "tumourSizeMm",
+        "label": "Tumour size",
+        "kind": "number",
+        "required": false,
+        "group": "tumour",
+        "unit": "mm"
+      },
+      {
+        "key": "clinicalT",
+        "label": "Clinical T (primary tumour)",
+        "kind": "choice",
+        "required": true,
+        "group": "tnm",
+        "options": [
+          "TX",
+          "Tis",
+          "T1mi",
+          "T1a",
+          "T1b",
+          "T1c",
+          "T2a",
+          "T2b",
+          "T3",
+          "T4"
+        ]
+      },
+      {
+        "key": "clinicalN",
+        "label": "Clinical N (regional nodes)",
+        "kind": "choice",
+        "required": true,
+        "group": "tnm",
+        "options": [
+          "NX",
+          "N0",
+          "N1",
+          "N2",
+          "N3"
+        ]
+      },
+      {
+        "key": "clinicalM",
+        "label": "Clinical M (distant metastasis)",
+        "kind": "choice",
+        "required": true,
+        "group": "tnm",
+        "options": [
+          "MX",
+          "M0",
+          "M1a",
+          "M1b",
+          "M1c"
+        ]
+      },
+      {
+        "key": "stageGroup",
+        "label": "Stage group",
+        "kind": "choice",
+        "required": true,
+        "group": "tnm",
+        "options": [
+          "IA1",
+          "IA2",
+          "IA3",
+          "IB",
+          "IIA",
+          "IIB",
+          "IIIA",
+          "IIIB",
+          "IIIC",
+          "IVA",
+          "IVB",
+          "unknown"
+        ]
+      },
+      {
+        "key": "diagnosisDate",
+        "label": "Date of diagnosis",
+        "kind": "date",
+        "required": true,
+        "group": "diagnosis",
+        "source": {
+          "label": "Cancer Registry notification page (form fields)",
+          "url": "https://syoparekisteri.fi/ilmoituspalvelu/"
+        }
+      },
+      {
+        "key": "basisOfDiagnosis",
+        "label": "Basis of diagnosis",
+        "kind": "choice",
+        "required": true,
+        "group": "diagnosis",
+        "options": [
+          "Clinical",
+          "Surgery",
+          "Imaging",
+          "Cytology",
+          "Histology of primary tumour",
+          "Histology of metastasis",
+          "Autopsy (microscopic)",
+          "Autopsy (macroscopic)",
+          "Tumour markers",
+          "Unknown"
+        ],
+        "hint": "Paraphrase of an older registry code list. Not checked against v1.1.",
+        "source": {
+          "label": "Medical Data Models: older registry basis-of-diagnosis form (outdated)",
+          "url": "https://medical-data-models.org/4072?lang=en",
+          "placeholder": true
+        }
+      },
+      {
+        "key": "spreading",
+        "label": "Spreading at diagnosis (registry code)",
+        "kind": "choice",
+        "required": true,
+        "group": "registry",
+        "options": [
+          "0",
+          "1",
+          "2",
+          "3",
+          "9"
+        ],
+        "hint": "Stage is asked when this is 2 or 3. Code meanings not verified.",
+        "source": {
+          "label": "Cancer Registry clinical model v1.1 (not readable; draft fields)",
+          "url": "https://syoparekisteri.fi/ilmoituspalvelu/",
+          "placeholder": true
+        }
+      },
+      {
+        "key": "patientRef",
+        "label": "Patient reference (pseudonymous)",
+        "kind": "text",
+        "required": true,
+        "group": "registry",
+        "hint": "Prototype ID only. Never a national identity number.",
+        "source": {
+          "label": "Cancer Registry notification page (form fields)",
+          "url": "https://syoparekisteri.fi/ilmoituspalvelu/"
+        }
+      },
+      {
+        "key": "reporter",
+        "label": "Reporting Specialist",
+        "kind": "text",
+        "required": true,
+        "group": "registry"
+      }
+    ]
+  },
+  {
+    "cancer": "colorectal",
+    "title": "Colorectal Staging report",
+    "tnmEdition": "TNM 8th edition (UICC/AJCC)",
+    "source": {
+      "label": "NCI colon cancer treatment summary (TNM categories)",
+      "url": "https://www.cancer.gov/types/colorectal/hp/colon-treatment-pdq"
+    },
+    "fields": [
+      {
+        "key": "site",
+        "label": "Site",
+        "kind": "choice",
+        "required": true,
+        "group": "tumour",
+        "options": [
+          "Colon",
+          "Rectum"
+        ],
+        "hint": "Rectum-specific staging rules not verified."
+      },
+      {
+        "key": "histology",
+        "label": "Histology",
+        "kind": "choice",
+        "required": true,
+        "group": "tumour",
+        "options": [
+          "Adenocarcinoma",
+          "Other",
+          "Unknown"
+        ]
+      },
+      {
+        "key": "tumourDepositsPresent",
+        "label": "Tumour deposits present",
+        "kind": "yesno",
+        "required": false,
+        "group": "tumour",
+        "hint": "Noted separately in TNM. Registry handling not verified."
+      },
+      {
+        "key": "clinicalT",
+        "label": "Clinical T (primary tumour)",
+        "kind": "choice",
+        "required": true,
+        "group": "tnm",
+        "options": [
+          "TX",
+          "Tis",
+          "T1",
+          "T2",
+          "T3",
+          "T4a",
+          "T4b"
+        ]
+      },
+      {
+        "key": "clinicalN",
+        "label": "Clinical N (regional nodes)",
+        "kind": "choice",
+        "required": true,
+        "group": "tnm",
+        "options": [
+          "NX",
+          "N0",
+          "N1",
+          "N1c",
+          "N2a",
+          "N2b"
+        ]
+      },
+      {
+        "key": "clinicalM",
+        "label": "Clinical M (distant metastasis)",
+        "kind": "choice",
+        "required": true,
+        "group": "tnm",
+        "options": [
+          "MX",
+          "M0",
+          "M1a",
+          "M1b",
+          "M1c"
+        ]
+      },
+      {
+        "key": "stageGroup",
+        "label": "Stage group",
+        "kind": "choice",
+        "required": true,
+        "group": "tnm",
+        "options": [
+          "0",
+          "I",
+          "IIA",
+          "IIB",
+          "IIC",
+          "IIIA",
+          "IIIB",
+          "IIIC",
+          "IVA",
+          "IVB",
+          "IVC",
+          "unknown"
+        ]
+      },
+      {
+        "key": "diagnosisDate",
+        "label": "Date of diagnosis",
+        "kind": "date",
+        "required": true,
+        "group": "diagnosis",
+        "source": {
+          "label": "Cancer Registry notification page (form fields)",
+          "url": "https://syoparekisteri.fi/ilmoituspalvelu/"
+        }
+      },
+      {
+        "key": "basisOfDiagnosis",
+        "label": "Basis of diagnosis",
+        "kind": "choice",
+        "required": true,
+        "group": "diagnosis",
+        "options": [
+          "Clinical",
+          "Surgery",
+          "Imaging",
+          "Cytology",
+          "Histology of primary tumour",
+          "Histology of metastasis",
+          "Autopsy (microscopic)",
+          "Autopsy (macroscopic)",
+          "Tumour markers",
+          "Unknown"
+        ],
+        "hint": "Paraphrase of an older registry code list. Not checked against v1.1.",
+        "source": {
+          "label": "Medical Data Models: older registry basis-of-diagnosis form (outdated)",
+          "url": "https://medical-data-models.org/4072?lang=en",
+          "placeholder": true
+        }
+      },
+      {
+        "key": "spreading",
+        "label": "Spreading at diagnosis (registry code)",
+        "kind": "choice",
+        "required": true,
+        "group": "registry",
+        "options": [
+          "0",
+          "1",
+          "2",
+          "3",
+          "9"
+        ],
+        "hint": "Stage is asked when this is 2 or 3. Code meanings not verified.",
+        "source": {
+          "label": "Cancer Registry clinical model v1.1 (not readable; draft fields)",
+          "url": "https://syoparekisteri.fi/ilmoituspalvelu/",
+          "placeholder": true
+        }
+      },
+      {
+        "key": "patientRef",
+        "label": "Patient reference (pseudonymous)",
+        "kind": "text",
+        "required": true,
+        "group": "registry",
+        "hint": "Prototype ID only. Never a national identity number.",
+        "source": {
+          "label": "Cancer Registry notification page (form fields)",
+          "url": "https://syoparekisteri.fi/ilmoituspalvelu/"
+        }
+      },
+      {
+        "key": "reporter",
+        "label": "Reporting Specialist",
+        "kind": "text",
+        "required": true,
+        "group": "registry"
+      }
+    ]
+  },
+  {
+    "cancer": "ovarian",
+    "title": "Ovarian Staging report",
+    "tnmEdition": "FIGO 2014",
+    "source": {
+      "label": "FIGO 2014 ovarian staging, Prat, Int J Gynaecol Obstet 2014 (read via a summary, unverified)",
+      "url": "https://doi.org/10.1016/j.ijgo.2013.10.001"
+    },
+    "fields": [
+      {
+        "key": "histology",
+        "label": "Histology",
+        "kind": "choice",
+        "required": true,
+        "group": "tumour",
+        "options": [
+          "high_grade_serous",
+          "low_grade_serous",
+          "endometrioid",
+          "clear_cell",
+          "mucinous",
+          "other",
+          "unknown"
+        ],
+        "hint": "WHO types, 5th edition [unverified list]."
+      },
+      {
+        "key": "histologicalGrade",
+        "label": "Histological grade",
+        "kind": "choice",
+        "required": false,
+        "group": "tumour",
+        "options": [
+          "low",
+          "high",
+          "unknown"
+        ]
+      },
+      {
+        "key": "figoSubstage",
+        "label": "FIGO substage",
+        "kind": "choice",
+        "required": false,
+        "group": "tnm",
+        "options": [
+          "IA",
+          "IB",
+          "IC1",
+          "IC2",
+          "IC3",
+          "IIA",
+          "IIB",
+          "IIIA1",
+          "IIIA2",
+          "IIIB",
+          "IIIC",
+          "IVA",
+          "IVB",
+          "unknown"
+        ],
+        "source": {
+          "label": "FIGO 2014 ovarian staging, Prat, Int J Gynaecol Obstet 2014 (read via a summary, unverified)",
+          "url": "https://doi.org/10.1016/j.ijgo.2013.10.001"
+        }
+      },
+      {
+        "key": "figoStage",
+        "label": "FIGO stage",
+        "kind": "choice",
+        "required": true,
+        "group": "tnm",
+        "options": [
+          "I",
+          "II",
+          "III",
+          "IV",
+          "unknown"
+        ],
+        "source": {
+          "label": "FIGO 2014 ovarian staging, Prat, Int J Gynaecol Obstet 2014 (read via a summary, unverified)",
+          "url": "https://doi.org/10.1016/j.ijgo.2013.10.001"
+        }
+      },
+      {
+        "key": "diagnosisDate",
+        "label": "Date of diagnosis",
+        "kind": "date",
+        "required": true,
+        "group": "diagnosis",
+        "source": {
+          "label": "Cancer Registry notification page (form fields)",
+          "url": "https://syoparekisteri.fi/ilmoituspalvelu/"
+        }
+      },
+      {
+        "key": "basisOfDiagnosis",
+        "label": "Basis of diagnosis",
+        "kind": "choice",
+        "required": true,
+        "group": "diagnosis",
+        "options": [
+          "Clinical",
+          "Surgery",
+          "Imaging",
+          "Cytology",
+          "Histology of primary tumour",
+          "Histology of metastasis",
+          "Autopsy (microscopic)",
+          "Autopsy (macroscopic)",
+          "Tumour markers",
+          "Unknown"
+        ],
+        "hint": "Paraphrase of an older registry code list. Not checked against v1.1.",
+        "source": {
+          "label": "Medical Data Models: older registry basis-of-diagnosis form (outdated)",
+          "url": "https://medical-data-models.org/4072?lang=en",
+          "placeholder": true
+        }
+      },
+      {
+        "key": "spreading",
+        "label": "Spreading at diagnosis (registry code)",
+        "kind": "choice",
+        "required": true,
+        "group": "registry",
+        "options": [
+          "0",
+          "1",
+          "2",
+          "3",
+          "9"
+        ],
+        "hint": "Stage is asked when this is 2 or 3. Code meanings not verified.",
+        "source": {
+          "label": "Cancer Registry clinical model v1.1 (not readable; draft fields)",
+          "url": "https://syoparekisteri.fi/ilmoituspalvelu/",
+          "placeholder": true
+        }
+      },
+      {
+        "key": "patientRef",
+        "label": "Patient reference (pseudonymous)",
+        "kind": "text",
+        "required": true,
+        "group": "registry",
+        "hint": "Prototype ID only. Never a national identity number.",
+        "source": {
+          "label": "Cancer Registry notification page (form fields)",
+          "url": "https://syoparekisteri.fi/ilmoituspalvelu/"
+        }
+      },
+      {
+        "key": "reporter",
+        "label": "Reporting Specialist",
+        "kind": "text",
+        "required": true,
+        "group": "registry"
+      }
+    ]
+  }
+]

@@ -155,13 +155,13 @@ button {
 /* Parallelogram tabs: the signature move */
 .ptabs {
   display: flex;
-  gap: 6px;
+  gap: 2px;
 }
 .ptab {
   position: relative;
   border: 0;
   background: none;
-  padding: 8px 20px;
+  padding: 2px 12px;
   cursor: pointer;
   font-weight: 500;
   font-size: var(--fs-1);
@@ -169,7 +169,7 @@ button {
   isolation: isolate;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
 }
 .ptab::before {
   content: '';
@@ -367,7 +367,7 @@ button {
 /* ---------- GP workspace ---------- */
 .gp-layout {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 600px;
+  grid-template-columns: minmax(0, 1fr) clamp(440px, 40vw, 600px);
   gap: 20px;
   height: 100%;
   min-height: 0;
@@ -402,7 +402,7 @@ button {
 }
 .ehr-body {
   display: grid;
-  grid-template-columns: 250px minmax(0, 1fr);
+  grid-template-columns: clamp(190px, 16vw, 250px) minmax(0, 1fr);
   min-height: 0;
 }
 .ehr-list {
@@ -523,7 +523,7 @@ button {
   gap: 6px;
 }
 .dock-tabs {
-  padding: 0 24px 12px;
+  padding: 0 24px 8px;
 }
 .dock-body {
   overflow: auto;
@@ -627,13 +627,10 @@ button {
 }
 .field {
   display: grid;
-  gap: 6px;
+  align-content: start;
+  gap: 8px;
   padding: 12px 14px;
   border-radius: var(--r);
-  transition: background 180ms var(--ease);
-}
-.field:hover {
-  background: var(--paper);
 }
 .field.missing {
   background: var(--wine-soft);
@@ -1453,7 +1450,7 @@ textarea.input {
 }
 .ehr-list button[aria-current='true'] {
   background: var(--amber-soft);
-  box-shadow: inset 4px 0 0 var(--amber);
+  font-weight: 600;
 }
 
 /* Record: the chart fills the height; the visit timeline scrolls in its own box */
@@ -1791,3 +1788,893 @@ textarea.input {
 .return-actions { display: flex; gap: 12px; }
 .return-reason { margin: 0 0 16px; padding: 8px 12px; border-left: 4px solid var(--amber); background: var(--amber-soft); }
 .form-error { margin: 0 0 16px; color: var(--wine); font-weight: 600; }
+
+/* County: roadmap ties and county data sources (brief audit, 14 Nov) */
+.next-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 12px; }
+.next-head > span { display: inline-flex; align-items: center; gap: 8px; color: #ddd5d2; }
+.roadmap-ties { list-style: none; margin: 8px 0; padding: 0; display: grid; gap: 4px; }
+.roadmap-ties li { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.roadmap-ties b { color: var(--amber); }
+.roadmap-ties span { color: #ddd5d2; }
+.county-data ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.county-data li { display: grid; grid-template-columns: minmax(0, 16em) minmax(0, 14em) minmax(0, 1fr); gap: 12px; align-items: center; padding-top: 8px; border-top: 1px solid #e4dfdc; }
+.county-data-gap { font-weight: 600; margin: 0 0 16px; }
+@media (max-width: 720px) { .county-data li { grid-template-columns: 1fr; gap: 4px; } }
+
+/* Specialist: Referral draft picker and saved Staging reports (stories 32, 33) */
+.stg-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+.stg-meta label { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; }
+.stg-meta select { font: inherit; padding: 4px 8px; border: 1px solid #c9c2bd; border-radius: var(--r); background: var(--paper); }
+.stg-saved ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.stg-saved li { display: grid; grid-template-columns: minmax(0, 14em) 8em 8em auto 1fr; gap: 12px; align-items: center; padding-top: 8px; border-top: 1px solid #e4dfdc; }
+.stg-saved li small { color: var(--muted); justify-self: end; }
+@media (max-width: 720px) { .stg-saved li { grid-template-columns: 1fr 1fr; } }
+
+/* County gaps: three sourced county comparisons */
+.county-gaps h3 {
+  font-size: var(--fs-1);
+  margin: 0 0 16px;
+}
+.county-gaps .bar-row {
+  grid-template-columns: 120px minmax(0, 1fr);
+}
+.county-ovarian {
+  margin: 32px 0 0;
+  color: var(--muted);
+}
+
+/* ---------- Fake sign-in (14 Nov) ---------- */
+.shell-login {
+  grid-template-rows: auto minmax(0, 1fr);
+}
+.login {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  min-height: 0;
+}
+.login-brand {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.login-logo {
+  width: 64px;
+  height: 64px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--r);
+  background: rgb(248 241 238 / 0.08);
+}
+.login-brand h1 {
+  font-family: var(--title);
+  font-size: var(--fs-3);
+  font-weight: 600;
+  margin: 0;
+}
+.login-brand p {
+  margin: 0;
+  color: var(--lilac);
+}
+.login-form {
+  align-self: center;
+  justify-self: center;
+  width: min(420px, 100% - 64px);
+  display: grid;
+  gap: 12px;
+}
+.login-form h2 {
+  font-family: var(--title);
+  font-size: var(--fs-2);
+  margin: 0 0 8px;
+}
+.login-hint {
+  margin: 4px 0 0;
+  color: var(--muted);
+}
+.login-roles {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+.login-roles button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 18px;
+  border: 1px solid var(--paper-2);
+  border-radius: var(--r);
+  background: var(--card);
+  color: var(--ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 180ms var(--ease), transform 180ms var(--ease);
+}
+.login-roles button:hover {
+  border-color: var(--wine);
+  transform: translateX(4px);
+}
+.login-roles b {
+  display: block;
+}
+.login-roles small {
+  color: var(--muted);
+  font-size: var(--fs-1);
+}
+.topbar .who b {
+  color: var(--ink);
+}
+.topbar .signout {
+  margin-left: 0;
+}
+@media (max-width: 760px) {
+  .login {
+    grid-template-columns: 1fr;
+  }
+  .login-brand {
+    padding: 24px;
+    gap: 16px;
+  }
+}
+.login-logo svg {
+  width: 32px;
+  height: 32px;
+}
+
+/* Record chart (14 Nov): the whole chart scrolls, so the patient line scrolls away.
+   The new entry is the GP's main action, so it is the biggest thing on the chart. */
+.ehr-chart {
+  overflow: auto;
+}
+.ehr-history {
+  flex: none;
+}
+.ehr-tl-box {
+  flex: none;
+  overflow: visible;
+}
+.ehr-who {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+}
+.ehr-who b {
+  font-family: var(--title);
+  font-weight: 600;
+}
+.ehr-who span {
+  color: #5b6066;
+}
+.ehr-entry {
+  flex-shrink: 0;
+  display: grid;
+  grid-template-columns: none;
+  gap: 8px;
+  margin: 0;
+  padding: 16px;
+  background: #fff;
+  border: 2px solid var(--ink);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px -12px rgb(24 37 33 / 0.35);
+}
+.ehr-entry label {
+  font-family: var(--title);
+  font-weight: 600;
+}
+.ehr-entry textarea {
+  min-height: 136px;
+  border: 1px solid #d6d2cf;
+}
+.ehr-entry textarea:focus {
+  outline: 2px solid var(--amber);
+  outline-offset: 1px;
+}
+.ehr-entry-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.ehr-entry-foot small {
+  color: #5b6066;
+  font-size: var(--fs-1);
+}
+
+/* ---------- Note-first GP screen (14 Nov) ----------
+   Patients · today's note (the main thing) · one small Vitruvian pointer card.
+   The Referral opens in a side sheet only when the GP starts one. */
+.muted {
+  color: var(--muted);
+}
+.nf {
+  position: relative;
+  display: grid;
+  grid-template-columns: clamp(180px, 15vw, 240px) minmax(0, 1fr) clamp(300px, 26vw, 380px);
+  gap: 24px;
+  height: 100%;
+  min-height: 0;
+}
+.nf-list {
+  overflow: auto;
+  background: #e4e1df;
+  border-radius: var(--r);
+  font-family: var(--sans);
+}
+.nf-list button {
+  width: 100%;
+  text-align: left;
+  border: 0;
+  border-bottom: 1px solid #cfcac6;
+  background: none;
+  padding: 12px 16px;
+  font-size: var(--fs-1);
+  cursor: pointer;
+  display: grid;
+}
+.nf-list button:hover {
+  background: #d9d6d3;
+}
+.nf-list button[aria-current='true'] {
+  background: var(--amber-soft);
+  box-shadow: inset 4px 0 0 var(--amber);
+}
+.nf-list small {
+  color: #5b6066;
+  font-size: var(--fs-1);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.nf-main {
+  min-height: 0;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+/* Patient: one compact table row (Michal, 15 Nov) */
+/* Patient: a visible full-width table (Michal, 15 Nov) */
+.nf-who {
+  flex-shrink: 0;
+  width: 100%;
+  box-sizing: border-box;
+  table-layout: fixed;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--card);
+  border: 1px solid #e3dfdc;
+  border-radius: var(--r-sm);
+  overflow: hidden;
+}
+.nf-who th,
+.nf-who td {
+  text-align: left;
+  padding: 8px 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.nf-who th {
+  font-weight: 400;
+  color: var(--muted);
+  background: var(--paper-2);
+  border-bottom: 1px solid #e3dfdc;
+}
+.nf-who th + th,
+.nf-who td + td {
+  border-left: 1px solid #e3dfdc;
+}
+.nf-who th:first-child {
+  width: 40%;
+}
+.nf-who b {
+  font-family: var(--title);
+  font-weight: 600;
+}
+.nf-note {
+  flex: 1 0 auto;
+  min-height: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+  background: #fff;
+  border: 2px solid var(--ink);
+  border-radius: var(--r);
+  box-shadow: var(--shadow);
+}
+.nf-note label {
+  font-family: var(--title);
+  font-weight: 600;
+}
+.nf-note textarea {
+  flex: 1;
+  resize: none;
+  font: inherit;
+  line-height: 1.6;
+  padding: 16px;
+  background: #fff;
+  border: 1px solid #e3dfdc;
+}
+.nf-note textarea:focus {
+  outline: 2px solid var(--amber);
+  outline-offset: 1px;
+}
+.nf-note-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+.nf-note-foot small {
+  font-size: var(--fs-1);
+  color: var(--muted);
+}
+.nf-hist {
+  flex-shrink: 0;
+}
+.nf-hist h2,
+.nf-why h3 {
+  font-family: var(--title);
+  font-size: var(--fs-1);
+  font-weight: 600;
+  margin: 0 0 8px;
+}
+.nf-hist ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.nf-hist li {
+  padding: 4px 8px;
+  border-bottom: 1px solid var(--paper-2);
+  border-radius: 6px;
+  transition: background 180ms var(--ease);
+}
+.nf-hist li.lit {
+  background: var(--amber-soft);
+}
+.nf-hist time {
+  font-weight: 600;
+  margin-right: 8px;
+}
+.nf-hist-note {
+  white-space: pre-wrap;
+  color: var(--slate);
+  margin: 4px 0 8px;
+}
+.nf-ptr {
+  align-self: start;
+  max-height: 100%;
+  overflow: auto;
+  background: var(--card);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.nf-ptr header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.nf-ptr-head {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
+.nf-ptr-label {
+  color: var(--muted);
+}
+.nf-ptr-reason {
+  margin: 0;
+  text-wrap: pretty;
+}
+.nf-ptr-cancer {
+  font-family: var(--title);
+  font-size: var(--fs-2);
+  line-height: 1.2;
+  font-weight: 600;
+}
+.nf-ptr-risk {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.nf-ptr-risk .meter {
+  width: 160px;
+}
+.nf-ptr-gate,
+.nf-ptr-done,
+.nf-why-flag {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: var(--r-sm);
+  background: var(--amber-soft);
+}
+.nf-ptr-done {
+  background: var(--lilac-soft);
+  font-weight: 600;
+}
+.nf-ptr-decide {
+  display: grid;
+  gap: 8px;
+  margin-top: 8px;
+}
+.nf-ptr-decide .row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.nf-why-btn {
+  align-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.nf-why {
+  display: grid;
+  gap: 8px;
+  border-top: 1px solid var(--paper-2);
+  padding-top: 16px;
+}
+.nf-why-item {
+  background: var(--paper);
+  border-radius: var(--r);
+  padding: 12px 16px;
+  display: grid;
+  gap: 4px;
+}
+.nf-why-item p {
+  margin: 0;
+}
+.nf-sheet-wrap {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  z-index: 20;
+  background: rgb(24 37 33 / 0.25);
+  display: flex;
+  justify-content: flex-end;
+}
+.nf-sheet {
+  width: min(640px, 100%);
+  height: 100%;
+  background: var(--card);
+  box-shadow: var(--shadow);
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  animation: nf-in 320ms var(--ease);
+}
+@keyframes nf-in {
+  from {
+    transform: translateX(48px);
+    opacity: 0;
+  }
+}
+.nf-sheet header,
+.nf-sheet footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 24px;
+}
+.nf-sheet header {
+  border-bottom: 1px solid var(--paper-2);
+}
+.nf-sheet header h2 {
+  font-family: var(--title);
+  font-size: var(--fs-1);
+  font-weight: 600;
+  margin: 0;
+}
+.nf-sheet footer {
+  border-top: 1px solid var(--paper-2);
+}
+.nf-sheet footer .row {
+  display: flex;
+  gap: 8px;
+}
+.nf-sheet-body,
+.nf-sheet > .loading {
+  overflow: auto;
+  padding: 16px 24px;
+  display: grid;
+  gap: 12px;
+  align-content: start;
+}
+.nf-sheet-status {
+  margin: 0;
+}
+.nf-sheet-status b {
+  color: var(--wine);
+}
+@media (max-width: 1100px) {
+  .nf {
+    grid-template-columns: minmax(0, 1fr) clamp(280px, 34vw, 360px);
+  }
+  .nf-list {
+    display: none;
+  }
+}
+
+/* Phone width: one column, note first, then the Vitruvian card. */
+@media (max-width: 720px) {
+  .main {
+    padding: 0 16px 16px;
+    overflow: auto;
+  }
+  .topbar {
+    gap: 8px;
+    padding: 12px 16px;
+  }
+  .topbar .who {
+    display: none;
+  }
+  .topbar .lang {
+    margin-left: auto;
+  }
+  .nf {
+    grid-template-columns: minmax(0, 1fr);
+    height: auto;
+  }
+  .nf-main {
+    overflow: visible;
+  }
+  .nf-note {
+    min-height: 360px;
+  }
+}
+
+/* Words the risk model cited from the notes */
+.nf-evidence {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+}
+.nf-evidence mark {
+  background: var(--amber-soft);
+  color: var(--ink);
+  border-radius: var(--r-sm);
+  padding: 0 8px;
+}
+.tech-used .tag {
+  white-space: normal;
+}
+/* "None known" checkbox on empty text fields (Michal, 14 Nov) */
+.none-known {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  align-self: start;
+  width: fit-content;
+  cursor: pointer;
+}
+.none-known input {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  accent-color: var(--wine);
+  cursor: pointer;
+}
+/* Published risk (PPV) next to the Risk gradient: evidence, not a decision */
+.nf-ptr-ppv {
+  display: grid;
+  gap: 4px;
+  padding: 12px 16px;
+  background: var(--paper);
+  border-radius: var(--r-sm);
+}
+.nf-ptr-ppv p {
+  margin: 0;
+}
+.nf-ppv-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 8px;
+}
+.nf-ppv-note {
+  text-wrap: pretty;
+}
+
+/* Patient search above the list */
+.nf-search {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  width: 100%;
+  font: inherit;
+  padding: 12px 16px;
+  border: 0;
+  border-bottom: 1px solid #cfcac6;
+  background: #e4e1df;
+  color: var(--ink);
+}
+.nf-search::placeholder {
+  color: var(--muted);
+}
+.nf-search:focus {
+  outline: 2px solid var(--amber);
+  outline-offset: -2px;
+  background: #fff;
+}
+.nf-list-none {
+  margin: 0;
+  padding: 12px 16px;
+  color: var(--muted);
+}
+
+/* Visits as one timeline: today's note on top, earlier visits below (Michal, 15 Nov) */
+.nf-tl {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 32px;
+  position: relative;
+  display: grid;
+  gap: 8px;
+}
+.nf-tl::before {
+  content: '';
+  position: absolute;
+  left: 7px;
+  top: 24px;
+  bottom: 16px;
+  width: 2px;
+  background: #d6cbc6;
+}
+.nf-tl > li {
+  position: relative;
+  padding: 8px 16px;
+  background: var(--card);
+  border: 1px solid #e9e1dd;
+  border-radius: var(--r-sm);
+  transition: background 180ms var(--ease), border-color 180ms var(--ease);
+}
+.nf-tl > li::before {
+  content: '';
+  position: absolute;
+  left: -33px;
+  top: 12px;
+  width: 16px;
+  height: 16px;
+  box-sizing: border-box;
+  border-radius: 50%;
+  background: var(--paper);
+  border: 2px solid var(--slate);
+}
+.nf-tl > li.lit {
+  background: var(--amber-soft);
+  border-color: var(--amber);
+}
+.nf-tl > li.lit::before {
+  background: var(--amber);
+  border-color: var(--ink);
+}
+.nf-tl time {
+  font-weight: 600;
+  margin-right: 8px;
+}
+.nf-tl > .nf-tl-today {
+  padding: 0;
+  margin-bottom: 8px;
+  background: none;
+  border: 0;
+}
+.nf-tl > .nf-tl-today::before {
+  top: 20px;
+  background: var(--wine);
+  border-color: var(--wine);
+  box-shadow: 0 0 0 4px var(--wine-soft);
+}
+.nf-tl-today .nf-note {
+  min-height: 0;
+}
+.nf-tl-today .nf-note textarea {
+  min-height: 280px;
+}
+.nf-note-label {
+  margin: 0;
+  font-family: var(--title);
+  font-weight: 600;
+}
+/* Saved note folds into a read-only box */
+.nf-note-saved {
+  border-width: 1px;
+  border-color: #e3dfdc;
+  box-shadow: none;
+}
+.nf-note-text {
+  margin: 0;
+  white-space: pre-wrap;
+  line-height: 1.6;
+}
+.nf-tl-today .nf-note-label .num,
+.nf-tl-today label .num {
+  font-family: var(--sans);
+  font-weight: 400;
+  color: var(--muted);
+}
+
+/* Background check: the card shows it is working */
+.nf-ptr-wait {
+  display: grid;
+  gap: 8px;
+}
+.nf-ptr-wait p {
+  margin: 0 0 8px;
+}
+.nf-ptr-wait i {
+  display: block;
+  height: 16px;
+  border-radius: var(--r-sm);
+  background: linear-gradient(90deg, var(--paper-2) 20%, var(--wine-soft) 50%, var(--paper-2) 80%);
+  background-size: 300% 100%;
+  animation: nf-shimmer 1.4s var(--ease) infinite;
+}
+.nf-ptr-wait i:nth-of-type(2) {
+  width: 80%;
+}
+.nf-ptr-wait i:nth-of-type(3) {
+  width: 55%;
+}
+.nf-ptr.checking header .mark {
+  animation: nf-pulse 1s ease-in-out infinite alternate;
+}
+@keyframes nf-shimmer {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: 0 0;
+  }
+}
+@keyframes nf-pulse {
+  to {
+    opacity: 0.35;
+    transform: scale(0.85);
+  }
+}
+
+/* Small pop-up when a background check matched a Rule */
+.nf-toast {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 20;
+  max-width: min(420px, calc(100vw - 32px));
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  text-align: left;
+  font: inherit;
+  padding: 12px 16px;
+  border: 0;
+  border-radius: var(--r);
+  background: var(--ink);
+  color: #fff;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  animation: nf-toast-in 320ms var(--ease);
+}
+@keyframes nf-toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+@media (max-width: 720px) {
+  .nf-toast {
+    right: 16px;
+    bottom: 16px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nf-ptr-wait i,
+  .nf-ptr.checking header .mark,
+  .nf-toast {
+    animation: none;
+  }
+}
+.btn.primary:disabled {
+  color: rgb(58 65 76 / 0.6);
+}
+.btn.primary:disabled::before {
+  background: var(--paper-2);
+  box-shadow: none;
+}
+/* EN / FI label switch */
+.lang {
+  display: flex;
+  gap: 4px;
+}
+.lang .btn {
+  min-width: 48px;
+}
+.login-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.login-head h2 {
+  margin-bottom: 8px;
+}
+
+/* Logo */
+img.mark {
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+/* Referral form: two columns, wide fields span both (Michal, 15 Nov) */
+.nf-sheet {
+  width: min(760px, 100%);
+}
+.nf-sheet .fields {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 8px 16px;
+}
+.nf-sheet .field.wide {
+  grid-column: 1 / -1;
+}
+.nf-sheet .field:not(.missing) {
+  background: var(--paper);
+}
+.field .input:focus,
+.field .input:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 1px;
+}
+.nf-sheet .field .input {
+  background: #fff;
+  border: 1px solid #e3dfdc;
+}
+@media (max-width: 720px) {
+  .nf-sheet .fields {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .nf-sheet footer {
+    flex-wrap: wrap;
+  }
+}
+.nf-toast img.mark {
+  filter: brightness(0) invert(1);
+}
+@media (max-width: 720px) {
+  .nf-who {
+    table-layout: auto;
+  }
+  .nf-who th,
+  .nf-who td {
+    padding: 8px 12px;
+    white-space: normal;
+  }
+  .nf-who th:first-child {
+    width: auto;
+  }
+  .nf-who .num {
+    white-space: nowrap;
+  }
+}

@@ -22,6 +22,10 @@ export interface Visit {
   symptom: string;
   /** GP free-text note */
   note: string;
+  /** Finnish translation of `reason`, for display only (the Aid reads English `note`) */
+  reasonFi?: string;
+  /** Finnish translation of `note`, for display only (the Aid reads English `note`) */
+  gpNoteFi?: string;
 }
 
 export type SmokingStatus = 'never' | 'former' | 'current' | 'unknown';
@@ -88,6 +92,8 @@ export interface Rule {
   gate?: { test: string; threshold: string; source: Source };
   /** age limits or other plain-language conditions, shown on hover */
   conditions?: string;
+  /** how the Rule reads the visit history (docs/build/rules.md "Over time"); optional, only the Convex seed sets it */
+  overTime?: { pattern: 'single' | 'persistent' | 'recurrent' | 'worsening'; minVisits: number; windowDays: number | null; minDurationDays: number | null; basis: string };
 }
 
 export interface MatchedRule {
@@ -117,14 +123,48 @@ export interface Severity {
   source: Source;
 }
 
+/** Story 40: which tech served one Aid step, for the tech-used badges. */
+export interface TechUsed {
+  step: 'facts' | 'decisions' | 'risk' | 'repeat' | 'fill';
+  /** 'stub' and 'mock' mean no model ran (offline demo) */
+  provider: 'gemma' | 'modal-lora' | 'gemini' | 'convex-vector' | 'embeddinggemma' | 'symptom-match' | 'stub' | 'mock';
+  /** badge text when the provider name alone is not honest enough (the triage LoRA's model card line) */
+  detail?: string;
+}
+
 export interface AidResult {
+  /** the cancer whose Referral template opens; when noRuleMatched is true it is only a fallback for that template, not a suspicion */
   suspectedCancer: CancerType;
+  /** true when no Rule of any cancer matched: show "No cancer Rule matched" instead of a suspected cancer */
+  noRuleMatched?: boolean;
+  /** story 40 tech-used badges; absent on old results */
+  techUsed?: TechUsed[];
   riskGradient: number; // 0–10, AI estimate
   riskReason: string;
+  /** the triage model's own cancer guess, set only when it differs from the Rules' answer. A note only: the Rules decide (decision 14). */
+  riskModelPointer?: CancerType | 'none';
+  /** phrases copied from the notes that the triage model cited, for highlighting */
+  riskEvidence?: string[];
   matchedRules: MatchedRule[];
   severity: Severity;
   /** set when a gate test is missing: the Aid shows "FIT needed" before "refer" */
   testNeeded?: { test: string; threshold: string; why: string; source: Source };
+  /**
+   * Published PPV from UK primary-care aggregate studies (not Finnish, not a personal probability). Evidence for the GP,
+   * not an automatic referral (decision 16: GP only). Absent when no evidence row applies or no Rule matched.
+   * aboveNg12Threshold: pct is at or above NICE NG12's 3%. The riskGradient is not changed by this.
+   */
+  publishedRisk?: {
+    pct: number;
+    isLowerBound: boolean;
+    rowId: string;
+    sourceLabel: string;
+    sourceUrl: string;
+    because: string;
+    aboveNg12Threshold: boolean;
+    studyPopulation: string;
+    quote: string;
+  };
 }
 
 export type GpDecision = 'refer-urgent' | 'refer-routine' | 'order-test' | 'not-now';
@@ -143,6 +183,48 @@ export interface Referral {
   repeatVisit?: RepeatVisitFlag;
 }
 
+/** A key test value against its threshold, e.g. FIT against >= 10 µg Hb/g, CA-125 against the NICE age band. */
+export interface ReferralTestValue {
+  test: string; // "FIT", "CA-125"
+  /** null when the test is not done or not recorded */
+  value: number | null;
+  unit: string;
+  threshold: string;
+  /** null when there is no value */
+  meetsThreshold: boolean | null;
+  source: Source;
+}
+
+/**
+ * Checkable facts for the Referral desk and Specialist (decision 16, docs/SPEC.md "Who sees the Risk gradient").
+ * It never carries the Risk gradient.
+ */
+export interface ReferralSummary {
+  gpDecision: GpDecision;
+  urgency: 'urgent' | 'routine';
+  /** every visit, oldest first */
+  timeline: { visitId: string; date: string; reason: string; reasonFi?: string }[];
+  matchedRules: { ruleId: string; text: string; source: Source; because: string; visitDates: string[] }[];
+  tests: ReferralTestValue[];
+  /** red-flag labels: present = yes in the Referral fields or a matched Rule; ruledOut = an explicit no in the Referral fields */
+  redFlags: { present: string[]; ruledOut: string[] };
+  /** required Referral template fields with no value */
+  missingFields: { key: string; label: string }[];
+}
+
+/** What getReferrals returns (Referral desk, Specialist): the stored Referral without the Risk gradient, plus the summary. */
+export interface ReferralView extends Omit<Referral, 'riskGradient' | 'matchedRules'> {
+  /** `fields` never contains riskGradientAiEstimate */
+  summary: ReferralSummary;
+  /** stories 29b/30: the Referral desk's answer; 'sent' until it acts */
+  status: ReferralStatus;
+  /** required when status is 'returned' */
+  statusReason?: string;
+  statusAt?: string;
+}
+
+export type ReferralStatus = 'sent' | 'accepted' | 'returned';
+
 export interface StagingField extends TemplateField {
   group: 'tumour' | 'tnm' | 'diagnosis' | 'registry';
 }
@@ -160,7 +242,35 @@ export interface StagingReport {
   cancer: CancerType;
   patientLabel: string;
   values: Record<string, string>;
+  /** story 32: set when the draft was built from a Referral */
+  referralId?: string;
+  patientId?: string;
+  /** story 32: keys whose value was copied from the patient record or the Referral, so the Specialist enters only the stage data */
+  prefilled?: string[];
 }
+
+/** Stories 31–33: what the Specialist still has to do before the report can go to the Cancer Registry. */
+export interface StagingCheck {
+  /** true when every required field is set and the stage matches T/N/M (or the FIGO substage) */
+  readyForRegistry: boolean;
+  /** required template fields with no value */
+  missingFields: { key: string; label: string }[];
+  /** stage group (or FIGO stage) worked out from T/N/M or the substage; null when not in the grid */
+  computedStage: string | null;
+  /** set when the report's stage differs from computedStage */
+  stageMismatch?: { computed: string; reported: string };
+}
+
+export type StagingStatus = 'draft' | 'ready-for-registry';
+
+/** Story 33: a Staging report the Specialist saved. The status comes from the server-side check, never from the client. */
+export interface SavedStagingReport extends StagingReport {
+  id: string;
+  status: StagingStatus;
+  check: StagingCheck;
+  savedAt: string;
+}
+
 
 export interface Figure {
   id: string;

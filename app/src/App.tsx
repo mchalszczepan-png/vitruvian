@@ -2,29 +2,24 @@ import { useEffect, useState } from 'react';
 import { getPatients } from './data/api';
 import type { Patient } from './data/types';
 import { Mark } from './components/Icon';
+import { LangSwitch } from './components/LangSwitch';
 import { GpWorkspace } from './screens/GpWorkspace';
 import { ReferralDesk } from './screens/ReferralDesk';
 import { Specialist } from './screens/Specialist';
 import { County } from './screens/County';
+import { Login, ROLES, type Role } from './screens/Login';
 
-type View = 'gp' | 'desk' | 'specialist' | 'county';
-const VIEWS: { id: View; label: string; who: string }[] = [
-  { id: 'gp', label: 'GP', who: 'GP (yleislääkäri), health centre' },
-  { id: 'desk', label: 'Referral desk', who: 'Referral desk (lähetekäsittely), hospital' },
-  { id: 'specialist', label: 'Specialist', who: 'Specialist (erikoislääkäri), hospital' },
-  { id: 'county', label: 'Country data', who: 'Wellbeing services county (hyvinvointialue)' },
-];
-
+/* Fake sign-in (Michal, 14 Nov): each role sees only its own screen. #county is hidden, for screenshots only. */
+type View = Role | 'county' | 'login';
 function readHash(): View {
-  const h = location.hash.replace('#', '').split('/')[0] as View;
-  return VIEWS.some((v) => v.id === h) ? h : 'gp';
+  const h = location.hash.replace('#', '').split('/')[0];
+  return h === 'county' || ROLES.some((r) => r.id === h) ? (h as View) : 'login';
 }
 
 export default function App() {
   const [view, setView] = useState<View>(readHash);
   const [patients, setPatients] = useState<Patient[]>([]);
   const [patientId, setPatientId] = useState('SYN-001');
-  const [focusRef, setFocusRef] = useState<string>();
 
   useEffect(() => {
     getPatients().then(setPatients);
@@ -33,45 +28,42 @@ export default function App() {
     return () => removeEventListener('hashchange', onHash);
   }, []);
   const go = (v: View) => {
-    location.hash = v;
+    location.hash = v === 'login' ? '' : v;
     setView(v);
   };
+  const role = ROLES.find((r) => r.id === view);
 
   return (
-    <div className="shell">
+    <div className={`shell${view === 'login' ? ' shell-login' : ''}`}>
       <p className="disclaimer" role="note">
-        <strong>Research prototype. Not a medical device. Not for clinical use.</strong>
-        <span>Made-up patients only.</span>
+        <strong>Research prototype. Not a medical device. Not for clinical use. Made-up patients only.</strong>
       </p>
-      <header className="topbar">
-        <span className="wordmark">
-          <Mark /> Vitruvian
-        </span>
-        <nav className="ptabs" role="tablist" aria-label="Who is using Vitruvian">
-          {VIEWS.map((v) => (
-            <button key={v.id} role="tab" className="ptab" aria-selected={view === v.id} onClick={() => go(v.id)}>
-              {v.label}
+      {view === 'login' ? (
+        <Login onSignIn={go} />
+      ) : (
+        <>
+          <header className="topbar">
+            <span className="wordmark">
+              <Mark /> Vitruvian
+            </span>
+            {role && (
+              <span className="who">
+                <b>{role.label}</b> · {role.user}
+              </span>
+            )}
+            <LangSwitch />
+            <button className="btn signout" onClick={() => go('login')}>
+              Sign out
             </button>
-          ))}
-        </nav>
-        <span className="who">Viewing as: {VIEWS.find((v) => v.id === view)!.who}</span>
-      </header>
-      <main className="main">
-        {patients.length > 0 && view === 'gp' && (
-          <GpWorkspace
-            patients={patients}
-            patientId={patientId}
-            onPatient={setPatientId}
-            onOpenDesk={(id) => {
-              setFocusRef(id);
-              go('desk');
-            }}
-          />
-        )}
-        {view === 'desk' && <ReferralDesk patients={patients} focusId={focusRef} onGoGp={() => go('gp')} />}
-        {view === 'specialist' && <Specialist />}
-        {view === 'county' && <County />}
-      </main>
+          </header>
+          <main className="main">
+            {patients.length > 0 && view === 'gp' && <GpWorkspace patients={patients} patientId={patientId} onPatient={setPatientId} />}
+            {view === 'desk' && <ReferralDesk patients={patients} />}
+            {view === 'specialist' && <Specialist patients={patients} />}
+            {view === 'county' && <County />}
+          </main>
+        </>
+      )}
     </div>
   );
 }

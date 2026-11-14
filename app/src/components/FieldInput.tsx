@@ -1,6 +1,7 @@
 import type { FieldValue, TemplateField } from '../data/types';
 import { More } from './More';
 import { optionLabel, originLabel } from './labels';
+import { useBi } from './lang';
 
 interface Props {
   field: TemplateField;
@@ -12,6 +13,7 @@ interface Props {
 
 /** One Referral template field. Any field is editable; a GP edit marks the value as the GP's own. */
 export function FieldInput({ field, value, onChange, showOrigin = true }: Props) {
+  const t = useBi();
   const v = value?.value ?? '';
   const origin = value && v !== '' ? value.origin : 'empty';
   const missing = field.required && v === '';
@@ -89,21 +91,20 @@ export function FieldInput({ field, value, onChange, showOrigin = true }: Props)
   }
 
   return (
-    <div className={`field${missing ? ' missing' : ''}`}>
+    <div className={`field${missing ? ' missing' : ''}${multi || field.kind === 'longtext' ? ' wide' : ''}`} title={value?.evidence && origin === 'gemma' ? `From the note: ${value.evidence}` : undefined}>
       <div className="field-top">
         <label id={`${id}-l`} htmlFor={id}>
-          {field.label}
+          {t(field.label)}
         </label>
-        {field.required && <span className="req">Required</span>}
-        {showOrigin && <span className={`tag ${origin}`}>{originLabel[origin]}</span>}
+        {missing && <span className="req">Required</span>}
+        {showOrigin && origin !== 'empty' && <span className={`tag ${origin}`}>{originLabel[origin]}</span>}
       </div>
       {control}
-      {missing && field.kind === 'text' && (
-        <div className="toolbar">
-          <button type="button" className="linkbtn" onClick={() => onChange('None known')}>
-            Set to “None known”
-          </button>
-        </div>
+      {field.kind === 'text' && (missing || value?.value === 'None known') && (
+        <label className="none-known">
+          <input type="checkbox" checked={value?.value === 'None known'} onChange={(e) => onChange(e.target.checked ? 'None known' : '')} />
+          None known
+        </label>
       )}
       {value?.evidence && origin === 'gemma' && (
         <More className="evidence">

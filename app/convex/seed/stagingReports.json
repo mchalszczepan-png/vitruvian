@@ -1,0 +1,52 @@
+[
+  {
+    "cancer": "lung",
+    "patientLabel": "Matti Esimerkki, 62 (made-up)",
+    "values": {
+      "histology": "Adenocarcinoma",
+      "tumourSizeMm": "35",
+      "clinicalT": "T2a",
+      "clinicalN": "N1",
+      "clinicalM": "M0",
+      "stageGroup": "IIB",
+      "diagnosisDate": "2026-10-20",
+      "basisOfDiagnosis": "Histology of primary tumour",
+      "spreading": "2",
+      "patientRef": "SYN-001",
+      "reporter": "Specialist (made-up)"
+    }
+  },
+  {
+    "cancer": "colorectal",
+    "patientLabel": "Anneli (made-up)",
+    "values": {
+      "site": "Colon",
+      "histology": "Adenocarcinoma",
+      "tumourDepositsPresent": "no",
+      "clinicalT": "T3",
+      "clinicalN": "N0",
+      "clinicalM": "M0",
+      "stageGroup": "IIA",
+      "diagnosisDate": "2026-10-27",
+      "basisOfDiagnosis": "Histology of primary tumour",
+      "spreading": "2",
+      "patientRef": "SYN-002",
+      "reporter": "Specialist (made-up)"
+    }
+  },
+  {
+    "cancer": "ovarian",
+    "patientLabel": "Sirpa Luonnos, SYN-003, 57 (made-up)",
+    "values": {
+      "histology": "high_grade_serous",
+      "histologicalGrade": "high",
+      "figoSubstage": "IIIC",
+      "figoStage": "III",
+      "diagnosisDate": "2026-11-03",
+      "basisOfDiagnosis": "Histology of primary tumour",
+      "spreading": "3",
+      "patientRef": "SYN-003",
+      "reporter": "Specialist (made-up)"
+    }
+  }
+]

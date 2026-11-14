@@ -1,0 +1,1448 @@
+{
+  "about": "Published positive predictive values (PPV) for suspected lung, colorectal and ovarian cancer. See risk-ppv.md for method and caveats.",
+  "symptomKeys": [
+    "abdominal-distension",
+    "abdominal-pain",
+    "appetite-loss",
+    "bloating",
+    "breathlessness",
+    "chest-pain",
+    "cough",
+    "diarrhoea",
+    "fatigue",
+    "haemoptysis",
+    "iron-deficiency-anaemia",
+    "low-haemoglobin",
+    "postmenopausal-bleeding",
+    "raised-ca125",
+    "rectal-bleeding",
+    "urinary-frequency",
+    "weight-loss"
+  ],
+  "ng12ThresholdPct": 3,
+  "ng12ThresholdSource": {
+    "label": "NICE NG12 evidence review D (April 2026), section 1.1.8.2: the committee retained the 3% PPV threshold",
+    "url": "https://www.nice.org.uk/guidance/ng12/evidence/d-unexplained-weight-loss-as-a-non-site-specific-symptom-in-adults-in-primary-care-pdf-15669144114",
+    "quote": "The committee agreed to retain from the previous guideline a positive predictive value of 3% or above to make recommendations, this has been consistently used within this guideline as a threshold at which the advantages of a suspected cancer pathway referral in those adults with cancer outweighed the disadvantages"
+  },
+  "cancers": {
+    "lung": [
+      {
+        "id": "LUNG-PPV-01",
+        "symptoms": [
+          "haemoptysis"
+        ],
+        "ageBand": "<45",
+        "ageMin": null,
+        "ageMax": 44,
+        "sex": "female",
+        "ppvPct": 0.36,
+        "ppvIsLowerBound": false,
+        "ci": "95% CI 0.04 to 1.30",
+        "studyPopulation": "first episode of the symptom in UK primary care (GPRD 1995-2000); cancer diagnosed within 3 years; outcome is respiratory tract cancer (lung is most of it)",
+        "year": 2007,
+        "tier": "primary",
+        "source": {
+          "label": "Jones 2007 BMJ, alarm symptoms in UK primary care (GPRD), PPV for cancer diagnosed within 3 years",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC1871798/"
+        },
+        "quote": "Haemoptysis <45 2 553 0.36 (0.04 to 1.30) 2 954 0.21 (0.03 to 7.55) 45-54 5 272 1.84 (0.60 to 4.24) 7 424 1.65 (0.67 to 3.37) 55 to 64 15 364 4.12 (2.32 to 6.71) 43 514 8.37 (6.12 to 11.1) 65 to 74 30 358 8.38 (5.73 to 11.8) 82 552 14.86 (12.0 to 18.1) 75 to 84 27 258 10.47 (7.01 to 14.9) 67 393 17.05 (13.5 to 21.1) ≥85 2 77 2.60 (0.32 to 9.07) 19 93 20.43 (12.8 to 30.1)",
+        "quoteLocation": "Table 4, Haemoptysis block; per age band the first value group is women, the second men",
+        "question": "Has the patient had haemoptysis (coughing up blood) on any visit, and is the patient a woman aged 44 or under?"
+      },
+      {
+        "id": "LUNG-PPV-02",
+        "symptoms": [
+          "haemoptysis"
+        ],
+        "ageBand": "<45",
+        "ageMin": null,
+        "ageMax": 44,
+        "sex": "male",
+        "ppvPct": 0.21,
+        "ppvIsLowerBound": false,
+        "ci": "95% CI 0.03 to 7.55",
+        "studyPopulation": "first episode of the symptom in UK primary care (GPRD 1995-2000); cancer diagnosed within 3 years; outcome is respiratory tract cancer (lung is most of it)",
+        "year": 2007,
+        "tier": "primary",
+        "source": {
+          "label": "Jones 2007 BMJ, alarm symptoms in UK primary care (GPRD), PPV for cancer diagnosed within 3 years",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC1871798/"
+        },
+        "quote": "Haemoptysis <45 2 553 0.36 (0.04 to 1.30) 2 954 0.21 (0.03 to 7.55) 45-54 5 272 1.84 (0.60 to 4.24) 7 424 1.65 (0.67 to 3.37) 55 to 64 15 364 4.12 (2.32 to 6.71) 43 514 8.37 (6.12 to 11.1) 65 to 74 30 358 8.38 (5.73 to 11.8) 82 552 14.86 (12.0 to 18.1) 75 to 84 27 258 10.47 (7.01 to 14.9) 67 393 17.05 (13.5 to 21.1) ≥85 2 77 2.60 (0.32 to 9.07) 19 93 20.43 (12.8 to 30.1)",
+        "quoteLocation": "Table 4, Haemoptysis block; per age band the first value group is women, the second men",
+        "question": "Has the patient had haemoptysis (coughing up blood) on any visit, and is the patient a man aged 44 or under?"
+      },
+      {
+        "id": "LUNG-PPV-03",
+        "symptoms": [
+          "haemoptysis"
+        ],
+        "ageBand": "45-54",
+        "ageMin": 45,
+        "ageMax": 54,
+        "sex": "female",
+        "ppvPct": 1.84,
+        "ppvIsLowerBound": false,
+        "ci": "95% CI 0.60 to 4.24",
+        "studyPopulation": "first episode of the symptom in UK primary care (GPRD 1995-2000); cancer diagnosed within 3 years; outcome is respiratory tract cancer (lung is most of it)",
+        "year": 2007,
+        "tier": "primary",
+        "source": {
+          "label": "Jones 2007 BMJ, alarm symptoms in UK primary care (GPRD), PPV for cancer diagnosed within 3 years",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC1871798/"
+        },
+        "quote": "Haemoptysis <45 2 553 0.36 (0.04 to 1.30) 2 954 0.21 (0.03 to 7.55) 45-54 5 272 1.84 (0.60 to 4.24) 7 424 1.65 (0.67 to 3.37) 55 to 64 15 364 4.12 (2.32 to 6.71) 43 514 8.37 (6.12 to 11.1) 65 to 74 30 358 8.38 (5.73 to 11.8) 82 552 14.86 (12.0 to 18.1) 75 to 84 27 258 10.47 (7.01 to 14.9) 67 393 17.05 (13.5 to 21.1) ≥85 2 77 2.60 (0.32 to 9.07) 19 93 20.43 (12.8 to 30.1)",
+        "quoteLocation": "Table 4, Haemoptysis block; per age band the first value group is women, the second men",
+        "question": "Has the patient had haemoptysis (coughing up blood) on any visit, and is the patient a woman aged 45 to 54?"
+      },
+      {
+        "id": "LUNG-PPV-04",
+        "symptoms": [
+          "haemoptysis"
+        ],
+        "ageBand": "45-54",
+        "ageMin": 45,
+        "ageMax": 54,
+        "sex": "male",
+        "ppvPct": 1.65,
+        "ppvIsLowerBound": false,
+        "ci": "95% CI 0.67 to 3.37",
+        "studyPopulation": "first episode of the symptom in UK primary care (GPRD 1995-2000); cancer diagnosed within 3 years; outcome is respiratory tract cancer (lung is most of it)",
+        "year": 2007,
+        "tier": "primary",
+        "source": {
+          "label": "Jones 2007 BMJ, alarm symptoms in UK primary care (GPRD), PPV for cancer diagnosed within 3 years",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC1871798/"
+        },
+        "quote": "Haemoptysis <45 2 553 0.36 (0.04 to 1.30) 2 954 0.21 (0.03 to 7.55) 45-54 5 272 1.84 (0.60 to 4.24) 7 424 1.65 (0.67 to 3.37) 55 to 64 15 364 4.12 (2.32 to 6.71) 43 514 8.37 (6.12 to 11.1) 65 to 74 30 358 8.38 (5.73 to 11.8) 82 552 14.86 (12.0 to 18.1) 75 to 84 27 258 10.47 (7.01 to 14.9) 67 393 17.05 (13.5 to 21.1) ≥85 2 77 2.60 (0.32 to 9.07) 19 93 20.43 (12.8 to 30.1)",
+        "quoteLocation": "Table 4, Haemoptysis block; per age band the first value group is women, the second men",
+        "question": "Has the patient had haemoptysis (coughing up blood) on any visit, and is the patient a man aged 45 to 54?"
+      },
+      {
+        "id": "LUNG-PPV-05",
+        "symptoms": [
+          "haemoptysis"
+        ],
+        "ageBand": "55-64",
+        "ageMin": 55,
+        "ageMax": 64,
+        "sex": "female",
+        "ppvPct": 4.12,
+        "ppvIsLowerBound": false,
+        "ci": "95% CI 2.32 to 6.71",
+        "studyPopulation": "first episode of the symptom in UK primary care (GPRD 1995-2000); cancer diagnosed within 3 years; outcome is respiratory tract cancer (lung is most of it)",
+        "year": 2007,
+        "tier": "primary",
+        "source": {
+          "label": "Jones 2007 BMJ, alarm symptoms in UK primary care (GPRD), PPV for cancer diagnosed within 3 years",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC1871798/"
+        },
+        "quote": "Haemoptysis <45 2 553 0.36 (0.04 to 1.30) 2 954 0.21 (0.03 to 7.55) 45-54 5 272 1.84 (0.60 to 4.24) 7 424 1.65 (0.67 to 3.37) 55 to 64 15 364 4.12 (2.32 to 6.71) 43 514 8.37 (6.12 to 11.1) 65 to 74 30 358 8.38 (5.73 to 11.8) 82 552 14.86 (12.0 to 18.1) 75 to 84 27 258 10.47 (7.01 to 14.9) 67 393 17.05 (13.5 to 21.1) ≥85 2 77 2.60 (0.32 to 9.07) 19 93 20.43 (12.8 to 30.1)",
+        "quoteLocation": "Table 4, Haemoptysis block; per age band the first value group is women, the second men",
+        "question": "Has the patient had haemoptysis (coughing up blood) on any visit, and is the patient a woman aged 55 to 64?"
+      },
+      {
+        "id": "LUNG-PPV-06",
+        "symptoms": [
+          "haemoptysis"
+        ],
+        "ageBand": "55-64",
+        "ageMin": 55,
+        "ageMax": 64,
+        "sex": "male",
+        "ppvPct": 8.37,
+        "ppvIsLowerBound": false,
+        "ci": "95% CI 6.12 to 11.1",
+        "studyPopulation": "first episode of the symptom in UK primary care (GPRD 1995-2000); cancer diagnosed within 3 years; outcome is respiratory tract cancer (lung is most of it)",
+        "year": 2007,
+        "tier": "primary",
+        "source": {
+          "label": "Jones 2007 BMJ, alarm symptoms in UK primary care (GPRD), PPV for cancer diagnosed within 3 years",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC1871798/"
+        },
+        "quote": "Haemoptysis <45 2 553 0.36 (0.04 to 1.30) 2 954 0.21 (0.03 to 7.55) 45-54 5 272 1.84 (0.60 to 4.24) 7 424 1.65 (0.67 to 3.37) 55 to 64 15 364 4.12 (2.32 to 6.71) 43 514 8.37 (6.12 to 11.1) 65 to 74 30 358 8.38 (5.73 to 11.8) 82 552 14.86 (12.0 to 18.1) 75 to 84 27 258 10.47 (7.01 to 14.9) 67 393 17.05 (13.5 to 21.1) ≥85 2 77 2.60 (0.32 to 9.07) 19 93 20.43 (12.8 to 30.1)",
+        "quoteLocation": "Table 4, Haemoptysis block; per age band the first value group is women, the second men",
+        "question": "Has the patient had haemoptysis (coughing up blood) on any visit, and is the patient a man aged 55 to 64?"
+      },
+      {
+        "id": "LUNG-PPV-07",
+        "symptoms": [
+          "haemoptysis"
+        ],
+        "ageBand": "65-74",
+        "ageMin": 65,
+        "ageMax": 74,
+        "sex": "female",
+        "ppvPct": 8.38,
+        "ppvIsLowerBound": false,
+        "ci": "95% CI 5.73 to 11.8",
+        "studyPopulation": "first episode of the symptom in UK primary care (GPRD 1995-2000); cancer diagnosed within 3 years; outcome is respiratory tract cancer (lung is most of it)",
+        "year": 2007,
+        "tier": "primary",
+        "source": {
+          "label": "Jones 2007 BMJ, alarm symptoms in UK primary care (GPRD), PPV for cancer diagnosed within 3 years",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC1871798/"
+        },
+        "quote": "Haemoptysis <45 2 553 0.36 (0.04 to 1.30) 2 954 0.21 (0.03 to 7.55) 45-54 5 272 1.84 (0.60 to 4.24) 7 424 1.65 (0.67 to 3.37) 55 to 64 15 364 4.12 (2.32 to 6.71) 43 514 8.37 (6.12 to 11.1) 65 to 74 30 358 8.38 (5.73 to 11.8) 82 552 14.86 (12.0 to 18.1) 75 to 84 27 258 10.47 (7.01 to 14.9) 67 393 17.05 (13.5 to 21.1) ≥85 2 77 2.60 (0.32 to 9.07) 19 93 20.43 (12.8 to 30.1)",
+        "quoteLocation": "Table 4, Haemoptysis block; per age band the first value group is women, the second men",
+        "question": "Has the patient had haemoptysis (coughing up blood) on any visit, and is the patient a woman aged 65 to 74?"
+      },
+      {
+        "id": "LUNG-PPV-08",
+        "symptoms": [
+          "haemoptysis"
+        ],
+        "ageBand": "65-74",
+        "ageMin": 65,
+        "ageMax": 74,
+        "sex": "male",
+        "ppvPct": 14.86,
+        "ppvIsLowerBound": false,
+        "ci": "95% CI 12.0 to 18.1",
+        "studyPopulation": "first episode of the symptom in UK primary care (GPRD 1995-2000); cancer diagnosed within 3 years; outcome is respiratory tract cancer (lung is most of it)",
+        "year": 2007,
+        "tier": "primary",
+        "source": {
+          "label": "Jones 2007 BMJ, alarm symptoms in UK primary care (GPRD), PPV for cancer diagnosed within 3 years",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC1871798/"
+        },
+        "quote": "Haemoptysis <45 2 553 0.36 (0.04 to 1.30) 2 954 0.21 (0.03 to 7.55) 45-54 5 272 1.84 (0.60 to 4.24) 7 424 1.65 (0.67 to 3.37) 55 to 64 15 364 4.12 (2.32 to 6.71) 43 514 8.37 (6.12 to 11.1) 65 to 74 30 358 8.38 (5.73 to 11.8) 82 552 14.86 (12.0 to 18.1) 75 to 84 27 258 10.47 (7.01 to 14.9) 67 393 17.05 (13.5 to 21.1) ≥85 2 77 2.60 (0.32 to 9.07) 19 93 20.43 (12.8 to 30.1)",
+        "quoteLocation": "Table 4, Haemoptysis block; per age band the first value group is women, the second men",
+        "question": "Has the patient had haemoptysis (coughing up blood) on any visit, and is the patient a man aged 65 to 74?"
+      },
+      {
+        "id": "LUNG-PPV-09",
+        "symptoms": [
+          "haemoptysis"
+        ],
+        "ageBand": "75-84",
+        "ageMin": 75,
+        "ageMax": 84,
+        "sex": "female",
+        "ppvPct": 10.47,
+        "ppvIsLowerBound": false,
+        "ci": "95% CI 7.01 to 14.9",
+        "studyPopulation": "first episode of the symptom in UK primary care (GPRD 1995-2000); cancer diagnosed within 3 years; outcome is respiratory tract cancer (lung is most of it)",
+        "year": 2007,
+        "tier": "primary",
+        "source": {
+          "label": "Jones 2007 BMJ, alarm symptoms in UK primary care (GPRD), PPV for cancer diagnosed within 3 years",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC1871798/"
+        },
+        "quote": "Haemoptysis <45 2 553 0.36 (0.04 to 1.30) 2 954 0.21 (0.03 to 7.55) 45-54 5 272 1.84 (0.60 to 4.24) 7 424 1.65 (0.67 to 3.37) 55 to 64 15 364 4.12 (2.32 to 6.71) 43 514 8.37 (6.12 to 11.1) 65 to 74 30 358 8.38 (5.73 to 11.8) 82 552 14.86 (12.0 to 18.1) 75 to 84 27 258 10.47 (7.01 to 14.9) 67 393 17.05 (13.5 to 21.1) ≥85 2 77 2.60 (0.32 to 9.07) 19 93 20.43 (12.8 to 30.1)",
+        "quoteLocation": "Table 4, Haemoptysis block; per age band the first value group is women, the second men",
+        "question": "Has the patient had haemoptysis (coughing up blood) on any visit, and is the patient a woman aged 75 to 84?"
+      },
+      {
+        "id": "LUNG-PPV-10",
+        "symptoms": [
+          "haemoptysis"
+        ],
+        "ageBand": "75-84",
+        "ageMin": 75,
+        "ageMax": 84,
+        "sex": "male",
+        "ppvPct": 17.05,
+        "ppvIsLowerBound": false,
+        "ci": "95% CI 13.5 to 21.1",
+        "studyPopulation": "first episode of the symptom in UK primary care (GPRD 1995-2000); cancer diagnosed within 3 years; outcome is respiratory tract cancer (lung is most of it)",
+        "year": 2007,
+        "tier": "primary",
+        "source": {
+          "label": "Jones 2007 BMJ, alarm symptoms in UK primary care (GPRD), PPV for cancer diagnosed within 3 years",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC1871798/"
+        },
+        "quote": "Haemoptysis <45 2 553 0.36 (0.04 to 1.30) 2 954 0.21 (0.03 to 7.55) 45-54 5 272 1.84 (0.60 to 4.24) 7 424 1.65 (0.67 to 3.37) 55 to 64 15 364 4.12 (2.32 to 6.71) 43 514 8.37 (6.12 to 11.1) 65 to 74 30 358 8.38 (5.73 to 11.8) 82 552 14.86 (12.0 to 18.1) 75 to 84 27 258 10.47 (7.01 to 14.9) 67 393 17.05 (13.5 to 21.1) ≥85 2 77 2.60 (0.32 to 9.07) 19 93 20.43 (12.8 to 30.1)",
+        "quoteLocation": "Table 4, Haemoptysis block; per age band the first value group is women, the second men",
+        "question": "Has the patient had haemoptysis (coughing up blood) on any visit, and is the patient a man aged 75 to 84?"
+      },
+      {
+        "id": "LUNG-PPV-11",
+        "symptoms": [
+          "haemoptysis"
+        ],
+        "ageBand": "85+",
+        "ageMin": 85,
+        "ageMax": null,
+        "sex": "female",
+        "ppvPct": 2.6,
+        "ppvIsLowerBound": false,
+        "ci": "95% CI 0.32 to 9.07",
+        "studyPopulation": "first episode of the symptom in UK primary care (GPRD 1995-2000); cancer diagnosed within 3 years; outcome is respiratory tract cancer (lung is most of it)",
+        "year": 2007,
+        "tier": "primary",
+        "source": {
+          "label": "Jones 2007 BMJ, alarm symptoms in UK primary care (GPRD), PPV for cancer diagnosed within 3 years",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC1871798/"
+        },
+        "quote": "Haemoptysis <45 2 553 0.36 (0.04 to 1.30) 2 954 0.21 (0.03 to 7.55) 45-54 5 272 1.84 (0.60 to 4.24) 7 424 1.65 (0.67 to 3.37) 55 to 64 15 364 4.12 (2.32 to 6.71) 43 514 8.37 (6.12 to 11.1) 65 to 74 30 358 8.38 (5.73 to 11.8) 82 552 14.86 (12.0 to 18.1) 75 to 84 27 258 10.47 (7.01 to 14.9) 67 393 17.05 (13.5 to 21.1) ≥85 2 77 2.60 (0.32 to 9.07) 19 93 20.43 (12.8 to 30.1)",
+        "quoteLocation": "Table 4, Haemoptysis block; per age band the first value group is women, the second men",
+        "question": "Has the patient had haemoptysis (coughing up blood) on any visit, and is the patient a woman aged 85 or over?"
+      },
+      {
+        "id": "LUNG-PPV-12",
+        "symptoms": [
+          "haemoptysis"
+        ],
+        "ageBand": "85+",
+        "ageMin": 85,
+        "ageMax": null,
+        "sex": "male",
+        "ppvPct": 20.43,
+        "ppvIsLowerBound": false,
+        "ci": "95% CI 12.8 to 30.1",
+        "studyPopulation": "first episode of the symptom in UK primary care (GPRD 1995-2000); cancer diagnosed within 3 years; outcome is respiratory tract cancer (lung is most of it)",
+        "year": 2007,
+        "tier": "primary",
+        "source": {
+          "label": "Jones 2007 BMJ, alarm symptoms in UK primary care (GPRD), PPV for cancer diagnosed within 3 years",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC1871798/"
+        },
+        "quote": "Haemoptysis <45 2 553 0.36 (0.04 to 1.30) 2 954 0.21 (0.03 to 7.55) 45-54 5 272 1.84 (0.60 to 4.24) 7 424 1.65 (0.67 to 3.37) 55 to 64 15 364 4.12 (2.32 to 6.71) 43 514 8.37 (6.12 to 11.1) 65 to 74 30 358 8.38 (5.73 to 11.8) 82 552 14.86 (12.0 to 18.1) 75 to 84 27 258 10.47 (7.01 to 14.9) 67 393 17.05 (13.5 to 21.1) ≥85 2 77 2.60 (0.32 to 9.07) 19 93 20.43 (12.8 to 30.1)",
+        "quoteLocation": "Table 4, Haemoptysis block; per age band the first value group is women, the second men",
+        "question": "Has the patient had haemoptysis (coughing up blood) on any visit, and is the patient a man aged 85 or over?"
+      },
+      {
+        "id": "LUNG-PPV-13",
+        "symptoms": [
+          "haemoptysis"
+        ],
+        "ageBand": "all ages",
+        "ageMin": null,
+        "ageMax": null,
+        "sex": "male",
+        "ppvPct": 7.5,
+        "ppvIsLowerBound": false,
+        "ci": "95% CI 6.6 to 8.5",
+        "studyPopulation": "first episode of the symptom in UK primary care (GPRD 1995-2000); cancer diagnosed within 3 years; outcome is respiratory tract cancer",
+        "year": 2007,
+        "tier": "primary",
+        "source": {
+          "label": "Jones 2007 BMJ, alarm symptoms in UK primary care (GPRD), PPV for cancer diagnosed within 3 years",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC1871798/"
+        },
+        "quote": "220 diagnoses of respiratory tract cancer were made in men (positive predictive value 7.5%, 6.6% to 8.5%)",
+        "quoteLocation": "Results paragraph (Abstract-level results text)",
+        "question": "Has the patient had haemoptysis (coughing up blood) on any visit, and is the patient a man?"
+      },
+      {
+        "id": "LUNG-PPV-14",
+        "symptoms": [
+          "haemoptysis"
+        ],
+        "ageBand": "all ages",
+        "ageMin": null,
+        "ageMax": null,
+        "sex": "female",
+        "ppvPct": 4.3,
+        "ppvIsLowerBound": false,
+        "ci": "95% CI 3.4 to 5.3",
+        "studyPopulation": "first episode of the symptom in UK primary care (GPRD 1995-2000); cancer diagnosed within 3 years; outcome is respiratory tract cancer",
+        "year": 2007,
+        "tier": "primary",
+        "source": {
+          "label": "Jones 2007 BMJ, alarm symptoms in UK primary care (GPRD), PPV for cancer diagnosed within 3 years",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC1871798/"
+        },
+        "quote": "and 81 in women (4.3%, 3.4% to 5.3%)",
+        "quoteLocation": "Results paragraph (Abstract-level results text)",
+        "question": "Has the patient had haemoptysis (coughing up blood) on any visit, and is the patient a woman?"
+      },
+      {
+        "id": "LUNG-PPV-15",
+        "symptoms": [
+          "haemoptysis"
+        ],
+        "ageBand": "all ages",
+        "ageMin": null,
+        "ageMax": null,
+        "sex": null,
+        "ppvPct": 2.4,
+        "ppvIsLowerBound": false,
+        "ci": null,
+        "studyPopulation": "CAPER primary-care case-control series, Exeter, UK (GP-recorded symptoms before diagnosis); PPV as defined by the authors, background lung cancer risk 0.18% per Figure 2 note",
+        "year": 2009,
+        "tier": "secondary",
+        "source": {
+          "label": "Hamilton 2009 CAPER studies overview, Br J Cancer",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2790706/"
+        },
+        "quote": "Rectal bleeding in colorectal cancer, and haemoptysis in lung cancer both had positive predictive values of 2.4%.",
+        "quoteLocation": "Interpretation/Results summary paragraph; PPV definition paragraph also states a person reporting haemoptysis has a 2.4% chance of underlying lung cancer",
+        "question": "Has the patient had haemoptysis (coughing up blood) on any visit?",
+        "note": "Age band not stated in the text we could read; acts only as a floor."
+      },
+      {
+        "id": "LUNG-PPV-16",
+        "symptoms": [
+          "weight-loss"
+        ],
+        "ageBand": "40+",
+        "ageMin": 40,
+        "ageMax": null,
+        "sex": null,
+        "ppvPct": 1.2,
+        "ppvIsLowerBound": false,
+        "ci": "95% CI 0.7 to 2.3",
+        "studyPopulation": "Hamilton 2005 (Exeter primary care, lung cancer cases aged 40+ vs matched controls); values as tabulated by the 2026 review",
+        "year": 2005,
+        "tier": "secondary",
+        "source": {
+          "label": "Hamilton 2005 Thorax, as tabulated in Lancet Reg Health Eur 2026 systematic review",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12992075/"
+        },
+        "quote": "Weight loss | 1.2% (0.7–2.3)",
+        "quoteLocation": "Table 3, lung cancer block (Hamilton 2005bb; ≥40 years old)",
+        "question": "Has the patient had unexplained weight loss on any visit, and is the patient aged 40 or over?"
+      },
+      {
+        "id": "LUNG-PPV-17",
+        "symptoms": [
+          "chest-pain"
+        ],
+        "ageBand": "40+",
+        "ageMin": 40,
+        "ageMax": null,
+        "sex": null,
+        "ppvPct": 0.95,
+        "ppvIsLowerBound": false,
+        "ci": "95% CI 0.7 to 1.4",
+        "studyPopulation": "Hamilton 2005 (Exeter primary care, lung cancer cases aged 40+ vs matched controls); values as tabulated by the 2026 review",
+        "year": 2005,
+        "tier": "secondary",
+        "source": {
+          "label": "Hamilton 2005 Thorax, as tabulated in Lancet Reg Health Eur 2026 systematic review",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12992075/"
+        },
+        "quote": "Chest pain | 0.95% (0.7–1.4)",
+        "quoteLocation": "Table 3, lung cancer block (Hamilton 2005bb; ≥40 years old)",
+        "question": "Has the patient had chest pain on any visit, and is the patient aged 40 or over?"
+      },
+      {
+        "id": "LUNG-PPV-18",
+        "symptoms": [
+          "breathlessness"
+        ],
+        "ageBand": "40+",
+        "ageMin": 40,
+        "ageMax": null,
+        "sex": null,
+        "ppvPct": 0.88,
+        "ppvIsLowerBound": false,
+        "ci": null,
+        "studyPopulation": "Hamilton 2005 (Exeter primary care, lung cancer cases aged 40+ vs matched controls); values as tabulated by the 2026 review",
+        "year": 2005,
+        "tier": "secondary",
+        "source": {
+          "label": "Hamilton 2005 Thorax, as tabulated in Lancet Reg Health Eur 2026 systematic review",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12992075/"
+        },
+        "quote": "Shortness of breath | 0.88% (NR)",
+        "quoteLocation": "Table 3, lung cancer block (Hamilton 2005bb; ≥40 years old)",
+        "question": "Has the patient had shortness of breath on any visit, and is the patient aged 40 or over?"
+      },
+      {
+        "id": "LUNG-PPV-19",
+        "symptoms": [
+          "cough"
+        ],
+        "ageBand": "40+",
+        "ageMin": 40,
+        "ageMax": null,
+        "sex": null,
+        "ppvPct": 0.77,
+        "ppvIsLowerBound": false,
+        "ci": "95% CI 0.54 to 1.1",
+        "studyPopulation": "Hamilton 2005 (Exeter primary care, lung cancer cases aged 40+ vs matched controls); values as tabulated by the 2026 review",
+        "year": 2005,
+        "tier": "secondary",
+        "source": {
+          "label": "Hamilton 2005 Thorax, as tabulated in Lancet Reg Health Eur 2026 systematic review",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12992075/"
+        },
+        "quote": "Cough (reported three times) | 0.77% (0.54–1.1)",
+        "quoteLocation": "Table 3, lung cancer block (Hamilton 2005bb; ≥40 years old)",
+        "question": "Has a cough been recorded at three or more separate visits, and is the patient aged 40 or over?",
+        "visitsRequired": 3
+      },
+      {
+        "id": "LUNG-PPV-20",
+        "symptoms": [
+          "cough"
+        ],
+        "ageBand": "40+",
+        "ageMin": 40,
+        "ageMax": null,
+        "sex": null,
+        "ppvPct": 0.58,
+        "ppvIsLowerBound": false,
+        "ci": "95% CI 0.4 to 0.8",
+        "studyPopulation": "Hamilton 2005 (Exeter primary care, lung cancer cases aged 40+ vs matched controls); values as tabulated by the 2026 review",
+        "year": 2005,
+        "tier": "secondary",
+        "source": {
+          "label": "Hamilton 2005 Thorax, as tabulated in Lancet Reg Health Eur 2026 systematic review",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12992075/"
+        },
+        "quote": "Cough (reported twice) | 0.58% (0.4–0.8)",
+        "quoteLocation": "Table 3, lung cancer block (Hamilton 2005bb; ≥40 years old)",
+        "question": "Has a cough been recorded at two separate visits, and is the patient aged 40 or over?",
+        "visitsRequired": 2
+      },
+      {
+        "id": "LUNG-PPV-21",
+        "symptoms": [
+          "fatigue"
+        ],
+        "ageBand": "40+",
+        "ageMin": 40,
+        "ageMax": null,
+        "sex": null,
+        "ppvPct": 0.57,
+        "ppvIsLowerBound": false,
+        "ci": "95% CI 0.4 to 0.9",
+        "studyPopulation": "Hamilton 2005 (Exeter primary care, lung cancer cases aged 40+ vs matched controls); values as tabulated by the 2026 review",
+        "year": 2005,
+        "tier": "secondary",
+        "source": {
+          "label": "Hamilton 2005 Thorax, as tabulated in Lancet Reg Health Eur 2026 systematic review",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12992075/"
+        },
+        "quote": "Fatigue | 0.57% (0.4–0.9)",
+        "quoteLocation": "Table 3, lung cancer block (Hamilton 2005bb; ≥40 years old)",
+        "question": "Has the patient had tiredness or fatigue on any visit, and is the patient aged 40 or over?"
+      },
+      {
+        "id": "LUNG-PPV-22",
+        "symptoms": [
+          "appetite-loss"
+        ],
+        "ageBand": "40+",
+        "ageMin": 40,
+        "ageMax": null,
+        "sex": null,
+        "ppvPct": 1.7,
+        "ppvIsLowerBound": false,
+        "ci": null,
+        "studyPopulation": "Hamilton 2005 (Exeter primary care, lung cancer cases aged 40+ vs matched controls); values as tabulated by the 2026 review",
+        "year": 2005,
+        "tier": "secondary",
+        "source": {
+          "label": "Hamilton 2005 Thorax, as tabulated in Lancet Reg Health Eur 2026 systematic review",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12992075/"
+        },
+        "quote": "Appetite loss | 1.7% (NR)",
+        "quoteLocation": "Table 3, lung cancer block (Hamilton 2005bb; ≥40 years old)",
+        "question": "Has the patient had loss of appetite on any visit, and is the patient aged 40 or over?"
+      }
+    ],
+    "colorectal": [
+      {
+        "id": "COLO-PPV-01",
+        "symptoms": [
+          "rectal-bleeding"
+        ],
+        "ageBand": "40+",
+        "ageMin": 40,
+        "ageMax": null,
+        "sex": null,
+        "ppvPct": 2.4,
+        "ppvIsLowerBound": false,
+        "ci": "1.9 to 3.2",
+        "studyPopulation": "UK primary care, 349 colorectal cancer cases aged 40+ and 1744 matched controls (Exeter)",
+        "year": 2005,
+        "tier": "primary",
+        "source": {
+          "label": "Hamilton 2005 Br J Cancer, colorectal cancer symptoms in primary care (Exeter case-control)",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2361578/"
+        },
+        "quote": "The positive predictive values (95% confidence interval) of these were rectal bleeding 2.4% (1.9, 3.2)",
+        "quoteLocation": "Abstract",
+        "question": "Has the patient had rectal bleeding on any visit, and is the patient aged 40 or over?"
+      },
+      {
+        "id": "COLO-PPV-02",
+        "symptoms": [
+          "rectal-bleeding"
+        ],
+        "ageBand": "40-69",
+        "ageMin": 40,
+        "ageMax": 69,
+        "sex": null,
+        "ppvPct": 1.4,
+        "ppvIsLowerBound": false,
+        "ci": null,
+        "studyPopulation": "UK primary care, 349 colorectal cancer cases aged 40+ and 1744 matched controls (Exeter)",
+        "year": 2005,
+        "tier": "primary",
+        "source": {
+          "label": "Hamilton 2005 Br J Cancer, colorectal cancer symptoms in primary care (Exeter case-control)",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2361578/"
+        },
+        "quote": "In patients aged under 70, the positive predictive value was 1.4%.",
+        "quoteLocation": "Discussion",
+        "question": "Has the patient had rectal bleeding on any visit, and is the patient aged 40 to 69?"
+      },
+      {
+        "id": "COLO-PPV-03",
+        "symptoms": [
+          "rectal-bleeding"
+        ],
+        "ageBand": "70+",
+        "ageMin": 70,
+        "ageMax": null,
+        "sex": null,
+        "ppvPct": 4.8,
+        "ppvIsLowerBound": false,
+        "ci": null,
+        "studyPopulation": "UK primary care, 349 colorectal cancer cases aged 40+ and 1744 matched controls (Exeter)",
+        "year": 2005,
+        "tier": "primary",
+        "source": {
+          "label": "Hamilton 2005 Br J Cancer, colorectal cancer symptoms in primary care (Exeter case-control)",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2361578/"
+        },
+        "quote": "rectal bleeding 1.4 and 4.8%; and loss of weight 0.74 and 2.5%, respectively.",
+        "quoteLocation": "Results (age-stratified PPVs)",
+        "question": "Has the patient had rectal bleeding on any visit, and is the patient aged 70 or over?"
+      },
+      {
+        "id": "COLO-PPV-04",
+        "symptoms": [
+          "weight-loss"
+        ],
+        "ageBand": "40+",
+        "ageMin": 40,
+        "ageMax": null,
+        "sex": null,
+        "ppvPct": 1.2,
+        "ppvIsLowerBound": false,
+        "ci": "0.91 to 1.6",
+        "studyPopulation": "UK primary care, 349 colorectal cancer cases aged 40+ and 1744 matched controls (Exeter)",
+        "year": 2005,
+        "tier": "primary",
+        "source": {
+          "label": "Hamilton 2005 Br J Cancer, colorectal cancer symptoms in primary care (Exeter case-control)",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2361578/"
+        },
+        "quote": "weight loss 1.2% (0.91, 1.6)",
+        "quoteLocation": "Abstract",
+        "question": "Has the patient had unexplained weight loss on any visit, and is the patient aged 40 or over?"
+      },
+      {
+        "id": "COLO-PPV-05",
+        "symptoms": [
+          "weight-loss"
+        ],
+        "ageBand": "40-69",
+        "ageMin": 40,
+        "ageMax": 69,
+        "sex": null,
+        "ppvPct": 0.74,
+        "ppvIsLowerBound": false,
+        "ci": null,
+        "studyPopulation": "UK primary care, 349 colorectal cancer cases aged 40+ and 1744 matched controls (Exeter)",
+        "year": 2005,
+        "tier": "primary",
+        "source": {
+          "label": "Hamilton 2005 Br J Cancer, colorectal cancer symptoms in primary care (Exeter case-control)",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2361578/"
+        },
+        "quote": "rectal bleeding 1.4 and 4.8%; and loss of weight 0.74 and 2.5%, respectively.",
+        "quoteLocation": "Results (age-stratified PPVs)",
+        "question": "Has the patient had unexplained weight loss on any visit, and is the patient aged 40 to 69?"
+      },
+      {
+        "id": "COLO-PPV-06",
+        "symptoms": [
+          "weight-loss"
+        ],
+        "ageBand": "70+",
+        "ageMin": 70,
+        "ageMax": null,
+        "sex": null,
+        "ppvPct": 2.5,
+        "ppvIsLowerBound": false,
+        "ci": null,
+        "studyPopulation": "UK primary care, 349 colorectal cancer cases aged 40+ and 1744 matched controls (Exeter)",
+        "year": 2005,
+        "tier": "primary",
+        "source": {
+          "label": "Hamilton 2005 Br J Cancer, colorectal cancer symptoms in primary care (Exeter case-control)",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2361578/"
+        },
+        "quote": "rectal bleeding 1.4 and 4.8%; and loss of weight 0.74 and 2.5%, respectively.",
+        "quoteLocation": "Results (age-stratified PPVs)",
+        "question": "Has the patient had unexplained weight loss on any visit, and is the patient aged 70 or over?"
+      },
+      {
+        "id": "COLO-PPV-07",
+        "symptoms": [
+          "abdominal-pain"
+        ],
+        "ageBand": "40+",
+        "ageMin": 40,
+        "ageMax": null,
+        "sex": null,
+        "ppvPct": 1.1,
+        "ppvIsLowerBound": false,
+        "ci": "0.86 to 1.3",
+        "studyPopulation": "UK primary care, 349 colorectal cancer cases aged 40+ and 1744 matched controls (Exeter)",
+        "year": 2005,
+        "tier": "primary",
+        "source": {
+          "label": "Hamilton 2005 Br J Cancer, colorectal cancer symptoms in primary care (Exeter case-control)",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2361578/"
+        },
+        "quote": "abdominal pain 1.1% (0.86, 1.3)",
+        "quoteLocation": "Abstract",
+        "question": "Has the patient had abdominal pain on any visit, and is the patient aged 40 or over?"
+      },
+      {
+        "id": "COLO-PPV-08",
+        "symptoms": [
+          "abdominal-pain"
+        ],
+        "ageBand": "40-69",
+        "ageMin": 40,
+        "ageMax": 69,
+        "sex": null,
+        "ppvPct": 0.65,
+        "ppvIsLowerBound": false,
+        "ci": null,
+        "studyPopulation": "UK primary care, 349 colorectal cancer cases aged 40+ and 1744 matched controls (Exeter)",
+        "year": 2005,
+        "tier": "primary",
+        "source": {
+          "label": "Hamilton 2005 Br J Cancer, colorectal cancer symptoms in primary care (Exeter case-control)",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2361578/"
+        },
+        "quote": "abdominal pain 0.65% aged 40–69, 2.0% aged 70 or over",
+        "quoteLocation": "Results (age-stratified PPVs)",
+        "question": "Has the patient had abdominal pain on any visit, and is the patient aged 40 to 69?"
+      },
+      {
+        "id": "COLO-PPV-09",
+        "symptoms": [
+          "abdominal-pain"
+        ],
+        "ageBand": "70+",
+        "ageMin": 70,
+        "ageMax": null,
+        "sex": null,
+        "ppvPct": 2.0,
+        "ppvIsLowerBound": false,
+        "ci": null,
+        "studyPopulation": "UK primary care, 349 colorectal cancer cases aged 40+ and 1744 matched controls (Exeter)",
+        "year": 2005,
+        "tier": "primary",
+        "source": {
+          "label": "Hamilton 2005 Br J Cancer, colorectal cancer symptoms in primary care (Exeter case-control)",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2361578/"
+        },
+        "quote": "abdominal pain 0.65% aged 40–69, 2.0% aged 70 or over",
+        "quoteLocation": "Results (age-stratified PPVs)",
+        "question": "Has the patient had abdominal pain on any visit, and is the patient aged 70 or over?"
+      },
+      {
+        "id": "COLO-PPV-10",
+        "symptoms": [
+          "diarrhoea"
+        ],
+        "ageBand": "40-69",
+        "ageMin": 40,
+        "ageMax": 69,
+        "sex": null,
+        "ppvPct": 0.63,
+        "ppvIsLowerBound": false,
+        "ci": null,
+        "studyPopulation": "UK primary care, 349 colorectal cancer cases aged 40+ and 1744 matched controls (Exeter)",
+        "year": 2005,
+        "tier": "primary",
+        "source": {
+          "label": "Hamilton 2005 Br J Cancer, colorectal cancer symptoms in primary care (Exeter case-control)",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2361578/"
+        },
+        "quote": "diarrhoea 0.63 and 1.7%",
+        "quoteLocation": "Results (age-stratified PPVs)",
+        "question": "Has the patient had diarrhoea on any visit, and is the patient aged 40 to 69?"
+      },
+      {
+        "id": "COLO-PPV-11",
+        "symptoms": [
+          "diarrhoea"
+        ],
+        "ageBand": "70+",
+        "ageMin": 70,
+        "ageMax": null,
+        "sex": null,
+        "ppvPct": 1.7,
+        "ppvIsLowerBound": false,
+        "ci": null,
+        "studyPopulation": "UK primary care, 349 colorectal cancer cases aged 40+ and 1744 matched controls (Exeter)",
+        "year": 2005,
+        "tier": "primary",
+        "source": {
+          "label": "Hamilton 2005 Br J Cancer, colorectal cancer symptoms in primary care (Exeter case-control)",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2361578/"
+        },
+        "quote": "diarrhoea 0.63 and 1.7%",
+        "quoteLocation": "Results (age-stratified PPVs)",
+        "question": "Has the patient had diarrhoea on any visit, and is the patient aged 70 or over?"
+      },
+      {
+        "id": "COLO-PPV-12",
+        "symptoms": [
+          "low-haemoglobin"
+        ],
+        "ageBand": "40+",
+        "ageMin": 40,
+        "ageMax": null,
+        "sex": null,
+        "ppvPct": 2.3,
+        "ppvIsLowerBound": false,
+        "ci": "1.6 to 3.1",
+        "studyPopulation": "UK primary care, 349 colorectal cancer cases aged 40+ and 1744 matched controls (Exeter)",
+        "year": 2005,
+        "tier": "primary",
+        "source": {
+          "label": "Hamilton 2005 Br J Cancer, colorectal cancer symptoms in primary care (Exeter case-control)",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2361578/"
+        },
+        "quote": "haemoglobin <10.0 g dl −1 2.3% (1.6, 3.1)",
+        "quoteLocation": "Abstract",
+        "question": "Has the patient had a haemoglobin below 10 g/dL (anaemia) in any result, and is the patient aged 40 or over?"
+      },
+      {
+        "id": "COLO-PPV-13",
+        "symptoms": [
+          "iron-deficiency-anaemia"
+        ],
+        "ageBand": "61+",
+        "ageMin": 61,
+        "ageMax": null,
+        "sex": "male",
+        "ppvPct": 13.3,
+        "ppvIsLowerBound": false,
+        "ci": "9.7 to 18",
+        "studyPopulation": "UK primary care (THIN), 6442 colorectal cancer cases (3421 men, 3021 women) matched to 45 066 controls",
+        "year": 2008,
+        "tier": "primary",
+        "source": {
+          "label": "Hamilton 2008 Br J Cancer, anaemia and iron deficiency and colorectal cancer (THIN primary care)",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2361444/"
+        },
+        "quote": "For men over 60 years with a haemoglobin <11 g dl −1 and features of iron deficiency, the positive predictive value was 13.3% (9.7, 18)",
+        "quoteLocation": "Abstract",
+        "question": "Has the patient had a haemoglobin below 11 g/dL together with features of iron deficiency, and is the patient a man aged 61 or over?",
+        "note": "Source says \"men over 60\"; ageMin is 61."
+      },
+      {
+        "id": "COLO-PPV-14",
+        "symptoms": [
+          "iron-deficiency-anaemia"
+        ],
+        "ageBand": "all ages",
+        "ageMin": null,
+        "ageMax": null,
+        "sex": "female",
+        "ppvPct": 7.7,
+        "ppvIsLowerBound": false,
+        "ci": "5.7 to 11",
+        "studyPopulation": "UK primary care (THIN), same study as above",
+        "year": 2008,
+        "tier": "primary",
+        "source": {
+          "label": "Hamilton 2008 Br J Cancer, anaemia and iron deficiency and colorectal cancer (THIN primary care)",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2361444/"
+        },
+        "quote": "for women with a haemoglobin <10 g dl −1 and iron deficiency, the positive predictive value was 7.7% (5.7, 11)",
+        "quoteLocation": "Abstract",
+        "question": "Has the patient had a haemoglobin below 10 g/dL together with iron deficiency, and is the patient a woman?",
+        "note": "For women the haemoglobin cut-off is 10 g/dL, not 11."
+      },
+      {
+        "id": "COLO-PPV-15",
+        "symptoms": [
+          "low-haemoglobin"
+        ],
+        "ageBand": "all ages",
+        "ageMin": null,
+        "ageMax": null,
+        "sex": null,
+        "ppvPct": 2.0,
+        "ppvIsLowerBound": false,
+        "ci": "1.7 to 2.3",
+        "studyPopulation": "UK primary care (THIN), same study as above",
+        "year": 2008,
+        "tier": "primary",
+        "source": {
+          "label": "Hamilton 2008 Br J Cancer, anaemia and iron deficiency and colorectal cancer (THIN primary care)",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2361444/"
+        },
+        "quote": "For haemoglobin results below 9.9 g dl −1 , the PPV was 2.0% (CI 1.7, 2.3) and for 10.0–12.9 g dl −1 , the PPV was 0.3% (0.2, 0.3).",
+        "quoteLocation": "Results",
+        "question": "Has the patient had a haemoglobin below 9.9 g/dL in any result (iron status not required)?"
+      },
+      {
+        "id": "COLO-PPV-16",
+        "symptoms": [
+          "rectal-bleeding"
+        ],
+        "ageBand": "all ages",
+        "ageMin": null,
+        "ageMax": null,
+        "sex": "male",
+        "ppvPct": 2.4,
+        "ppvIsLowerBound": false,
+        "ci": "2.1 to 2.8",
+        "studyPopulation": "first episode of rectal bleeding in UK primary care (GPRD 1995-2000); colorectal cancer diagnosed within 3 years",
+        "year": 2007,
+        "tier": "primary",
+        "source": {
+          "label": "Jones 2007 BMJ, alarm symptoms in UK primary care (GPRD), PPV for cancer diagnosed within 3 years",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC1871798/"
+        },
+        "quote": "After 15 289 episodes of rectal bleeding, 184 diagnoses of colorectal cancer were made in men (positive predictive value 2.4%, 2.1% to 2.8%) and 154 in women (2.0%, 1.7% to 2.3%).",
+        "quoteLocation": "Abstract (Results)",
+        "question": "Has the patient had rectal bleeding on any visit, and is the patient a man?"
+      },
+      {
+        "id": "COLO-PPV-17",
+        "symptoms": [
+          "rectal-bleeding"
+        ],
+        "ageBand": "all ages",
+        "ageMin": null,
+        "ageMax": null,
+        "sex": "female",
+        "ppvPct": 2.0,
+        "ppvIsLowerBound": false,
+        "ci": "1.7 to 2.3",
+        "studyPopulation": "first episode of rectal bleeding in UK primary care (GPRD 1995-2000); colorectal cancer diagnosed within 3 years",
+        "year": 2007,
+        "tier": "primary",
+        "source": {
+          "label": "Jones 2007 BMJ, alarm symptoms in UK primary care (GPRD), PPV for cancer diagnosed within 3 years",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC1871798/"
+        },
+        "quote": "After 15 289 episodes of rectal bleeding, 184 diagnoses of colorectal cancer were made in men (positive predictive value 2.4%, 2.1% to 2.8%) and 154 in women (2.0%, 1.7% to 2.3%).",
+        "quoteLocation": "Abstract (Results)",
+        "question": "Has the patient had rectal bleeding on any visit, and is the patient a woman?"
+      },
+      {
+        "id": "COLO-PPV-18",
+        "symptoms": [
+          "rectal-bleeding"
+        ],
+        "ageBand": "<45",
+        "ageMin": null,
+        "ageMax": 44,
+        "sex": "female",
+        "ppvPct": 0.22,
+        "ppvIsLowerBound": false,
+        "ci": "0.08 to 0.47",
+        "studyPopulation": "first episode of rectal bleeding in UK primary care (GPRD 1995-2000); colorectal cancer diagnosed within 3 years; PPV by age and sex",
+        "year": 2007,
+        "tier": "primary",
+        "source": {
+          "label": "Jones 2007 BMJ, alarm symptoms in UK primary care (GPRD), PPV for cancer diagnosed within 3 years",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC1871798/"
+        },
+        "quote": "Rectal bleeding <45 6 2780 0.22 (0.08 to 0.47) 2 2701 0.07 (0.01 to 0.27) 45-54 8 1270 0.63 (0.27 to 1.24) 24 1542 1.56 (1.00 to 2.31) 55 to 64 33 1200 2.75 (1.90 to 3.84) 44 1302 3.38 (2.47 to 4.51) 65 to 74 28 1156 2.42 (1.62 to 3.48) 57 1188 4.80 (3.65 to 6.17) 75 to 84 67 930 7.20 (5.63 to 9.06) 49 633 7.74 (5.78 to 10.1) ≥85 12 430 2.79 (1.45 to 4.82) 8 157 5.10 (2.23 to 9.79)",
+        "quoteLocation": "Table 4, rectal bleeding block (column order women then men, confirmed by case totals 154 and 184)",
+        "question": "Has the patient had rectal bleeding on any visit, and is the patient a woman aged 44 or under?"
+      },
+      {
+        "id": "COLO-PPV-19",
+        "symptoms": [
+          "rectal-bleeding"
+        ],
+        "ageBand": "<45",
+        "ageMin": null,
+        "ageMax": 44,
+        "sex": "male",
+        "ppvPct": 0.07,
+        "ppvIsLowerBound": false,
+        "ci": "0.01 to 0.27",
+        "studyPopulation": "first episode of rectal bleeding in UK primary care (GPRD 1995-2000); colorectal cancer diagnosed within 3 years; PPV by age and sex",
+        "year": 2007,
+        "tier": "primary",
+        "source": {
+          "label": "Jones 2007 BMJ, alarm symptoms in UK primary care (GPRD), PPV for cancer diagnosed within 3 years",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC1871798/"
+        },
+        "quote": "Rectal bleeding <45 6 2780 0.22 (0.08 to 0.47) 2 2701 0.07 (0.01 to 0.27) 45-54 8 1270 0.63 (0.27 to 1.24) 24 1542 1.56 (1.00 to 2.31) 55 to 64 33 1200 2.75 (1.90 to 3.84) 44 1302 3.38 (2.47 to 4.51) 65 to 74 28 1156 2.42 (1.62 to 3.48) 57 1188 4.80 (3.65 to 6.17) 75 to 84 67 930 7.20 (5.63 to 9.06) 49 633 7.74 (5.78 to 10.1) ≥85 12 430 2.79 (1.45 to 4.82) 8 157 5.10 (2.23 to 9.79)",
+        "quoteLocation": "Table 4, rectal bleeding block",
+        "question": "Has the patient had rectal bleeding on any visit, and is the patient a man aged 44 or under?"
+      },
+      {
+        "id": "COLO-PPV-20",
+        "symptoms": [
+          "rectal-bleeding"
+        ],
+        "ageBand": "45-54",
+        "ageMin": 45,
+        "ageMax": 54,
+        "sex": "female",
+        "ppvPct": 0.63,
+        "ppvIsLowerBound": false,
+        "ci": "0.27 to 1.24",
+        "studyPopulation": "first episode of rectal bleeding in UK primary care (GPRD 1995-2000); colorectal cancer diagnosed within 3 years; PPV by age and sex",
+        "year": 2007,
+        "tier": "primary",
+        "source": {
+          "label": "Jones 2007 BMJ, alarm symptoms in UK primary care (GPRD), PPV for cancer diagnosed within 3 years",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC1871798/"
+        },
+        "quote": "Rectal bleeding <45 6 2780 0.22 (0.08 to 0.47) 2 2701 0.07 (0.01 to 0.27) 45-54 8 1270 0.63 (0.27 to 1.24) 24 1542 1.56 (1.00 to 2.31) 55 to 64 33 1200 2.75 (1.90 to 3.84) 44 1302 3.38 (2.47 to 4.51) 65 to 74 28 1156 2.42 (1.62 to 3.48) 57 1188 4.80 (3.65 to 6.17) 75 to 84 67 930 7.20 (5.63 to 9.06) 49 633 7.74 (5.78 to 10.1) ≥85 12 430 2.79 (1.45 to 4.82) 8 157 5.10 (2.23 to 9.79)",
+        "quoteLocation": "Table 4, rectal bleeding block",
+        "question": "Has the patient had rectal bleeding on any visit, and is the patient a woman aged 45 to 54?"
+      },
+      {
+        "id": "COLO-PPV-21",
+        "symptoms": [
+          "rectal-bleeding"
+        ],
+        "ageBand": "45-54",
+        "ageMin": 45,
+        "ageMax": 54,
+        "sex": "male",
+        "ppvPct": 1.56,
+        "ppvIsLowerBound": false,
+        "ci": "1.00 to 2.31",
+        "studyPopulation": "first episode of rectal bleeding in UK primary care (GPRD 1995-2000); colorectal cancer diagnosed within 3 years; PPV by age and sex",
+        "year": 2007,
+        "tier": "primary",
+        "source": {
+          "label": "Jones 2007 BMJ, alarm symptoms in UK primary care (GPRD), PPV for cancer diagnosed within 3 years",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC1871798/"
+        },
+        "quote": "Rectal bleeding <45 6 2780 0.22 (0.08 to 0.47) 2 2701 0.07 (0.01 to 0.27) 45-54 8 1270 0.63 (0.27 to 1.24) 24 1542 1.56 (1.00 to 2.31) 55 to 64 33 1200 2.75 (1.90 to 3.84) 44 1302 3.38 (2.47 to 4.51) 65 to 74 28 1156 2.42 (1.62 to 3.48) 57 1188 4.80 (3.65 to 6.17) 75 to 84 67 930 7.20 (5.63 to 9.06) 49 633 7.74 (5.78 to 10.1) ≥85 12 430 2.79 (1.45 to 4.82) 8 157 5.10 (2.23 to 9.79)",
+        "quoteLocation": "Table 4, rectal bleeding block",
+        "question": "Has the patient had rectal bleeding on any visit, and is the patient a man aged 45 to 54?"
+      },
+      {
+        "id": "COLO-PPV-22",
+        "symptoms": [
+          "rectal-bleeding"
+        ],
+        "ageBand": "55-64",
+        "ageMin": 55,
+        "ageMax": 64,
+        "sex": "female",
+        "ppvPct": 2.75,
+        "ppvIsLowerBound": false,
+        "ci": "1.90 to 3.84",
+        "studyPopulation": "first episode of rectal bleeding in UK primary care (GPRD 1995-2000); colorectal cancer diagnosed within 3 years; PPV by age and sex",
+        "year": 2007,
+        "tier": "primary",
+        "source": {
+          "label": "Jones 2007 BMJ, alarm symptoms in UK primary care (GPRD), PPV for cancer diagnosed within 3 years",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC1871798/"
+        },
+        "quote": "Rectal bleeding <45 6 2780 0.22 (0.08 to 0.47) 2 2701 0.07 (0.01 to 0.27) 45-54 8 1270 0.63 (0.27 to 1.24) 24 1542 1.56 (1.00 to 2.31) 55 to 64 33 1200 2.75 (1.90 to 3.84) 44 1302 3.38 (2.47 to 4.51) 65 to 74 28 1156 2.42 (1.62 to 3.48) 57 1188 4.80 (3.65 to 6.17) 75 to 84 67 930 7.20 (5.63 to 9.06) 49 633 7.74 (5.78 to 10.1) ≥85 12 430 2.79 (1.45 to 4.82) 8 157 5.10 (2.23 to 9.79)",
+        "quoteLocation": "Table 4, rectal bleeding block",
+        "question": "Has the patient had rectal bleeding on any visit, and is the patient a woman aged 55 to 64?"
+      },
+      {
+        "id": "COLO-PPV-23",
+        "symptoms": [
+          "rectal-bleeding"
+        ],
+        "ageBand": "55-64",
+        "ageMin": 55,
+        "ageMax": 64,
+        "sex": "male",
+        "ppvPct": 3.38,
+        "ppvIsLowerBound": false,
+        "ci": "2.47 to 4.51",
+        "studyPopulation": "first episode of rectal bleeding in UK primary care (GPRD 1995-2000); colorectal cancer diagnosed within 3 years; PPV by age and sex",
+        "year": 2007,
+        "tier": "primary",
+        "source": {
+          "label": "Jones 2007 BMJ, alarm symptoms in UK primary care (GPRD), PPV for cancer diagnosed within 3 years",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC1871798/"
+        },
+        "quote": "Rectal bleeding <45 6 2780 0.22 (0.08 to 0.47) 2 2701 0.07 (0.01 to 0.27) 45-54 8 1270 0.63 (0.27 to 1.24) 24 1542 1.56 (1.00 to 2.31) 55 to 64 33 1200 2.75 (1.90 to 3.84) 44 1302 3.38 (2.47 to 4.51) 65 to 74 28 1156 2.42 (1.62 to 3.48) 57 1188 4.80 (3.65 to 6.17) 75 to 84 67 930 7.20 (5.63 to 9.06) 49 633 7.74 (5.78 to 10.1) ≥85 12 430 2.79 (1.45 to 4.82) 8 157 5.10 (2.23 to 9.79)",
+        "quoteLocation": "Table 4, rectal bleeding block",
+        "question": "Has the patient had rectal bleeding on any visit, and is the patient a man aged 55 to 64?"
+      },
+      {
+        "id": "COLO-PPV-24",
+        "symptoms": [
+          "rectal-bleeding"
+        ],
+        "ageBand": "65-74",
+        "ageMin": 65,
+        "ageMax": 74,
+        "sex": "female",
+        "ppvPct": 2.42,
+        "ppvIsLowerBound": false,
+        "ci": "1.62 to 3.48",
+        "studyPopulation": "first episode of rectal bleeding in UK primary care (GPRD 1995-2000); colorectal cancer diagnosed within 3 years; PPV by age and sex",
+        "year": 2007,
+        "tier": "primary",
+        "source": {
+          "label": "Jones 2007 BMJ, alarm symptoms in UK primary care (GPRD), PPV for cancer diagnosed within 3 years",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC1871798/"
+        },
+        "quote": "Rectal bleeding <45 6 2780 0.22 (0.08 to 0.47) 2 2701 0.07 (0.01 to 0.27) 45-54 8 1270 0.63 (0.27 to 1.24) 24 1542 1.56 (1.00 to 2.31) 55 to 64 33 1200 2.75 (1.90 to 3.84) 44 1302 3.38 (2.47 to 4.51) 65 to 74 28 1156 2.42 (1.62 to 3.48) 57 1188 4.80 (3.65 to 6.17) 75 to 84 67 930 7.20 (5.63 to 9.06) 49 633 7.74 (5.78 to 10.1) ≥85 12 430 2.79 (1.45 to 4.82) 8 157 5.10 (2.23 to 9.79)",
+        "quoteLocation": "Table 4, rectal bleeding block",
+        "question": "Has the patient had rectal bleeding on any visit, and is the patient a woman aged 65 to 74?"
+      },
+      {
+        "id": "COLO-PPV-25",
+        "symptoms": [
+          "rectal-bleeding"
+        ],
+        "ageBand": "65-74",
+        "ageMin": 65,
+        "ageMax": 74,
+        "sex": "male",
+        "ppvPct": 4.8,
+        "ppvIsLowerBound": false,
+        "ci": "3.65 to 6.17",
+        "studyPopulation": "first episode of rectal bleeding in UK primary care (GPRD 1995-2000); colorectal cancer diagnosed within 3 years; PPV by age and sex",
+        "year": 2007,
+        "tier": "primary",
+        "source": {
+          "label": "Jones 2007 BMJ, alarm symptoms in UK primary care (GPRD), PPV for cancer diagnosed within 3 years",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC1871798/"
+        },
+        "quote": "Rectal bleeding <45 6 2780 0.22 (0.08 to 0.47) 2 2701 0.07 (0.01 to 0.27) 45-54 8 1270 0.63 (0.27 to 1.24) 24 1542 1.56 (1.00 to 2.31) 55 to 64 33 1200 2.75 (1.90 to 3.84) 44 1302 3.38 (2.47 to 4.51) 65 to 74 28 1156 2.42 (1.62 to 3.48) 57 1188 4.80 (3.65 to 6.17) 75 to 84 67 930 7.20 (5.63 to 9.06) 49 633 7.74 (5.78 to 10.1) ≥85 12 430 2.79 (1.45 to 4.82) 8 157 5.10 (2.23 to 9.79)",
+        "quoteLocation": "Table 4, rectal bleeding block",
+        "question": "Has the patient had rectal bleeding on any visit, and is the patient a man aged 65 to 74?"
+      },
+      {
+        "id": "COLO-PPV-26",
+        "symptoms": [
+          "rectal-bleeding"
+        ],
+        "ageBand": "75-84",
+        "ageMin": 75,
+        "ageMax": 84,
+        "sex": "female",
+        "ppvPct": 7.2,
+        "ppvIsLowerBound": false,
+        "ci": "5.63 to 9.06",
+        "studyPopulation": "first episode of rectal bleeding in UK primary care (GPRD 1995-2000); colorectal cancer diagnosed within 3 years; PPV by age and sex",
+        "year": 2007,
+        "tier": "primary",
+        "source": {
+          "label": "Jones 2007 BMJ, alarm symptoms in UK primary care (GPRD), PPV for cancer diagnosed within 3 years",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC1871798/"
+        },
+        "quote": "Rectal bleeding <45 6 2780 0.22 (0.08 to 0.47) 2 2701 0.07 (0.01 to 0.27) 45-54 8 1270 0.63 (0.27 to 1.24) 24 1542 1.56 (1.00 to 2.31) 55 to 64 33 1200 2.75 (1.90 to 3.84) 44 1302 3.38 (2.47 to 4.51) 65 to 74 28 1156 2.42 (1.62 to 3.48) 57 1188 4.80 (3.65 to 6.17) 75 to 84 67 930 7.20 (5.63 to 9.06) 49 633 7.74 (5.78 to 10.1) ≥85 12 430 2.79 (1.45 to 4.82) 8 157 5.10 (2.23 to 9.79)",
+        "quoteLocation": "Table 4, rectal bleeding block",
+        "question": "Has the patient had rectal bleeding on any visit, and is the patient a woman aged 75 to 84?"
+      },
+      {
+        "id": "COLO-PPV-27",
+        "symptoms": [
+          "rectal-bleeding"
+        ],
+        "ageBand": "75-84",
+        "ageMin": 75,
+        "ageMax": 84,
+        "sex": "male",
+        "ppvPct": 7.74,
+        "ppvIsLowerBound": false,
+        "ci": "5.78 to 10.1",
+        "studyPopulation": "first episode of rectal bleeding in UK primary care (GPRD 1995-2000); colorectal cancer diagnosed within 3 years; PPV by age and sex",
+        "year": 2007,
+        "tier": "primary",
+        "source": {
+          "label": "Jones 2007 BMJ, alarm symptoms in UK primary care (GPRD), PPV for cancer diagnosed within 3 years",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC1871798/"
+        },
+        "quote": "Rectal bleeding <45 6 2780 0.22 (0.08 to 0.47) 2 2701 0.07 (0.01 to 0.27) 45-54 8 1270 0.63 (0.27 to 1.24) 24 1542 1.56 (1.00 to 2.31) 55 to 64 33 1200 2.75 (1.90 to 3.84) 44 1302 3.38 (2.47 to 4.51) 65 to 74 28 1156 2.42 (1.62 to 3.48) 57 1188 4.80 (3.65 to 6.17) 75 to 84 67 930 7.20 (5.63 to 9.06) 49 633 7.74 (5.78 to 10.1) ≥85 12 430 2.79 (1.45 to 4.82) 8 157 5.10 (2.23 to 9.79)",
+        "quoteLocation": "Table 4, rectal bleeding block",
+        "question": "Has the patient had rectal bleeding on any visit, and is the patient a man aged 75 to 84?"
+      },
+      {
+        "id": "COLO-PPV-28",
+        "symptoms": [
+          "rectal-bleeding"
+        ],
+        "ageBand": "85+",
+        "ageMin": 85,
+        "ageMax": null,
+        "sex": "female",
+        "ppvPct": 2.79,
+        "ppvIsLowerBound": false,
+        "ci": "1.45 to 4.82",
+        "studyPopulation": "first episode of rectal bleeding in UK primary care (GPRD 1995-2000); colorectal cancer diagnosed within 3 years; PPV by age and sex",
+        "year": 2007,
+        "tier": "primary",
+        "source": {
+          "label": "Jones 2007 BMJ, alarm symptoms in UK primary care (GPRD), PPV for cancer diagnosed within 3 years",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC1871798/"
+        },
+        "quote": "Rectal bleeding <45 6 2780 0.22 (0.08 to 0.47) 2 2701 0.07 (0.01 to 0.27) 45-54 8 1270 0.63 (0.27 to 1.24) 24 1542 1.56 (1.00 to 2.31) 55 to 64 33 1200 2.75 (1.90 to 3.84) 44 1302 3.38 (2.47 to 4.51) 65 to 74 28 1156 2.42 (1.62 to 3.48) 57 1188 4.80 (3.65 to 6.17) 75 to 84 67 930 7.20 (5.63 to 9.06) 49 633 7.74 (5.78 to 10.1) ≥85 12 430 2.79 (1.45 to 4.82) 8 157 5.10 (2.23 to 9.79)",
+        "quoteLocation": "Table 4, rectal bleeding block",
+        "question": "Has the patient had rectal bleeding on any visit, and is the patient a woman aged 85 or over?"
+      },
+      {
+        "id": "COLO-PPV-29",
+        "symptoms": [
+          "rectal-bleeding"
+        ],
+        "ageBand": "85+",
+        "ageMin": 85,
+        "ageMax": null,
+        "sex": "male",
+        "ppvPct": 5.1,
+        "ppvIsLowerBound": false,
+        "ci": "2.23 to 9.79",
+        "studyPopulation": "first episode of rectal bleeding in UK primary care (GPRD 1995-2000); colorectal cancer diagnosed within 3 years; PPV by age and sex",
+        "year": 2007,
+        "tier": "primary",
+        "source": {
+          "label": "Jones 2007 BMJ, alarm symptoms in UK primary care (GPRD), PPV for cancer diagnosed within 3 years",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC1871798/"
+        },
+        "quote": "Rectal bleeding <45 6 2780 0.22 (0.08 to 0.47) 2 2701 0.07 (0.01 to 0.27) 45-54 8 1270 0.63 (0.27 to 1.24) 24 1542 1.56 (1.00 to 2.31) 55 to 64 33 1200 2.75 (1.90 to 3.84) 44 1302 3.38 (2.47 to 4.51) 65 to 74 28 1156 2.42 (1.62 to 3.48) 57 1188 4.80 (3.65 to 6.17) 75 to 84 67 930 7.20 (5.63 to 9.06) 49 633 7.74 (5.78 to 10.1) ≥85 12 430 2.79 (1.45 to 4.82) 8 157 5.10 (2.23 to 9.79)",
+        "quoteLocation": "Table 4, rectal bleeding block",
+        "question": "Has the patient had rectal bleeding on any visit, and is the patient a man aged 85 or over?"
+      }
+    ],
+    "ovarian": [
+      {
+        "id": "OVAR-PPV-01",
+        "symptoms": [
+          "abdominal-distension"
+        ],
+        "ageBand": "40+",
+        "ageMin": 40,
+        "ageMax": null,
+        "sex": "female",
+        "ppvPct": 2.5,
+        "ppvIsLowerBound": false,
+        "ci": "95% CI 1.2% to 5.9%",
+        "studyPopulation": "UK primary care, 39 Devon practices; 212 women aged over 40 with primary ovarian cancer and 1060 matched controls; univariable PPV",
+        "year": 2009,
+        "tier": "primary",
+        "source": {
+          "label": "Hamilton 2009 BMJ, symptoms of ovarian cancer in primary care (Devon case-control)",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2731836/"
+        },
+        "quote": "2.5% (1.2% to 5.9%) and 240 (46 to 1200) for abdominal distension",
+        "quoteLocation": "Abstract, Results",
+        "question": "Has the patient had a visibly swollen abdomen (abdominal distension) on any visit, and is the patient a woman aged 40 or over?"
+      },
+      {
+        "id": "OVAR-PPV-02",
+        "symptoms": [
+          "appetite-loss"
+        ],
+        "ageBand": "40+",
+        "ageMin": 40,
+        "ageMax": null,
+        "sex": "female",
+        "ppvPct": 0.6,
+        "ppvIsLowerBound": false,
+        "ci": "95% CI 0.3% to 1.0%",
+        "studyPopulation": "UK primary care, 39 Devon practices; 212 women aged over 40 with primary ovarian cancer and 1060 matched controls; univariable PPV",
+        "year": 2009,
+        "tier": "primary",
+        "source": {
+          "label": "Hamilton 2009 BMJ, symptoms of ovarian cancer in primary care (Devon case-control)",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2731836/"
+        },
+        "quote": "0.6% (0.3% to 1.0%) and 17 (6.1 to 50) for loss of appetite",
+        "quoteLocation": "Abstract, Results",
+        "question": "Has the patient had loss of appetite on any visit, and is the patient a woman aged 40 or over?"
+      },
+      {
+        "id": "OVAR-PPV-03",
+        "symptoms": [
+          "postmenopausal-bleeding"
+        ],
+        "ageBand": "40+",
+        "ageMin": 40,
+        "ageMax": null,
+        "sex": "female",
+        "ppvPct": 0.5,
+        "ppvIsLowerBound": false,
+        "ci": "95% CI 0.2% to 0.9%",
+        "studyPopulation": "UK primary care, 39 Devon practices; 212 women aged over 40 with primary ovarian cancer and 1060 matched controls; univariable PPV",
+        "year": 2009,
+        "tier": "primary",
+        "source": {
+          "label": "Hamilton 2009 BMJ, symptoms of ovarian cancer in primary care (Devon case-control)",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2731836/"
+        },
+        "quote": "0.5% (0.2% to 0.9%) and 24 (9.3 to 64) for postmenopausal bleeding",
+        "quoteLocation": "Abstract, Results",
+        "question": "Has the patient had postmenopausal bleeding on any visit, and is the patient a woman aged 40 or over?"
+      },
+      {
+        "id": "OVAR-PPV-04",
+        "symptoms": [
+          "urinary-frequency"
+        ],
+        "ageBand": "40+",
+        "ageMin": 40,
+        "ageMax": null,
+        "sex": "female",
+        "ppvPct": 0.2,
+        "ppvIsLowerBound": false,
+        "ci": "95% CI 0.1% to 0.3%",
+        "studyPopulation": "UK primary care, 39 Devon practices; 212 women aged over 40 with primary ovarian cancer and 1060 matched controls; univariable PPV",
+        "year": 2009,
+        "tier": "primary",
+        "source": {
+          "label": "Hamilton 2009 BMJ, symptoms of ovarian cancer in primary care (Devon case-control)",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2731836/"
+        },
+        "quote": "0.2% (0.1% to 0.3%) and 16 (5.6 to 48) for increased urinary frequency",
+        "quoteLocation": "Abstract, Results",
+        "question": "Has the patient had increased urinary frequency on any visit, and is the patient a woman aged 40 or over?"
+      },
+      {
+        "id": "OVAR-PPV-05",
+        "symptoms": [
+          "abdominal-pain"
+        ],
+        "ageBand": "40+",
+        "ageMin": 40,
+        "ageMax": null,
+        "sex": "female",
+        "ppvPct": 0.3,
+        "ppvIsLowerBound": false,
+        "ci": "95% CI 0.2% to 0.3%",
+        "studyPopulation": "UK primary care, 39 Devon practices; 212 women aged over 40 with primary ovarian cancer and 1060 matched controls; univariable PPV",
+        "year": 2009,
+        "tier": "primary",
+        "source": {
+          "label": "Hamilton 2009 BMJ, symptoms of ovarian cancer in primary care (Devon case-control)",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2731836/"
+        },
+        "quote": "0.3% (0.2% to 0.3%) and 12 (6.1 to 22) for abdominal pain",
+        "quoteLocation": "Abstract, Results",
+        "question": "Has the patient had abdominal pain on any visit, and is the patient a woman aged 40 or over?"
+      },
+      {
+        "id": "OVAR-PPV-06",
+        "symptoms": [
+          "rectal-bleeding"
+        ],
+        "ageBand": "40+",
+        "ageMin": 40,
+        "ageMax": null,
+        "sex": "female",
+        "ppvPct": 0.2,
+        "ppvIsLowerBound": false,
+        "ci": "95% CI 0.1% to 0.4%",
+        "studyPopulation": "UK primary care, 39 Devon practices; 212 women aged over 40 with primary ovarian cancer and 1060 matched controls; univariable PPV",
+        "year": 2009,
+        "tier": "primary",
+        "source": {
+          "label": "Hamilton 2009 BMJ, symptoms of ovarian cancer in primary care (Devon case-control)",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2731836/"
+        },
+        "quote": "0.2% (0.1% to 0.4%) and 7.6 (2.5 to 23) for rectal bleeding",
+        "quoteLocation": "Abstract, Results",
+        "question": "Has the patient had rectal bleeding on any visit, and is the patient a woman aged 40 or over?"
+      },
+      {
+        "id": "OVAR-PPV-07",
+        "symptoms": [
+          "bloating"
+        ],
+        "ageBand": "40+",
+        "ageMin": 40,
+        "ageMax": null,
+        "sex": "female",
+        "ppvPct": 0.3,
+        "ppvIsLowerBound": false,
+        "ci": "95% CI 0.2% to 0.6%",
+        "studyPopulation": "UK primary care, 39 Devon practices; 212 women aged over 40 with primary ovarian cancer and 1060 matched controls; univariable PPV",
+        "year": 2009,
+        "tier": "primary",
+        "source": {
+          "label": "Hamilton 2009 BMJ, symptoms of ovarian cancer in primary care (Devon case-control)",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2731836/"
+        },
+        "quote": "0.3% (0.2% to 0.6%) and 5.3 (1.8 to 16) for abdominal bloating",
+        "quoteLocation": "Abstract, Results",
+        "question": "Has the patient had a feeling of abdominal bloating on any visit, and is the patient a woman aged 40 or over?"
+      },
+      {
+        "id": "OVAR-PPV-08",
+        "symptoms": [
+          "abdominal-distension",
+          "appetite-loss"
+        ],
+        "ageBand": "40+",
+        "ageMin": 40,
+        "ageMax": null,
+        "sex": "female",
+        "ppvPct": 5,
+        "ppvIsLowerBound": true,
+        "ci": null,
+        "studyPopulation": "UK primary care, 39 Devon practices; 212 women aged over 40 with primary ovarian cancer and 1060 matched controls; univariable PPV; 20 cases and 0 controls had both symptoms",
+        "year": 2009,
+        "tier": "primary",
+        "source": {
+          "label": "Hamilton 2009 BMJ, symptoms of ovarian cancer in primary care (Devon case-control)",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2731836/"
+        },
+        "quote": "For abdominal distension with loss of appetite, 20 cases but no controls had the combination; while strictly speaking undefined, the positive predictive value must logically be very high and so it has been set as >5%.",
+        "quoteLocation": "Results, Figure 2 text",
+        "question": "Has the patient had a visibly swollen abdomen (abdominal distension) and loss of appetite on any visit, and is the patient a woman aged 40 or over?",
+        "note": "The authors set this PPV to >5% by convention because no control had both symptoms; 5 is a lower bound, not an estimate."
+      },
+      {
+        "id": "OVAR-PPV-09",
+        "symptoms": [
+          "raised-ca125"
+        ],
+        "ageBand": "<50",
+        "ageMin": null,
+        "ageMax": 49,
+        "sex": "female",
+        "ppvPct": 2,
+        "ppvIsLowerBound": false,
+        "ci": "95% CI 1.8 to 2.3",
+        "studyPopulation": "UK CPRD, serum CA-125 >=35 U/ml, invasive ovarian cancer within 12 months of test (NICE evidence review B, pooled from Arendse 2025 and Funston 2020); Arendse 2025 = retrospective CPRD cohort, N=342278 women >=18 with CA125 test (Table 3)",
+        "year": 2025,
+        "tier": "primary",
+        "source": {
+          "label": "NICE NG12 evidence review B (CA125), April 2026: Arendse 2025, invasive ovarian cancer within 12 months of a CA-125 test",
+          "url": "https://www.nice.org.uk/guidance/ng12/evidence/b-dual-testing-with-serum-ca125-and-ultrasound-scan-compared-to-serum-ca125-alone-and-age-and-serum-pdf-15669144110"
+        },
+        "quote": "2025: 2 (1.8, 2.3)",
+        "quoteLocation": "Table 4 (PDF p.11), Arendse 2025 row",
+        "question": "Is the most recent CA-125 result 35 U/mL or higher, and is the patient a woman aged 49 or under?",
+        "needsHumanCheck": "PDF table text is garbled; check the cell against the NICE PDF (Tables 4 and 5, Arendse 2025 row)."
+      },
+      {
+        "id": "OVAR-PPV-10",
+        "symptoms": [
+          "raised-ca125"
+        ],
+        "ageBand": "50+",
+        "ageMin": 50,
+        "ageMax": null,
+        "sex": "female",
+        "ppvPct": 12.5,
+        "ppvIsLowerBound": false,
+        "ci": "95% CI 11.9 to 13.1",
+        "studyPopulation": "UK CPRD, serum CA-125 >=35 U/ml, invasive ovarian cancer within 12 months of test (NICE evidence review B, pooled from Arendse 2025 and Funston 2020); pooled sensitivity analysis, 2 studies, n=230066",
+        "year": 2025,
+        "tier": "primary",
+        "source": {
+          "label": "NICE NG12 evidence review B (CA125), April 2026: Arendse 2025, invasive ovarian cancer within 12 months of a CA-125 test",
+          "url": "https://www.nice.org.uk/guidance/ng12/evidence/b-dual-testing-with-serum-ca125-and-ultrasound-scan-compared-to-serum-ca125-alone-and-age-and-serum-pdf-15669144110"
+        },
+        "quote": "2025: 12.5 (11.9, 13.1)",
+        "quoteLocation": "Table 5 (PDF p.12), Arendse 2025 row",
+        "question": "Is the most recent CA-125 result 35 U/mL or higher, and is the patient a woman aged 50 or over?",
+        "needsHumanCheck": "PDF table text is garbled; check the cell against the NICE PDF (Tables 4 and 5, Arendse 2025 row)."
+      }
+    ]
+  }
+}

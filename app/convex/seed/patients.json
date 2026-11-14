@@ -1,0 +1,122 @@
+[
+  {
+    "id": "SYN-001",
+    "name": "Matti Esimerkki",
+    "age": 62,
+    "sex": "male",
+    "smokingStatus": "former",
+    "county": "Lappi"
+  },
+  {
+    "id": "SYN-002",
+    "name": "Anneli Harjoitus",
+    "age": 58,
+    "sex": "female",
+    "smokingStatus": "never",
+    "county": "Kymenlaakso"
+  },
+  {
+    "id": "SYN-003",
+    "name": "Sirpa Luonnos",
+    "age": 57,
+    "sex": "female",
+    "smokingStatus": "never",
+    "county": "Pohjois-Pohjanmaa"
+  },
+  {
+    "id": "SYN-004",
+    "name": "Eeva Testinen",
+    "age": 34,
+    "sex": "female",
+    "smokingStatus": "never",
+    "county": "Uusimaa"
+  },
+  {
+    "id": "SYN-005",
+    "name": "Jari Oletettu",
+    "age": 45,
+    "sex": "male",
+    "smokingStatus": "never",
+    "county": "Keski-Suomi"
+  },
+  {
+    "id": "SYN-006",
+    "name": "Sanna Vaihtoehto",
+    "age": 51,
+    "sex": "female",
+    "smokingStatus": "never",
+    "county": "Pirkanmaa"
+  },
+  {
+    "id": "SYN-007",
+    "name": "Tuomas Piirtäjä",
+    "age": 39,
+    "sex": "male",
+    "smokingStatus": "never",
+    "county": "Lappi"
+  },
+  {
+    "id": "SYN-008",
+    "name": "Helena Kuvaaja",
+    "age": 72,
+    "sex": "female",
+    "smokingStatus": "never",
+    "county": "Satakunta"
+  },
+  {
+    "id": "SYN-009",
+    "name": "Kalle Nimetön",
+    "age": 31,
+    "sex": "male",
+    "smokingStatus": "never",
+    "county": "Uusimaa"
+  },
+  {
+    "id": "SYN-010",
+    "name": "Riitta Vertailu",
+    "age": 44,
+    "sex": "female",
+    "smokingStatus": "current",
+    "county": "Pohjois-Savo"
+  },
+  {
+    "id": "SYN-011",
+    "name": "Ahti Kaavio",
+    "age": 61,
+    "sex": "male",
+    "smokingStatus": "never",
+    "county": "Kanta-Häme"
+  },
+  {
+    "id": "SYN-012",
+    "name": "Mirjam Lukema",
+    "age": 47,
+    "sex": "female",
+    "smokingStatus": "never",
+    "county": "Varsinais-Suomi"
+  },
+  {
+    "id": "SYN-013",
+    "name": "Veikko Taulukko",
+    "age": 70,
+    "sex": "male",
+    "smokingStatus": "former",
+    "county": "Etelä-Pohjanmaa"
+  },
+  {
+    "id": "SYN-014",
+    "name": "Ilona Koeajo",
+    "age": 26,
+    "sex": "female",
+    "smokingStatus": "never",
+    "county": "Kymenlaakso"
+  },
+  {
+    "id": "SYN-015",
+    "name": "Oskari Piirros",
+    "age": 52,
+    "sex": "male",
+    "smokingStatus": "current",
+    "county": "Päijät-Häme"
+  }
+]
