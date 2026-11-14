@@ -1442,3 +1442,101 @@ textarea.input {
 .ehr-info td {
   font-weight: 600;
 }
+
+/* Record: patient list with separators and a yellow current patient */
+.ehr-list {
+  padding: 0;
+}
+.ehr-list button {
+  padding: 12px 16px;
+  border-bottom: 1px solid #cfcac6;
+}
+.ehr-list button[aria-current='true'] {
+  background: var(--amber-soft);
+  box-shadow: inset 4px 0 0 var(--amber);
+}
+
+/* Record: the chart fills the height; the visit timeline scrolls in its own box */
+.ehr-chart {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-height: 0;
+}
+.ehr-history {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.ehr-history-head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.ehr-search {
+  margin-left: auto;
+  max-width: 320px;
+  background: #fff;
+  border: 1px solid #d6d2cf;
+}
+.ehr-search:hover {
+  background: #fff;
+}
+.ehr-tl-box {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  border: 1px solid #dcd8d5;
+  border-radius: 6px;
+  background: #ecebea;
+  padding: 16px;
+}
+.ehr-empty {
+  color: #5b6066;
+}
+.ehr-tl {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.ehr-tl li {
+  position: relative;
+  padding: 0 0 16px 32px;
+}
+.ehr-tl li:last-child {
+  padding-bottom: 0;
+}
+/* the connecting line, from this dot down to the next */
+.ehr-tl li::before {
+  content: '';
+  position: absolute;
+  left: 7px;
+  top: 24px;
+  bottom: -24px;
+  width: 2px;
+  background: #b9c3cc;
+}
+.ehr-tl li:last-child::before {
+  display: none;
+}
+/* the event dot, level with the visit date */
+.ehr-tl li::after {
+  content: '';
+  position: absolute;
+  left: 2px;
+  top: 19px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid #7f909f;
+  box-sizing: border-box;
+}
+.ehr-tl li.today::after {
+  background: #7f909f;
+}
+.ehr-info {
+  flex-shrink: 0;
+}

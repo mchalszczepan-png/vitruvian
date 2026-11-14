@@ -151,6 +151,12 @@ function RecordSystem({
   fed: Map<string, string[]>;
 }) {
   const visits = [...patient.visits].reverse();
+  const [query, setQuery] = useState('');
+  useEffect(() => setQuery(''), [patient.id]);
+  const q = query.trim().toLowerCase();
+  const shown = visits
+    .map((v, i) => ({ v, i }))
+    .filter(({ v }) => !q || [fmtDate(v.date), v.date, v.reason, v.note].some((t) => t.toLowerCase().includes(q)));
   return (
     <section className="ehr" aria-label="Your existing record system (example)">
       <div className="ehr-bar">
@@ -180,21 +186,44 @@ function RecordSystem({
               </tbody>
             </table>
           </section>
-          {visits.map((v, i) => (
-            <article key={v.id} id={`visit-${v.id}`} className={`ehr-visit${i === 0 ? ' today' : ''}${lit.includes(v.id) ? ' lit' : ''}`}>
-              <header>
-                {fmtDate(v.date)}
-                <span>{i === 0 ? 'Open visit' : 'Visit'}</span>
-                <span>{v.reason}</span>
-              </header>
-              {fed.has(v.id) && (
-                <span className="fed">
-                  <Mark size={12} /> Read by Vitruvian: {fed.get(v.id)!.join(', ')}
-                </span>
+          <section className="ehr-history" aria-labelledby="ehr-history-h">
+            <div className="ehr-history-head">
+              <h2 id="ehr-history-h">Visit history</h2>
+              <input
+                type="search"
+                className="input ehr-search"
+                placeholder="Search date or keyword"
+                aria-label="Search visits by date or keyword"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+              />
+            </div>
+            <div className="ehr-tl-box">
+              {shown.length === 0 ? (
+                <p className="ehr-empty">No visits match “{query}”.</p>
+              ) : (
+                <ol className="ehr-tl">
+                  {shown.map(({ v, i }) => (
+                    <li key={v.id} className={i === 0 ? 'today' : undefined}>
+                      <article id={`visit-${v.id}`} className={`ehr-visit${i === 0 ? ' today' : ''}${lit.includes(v.id) ? ' lit' : ''}`}>
+                        <header>
+                          {fmtDate(v.date)}
+                          <span>{i === 0 ? 'Open visit' : 'Visit'}</span>
+                          <span>{v.reason}</span>
+                        </header>
+                        {fed.has(v.id) && (
+                          <span className="fed">
+                            <Mark size={12} /> Read by Vitruvian: {fed.get(v.id)!.join(', ')}
+                          </span>
+                        )}
+                        <More key={`${patient.id}-${v.id}`} defaultOpen={i === 0}>{v.note}</More>
+                      </article>
+                    </li>
+                  ))}
+                </ol>
               )}
-              <More key={`${patient.id}-${v.id}`} defaultOpen={i === 0}>{v.note}</More>
-            </article>
-          ))}
+            </div>
+          </section>
         </div>
       </div>
     </section>
