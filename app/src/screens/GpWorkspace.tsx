@@ -1,9 +1,11 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { MOCK_NOTICE, fillTemplateFromNote, getAid, getReferralTemplate, repeatVisit, sendReferral } from '../data/api';
 import type { AidResult, TechUsed, FieldValues, GpDecision, Patient, Referral, ReferralTemplate } from '../data/types';
 import { FieldInput } from '../components/FieldInput';
 import { Icon, Mark } from '../components/Icon';
 import { More } from '../components/More';
+import { FoldedNote, NoteText } from '../components/NoteText';
+import { continueList } from '../components/noteList';
 import { Source } from '../components/Source';
 import { cancerName, fmtDate } from '../components/labels';
 import { getLang, useT } from '../components/lang';
@@ -27,13 +29,24 @@ const shortDate = (iso: string) =>
 type Urgency = 'urgent' | 'routine';
 
 /** Per-patient state. The note is the GP's; Save stores it and Vitruvian checks it in the background (Michal, 15 Nov). */
-interface Draft {
-  note: string;
-  /** the note text as last saved */
+/** One of today's notes. The GP can add more, each with its own text (Michal, 15 Nov). */
+interface TodayNote {
+  id: string;
+  text: string;
+  /** the text as last saved */
   saved?: string;
-  checking: boolean;
   /** GP reopened a saved note */
   editing?: boolean;
+  /** folded to one line */
+  furled?: boolean;
+}
+
+interface Draft {
+  /** today's notes, newest first */
+  notes: TodayNote[];
+  checking: boolean;
+  /** the note whose save started the current check */
+  checkingNote?: string;
   aid?: AidResult;
   template?: ReferralTemplate;
   fields?: FieldValues;
@@ -55,23 +68,37 @@ export function GpWorkspace({ patients, patientId, onPatient }: Props) {
   const [drafts, setDrafts] = useState<Record<string, Draft>>({});
   const patient = patients.find((p) => p.id === patientId) ?? patients[0];
   const today = patient.visits.at(-1)!;
-  const draft: Draft = drafts[patient.id] ?? { note: today.note, checking: false, filling: false };
-  const update = (id: string, d: Partial<Draft>) =>
+  const fresh = (p: Patient): Draft => ({ notes: [{ id: 'n1', text: p.visits.at(-1)!.note }], checking: false, filling: false });
+  const draft: Draft = drafts[patient.id] ?? fresh(patient);
+  const update = (id: string, d: Partial<Draft> | ((cur: Draft) => Partial<Draft>)) =>
     setDrafts((all) => {
-      const p = patients.find((x) => x.id === id)!;
-      return { ...all, [id]: { ...(all[id] ?? { note: p.visits.at(-1)!.note, checking: false, filling: false }), ...d } };
+      const cur = all[id] ?? fresh(patients.find((x) => x.id === id)!);
+      return { ...all, [id]: { ...cur, ...(typeof d === 'function' ? d(cur) : d) } };
     });
+  const setNote = (noteId: string, d: Partial<TodayNote>, id = patient.id) =>
+    update(id, (cur) => ({ notes: cur.notes.map((n) => (n.id === noteId ? { ...n, ...d } : n)) }));
+  // Only one blank note at a time.
+  const hasBlank = draft.notes.some((n) => !n.text.trim() && n.saved === undefined);
+  function addNote() {
+    update(patient.id, (cur) => ({ notes: [{ id: `n${Date.now()}`, text: '' }, ...cur.notes.map((n) => ({ ...n, furled: true }))] }));
+  }
+  const noteStatus = (n: TodayNote) =>
+    t(
+      draft.checking && draft.checkingNote === n.id
+        ? 'Saved. Vitruvian is checking…'
+        : n.saved === undefined
+          ? 'Ctrl + Enter to save'
+          : n.saved === n.text
+            ? 'Saved'
+            : 'Not saved yet',
+    );
   // Visits lit in the history while the GP points at a matched Rule.
   const [lit, setLit] = useState<string[]>([]);
   const [query, setQuery] = useState('');
-  const noteRef = useRef<HTMLTextAreaElement>(null);
   useEffect(() => {
-    noteRef.current?.focus();
+    document.querySelector<HTMLTextAreaElement>('.nf-tl-today textarea')?.focus();
     setLit([]);
   }, [patient.id]);
-  useEffect(() => {
-    if (draft.editing) noteRef.current?.focus();
-  }, [draft.editing]);
 
   // Small pop-up after a background check, only when a Rule matched.
   const [toast, setToast] = useState<{ id: string; text: string }>();
@@ -81,11 +108,13 @@ export function GpWorkspace({ patients, patientId, onPatient }: Props) {
     return () => clearTimeout(t);
   }, [toast]);
 
-  async function save() {
+  async function save(noteId: string) {
     const id = patient.id;
     const name = patient.name;
-    if (!draft.note.trim() || draft.checking) return;
-    update(id, { saved: draft.note, checking: true, editing: false });
+    const n = draft.notes.find((x) => x.id === noteId);
+    if (!n?.text.trim() || draft.checking) return;
+    setNote(noteId, { saved: n.text, editing: false });
+    update(id, { checking: true, checkingNote: noteId });
     const aid = await getAid(id);
     const template = await getReferralTemplate(aid.suspectedCancer);
     update(id, { aid, template, checking: false });
@@ -125,12 +154,6 @@ export function GpWorkspace({ patients, patientId, onPatient }: Props) {
   const earlier = [...patient.visits].slice(0, -1).reverse();
   const q = query.trim().toLowerCase();
   const shown = q ? patients.filter((p) => `${p.name} ${p.id} ${p.visits.at(-1)?.reason ?? ''}`.toLowerCase().includes(q)) : patients;
-  // After Save the note folds into a read-only box; the analysis shows on the right (Michal, 15 Nov).
-  const collapsed = draft.saved !== undefined && draft.saved === draft.note && !draft.editing;
-  const status = t(
-    draft.checking ? 'Saved. Vitruvian is checking…' : draft.saved === undefined ? 'Ctrl + Enter to save' : draft.saved === draft.note ? 'Saved' : 'Not saved yet',
-  );
-
   return (
     <div className="nf">
       <nav className="nf-list" aria-label={t("Today's patients")}>
@@ -174,57 +197,93 @@ export function GpWorkspace({ patients, patientId, onPatient }: Props) {
         </table>
 
         <ol className="nf-tl" aria-label={t('Visits, newest first')}>
-          <li className="nf-tl-today">
-            {collapsed ? (
-              <div className="nf-note nf-note-saved">
-                <p className="nf-note-label">
-                  {t('Today')} <span className="num">· {fmtDate(today.date)}</span>
-                </p>
-                <p className="nf-note-text">{draft.note}</p>
-                <div className="nf-note-foot">
-                  <small role="status">{status}</small>
-                  <button className="btn small" type="button" onClick={() => update(patient.id, { editing: true })}>
-                    {t('Edit')}
-                  </button>
-                </div>
-              </div>
-            ) : (
-              <form
-                className="nf-note"
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  save();
-                }}
-              >
-                <label htmlFor="nf-note-text">
-                  {t('Today')} <span className="num">· {fmtDate(today.date)}</span>
-                </label>
-                <textarea
-                  id="nf-note-text"
-                  ref={noteRef}
-                  className="input"
-                  placeholder={t('Symptoms, findings, plan')}
-                  value={draft.note}
-                  onChange={(e) => update(patient.id, { note: e.target.value })}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
-                      e.preventDefault();
-                      save();
-                    }
-                  }}
-                />
-                <div className="nf-note-foot">
-                  <small role="status">{status}</small>
-                  <button className="btn primary" type="submit" disabled={draft.checking || !draft.note.trim() || draft.saved === draft.note}>
-                    {t('Save')}
-                  </button>
-                </div>
-              </form>
-            )}
+          <li className="nf-tl-add">
+            <button className="btn small" type="button" disabled={hasBlank} onClick={addNote}>
+              <Icon name="plus" size={16} /> {t('Add note')}
+            </button>
           </li>
+          {draft.notes.map((n, i) => {
+            const label = (
+              <>
+                {t('Today')} <span className="num">· {fmtDate(today.date)}</span>
+                {draft.notes.length > 1 && <span className="num"> · {t('Note {n}', { n: draft.notes.length - i })}</span>}
+              </>
+            );
+            const status = noteStatus(n);
+            if (n.furled)
+              return (
+                <li key={n.id} className="nf-tl-today">
+                  <button type="button" className="nf-note nf-note-furled" aria-expanded={false} onClick={() => setNote(n.id, { furled: false })}>
+                    <span className="nf-note-label">{label}</span>
+                    <span className="nf-note-peek">{n.text.trim() ? n.text.trim().split('\n')[0] : t('Empty note')}</span>
+                    <small>{status}</small>
+                    <Icon name="down" size={16} />
+                  </button>
+                </li>
+              );
+            const furl = (
+              <button type="button" className="icon-btn" aria-expanded aria-label={t('Fold note')} title={t('Fold note')} onClick={() => setNote(n.id, { furled: true })}>
+                <Icon name="up" size={16} />
+              </button>
+            );
+            return (
+              <li key={n.id} className="nf-tl-today">
+                {n.saved !== undefined && n.saved === n.text && !n.editing ? (
+                  <div className="nf-note nf-note-saved">
+                    <div className="nf-note-head">
+                      <p className="nf-note-label">{label}</p>
+                      {furl}
+                    </div>
+                    <FoldedNote key={`${patient.id}-${n.id}`} text={n.text} />
+                    <div className="nf-note-foot">
+                      <small role="status">{status}</small>
+                      <button className="btn small" type="button" onClick={() => setNote(n.id, { editing: true })}>
+                        {t('Edit')}
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <form
+                    className="nf-note"
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      save(n.id);
+                    }}
+                  >
+                    <div className="nf-note-head">
+                      <label htmlFor={`nf-note-${n.id}`}>{label}</label>
+                      {furl}
+                    </div>
+                    <textarea
+                      id={`nf-note-${n.id}`}
+                      // eslint-disable-next-line jsx-a11y/no-autofocus -- opens straight into typing after Add note or Edit
+                      autoFocus={n.editing || !n.text}
+                      className="input"
+                      placeholder={t('Symptoms, findings, plan')}
+                      value={n.text}
+                      onChange={(e) => setNote(n.id, { text: e.target.value })}
+                      onKeyDown={(e) => {
+                        if (continueList(e, (text) => setNote(n.id, { text }))) return;
+                        if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
+                          e.preventDefault();
+                          save(n.id);
+                        }
+                      }}
+                    />
+                    <div className="nf-note-foot">
+                      <small role="status">{status}</small>
+                      <button className="btn primary" type="submit" disabled={draft.checking || !n.text.trim() || n.saved === n.text}>
+                        {t('Save')}
+                      </button>
+                    </div>
+                  </form>
+                )}
+              </li>
+            );
+          })}
           {earlier.map((v) => (
             <li key={v.id} id={`visit-${v.id}`} className={lit.includes(v.id) ? 'lit' : undefined}>
-              <More key={`${patient.id}-${v.id}`} extra={<p className="nf-hist-note">{v.note}</p>}>
+              <More key={`${patient.id}-${v.id}`} extra={<NoteText className="nf-hist-note" text={v.note} />}>
                 <time className="num">{fmtDate(v.date)}</time> {v.reason}
               </More>
             </li>
