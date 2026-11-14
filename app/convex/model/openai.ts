@@ -8,6 +8,8 @@ export interface ChatCfg {
   baseUrl: string;
   apiKey: string;
   model: string;
+  /** Optional second endpoint (GEMMA_FALLBACK_*). Tried when the primary fails; see chatCompletion. Never nested. */
+  fallback?: ChatCfg;
 }
 
 /** Per-call limits. Omitted: the 20 s timeout, one retry, redirects followed (the default for gemma and the Decisions call). */
@@ -54,8 +56,11 @@ export async function fetchRetry(
   return last;
 }
 
-/** POST {baseUrl}/chat/completions. Returns choices[0].message.content, or '' when the reply has none. */
-export async function chatCompletion(args: {
+/**
+ * POST {baseUrl}/chat/completions to one endpoint. Returns choices[0].message.content, or '' when the reply has none.
+ * Used by chatCompletion; it never looks at cfg.fallback.
+ */
+async function chatOnce(args: {
   cfg: ChatCfg;
   messages: ChatMessage[];
   temperature: number;
@@ -86,4 +91,29 @@ export async function chatCompletion(args: {
   })) as { choices?: { message?: { content?: unknown } }[] };
   const content = json.choices?.[0]?.message?.content;
   return typeof content === 'string' ? content : '';
+}
+
+/**
+ * POST {baseUrl}/chat/completions. Returns choices[0].message.content, or '' when the reply has none.
+ * With cfg.fallback: the primary is tried once (no retry, timeout from limits or 20 s). Any error from it logs one line and
+ * the fallback is called with the defaults (20 s, one retry). If the fallback fails too, its error propagates.
+ * Without a fallback: one endpoint, unchanged behaviour.
+ */
+export async function chatCompletion(args: {
+  cfg: ChatCfg;
+  messages: ChatMessage[];
+  temperature: number;
+  maxTokens?: number;
+  fetchImpl?: typeof fetch;
+  limits?: CallLimits;
+}): Promise<string> {
+  const { fallback } = args.cfg;
+  if (!fallback) return chatOnce(args);
+  try {
+    return await chatOnce({ ...args, limits: { ...args.limits, retry: false } });
+  } catch (e) {
+    // The message names the HTTP status or the failure only (chatOnce), never the body, URL or key.
+    console.log(`chat: primary failed (${e instanceof Error ? e.message : 'error'}), served by fallback`);
+    return chatOnce({ ...args, cfg: fallback, limits: undefined });
+  }
 }
