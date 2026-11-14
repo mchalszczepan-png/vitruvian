@@ -54,7 +54,13 @@ export function emptyFacts(): Facts {
   return out as unknown as Facts;
 }
 
-/** Keeps only the known fact keys with the right type. Anything else from the model is dropped. */
+/**
+ * Haemoglobin is g/L (Finnish notes, ppvRisk.ts divides by 10 for the g/dL cut-offs). A model can still answer in g/dL
+ * (9.8): no real Hb is under 25 g/L, so 0 < hb < 25 is read as g/dL and multiplied by 10.
+ */
+export const hbGPerL = (hb: number): number => (hb > 0 && hb < 25 ? Math.round(hb * 100) / 10 : hb);
+
+/** Keeps only the known fact keys with the right type. Anything else from the model is dropped. hb is normalised to g/L. */
 export function coerceFacts(raw: unknown): Partial<Facts> {
   const out: Record<string, unknown> = {};
   if (!raw || typeof raw !== 'object') return out;
@@ -66,6 +72,7 @@ export function coerceFacts(raw: unknown): Partial<Facts> {
     else if (kind === 'string' && typeof v === 'string' && v.trim()) out[k] = v;
     else if (kind === 'strings' && Array.isArray(v)) out[k] = v.filter((x): x is string => typeof x === 'string');
   }
+  if (typeof out.hb === 'number') out.hb = hbGPerL(out.hb);
   return out as Partial<Facts>;
 }
 
