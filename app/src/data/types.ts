@@ -88,6 +88,8 @@ export interface Rule {
   gate?: { test: string; threshold: string; source: Source };
   /** age limits or other plain-language conditions, shown on hover */
   conditions?: string;
+  /** how the Rule reads the visit history (docs/build/rules.md "Over time"); optional, only the Convex seed sets it */
+  overTime?: { pattern: 'single' | 'persistent' | 'recurrent' | 'worsening'; minVisits: number; windowDays: number | null; minDurationDays: number | null; basis: string };
 }
 
 export interface MatchedRule {

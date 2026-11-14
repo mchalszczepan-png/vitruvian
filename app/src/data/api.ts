@@ -1,6 +1,7 @@
 // The only module the UI calls for data. Every function is async so Convex can replace the mock later.
 // Research prototype. Not a medical device. Not for clinical use.
 import rawPatients from '../../../docs/build/mock-patients.json';
+import * as convex from './convexBackend';
 import { countyGap } from './mock/county';
 import { rules, severity } from './mock/rules';
 import { S } from './mock/sources';
@@ -63,11 +64,11 @@ const patients: Patient[] = (rawPatients as RawPatient[]).map((p) => ({
   ),
 }));
 
-export async function getPatients(): Promise<Patient[]> {
+async function mockGetPatients(): Promise<Patient[]> {
   return patients;
 }
 
-export async function getPatient(id: string): Promise<Patient | undefined> {
+async function mockGetPatient(id: string): Promise<Patient | undefined> {
   return patients.find((p) => p.id === id);
 }
 
@@ -288,11 +289,11 @@ function riskOf(p: Patient, matched: MatchedRule[]): number {
 
 /* ---------- Public API ---------- */
 
-export async function getReferralTemplate(cancer: CancerType): Promise<ReferralTemplate> {
+async function mockGetReferralTemplate(cancer: CancerType): Promise<ReferralTemplate> {
   return referralTemplates[cancer];
 }
 
-export async function getAid(patientId: string): Promise<AidResult> {
+async function mockGetAid(patientId: string): Promise<AidResult> {
   await wait(500);
   const p = patients.find((x) => x.id === patientId)!;
   const f = readFacts(p);
@@ -333,7 +334,7 @@ export async function getAid(patientId: string): Promise<AidResult> {
 }
 
 /** Mock of Gemma reading the notes into the Referral template. Every value keeps the note words it came from. */
-export async function fillTemplateFromNote(patientId: string, cancer: CancerType, matched: MatchedRule[]): Promise<FieldValues> {
+async function mockFillTemplateFromNote(patientId: string, cancer: CancerType, matched: MatchedRule[]): Promise<FieldValues> {
   await wait(1200);
   const p = patients.find((x) => x.id === patientId)!;
   const f = readFacts(p);
@@ -409,7 +410,7 @@ export async function fillTemplateFromNote(patientId: string, cancer: CancerType
 
 const sent: Referral[] = [];
 
-export async function sendReferral(r: Referral): Promise<Referral> {
+async function mockSendReferral(r: Referral): Promise<Referral> {
   await wait(400);
   const i = sent.findIndex((x) => x.id === r.id);
   if (i >= 0) sent[i] = r;
@@ -417,21 +418,21 @@ export async function sendReferral(r: Referral): Promise<Referral> {
   return r;
 }
 
-export async function getReferrals(): Promise<Referral[]> {
+async function mockGetReferrals(): Promise<Referral[]> {
   return [...sent];
 }
 
 /* ---------- Specialist and county ---------- */
 
-export async function getStagingTemplate(cancer: CancerType): Promise<StagingTemplate> {
+async function mockGetStagingTemplate(cancer: CancerType): Promise<StagingTemplate> {
   return stagingTemplates[cancer];
 }
 
-export async function getDemoStaging(cancer: CancerType): Promise<StagingReport> {
+async function mockGetDemoStaging(cancer: CancerType): Promise<StagingReport> {
   return structuredClone(demoStaging[cancer]);
 }
 
-export async function getCountyGap(): Promise<CountyGap> {
+async function mockGetCountyGap(): Promise<CountyGap> {
   return countyGap;
 }
 
@@ -440,3 +441,89 @@ export const MOCK_NOTICE = {
   gradient: 'Placeholder until the model is wired.',
   source: S.ng12Sites,
 };
+
+/* ---------- Backend switch: VITE_BACKEND=mock|convex (default mock), story 41 fallback ---------- */
+
+const CONVEX_TIMEOUT_MS = 30_000;
+let convexFellBack = false;
+
+function backend(): 'mock' | 'convex' {
+  return import.meta.env.VITE_BACKEND === 'convex' ? 'convex' : 'mock';
+}
+
+/** 'mock', 'convex', or 'convex-fallback' after a Convex call failed and the mock answered. For a status line in the UI. */
+export function activeBackend(): 'mock' | 'convex' | 'convex-fallback' {
+  if (backend() === 'mock') return 'mock';
+  return convexFellBack ? 'convex-fallback' : 'convex';
+}
+
+async function viaConvex<T>(name: string, call: () => Promise<T>, fallback: () => Promise<T>): Promise<T> {
+  if (backend() === 'mock') return fallback();
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  try {
+    const result = await Promise.race([
+      call(),
+      new Promise<never>((_, reject) => {
+        timer = setTimeout(() => reject(new Error(`timed out after ${CONVEX_TIMEOUT_MS} ms`)), CONVEX_TIMEOUT_MS);
+      }),
+    ]);
+    convexFellBack = false;
+    return result;
+  } catch (err) {
+    convexFellBack = true;
+    console.warn(`[vitruvian] Convex ${name} failed, using the mock: ${err instanceof Error ? err.message : String(err)}`);
+    return fallback();
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+export function getPatients(): Promise<Patient[]> {
+  return viaConvex('getPatients', () => convex.getPatients(), mockGetPatients);
+}
+
+export function getPatient(id: string): Promise<Patient | undefined> {
+  return viaConvex('getPatient', () => convex.getPatient(id), () => mockGetPatient(id));
+}
+
+/** Repeat visit flag from the backend. The sync `repeatVisit(p)` above stays for screens that already hold the patient. */
+export function getRepeatVisit(patientId: string): Promise<RepeatVisitFlag | undefined> {
+  return viaConvex('getRepeatVisit', () => convex.getRepeatVisit(patientId), async () => {
+    const p = patients.find((x) => x.id === patientId);
+    return p ? repeatVisit(p) : undefined;
+  });
+}
+
+export function getReferralTemplate(cancer: CancerType): Promise<ReferralTemplate> {
+  return viaConvex('getReferralTemplate', () => convex.getReferralTemplate(cancer), () => mockGetReferralTemplate(cancer));
+}
+
+export function getAid(patientId: string): Promise<AidResult> {
+  return viaConvex('getAid', () => convex.getAid(patientId), () => mockGetAid(patientId));
+}
+
+export function fillTemplateFromNote(patientId: string, cancer: CancerType, matched: MatchedRule[]): Promise<FieldValues> {
+  return viaConvex('fillTemplateFromNote', () => convex.fillTemplateFromNote(patientId, cancer, matched), () =>
+    mockFillTemplateFromNote(patientId, cancer, matched),
+  );
+}
+
+export function sendReferral(r: Referral): Promise<Referral> {
+  return viaConvex('sendReferral', () => convex.sendReferral(r), () => mockSendReferral(r));
+}
+
+export function getReferrals(): Promise<Referral[]> {
+  return viaConvex('getReferrals', () => convex.getReferrals(), mockGetReferrals);
+}
+
+export function getStagingTemplate(cancer: CancerType): Promise<StagingTemplate> {
+  return viaConvex('getStagingTemplate', () => convex.getStagingTemplate(cancer), () => mockGetStagingTemplate(cancer));
+}
+
+export function getDemoStaging(cancer: CancerType): Promise<StagingReport> {
+  return viaConvex('getDemoStaging', () => convex.getDemoStaging(cancer), () => mockGetDemoStaging(cancer));
+}
+
+export function getCountyGap(): Promise<CountyGap> {
+  return viaConvex('getCountyGap', () => convex.getCountyGap(), mockGetCountyGap);
+}

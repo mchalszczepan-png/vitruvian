@@ -1,0 +1,2199 @@
+{
+  "SYN-001": {
+    "cancer": "lung",
+    "matched": [
+      {
+        "because": "Coughed up blood, no cause found. Age 40+.",
+        "rule": {
+          "cancer": "lung",
+          "conditions": "age 40 and over",
+          "id": "LUNG-02",
+          "question": "Does the note say the patient has coughed up blood, with no clear cause found?",
+          "source": {
+            "label": "NICE NG12 1.1.1 [2015]",
+            "url": "https://www.nice.org.uk/guidance/ng12/chapter/recommendations-organised-by-site-of-cancer"
+          },
+          "text": "Unexplained haemoptysis"
+        },
+        "visits": [
+          {
+            "date": "2026-11-14",
+            "snippet": "Past week: coughed up streaks of fresh blood on three mornings.",
+            "visitId": "SYN-001-v3"
+          }
+        ]
+      },
+      {
+        "because": "cough, tiredness, breathlessness, weight loss, appetite loss. Age 40+.",
+        "rule": {
+          "cancer": "lung",
+          "conditions": "age 40 and over; no duration in NG12",
+          "id": "LUNG-03",
+          "question": "Does the note say the patient has two or more of these unexplained symptoms: cough, tiredness, breathlessness, chest pain, weight loss, or loss of appetite?",
+          "source": {
+            "label": "NICE NG12 1.1.2 [2015]",
+            "url": "https://www.nice.org.uk/guidance/ng12/chapter/recommendations-organised-by-site-of-cancer"
+          },
+          "text": "Two or more unexplained symptoms: cough, fatigue, shortness of breath, chest pain, weight loss, appetite loss"
+        },
+        "visits": [
+          {
+            "date": "2026-10-01",
+            "snippet": "Cough still here, about 7 weeks now, small amount of white sputum.",
+            "visitId": "SYN-001-v2"
+          },
+          {
+            "date": "2026-11-14",
+            "snippet": "Cough now 10 weeks, not settling.",
+            "visitId": "SYN-001-v3"
+          }
+        ]
+      },
+      {
+        "because": "Ex-smoker, 30 pack-years, with cough.",
+        "rule": {
+          "cancer": "lung",
+          "conditions": "age 40 and over; ever smoked; no duration in NG12",
+          "id": "LUNG-04",
+          "question": "Does the note say the patient has at least one of these unexplained symptoms: cough, tiredness, breathlessness, chest pain, weight loss, or loss of appetite?",
+          "source": {
+            "label": "NICE NG12 1.1.2 [2015]",
+            "url": "https://www.nice.org.uk/guidance/ng12/chapter/recommendations-organised-by-site-of-cancer"
+          },
+          "text": "One or more unexplained symptoms (as LUNG-03) in someone who has ever smoked"
+        },
+        "visits": [
+          {
+            "date": "2026-09-03",
+            "snippet": "Dry cough for 3 weeks, worse at night.",
+            "visitId": "SYN-001-v1"
+          },
+          {
+            "date": "2026-10-01",
+            "snippet": "Cough still here, about 7 weeks now, small amount of white sputum.",
+            "visitId": "SYN-001-v2"
+          },
+          {
+            "date": "2026-11-14",
+            "snippet": "Cough now 10 weeks, not settling.",
+            "visitId": "SYN-001-v3"
+          }
+        ]
+      },
+      {
+        "because": "Chest: reduced entry right lower zone, no wheeze.",
+        "rule": {
+          "cancer": "lung",
+          "conditions": "age 40 and over",
+          "id": "LUNG-09",
+          "question": "Does the note describe chest examination findings that could fit lung cancer?",
+          "source": {
+            "label": "NICE NG12 1.1.3 [2015]",
+            "url": "https://www.nice.org.uk/guidance/ng12/chapter/recommendations-organised-by-site-of-cancer"
+          },
+          "text": "Chest signs consistent with lung cancer"
+        },
+        "visits": [
+          {
+            "date": "2026-11-14",
+            "snippet": "Chest: reduced entry right lower zone, no wheeze.",
+            "visitId": "SYN-001-v3"
+          }
+        ]
+      }
+    ],
+    "fields": {
+      "age": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "62"
+      },
+      "chestXrayResult": {
+        "evidence": "Plan: urgent chest X-ray today, FBC, CRP, LFT, calcium.",
+        "origin": "gemma",
+        "value": "not_done"
+      },
+      "currentMedicines": {
+        "evidence": "Salbutamol from last time made no difference, I have stopped it.",
+        "origin": "gemma",
+        "value": "Salbutamol from last time made no difference, I have stopped it."
+      },
+      "examFindings": {
+        "evidence": "Chest: reduced entry right lower zone, no wheeze.",
+        "origin": "gemma",
+        "value": "Chest: reduced entry right lower zone, no wheeze."
+      },
+      "generalCondition": {
+        "evidence": "Says he has lost about 4 kg since September, appetite down, tired.",
+        "origin": "gemma",
+        "value": "Tired"
+      },
+      "gpQuestion": {
+        "evidence": "Plan: urgent chest X-ray today, FBC, CRP, LFT, calcium.",
+        "origin": "gemma",
+        "value": "Please assess for suspected lung cancer and arrange the next investigations."
+      },
+      "haemoptysis": {
+        "evidence": "Past week: coughed up streaks of fresh blood on three mornings.",
+        "origin": "gemma",
+        "value": "yes"
+      },
+      "lungSymptoms": {
+        "evidence": "Cough now 10 weeks, not settling.",
+        "origin": "gemma",
+        "value": "cough, fatigue, breathlessness, weight_loss, appetite_loss"
+      },
+      "mainSymptom": {
+        "evidence": "Visit reason",
+        "origin": "gemma",
+        "value": "Cough 10 weeks, blood in sputum, weight loss"
+      },
+      "matchedRuleIds": {
+        "evidence": "Aid",
+        "origin": "gemma",
+        "value": "LUNG-02, LUNG-03, LUNG-04, LUNG-09"
+      },
+      "otherIllnesses": {
+        "origin": "empty",
+        "value": ""
+      },
+      "packYears": {
+        "evidence": "Ex-smoker, quit 2018, roughly 30 pack-years.",
+        "origin": "gemma",
+        "value": "30"
+      },
+      "patientId": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "SYN-001"
+      },
+      "referralDate": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "2026-11-14"
+      },
+      "referringGpId": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "GP-DEMO-01"
+      },
+      "riskGradientAiEstimate": {
+        "evidence": "Aid",
+        "origin": "gemma",
+        "value": "9"
+      },
+      "sex": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "male"
+      },
+      "smokingStatus": {
+        "evidence": "Ex-smoker, quit 2018, roughly 30 pack-years.",
+        "origin": "gemma",
+        "value": "former"
+      },
+      "suspectedCancerType": {
+        "origin": "gemma",
+        "value": "lung"
+      },
+      "suspectedDiagnosis": {
+        "origin": "gemma",
+        "value": "Suspected lung cancer"
+      },
+      "symptomDurationWeeks": {
+        "evidence": "Cough now 10 weeks, not settling.",
+        "origin": "gemma",
+        "value": "10"
+      },
+      "symptomVisitCount": {
+        "evidence": "Visit history",
+        "origin": "gemma",
+        "value": "3"
+      },
+      "testsDone": {
+        "evidence": "Plan: urgent chest X-ray today, FBC, CRP, LFT, calcium.",
+        "origin": "gemma",
+        "value": "SpO 2 97% on air; CRP 6; SpO 2 96% on air; SpO 2 95% on air"
+      },
+      "urgency": {
+        "evidence": "Plan: urgent chest X-ray today, FBC, CRP, LFT, calcium.",
+        "origin": "gemma",
+        "value": "urgent_2_week"
+      },
+      "weightLossKg": {
+        "evidence": "Says he has lost about 4 kg since September, appetite down, tired.",
+        "origin": "gemma",
+        "value": "4"
+      }
+    }
+  },
+  "SYN-002": {
+    "cancer": "colorectal",
+    "matched": [
+      {
+        "because": "FIT 186 µg Hb/g.",
+        "rule": {
+          "cancer": "colorectal",
+          "conditions": "10 µg Hb/g or more; any age; Finnish cut-off [unverified]",
+          "id": "COLO-01",
+          "question": "Does the note give a FIT result of 10 micrograms of haemoglobin per gram of faeces or more?",
+          "source": {
+            "label": "NICE NG12 1.3.2 [2023]",
+            "url": "https://www.nice.org.uk/guidance/ng12/chapter/recommendations-organised-by-site-of-cancer"
+          },
+          "text": "FIT at or above 10 µg Hb/g"
+        },
+        "visits": [
+          {
+            "date": "2026-10-27",
+            "snippet": "FIT back today: 186 µg Hb/g, positive.",
+            "visitId": "SYN-002-v3"
+          }
+        ]
+      },
+      {
+        "because": "Change in bowel habit, 14 weeks.",
+        "rule": {
+          "cancer": "colorectal",
+          "conditions": "no age in NG12",
+          "gate": {
+            "source": {
+              "label": "NICE NG12 1.3.2 [2023]",
+              "url": "https://www.nice.org.uk/guidance/ng12/chapter/recommendations-organised-by-site-of-cancer"
+            },
+            "test": "FIT",
+            "threshold": "≥ 10 µg Hb/g"
+          },
+          "id": "COLO-04",
+          "question": "Does the note say the patient has had a change in their bowel habit, such as new diarrhoea or constipation?",
+          "source": {
+            "label": "NICE NG12 1.3.1 [2023]",
+            "url": "https://www.nice.org.uk/guidance/ng12/chapter/recommendations-organised-by-site-of-cancer"
+          },
+          "text": "Change in bowel habit (offer FIT)"
+        },
+        "visits": [
+          {
+            "date": "2026-08-18",
+            "snippet": "About 6 weeks of looser stools, going 4 to 5 times a day, some strai…",
+            "visitId": "SYN-002-v1"
+          },
+          {
+            "date": "2026-09-22",
+            "snippet": "Bowel change persisting, now about 10 weeks, alternating loose and n…",
+            "visitId": "SYN-002-v2"
+          },
+          {
+            "date": "2026-10-27",
+            "snippet": "Still tired, 14 weeks of change in bowel habit, rectal bleeding with…",
+            "visitId": "SYN-002-v3"
+          }
+        ]
+      },
+      {
+        "because": "Iron-deficiency anaemia, Hb 98 g/L.",
+        "rule": {
+          "cancer": "colorectal",
+          "conditions": "no age in NG12",
+          "gate": {
+            "source": {
+              "label": "NICE NG12 1.3.2 [2023]",
+              "url": "https://www.nice.org.uk/guidance/ng12/chapter/recommendations-organised-by-site-of-cancer"
+            },
+            "test": "FIT",
+            "threshold": "≥ 10 µg Hb/g"
+          },
+          "id": "COLO-05",
+          "question": "Does the note say the patient has iron-deficiency anaemia?",
+          "source": {
+            "label": "NICE NG12 1.3.1 [2023]",
+            "url": "https://www.nice.org.uk/guidance/ng12/chapter/recommendations-organised-by-site-of-cancer"
+          },
+          "text": "Iron-deficiency anaemia (offer FIT)"
+        },
+        "visits": [
+          {
+            "date": "2026-09-22",
+            "snippet": "Bloods back: Hb 109 g/L (low), MCV 78, ferritin 9.",
+            "visitId": "SYN-002-v2"
+          },
+          {
+            "date": "2026-10-27",
+            "snippet": "Iron-deficiency anaemia.",
+            "visitId": "SYN-002-v3"
+          }
+        ]
+      },
+      {
+        "because": "Rectal bleeding, 3 kg weight loss. Age 50+.",
+        "rule": {
+          "cancer": "colorectal",
+          "conditions": "age 50 and over; any one of the three",
+          "gate": {
+            "source": {
+              "label": "NICE NG12 1.3.2 [2023]",
+              "url": "https://www.nice.org.uk/guidance/ng12/chapter/recommendations-organised-by-site-of-cancer"
+            },
+            "test": "FIT",
+            "threshold": "≥ 10 µg Hb/g"
+          },
+          "id": "COLO-08",
+          "question": "Does the note say the patient has unexplained rectal bleeding, unexplained abdominal pain, or unexplained weight loss?",
+          "source": {
+            "label": "NICE NG12 1.3.1 [2023]",
+            "url": "https://www.nice.org.uk/guidance/ng12/chapter/recommendations-organised-by-site-of-cancer"
+          },
+          "text": "Unexplained rectal bleeding, abdominal pain or weight loss (offer FIT)"
+        },
+        "visits": [
+          {
+            "date": "2026-09-22",
+            "snippet": "Small amount of bright red blood on toilet paper for the last 2 weeks.",
+            "visitId": "SYN-002-v2"
+          },
+          {
+            "date": "2026-10-27",
+            "snippet": "Still tired, 14 weeks of change in bowel habit, rectal bleeding with…",
+            "visitId": "SYN-002-v3"
+          }
+        ]
+      }
+    ],
+    "fields": {
+      "abdominalMass": {
+        "evidence": "Rectal exam: no mass felt, dark blood on glove.",
+        "origin": "gemma",
+        "value": "no"
+      },
+      "age": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "58"
+      },
+      "bowelHabitChange": {
+        "evidence": "Still tired, 14 weeks of change in bowel habit, rectal bleeding with stools now more regular.",
+        "origin": "gemma",
+        "value": "yes"
+      },
+      "currentMedicines": {
+        "evidence": "Plan: urgent colorectal referral (suspected cancer pathway), CEA and LFT sent, iron infusion discussed.",
+        "origin": "gemma",
+        "value": "Plan: urgent colorectal referral (suspected cancer pathway), CEA and LFT sent, iron infusion discussed."
+      },
+      "examFindings": {
+        "evidence": "Rectal exam: no mass felt, dark blood on glove.",
+        "origin": "gemma",
+        "value": "Rectal exam: no mass felt, dark blood on glove."
+      },
+      "fitDone": {
+        "evidence": "FIT back today: 186 µg Hb/g, positive.",
+        "origin": "gemma",
+        "value": "yes"
+      },
+      "fitValueUgHbPerG": {
+        "evidence": "FIT back today: 186 µg Hb/g, positive.",
+        "origin": "gemma",
+        "value": "186"
+      },
+      "generalCondition": {
+        "evidence": "Still tired, 14 weeks of change in bowel habit, rectal bleeding with stools now more regular.",
+        "origin": "gemma",
+        "value": "Tired"
+      },
+      "gpQuestion": {
+        "evidence": "Plan: urgent colorectal referral (suspected cancer pathway), CEA and LFT sent, iron infusion discussed.",
+        "origin": "gemma",
+        "value": "Please assess for suspected colorectal cancer and arrange the next investigations."
+      },
+      "haemoglobinGPerL": {
+        "evidence": "FBC: Hb 98 g/L (down from 109), MCV 74, ferritin 6.",
+        "origin": "gemma",
+        "value": "98"
+      },
+      "ironDeficiencyAnaemia": {
+        "evidence": "Iron-deficiency anaemia.",
+        "origin": "gemma",
+        "value": "yes"
+      },
+      "mainSymptom": {
+        "evidence": "Visit reason",
+        "origin": "gemma",
+        "value": "Repeat FBC low, FIT positive, rectal bleeding"
+      },
+      "matchedRuleIds": {
+        "evidence": "Aid",
+        "origin": "gemma",
+        "value": "COLO-01, COLO-04, COLO-05, COLO-08"
+      },
+      "otherIllnesses": {
+        "origin": "empty",
+        "value": ""
+      },
+      "patientId": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "SYN-002"
+      },
+      "rectalBleeding": {
+        "evidence": "Still tired, 14 weeks of change in bowel habit, rectal bleeding with stools now more regular.",
+        "origin": "gemma",
+        "value": "yes"
+      },
+      "rectalExamResult": {
+        "evidence": "Rectal exam: no mass felt, dark blood on glove.",
+        "origin": "gemma",
+        "value": "normal"
+      },
+      "referralDate": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "2026-10-27"
+      },
+      "referringGpId": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "GP-DEMO-01"
+      },
+      "riskGradientAiEstimate": {
+        "evidence": "Aid",
+        "origin": "gemma",
+        "value": "8"
+      },
+      "sex": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "female"
+      },
+      "smokingStatus": {
+        "evidence": "Never smoker.",
+        "origin": "gemma",
+        "value": "never"
+      },
+      "suspectedCancerType": {
+        "origin": "gemma",
+        "value": "colorectal"
+      },
+      "suspectedDiagnosis": {
+        "origin": "gemma",
+        "value": "Suspected colorectal cancer"
+      },
+      "symptomDurationWeeks": {
+        "evidence": "Still tired, 14 weeks of change in bowel habit, rectal bleeding with stools now more regular.",
+        "origin": "gemma",
+        "value": "14"
+      },
+      "symptomVisitCount": {
+        "evidence": "Visit history",
+        "origin": "gemma",
+        "value": "3"
+      },
+      "testsDone": {
+        "evidence": "FBC: Hb 98 g/L (down from 109), MCV 74, ferritin 6.",
+        "origin": "gemma",
+        "value": "Hb 109 g/L; CRP 4; Hb 98 g/L; FIT 186 µg Hb/g; CRP 8; SpO 2 98% on air"
+      },
+      "urgency": {
+        "evidence": "Plan: urgent colorectal referral (suspected cancer pathway), CEA and LFT sent, iron infusion discussed.",
+        "origin": "gemma",
+        "value": "urgent_2_week"
+      },
+      "weightLossKg": {
+        "evidence": "Weight 64 kg, was 67 kg in August.",
+        "origin": "gemma",
+        "value": "3"
+      }
+    }
+  },
+  "SYN-003": {
+    "cancer": "ovarian",
+    "matched": [
+      {
+        "because": "Bloating in the notes.",
+        "rule": {
+          "cancer": "ovarian",
+          "conditions": "any age, especially 50 and over; CA-125 from age 40 (OVAR-06)",
+          "gate": {
+            "source": {
+              "label": "NICE NG12 1.5.9 and Table 1 [2026]",
+              "url": "https://www.nice.org.uk/guidance/ng12/chapter/recommendations-organised-by-site-of-cancer"
+            },
+            "test": "CA-125",
+            "threshold": "by age: 35 IU/mL at 40–49, 31 at 50–59, 24 at 60–69, 25 at 70–79, 31 at 80+"
+          },
+          "id": "OVAR-02",
+          "question": "Does the note say the patient has had persistent or frequent bloating or abdominal swelling?",
+          "source": {
+            "label": "NICE NG12 1.5.2 [2011]",
+            "url": "https://www.nice.org.uk/guidance/ng12/chapter/recommendations-organised-by-site-of-cancer"
+          },
+          "text": "Persistent or frequent bloating (abdominal distension); CA-125 needed"
+        },
+        "visits": [
+          {
+            "date": "2026-09-18",
+            "snippet": "Bloating for about 3 months, worse by evening.",
+            "visitId": "SYN-003-v1"
+          },
+          {
+            "date": "2026-10-23",
+            "snippet": "Bloating now constant for about 6 weeks, trousers tight by evening.",
+            "visitId": "SYN-003-v2"
+          },
+          {
+            "date": "2026-11-14",
+            "snippet": "Bloating and early fullness persist, now about 5 months, plus interm…",
+            "visitId": "SYN-003-v3"
+          }
+        ]
+      },
+      {
+        "because": "Early fullness, poor appetite.",
+        "rule": {
+          "cancer": "ovarian",
+          "conditions": "any age, especially 50 and over; CA-125 from age 40",
+          "gate": {
+            "source": {
+              "label": "NICE NG12 1.5.9 and Table 1 [2026]",
+              "url": "https://www.nice.org.uk/guidance/ng12/chapter/recommendations-organised-by-site-of-cancer"
+            },
+            "test": "CA-125",
+            "threshold": "by age: 35 IU/mL at 40–49, 31 at 50–59, 24 at 60–69, 25 at 70–79, 31 at 80+"
+          },
+          "id": "OVAR-03",
+          "question": "Does the note say the patient has had persistent or frequent early fullness after small amounts of food, or loss of appetite?",
+          "source": {
+            "label": "NICE NG12 1.5.2 [2011]",
+            "url": "https://www.nice.org.uk/guidance/ng12/chapter/recommendations-organised-by-site-of-cancer"
+          },
+          "text": "Persistent or frequent feeling full early, or loss of appetite; CA-125 needed"
+        },
+        "visits": [
+          {
+            "date": "2026-09-18",
+            "snippet": "Feels full after small meals, appetite slightly down.",
+            "visitId": "SYN-003-v1"
+          },
+          {
+            "date": "2026-10-23",
+            "snippet": "Still full after a few mouthfuls, eating less, appetite poor.",
+            "visitId": "SYN-003-v2"
+          },
+          {
+            "date": "2026-11-14",
+            "snippet": "Bloating and early fullness persist, now about 5 months, plus interm…",
+            "visitId": "SYN-003-v3"
+          }
+        ]
+      },
+      {
+        "because": "Pelvic pain on and off.",
+        "rule": {
+          "cancer": "ovarian",
+          "conditions": "any age, especially 50 and over; CA-125 from age 40",
+          "gate": {
+            "source": {
+              "label": "NICE NG12 1.5.9 and Table 1 [2026]",
+              "url": "https://www.nice.org.uk/guidance/ng12/chapter/recommendations-organised-by-site-of-cancer"
+            },
+            "test": "CA-125",
+            "threshold": "by age: 35 IU/mL at 40–49, 31 at 50–59, 24 at 60–69, 25 at 70–79, 31 at 80+"
+          },
+          "id": "OVAR-04",
+          "question": "Does the note say the patient has had pelvic or abdominal pain that persists or keeps coming back?",
+          "source": {
+            "label": "NICE NG12 1.5.2 [2011]",
+            "url": "https://www.nice.org.uk/guidance/ng12/chapter/recommendations-organised-by-site-of-cancer"
+          },
+          "text": "Persistent or frequent pelvic or abdominal pain; CA-125 needed"
+        },
+        "visits": [
+          {
+            "date": "2026-10-23",
+            "snippet": "Dull lower pelvic pain on and off for 4 weeks, not linked to food.",
+            "visitId": "SYN-003-v2"
+          },
+          {
+            "date": "2026-11-14",
+            "snippet": "Bloating and early fullness persist, now about 5 months, plus interm…",
+            "visitId": "SYN-003-v3"
+          }
+        ]
+      },
+      {
+        "because": "CA-125 180 IU/mL. Threshold at age 57 is 31.",
+        "rule": {
+          "cancer": "ovarian",
+          "conditions": "age 40 and over; 40–49: 35 IU/mL; 50–59: 31; 60–69: 24; 70–79: 25; 80+: 31 (NG12 Table 1, 2026)",
+          "id": "OVAR-06",
+          "question": "Does the note say the CA-125 is at or above the age threshold: 35 IU/mL at ages 40–49, 31 at 50–59, 24 at 60–69, 25 at 70–79, or 31 at 80 and over?",
+          "source": {
+            "label": "NICE NG12 1.5.9 and Table 1 [2026]",
+            "url": "https://www.nice.org.uk/guidance/ng12/chapter/recommendations-organised-by-site-of-cancer"
+          },
+          "text": "CA-125 at or above the age-band threshold: urgent direct-access ultrasound"
+        },
+        "visits": [
+          {
+            "date": "2026-11-14",
+            "snippet": "CA-125 back today: 180 IU/mL (sent 23 Oct).",
+            "visitId": "SYN-003-v3"
+          }
+        ]
+      }
+    ],
+    "fields": {
+      "age": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "57"
+      },
+      "ascites": {
+        "evidence": "Abdomen mildly distended, soft, no palpable mass, no ascites on clinical exam.",
+        "origin": "gemma",
+        "value": "no"
+      },
+      "bloatingOrDistension": {
+        "evidence": "Bloating and early fullness persist, now about 5 months, plus intermittent lower pelvic pain.",
+        "origin": "gemma",
+        "value": "yes"
+      },
+      "brcaStatus": {
+        "origin": "empty",
+        "value": ""
+      },
+      "ca125Date": {
+        "evidence": "Plan: CA-125 sent today, review when result back.",
+        "origin": "gemma",
+        "value": "2026-10-23"
+      },
+      "ca125Done": {
+        "evidence": "CA-125 back today: 180 IU/mL (sent 23 Oct).",
+        "origin": "gemma",
+        "value": "yes"
+      },
+      "ca125ValueIuPerMl": {
+        "evidence": "CA-125 back today: 180 IU/mL (sent 23 Oct).",
+        "origin": "gemma",
+        "value": "180"
+      },
+      "currentMedicines": {
+        "origin": "empty",
+        "value": ""
+      },
+      "earlySatietyOrAppetiteLoss": {
+        "evidence": "Bloating and early fullness persist, now about 5 months, plus intermittent lower pelvic pain.",
+        "origin": "gemma",
+        "value": "yes"
+      },
+      "examFindings": {
+        "evidence": "Abdomen mildly distended, soft, no palpable mass, no ascites on clinical exam.",
+        "origin": "gemma",
+        "value": "Abdomen mildly distended, soft, no palpable mass, no ascites on clinical exam."
+      },
+      "familyHistoryBreastOrOvarianCancer": {
+        "origin": "empty",
+        "value": ""
+      },
+      "generalCondition": {
+        "origin": "empty",
+        "value": ""
+      },
+      "gpQuestion": {
+        "evidence": "Plan: urgent direct access pelvic and abdominal ultrasound, suspected gynae cancer pathway referral if the scan is abnormal.",
+        "origin": "gemma",
+        "value": "Please assess for suspected ovarian cancer and arrange the next investigations."
+      },
+      "mainSymptom": {
+        "evidence": "Visit reason",
+        "origin": "gemma",
+        "value": "CA-125 raised, third visit for bloating"
+      },
+      "matchedRuleIds": {
+        "evidence": "Aid",
+        "origin": "gemma",
+        "value": "OVAR-02, OVAR-03, OVAR-04, OVAR-06"
+      },
+      "menopausalStatus": {
+        "evidence": "Postmenopausal since 2019, no bleeding since.",
+        "origin": "gemma",
+        "value": "postmenopausal"
+      },
+      "otherIllnesses": {
+        "origin": "empty",
+        "value": ""
+      },
+      "palpableMass": {
+        "evidence": "Abdomen mildly distended, soft, no palpable mass, no ascites on clinical exam.",
+        "origin": "gemma",
+        "value": "no"
+      },
+      "patientId": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "SYN-003"
+      },
+      "pelvicOrAbdominalPain": {
+        "evidence": "Bloating and early fullness persist, now about 5 months, plus intermittent lower pelvic pain.",
+        "origin": "gemma",
+        "value": "yes"
+      },
+      "pelvicUltrasoundResult": {
+        "evidence": "Plan: urgent direct access pelvic and abdominal ultrasound, suspected gynae cancer pathway referral if the scan is abnormal.",
+        "origin": "gemma",
+        "value": "not_done"
+      },
+      "referralDate": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "2026-11-14"
+      },
+      "referringGpId": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "GP-DEMO-01"
+      },
+      "riskGradientAiEstimate": {
+        "evidence": "Aid",
+        "origin": "gemma",
+        "value": "8"
+      },
+      "sex": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "female"
+      },
+      "smokingStatus": {
+        "evidence": "Never smoker.",
+        "origin": "gemma",
+        "value": "never"
+      },
+      "suspectedCancerType": {
+        "origin": "gemma",
+        "value": "ovarian"
+      },
+      "suspectedDiagnosis": {
+        "origin": "gemma",
+        "value": "Suspected ovarian cancer"
+      },
+      "symptomDaysPerMonth": {
+        "origin": "empty",
+        "value": ""
+      },
+      "symptomDurationWeeks": {
+        "evidence": "Bloating now constant for about 6 weeks, trousers tight by evening.",
+        "origin": "gemma",
+        "value": "4"
+      },
+      "symptomVisitCount": {
+        "evidence": "Visit history",
+        "origin": "gemma",
+        "value": "3"
+      },
+      "testsDone": {
+        "evidence": "CA-125 back today: 180 IU/mL (sent 23 Oct).",
+        "origin": "gemma",
+        "value": "CA- 125 180 IU/mL"
+      },
+      "urgency": {
+        "evidence": "Plan: urgent direct access pelvic and abdominal ultrasound, suspected gynae cancer pathway referral if the scan is abnormal.",
+        "origin": "gemma",
+        "value": "urgent_2_week"
+      },
+      "urinarySymptoms": {
+        "evidence": "No urinary change.",
+        "origin": "gemma",
+        "value": "no"
+      }
+    }
+  },
+  "SYN-004": {
+    "cancer": "lung",
+    "matched": [],
+    "fields": {
+      "age": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "34"
+      },
+      "chestXrayResult": {
+        "origin": "empty",
+        "value": ""
+      },
+      "currentMedicines": {
+        "evidence": "Salbutamol once in the past 3 weeks, no night waking.",
+        "origin": "gemma",
+        "value": "Salbutamol once in the past 3 weeks, no night waking."
+      },
+      "examFindings": {
+        "evidence": "Chest clear, SpO2 99%.",
+        "origin": "gemma",
+        "value": "Chest clear, SpO2 99%."
+      },
+      "generalCondition": {
+        "origin": "empty",
+        "value": ""
+      },
+      "gpQuestion": {
+        "evidence": "Plan: continue current budesonide dose, asthma plan updated, annual review.",
+        "origin": "gemma",
+        "value": "Please assess for suspected lung cancer and arrange the next investigations."
+      },
+      "haemoptysis": {
+        "origin": "gemma",
+        "value": "no"
+      },
+      "lungSymptoms": {
+        "evidence": "34F, 2 weeks of night-time cough and wheeze, worse in cold air.",
+        "origin": "gemma",
+        "value": "cough"
+      },
+      "mainSymptom": {
+        "evidence": "Visit reason",
+        "origin": "gemma",
+        "value": "Asthma check, well controlled"
+      },
+      "matchedRuleIds": {
+        "evidence": "Aid",
+        "origin": "gemma",
+        "value": ""
+      },
+      "otherIllnesses": {
+        "origin": "empty",
+        "value": ""
+      },
+      "patientId": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "SYN-004"
+      },
+      "referralDate": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "2026-10-05"
+      },
+      "referringGpId": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "GP-DEMO-01"
+      },
+      "riskGradientAiEstimate": {
+        "evidence": "Aid",
+        "origin": "gemma",
+        "value": "0"
+      },
+      "sex": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "female"
+      },
+      "smokingStatus": {
+        "evidence": "Never smoker.",
+        "origin": "gemma",
+        "value": "never"
+      },
+      "suspectedCancerType": {
+        "origin": "gemma",
+        "value": "lung"
+      },
+      "suspectedDiagnosis": {
+        "origin": "gemma",
+        "value": "Suspected lung cancer"
+      },
+      "symptomDurationWeeks": {
+        "evidence": "Salbutamol once in the past 3 weeks, no night waking.",
+        "origin": "gemma",
+        "value": "6"
+      },
+      "symptomVisitCount": {
+        "evidence": "Visit history",
+        "origin": "gemma",
+        "value": "3"
+      },
+      "testsDone": {
+        "origin": "gemma",
+        "value": "SpO 2 98% on air; SpO 2 99% on air"
+      },
+      "urgency": {
+        "origin": "empty",
+        "value": ""
+      }
+    }
+  },
+  "SYN-005": {
+    "cancer": "lung",
+    "matched": [],
+    "fields": {
+      "age": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "45"
+      },
+      "chestXrayResult": {
+        "origin": "empty",
+        "value": ""
+      },
+      "currentMedicines": {
+        "origin": "empty",
+        "value": ""
+      },
+      "examFindings": {
+        "evidence": "Abdomen soft.",
+        "origin": "gemma",
+        "value": "Abdomen soft."
+      },
+      "generalCondition": {
+        "origin": "empty",
+        "value": ""
+      },
+      "gpQuestion": {
+        "evidence": "Plan: repeat prescription for 6 months, lifestyle reinforced.",
+        "origin": "gemma",
+        "value": "Please assess for suspected lung cancer and arrange the next investigations."
+      },
+      "haemoptysis": {
+        "evidence": "No dysphagia, no weight loss, no black stools or vomiting blood.",
+        "origin": "gemma",
+        "value": "no"
+      },
+      "lungSymptoms": {
+        "origin": "gemma",
+        "value": ""
+      },
+      "mainSymptom": {
+        "evidence": "Visit reason",
+        "origin": "gemma",
+        "value": "Reflux stable, repeat prescription"
+      },
+      "matchedRuleIds": {
+        "evidence": "Aid",
+        "origin": "gemma",
+        "value": ""
+      },
+      "otherIllnesses": {
+        "origin": "empty",
+        "value": ""
+      },
+      "patientId": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "SYN-005"
+      },
+      "referralDate": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "2026-09-16"
+      },
+      "referringGpId": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "GP-DEMO-01"
+      },
+      "riskGradientAiEstimate": {
+        "evidence": "Aid",
+        "origin": "gemma",
+        "value": "0"
+      },
+      "sex": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "male"
+      },
+      "smokingStatus": {
+        "evidence": "Never smoker.",
+        "origin": "gemma",
+        "value": "never"
+      },
+      "suspectedCancerType": {
+        "origin": "gemma",
+        "value": "lung"
+      },
+      "suspectedDiagnosis": {
+        "origin": "gemma",
+        "value": "Suspected lung cancer"
+      },
+      "symptomDurationWeeks": {
+        "origin": "empty",
+        "value": ""
+      },
+      "symptomVisitCount": {
+        "evidence": "Visit history",
+        "origin": "gemma",
+        "value": "3"
+      },
+      "testsDone": {
+        "origin": "gemma",
+        "value": ""
+      },
+      "urgency": {
+        "origin": "empty",
+        "value": ""
+      }
+    }
+  },
+  "SYN-006": {
+    "cancer": "colorectal",
+    "matched": [
+      {
+        "because": "Change in bowel habit, 2 weeks.",
+        "rule": {
+          "cancer": "colorectal",
+          "conditions": "no age in NG12",
+          "gate": {
+            "source": {
+              "label": "NICE NG12 1.3.2 [2023]",
+              "url": "https://www.nice.org.uk/guidance/ng12/chapter/recommendations-organised-by-site-of-cancer"
+            },
+            "test": "FIT",
+            "threshold": "≥ 10 µg Hb/g"
+          },
+          "id": "COLO-04",
+          "question": "Does the note say the patient has had a change in their bowel habit, such as new diarrhoea or constipation?",
+          "source": {
+            "label": "NICE NG12 1.3.1 [2023]",
+            "url": "https://www.nice.org.uk/guidance/ng12/chapter/recommendations-organised-by-site-of-cancer"
+          },
+          "text": "Change in bowel habit (offer FIT)"
+        },
+        "visits": [
+          {
+            "date": "2026-04-07",
+            "snippet": "No saddle numbness, no bladder or bowel change, no fever, no weight…",
+            "visitId": "SYN-006-v1"
+          },
+          {
+            "date": "2026-07-22",
+            "snippet": "No leg symptoms, no numbness, no bladder or bowel change.",
+            "visitId": "SYN-006-v2"
+          }
+        ]
+      }
+    ],
+    "fields": {
+      "abdominalMass": {
+        "origin": "gemma",
+        "value": "no"
+      },
+      "age": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "51"
+      },
+      "bowelHabitChange": {
+        "evidence": "No leg symptoms, no numbness, no bladder or bowel change.",
+        "origin": "gemma",
+        "value": "yes"
+      },
+      "currentMedicines": {
+        "origin": "empty",
+        "value": ""
+      },
+      "examFindings": {
+        "origin": "empty",
+        "value": ""
+      },
+      "fitDone": {
+        "origin": "gemma",
+        "value": "no"
+      },
+      "generalCondition": {
+        "origin": "empty",
+        "value": ""
+      },
+      "gpQuestion": {
+        "evidence": "Plan: NSAID for 5 days, posture advice, back-care leaflet given.",
+        "origin": "gemma",
+        "value": "Please assess for suspected colorectal cancer and arrange the next investigations."
+      },
+      "ironDeficiencyAnaemia": {
+        "origin": "gemma",
+        "value": "no"
+      },
+      "mainSymptom": {
+        "evidence": "Visit reason",
+        "origin": "gemma",
+        "value": "Back pain flare, improving"
+      },
+      "matchedRuleIds": {
+        "evidence": "Aid",
+        "origin": "gemma",
+        "value": "COLO-04"
+      },
+      "otherIllnesses": {
+        "origin": "empty",
+        "value": ""
+      },
+      "patientId": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "SYN-006"
+      },
+      "rectalBleeding": {
+        "origin": "gemma",
+        "value": "no"
+      },
+      "referralDate": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "2026-07-22"
+      },
+      "referringGpId": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "GP-DEMO-01"
+      },
+      "riskGradientAiEstimate": {
+        "evidence": "Aid",
+        "origin": "gemma",
+        "value": "3"
+      },
+      "sex": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "female"
+      },
+      "smokingStatus": {
+        "evidence": "Never smoker.",
+        "origin": "gemma",
+        "value": "never"
+      },
+      "suspectedCancerType": {
+        "origin": "gemma",
+        "value": "colorectal"
+      },
+      "suspectedDiagnosis": {
+        "origin": "gemma",
+        "value": "Suspected colorectal cancer"
+      },
+      "symptomDurationWeeks": {
+        "evidence": "51F, low back pain for 2 weeks after lifting a box at work.",
+        "origin": "gemma",
+        "value": "2"
+      },
+      "symptomVisitCount": {
+        "evidence": "Visit history",
+        "origin": "gemma",
+        "value": "2"
+      },
+      "testsDone": {
+        "origin": "gemma",
+        "value": ""
+      },
+      "urgency": {
+        "origin": "empty",
+        "value": ""
+      }
+    }
+  },
+  "SYN-007": {
+    "cancer": "lung",
+    "matched": [],
+    "fields": {
+      "age": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "39"
+      },
+      "chestXrayResult": {
+        "origin": "empty",
+        "value": ""
+      },
+      "currentMedicines": {
+        "origin": "empty",
+        "value": ""
+      },
+      "examFindings": {
+        "evidence": "Chest clear, throat mildly red.",
+        "origin": "gemma",
+        "value": "Chest clear, throat mildly red."
+      },
+      "generalCondition": {
+        "origin": "empty",
+        "value": ""
+      },
+      "gpQuestion": {
+        "evidence": "Plan: amoxicillin 500 mg three times a day for 5 days (no penicillin allergy), paracetamol, review in 48 hours if not better.",
+        "origin": "gemma",
+        "value": "Please assess for suspected lung cancer and arrange the next investigations."
+      },
+      "haemoptysis": {
+        "origin": "gemma",
+        "value": "no"
+      },
+      "lungSymptoms": {
+        "origin": "gemma",
+        "value": ""
+      },
+      "mainSymptom": {
+        "evidence": "Visit reason",
+        "origin": "gemma",
+        "value": "Right earache"
+      },
+      "matchedRuleIds": {
+        "evidence": "Aid",
+        "origin": "gemma",
+        "value": ""
+      },
+      "otherIllnesses": {
+        "origin": "empty",
+        "value": ""
+      },
+      "patientId": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "SYN-007"
+      },
+      "referralDate": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "2026-05-28"
+      },
+      "referringGpId": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "GP-DEMO-01"
+      },
+      "riskGradientAiEstimate": {
+        "evidence": "Aid",
+        "origin": "gemma",
+        "value": "0"
+      },
+      "sex": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "male"
+      },
+      "smokingStatus": {
+        "evidence": "Never smoker.",
+        "origin": "gemma",
+        "value": "never"
+      },
+      "suspectedCancerType": {
+        "origin": "gemma",
+        "value": "lung"
+      },
+      "suspectedDiagnosis": {
+        "origin": "gemma",
+        "value": "Suspected lung cancer"
+      },
+      "symptomDurationWeeks": {
+        "origin": "empty",
+        "value": ""
+      },
+      "symptomVisitCount": {
+        "evidence": "Visit history",
+        "origin": "gemma",
+        "value": "1"
+      },
+      "testsDone": {
+        "origin": "gemma",
+        "value": "SpO 2 98% on air"
+      },
+      "urgency": {
+        "origin": "empty",
+        "value": ""
+      }
+    }
+  },
+  "SYN-008": {
+    "cancer": "lung",
+    "matched": [],
+    "fields": {
+      "age": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "72"
+      },
+      "chestXrayResult": {
+        "origin": "empty",
+        "value": ""
+      },
+      "currentMedicines": {
+        "origin": "empty",
+        "value": ""
+      },
+      "examFindings": {
+        "origin": "empty",
+        "value": ""
+      },
+      "generalCondition": {
+        "origin": "empty",
+        "value": ""
+      },
+      "gpQuestion": {
+        "evidence": "Plan: MSU sent, trimethoprim 200 mg twice a day for 3 days pending culture, fluids.",
+        "origin": "gemma",
+        "value": "Please assess for suspected lung cancer and arrange the next investigations."
+      },
+      "haemoptysis": {
+        "evidence": "Urine dipstick: leucocytes 3+, nitrites positive, trace blood.",
+        "origin": "gemma",
+        "value": "no"
+      },
+      "lungSymptoms": {
+        "origin": "gemma",
+        "value": ""
+      },
+      "mainSymptom": {
+        "evidence": "Visit reason",
+        "origin": "gemma",
+        "value": "Burning on passing urine"
+      },
+      "matchedRuleIds": {
+        "evidence": "Aid",
+        "origin": "gemma",
+        "value": ""
+      },
+      "otherIllnesses": {
+        "origin": "empty",
+        "value": ""
+      },
+      "patientId": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "SYN-008"
+      },
+      "referralDate": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "2026-06-11"
+      },
+      "referringGpId": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "GP-DEMO-01"
+      },
+      "riskGradientAiEstimate": {
+        "evidence": "Aid",
+        "origin": "gemma",
+        "value": "1"
+      },
+      "sex": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "female"
+      },
+      "smokingStatus": {
+        "evidence": "Never smoker.",
+        "origin": "gemma",
+        "value": "never"
+      },
+      "suspectedCancerType": {
+        "origin": "gemma",
+        "value": "lung"
+      },
+      "suspectedDiagnosis": {
+        "origin": "gemma",
+        "value": "Suspected lung cancer"
+      },
+      "symptomDurationWeeks": {
+        "origin": "empty",
+        "value": ""
+      },
+      "symptomVisitCount": {
+        "evidence": "Visit history",
+        "origin": "gemma",
+        "value": "1"
+      },
+      "testsDone": {
+        "origin": "gemma",
+        "value": ""
+      },
+      "urgency": {
+        "origin": "empty",
+        "value": ""
+      }
+    }
+  },
+  "SYN-009": {
+    "cancer": "lung",
+    "matched": [],
+    "fields": {
+      "age": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "31"
+      },
+      "chestXrayResult": {
+        "origin": "empty",
+        "value": ""
+      },
+      "currentMedicines": {
+        "origin": "empty",
+        "value": ""
+      },
+      "examFindings": {
+        "origin": "empty",
+        "value": ""
+      },
+      "generalCondition": {
+        "evidence": "Lower-fibre diet, desk job, otherwise well.",
+        "origin": "gemma",
+        "value": "Well"
+      },
+      "gpQuestion": {
+        "evidence": "Plan: fibre and fluids, topical haemorrhoid cream, review in 6 weeks if persisting.",
+        "origin": "gemma",
+        "value": "Please assess for suspected lung cancer and arrange the next investigations."
+      },
+      "haemoptysis": {
+        "evidence": "31M, 2 weeks of bright red blood on toilet paper after hard stools.",
+        "origin": "gemma",
+        "value": "no"
+      },
+      "lungSymptoms": {
+        "origin": "gemma",
+        "value": ""
+      },
+      "mainSymptom": {
+        "evidence": "Visit reason",
+        "origin": "gemma",
+        "value": "Blood on toilet paper"
+      },
+      "matchedRuleIds": {
+        "evidence": "Aid",
+        "origin": "gemma",
+        "value": ""
+      },
+      "otherIllnesses": {
+        "origin": "empty",
+        "value": ""
+      },
+      "patientId": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "SYN-009"
+      },
+      "referralDate": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "2026-08-05"
+      },
+      "referringGpId": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "GP-DEMO-01"
+      },
+      "riskGradientAiEstimate": {
+        "evidence": "Aid",
+        "origin": "gemma",
+        "value": "0"
+      },
+      "sex": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "male"
+      },
+      "smokingStatus": {
+        "evidence": "Never smoker.",
+        "origin": "gemma",
+        "value": "never"
+      },
+      "suspectedCancerType": {
+        "origin": "gemma",
+        "value": "lung"
+      },
+      "suspectedDiagnosis": {
+        "origin": "gemma",
+        "value": "Suspected lung cancer"
+      },
+      "symptomDurationWeeks": {
+        "evidence": "31M, 2 weeks of bright red blood on toilet paper after hard stools.",
+        "origin": "gemma",
+        "value": "2"
+      },
+      "symptomVisitCount": {
+        "evidence": "Visit history",
+        "origin": "gemma",
+        "value": "1"
+      },
+      "testsDone": {
+        "origin": "gemma",
+        "value": "Hb 151 g/L"
+      },
+      "urgency": {
+        "origin": "empty",
+        "value": ""
+      }
+    }
+  },
+  "SYN-010": {
+    "cancer": "lung",
+    "matched": [],
+    "fields": {
+      "age": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "44"
+      },
+      "chestXrayResult": {
+        "origin": "empty",
+        "value": ""
+      },
+      "currentMedicines": {
+        "origin": "empty",
+        "value": ""
+      },
+      "examFindings": {
+        "evidence": "Chest clear, SpO2 98%, T 36.8, HR 80, RR 16.",
+        "origin": "gemma",
+        "value": "Chest clear, SpO2 98%, T 36.8, HR 80, RR 16."
+      },
+      "generalCondition": {
+        "origin": "empty",
+        "value": ""
+      },
+      "gpQuestion": {
+        "evidence": "Plan: no antibiotics, honey and fluids, smoking cessation advice given.",
+        "origin": "gemma",
+        "value": "Please assess for suspected lung cancer and arrange the next investigations."
+      },
+      "haemoptysis": {
+        "evidence": "Noticed one streak of blood once after a coughing fit, none since.",
+        "origin": "gemma",
+        "value": "no"
+      },
+      "lungSymptoms": {
+        "evidence": "44F, cough for 3 weeks after a cold, yellow sputum.",
+        "origin": "gemma",
+        "value": "cough"
+      },
+      "mainSymptom": {
+        "evidence": "Visit reason",
+        "origin": "gemma",
+        "value": "Cough 3 weeks, one blood streak"
+      },
+      "matchedRuleIds": {
+        "evidence": "Aid",
+        "origin": "gemma",
+        "value": ""
+      },
+      "otherIllnesses": {
+        "origin": "empty",
+        "value": ""
+      },
+      "packYears": {
+        "evidence": "Current smoker, about 5 a day for 20 years (roughly 5 pack-years).",
+        "origin": "gemma",
+        "value": "5"
+      },
+      "patientId": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "SYN-010"
+      },
+      "referralDate": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "2026-09-29"
+      },
+      "referringGpId": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "GP-DEMO-01"
+      },
+      "riskGradientAiEstimate": {
+        "evidence": "Aid",
+        "origin": "gemma",
+        "value": "0"
+      },
+      "sex": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "female"
+      },
+      "smokingStatus": {
+        "evidence": "Current smoker, about 5 a day for 20 years (roughly 5 pack-years).",
+        "origin": "gemma",
+        "value": "current"
+      },
+      "suspectedCancerType": {
+        "origin": "gemma",
+        "value": "lung"
+      },
+      "suspectedDiagnosis": {
+        "origin": "gemma",
+        "value": "Suspected lung cancer"
+      },
+      "symptomDurationWeeks": {
+        "evidence": "44F, cough for 3 weeks after a cold, yellow sputum.",
+        "origin": "gemma",
+        "value": "3"
+      },
+      "symptomVisitCount": {
+        "evidence": "Visit history",
+        "origin": "gemma",
+        "value": "1"
+      },
+      "testsDone": {
+        "evidence": "Noticed one streak of blood once after a coughing fit, none since.",
+        "origin": "gemma",
+        "value": "SpO 2 98% on air"
+      },
+      "urgency": {
+        "origin": "empty",
+        "value": ""
+      }
+    }
+  },
+  "SYN-011": {
+    "cancer": "lung",
+    "matched": [],
+    "fields": {
+      "age": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "61"
+      },
+      "chestXrayResult": {
+        "origin": "empty",
+        "value": ""
+      },
+      "currentMedicines": {
+        "origin": "empty",
+        "value": ""
+      },
+      "examFindings": {
+        "origin": "empty",
+        "value": ""
+      },
+      "generalCondition": {
+        "evidence": "Shoulder: painful arc 60 to 120 degrees, power full, no swelling.",
+        "origin": "gemma",
+        "value": "Well"
+      },
+      "gpQuestion": {
+        "evidence": "Plan: ibuprofen 400 mg three times a day with food for 1 week, shoulder exercises, steroid injection if no better in 6 weeks.",
+        "origin": "gemma",
+        "value": "Please assess for suspected lung cancer and arrange the next investigations."
+      },
+      "haemoptysis": {
+        "origin": "gemma",
+        "value": "no"
+      },
+      "lungSymptoms": {
+        "origin": "gemma",
+        "value": ""
+      },
+      "mainSymptom": {
+        "evidence": "Visit reason",
+        "origin": "gemma",
+        "value": "Left shoulder pain, 2 weeks"
+      },
+      "matchedRuleIds": {
+        "evidence": "Aid",
+        "origin": "gemma",
+        "value": ""
+      },
+      "otherIllnesses": {
+        "origin": "empty",
+        "value": ""
+      },
+      "patientId": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "SYN-011"
+      },
+      "referralDate": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "2026-03-30"
+      },
+      "referringGpId": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "GP-DEMO-01"
+      },
+      "riskGradientAiEstimate": {
+        "evidence": "Aid",
+        "origin": "gemma",
+        "value": "1"
+      },
+      "sex": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "male"
+      },
+      "smokingStatus": {
+        "evidence": "Never smoker.",
+        "origin": "gemma",
+        "value": "never"
+      },
+      "suspectedCancerType": {
+        "origin": "gemma",
+        "value": "lung"
+      },
+      "suspectedDiagnosis": {
+        "origin": "gemma",
+        "value": "Suspected lung cancer"
+      },
+      "symptomDurationWeeks": {
+        "origin": "empty",
+        "value": ""
+      },
+      "symptomVisitCount": {
+        "evidence": "Visit history",
+        "origin": "gemma",
+        "value": "1"
+      },
+      "testsDone": {
+        "origin": "gemma",
+        "value": ""
+      },
+      "urgency": {
+        "origin": "empty",
+        "value": ""
+      }
+    }
+  },
+  "SYN-012": {
+    "cancer": "lung",
+    "matched": [],
+    "fields": {
+      "age": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "47"
+      },
+      "chestXrayResult": {
+        "origin": "empty",
+        "value": ""
+      },
+      "currentMedicines": {
+        "origin": "empty",
+        "value": ""
+      },
+      "examFindings": {
+        "origin": "empty",
+        "value": ""
+      },
+      "generalCondition": {
+        "origin": "empty",
+        "value": ""
+      },
+      "gpQuestion": {
+        "evidence": "Plan: naproxen for attacks, sumatriptan trial, review in 6 weeks.",
+        "origin": "gemma",
+        "value": "Please assess for suspected lung cancer and arrange the next investigations."
+      },
+      "haemoptysis": {
+        "origin": "gemma",
+        "value": "no"
+      },
+      "lungSymptoms": {
+        "origin": "gemma",
+        "value": ""
+      },
+      "mainSymptom": {
+        "evidence": "Visit reason",
+        "origin": "gemma",
+        "value": "Migraine, more frequent"
+      },
+      "matchedRuleIds": {
+        "evidence": "Aid",
+        "origin": "gemma",
+        "value": ""
+      },
+      "otherIllnesses": {
+        "origin": "empty",
+        "value": ""
+      },
+      "patientId": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "SYN-012"
+      },
+      "referralDate": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "2026-07-07"
+      },
+      "referringGpId": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "GP-DEMO-01"
+      },
+      "riskGradientAiEstimate": {
+        "evidence": "Aid",
+        "origin": "gemma",
+        "value": "0"
+      },
+      "sex": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "female"
+      },
+      "smokingStatus": {
+        "evidence": "Never smoker.",
+        "origin": "gemma",
+        "value": "never"
+      },
+      "suspectedCancerType": {
+        "origin": "gemma",
+        "value": "lung"
+      },
+      "suspectedDiagnosis": {
+        "origin": "gemma",
+        "value": "Suspected lung cancer"
+      },
+      "symptomDurationWeeks": {
+        "origin": "empty",
+        "value": ""
+      },
+      "symptomVisitCount": {
+        "evidence": "Visit history",
+        "origin": "gemma",
+        "value": "1"
+      },
+      "testsDone": {
+        "origin": "gemma",
+        "value": ""
+      },
+      "urgency": {
+        "origin": "empty",
+        "value": ""
+      }
+    }
+  },
+  "SYN-013": {
+    "cancer": "lung",
+    "matched": [],
+    "fields": {
+      "age": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "70"
+      },
+      "chestXrayResult": {
+        "origin": "empty",
+        "value": ""
+      },
+      "currentMedicines": {
+        "origin": "empty",
+        "value": ""
+      },
+      "examFindings": {
+        "evidence": "Chest clear, SpO2 97%, HR 70.",
+        "origin": "gemma",
+        "value": "Chest clear, SpO2 97%, HR 70."
+      },
+      "generalCondition": {
+        "origin": "empty",
+        "value": ""
+      },
+      "gpQuestion": {
+        "evidence": "Plan: FBC, CRP, HbA1c, TSH sent.",
+        "origin": "gemma",
+        "value": "Please assess for suspected lung cancer and arrange the next investigations."
+      },
+      "haemoptysis": {
+        "evidence": "Return sooner if cough, breathlessness, bloody sputum or more weight loss.",
+        "origin": "gemma",
+        "value": "no"
+      },
+      "lungSymptoms": {
+        "evidence": "Appetite normal, no cough, no haemoptysis, no night sweats, no dysphagia.",
+        "origin": "gemma",
+        "value": ""
+      },
+      "mainSymptom": {
+        "evidence": "Visit reason",
+        "origin": "gemma",
+        "value": "Weight down 1.5 kg"
+      },
+      "matchedRuleIds": {
+        "evidence": "Aid",
+        "origin": "gemma",
+        "value": ""
+      },
+      "otherIllnesses": {
+        "origin": "empty",
+        "value": ""
+      },
+      "packYears": {
+        "evidence": "Ex-smoker, quit 2010, about 15 pack-years.",
+        "origin": "gemma",
+        "value": "15"
+      },
+      "patientId": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "SYN-013"
+      },
+      "referralDate": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "2026-08-26"
+      },
+      "referringGpId": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "GP-DEMO-01"
+      },
+      "riskGradientAiEstimate": {
+        "evidence": "Aid",
+        "origin": "gemma",
+        "value": "1"
+      },
+      "sex": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "male"
+      },
+      "smokingStatus": {
+        "evidence": "Ex-smoker, quit 2010, about 15 pack-years.",
+        "origin": "gemma",
+        "value": "former"
+      },
+      "suspectedCancerType": {
+        "origin": "gemma",
+        "value": "lung"
+      },
+      "suspectedDiagnosis": {
+        "origin": "gemma",
+        "value": "Suspected lung cancer"
+      },
+      "symptomDurationWeeks": {
+        "origin": "empty",
+        "value": ""
+      },
+      "symptomVisitCount": {
+        "evidence": "Visit history",
+        "origin": "gemma",
+        "value": "1"
+      },
+      "testsDone": {
+        "evidence": "Plan: FBC, CRP, HbA1c, TSH sent.",
+        "origin": "gemma",
+        "value": "SpO 2 97% on air"
+      },
+      "urgency": {
+        "origin": "empty",
+        "value": ""
+      }
+    }
+  },
+  "SYN-014": {
+    "cancer": "lung",
+    "matched": [],
+    "fields": {
+      "age": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "26"
+      },
+      "chestXrayResult": {
+        "origin": "empty",
+        "value": ""
+      },
+      "currentMedicines": {
+        "origin": "empty",
+        "value": ""
+      },
+      "examFindings": {
+        "origin": "empty",
+        "value": ""
+      },
+      "generalCondition": {
+        "origin": "empty",
+        "value": ""
+      },
+      "gpQuestion": {
+        "evidence": "Plan: emollient twice daily, mild topical steroid for flares, avoid harsh soaps, review in 8 weeks if not controlled.",
+        "origin": "gemma",
+        "value": "Please assess for suspected lung cancer and arrange the next investigations."
+      },
+      "haemoptysis": {
+        "origin": "gemma",
+        "value": "no"
+      },
+      "lungSymptoms": {
+        "origin": "gemma",
+        "value": ""
+      },
+      "mainSymptom": {
+        "evidence": "Visit reason",
+        "origin": "gemma",
+        "value": "Itchy patches, elbows and knees"
+      },
+      "matchedRuleIds": {
+        "evidence": "Aid",
+        "origin": "gemma",
+        "value": ""
+      },
+      "otherIllnesses": {
+        "origin": "empty",
+        "value": ""
+      },
+      "patientId": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "SYN-014"
+      },
+      "referralDate": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "2026-04-22"
+      },
+      "referringGpId": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "GP-DEMO-01"
+      },
+      "riskGradientAiEstimate": {
+        "evidence": "Aid",
+        "origin": "gemma",
+        "value": "0"
+      },
+      "sex": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "female"
+      },
+      "smokingStatus": {
+        "evidence": "Never smoker.",
+        "origin": "gemma",
+        "value": "never"
+      },
+      "suspectedCancerType": {
+        "origin": "gemma",
+        "value": "lung"
+      },
+      "suspectedDiagnosis": {
+        "origin": "gemma",
+        "value": "Suspected lung cancer"
+      },
+      "symptomDurationWeeks": {
+        "origin": "empty",
+        "value": ""
+      },
+      "symptomVisitCount": {
+        "evidence": "Visit history",
+        "origin": "gemma",
+        "value": "1"
+      },
+      "testsDone": {
+        "origin": "gemma",
+        "value": ""
+      },
+      "urgency": {
+        "origin": "empty",
+        "value": ""
+      }
+    }
+  },
+  "SYN-015": {
+    "cancer": "lung",
+    "matched": [],
+    "fields": {
+      "age": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "52"
+      },
+      "chestXrayResult": {
+        "origin": "empty",
+        "value": ""
+      },
+      "currentMedicines": {
+        "origin": "empty",
+        "value": ""
+      },
+      "examFindings": {
+        "origin": "empty",
+        "value": ""
+      },
+      "generalCondition": {
+        "evidence": "No swelling, no locking, no giving way.",
+        "origin": "gemma",
+        "value": "Well"
+      },
+      "gpQuestion": {
+        "evidence": "Plan: reduce running, quadriceps strengthening, short ibuprofen course, physio referral.",
+        "origin": "gemma",
+        "value": "Please assess for suspected lung cancer and arrange the next investigations."
+      },
+      "haemoptysis": {
+        "origin": "gemma",
+        "value": "no"
+      },
+      "lungSymptoms": {
+        "origin": "gemma",
+        "value": ""
+      },
+      "mainSymptom": {
+        "evidence": "Visit reason",
+        "origin": "gemma",
+        "value": "Right knee pain after running"
+      },
+      "matchedRuleIds": {
+        "evidence": "Aid",
+        "origin": "gemma",
+        "value": ""
+      },
+      "otherIllnesses": {
+        "origin": "empty",
+        "value": ""
+      },
+      "packYears": {
+        "evidence": "Current smoker, 12 a day for about 30 years (roughly 18 pack-years).",
+        "origin": "gemma",
+        "value": "18"
+      },
+      "patientId": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "SYN-015"
+      },
+      "referralDate": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "2026-10-13"
+      },
+      "referringGpId": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "GP-DEMO-01"
+      },
+      "riskGradientAiEstimate": {
+        "evidence": "Aid",
+        "origin": "gemma",
+        "value": "0"
+      },
+      "sex": {
+        "evidence": "From the record system",
+        "origin": "record",
+        "value": "male"
+      },
+      "smokingStatus": {
+        "evidence": "Current smoker, 12 a day for about 30 years (roughly 18 pack-years).",
+        "origin": "gemma",
+        "value": "current"
+      },
+      "suspectedCancerType": {
+        "origin": "gemma",
+        "value": "lung"
+      },
+      "suspectedDiagnosis": {
+        "origin": "gemma",
+        "value": "Suspected lung cancer"
+      },
+      "symptomDurationWeeks": {
+        "origin": "empty",
+        "value": ""
+      },
+      "symptomVisitCount": {
+        "evidence": "Visit history",
+        "origin": "gemma",
+        "value": "1"
+      },
+      "testsDone": {
+        "origin": "gemma",
+        "value": ""
+      },
+      "urgency": {
+        "origin": "empty",
+        "value": ""
+      }
+    }
+  }
+}

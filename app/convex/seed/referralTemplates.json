@@ -1,0 +1,1039 @@
+[
+  {
+    "cancer": "lung",
+    "title": "Lung Referral template",
+    "source": {
+      "label": "NICE NG12 (paraphrased)",
+      "url": "https://www.nice.org.uk/guidance/ng12",
+      "placeholder": true
+    },
+    "fields": [
+      {
+        "key": "patientId",
+        "label": "Patient ID (Potilastunnus)",
+        "kind": "text",
+        "required": true,
+        "hint": "Made-up demo ID only."
+      },
+      {
+        "key": "age",
+        "label": "Age (Ikä)",
+        "kind": "number",
+        "required": true,
+        "source": {
+          "label": "NICE NG12 via Bradford VTS aid (secondary copy)",
+          "url": "https://www.bradfordvts.co.uk/wp-content/onlineresources/clinical-knowledge/palliative-care/2ww%20Referral%20Criteria%20for%20the%20Different%20Cancers.pdf"
+        }
+      },
+      {
+        "key": "sex",
+        "label": "Sex (Sukupuoli)",
+        "kind": "choice",
+        "required": true,
+        "options": [
+          "female",
+          "male",
+          "other",
+          "unknown"
+        ],
+        "source": {
+          "label": "NICE NG12 ovarian, via GPnotebook (secondary copy)",
+          "url": "https://gpnotebook.com/en-GB/pages/general-practice/urgent-referral-for-suspected-ovarian-cancer"
+        }
+      },
+      {
+        "key": "smokingStatus",
+        "label": "Smoking status (Tupakointi)",
+        "kind": "choice",
+        "required": true,
+        "options": [
+          "never",
+          "former",
+          "current",
+          "unknown"
+        ],
+        "source": {
+          "label": "NICE NG12 via Bradford VTS aid (secondary copy)",
+          "url": "https://www.bradfordvts.co.uk/wp-content/onlineresources/clinical-knowledge/palliative-care/2ww%20Referral%20Criteria%20for%20the%20Different%20Cancers.pdf"
+        }
+      },
+      {
+        "key": "packYears",
+        "label": "Pack-years (Pakkausvuodet)",
+        "kind": "number",
+        "required": false,
+        "source": {
+          "label": "Satakunnan Kansa, 11.11.2026 (lung CT route, news)",
+          "url": "https://www.satakunnankansa.fi/satakunta/art-2000012403607.html"
+        }
+      },
+      {
+        "key": "mainSymptom",
+        "label": "Main symptom (Pääoire)",
+        "kind": "text",
+        "required": true,
+        "source": {
+          "label": "KYS referral instruction (Syöpäkeskus v1, 17.12.2024)",
+          "url": "https://pshyvinvointialue.fi/documents/594193/718131/L%C3%A4hete+KYSin+Sy%C3%B6p%C3%A4keskuksen+poliklinikalle+(1).pdf"
+        }
+      },
+      {
+        "key": "symptomDurationWeeks",
+        "label": "Symptom duration (Oireen kesto)",
+        "kind": "number",
+        "required": true,
+        "unit": "weeks",
+        "source": {
+          "label": "NICE NG12 via Bradford VTS aid (secondary copy)",
+          "url": "https://www.bradfordvts.co.uk/wp-content/onlineresources/clinical-knowledge/palliative-care/2ww%20Referral%20Criteria%20for%20the%20Different%20Cancers.pdf"
+        }
+      },
+      {
+        "key": "symptomVisitCount",
+        "label": "Visits for this symptom (Käyntejä tästä oireesta)",
+        "kind": "number",
+        "required": true
+      },
+      {
+        "key": "examFindings",
+        "label": "Examination findings (Status)",
+        "kind": "longtext",
+        "required": true,
+        "source": {
+          "label": "KYS referral instruction (Syöpäkeskus v1, 17.12.2024)",
+          "url": "https://pshyvinvointialue.fi/documents/594193/718131/L%C3%A4hete+KYSin+Sy%C3%B6p%C3%A4keskuksen+poliklinikalle+(1).pdf"
+        }
+      },
+      {
+        "key": "generalCondition",
+        "label": "General condition (Yleiskunto)",
+        "kind": "text",
+        "required": true,
+        "source": {
+          "label": "KYS referral instruction (Syöpäkeskus v1, 17.12.2024)",
+          "url": "https://pshyvinvointialue.fi/documents/594193/718131/L%C3%A4hete+KYSin+Sy%C3%B6p%C3%A4keskuksen+poliklinikalle+(1).pdf"
+        }
+      },
+      {
+        "key": "weightLossKg",
+        "label": "Weight loss (Painonlasku)",
+        "kind": "number",
+        "required": false,
+        "unit": "kg",
+        "source": {
+          "label": "NICE NG12 via Bradford VTS aid (secondary copy)",
+          "url": "https://www.bradfordvts.co.uk/wp-content/onlineresources/clinical-knowledge/palliative-care/2ww%20Referral%20Criteria%20for%20the%20Different%20Cancers.pdf"
+        }
+      },
+      {
+        "key": "testsDone",
+        "label": "Tests done and results (Tehdyt tutkimukset ja tulokset)",
+        "kind": "text",
+        "required": true,
+        "hint": "Lab and imaging results.",
+        "source": {
+          "label": "KYS referral instruction (Syöpäkeskus v1, 17.12.2024)",
+          "url": "https://pshyvinvointialue.fi/documents/594193/718131/L%C3%A4hete+KYSin+Sy%C3%B6p%C3%A4keskuksen+poliklinikalle+(1).pdf"
+        }
+      },
+      {
+        "key": "currentMedicines",
+        "label": "Current medicines (Käytössä oleva lääkitys)",
+        "kind": "text",
+        "required": true,
+        "source": {
+          "label": "KYS referral instruction (Syöpäkeskus v1, 17.12.2024)",
+          "url": "https://pshyvinvointialue.fi/documents/594193/718131/L%C3%A4hete+KYSin+Sy%C3%B6p%C3%A4keskuksen+poliklinikalle+(1).pdf"
+        }
+      },
+      {
+        "key": "otherIllnesses",
+        "label": "Other illnesses (Muut sairaudet)",
+        "kind": "text",
+        "required": true,
+        "source": {
+          "label": "KYS referral instruction (Syöpäkeskus v1, 17.12.2024)",
+          "url": "https://pshyvinvointialue.fi/documents/594193/718131/L%C3%A4hete+KYSin+Sy%C3%B6p%C3%A4keskuksen+poliklinikalle+(1).pdf"
+        }
+      },
+      {
+        "key": "priorCancer",
+        "label": "Earlier cancer (Aiempi syöpä)",
+        "kind": "text",
+        "required": false,
+        "hint": "Type, year diagnosed and treatment. Empty if none.",
+        "source": {
+          "label": "KYS referral instruction (Syöpäkeskus v1, 17.12.2024)",
+          "url": "https://pshyvinvointialue.fi/documents/594193/718131/L%C3%A4hete+KYSin+Sy%C3%B6p%C3%A4keskuksen+poliklinikalle+(1).pdf"
+        }
+      },
+      {
+        "key": "suspectedDiagnosis",
+        "label": "Suspected diagnosis (Epäilty diagnoosi)",
+        "kind": "text",
+        "required": true,
+        "source": {
+          "label": "KYS referral instruction (Syöpäkeskus v1, 17.12.2024)",
+          "url": "https://pshyvinvointialue.fi/documents/594193/718131/L%C3%A4hete+KYSin+Sy%C3%B6p%C3%A4keskuksen+poliklinikalle+(1).pdf"
+        }
+      },
+      {
+        "key": "suspectedCancerType",
+        "label": "Suspected cancer type (Epäilty syöpätyyppi)",
+        "kind": "text",
+        "required": true
+      },
+      {
+        "key": "gpQuestion",
+        "label": "Question to the specialist (Kysymys erikoislääkärille)",
+        "kind": "text",
+        "required": true,
+        "source": {
+          "label": "KYS referral instruction (Syöpäkeskus v1, 17.12.2024)",
+          "url": "https://pshyvinvointialue.fi/documents/594193/718131/L%C3%A4hete+KYSin+Sy%C3%B6p%C3%A4keskuksen+poliklinikalle+(1).pdf"
+        }
+      },
+      {
+        "key": "urgency",
+        "label": "Urgency (Kiireellisyys)",
+        "kind": "choice",
+        "required": true,
+        "options": [
+          "urgent_2_week",
+          "urgent"
+        ],
+        "source": {
+          "label": "KYS referral instruction (Syöpäkeskus v1, 17.12.2024)",
+          "url": "https://pshyvinvointialue.fi/documents/594193/718131/L%C3%A4hete+KYSin+Sy%C3%B6p%C3%A4keskuksen+poliklinikalle+(1).pdf"
+        }
+      },
+      {
+        "key": "referralDate",
+        "label": "Referral date (Lähetteen päivämäärä)",
+        "kind": "date",
+        "required": true
+      },
+      {
+        "key": "referringGpId",
+        "label": "Referring GP ID (Lähettävän lääkärin tunnus)",
+        "kind": "text",
+        "required": true,
+        "source": {
+          "label": "KYS referral instruction (Syöpäkeskus v1, 17.12.2024)",
+          "url": "https://pshyvinvointialue.fi/documents/594193/718131/L%C3%A4hete+KYSin+Sy%C3%B6p%C3%A4keskuksen+poliklinikalle+(1).pdf"
+        }
+      },
+      {
+        "key": "matchedRuleIds",
+        "label": "Matched rules (Täsmäävät säännöt)",
+        "kind": "text",
+        "required": false
+      },
+      {
+        "key": "riskGradientAiEstimate",
+        "label": "AI estimate (Tekoälyarvio)",
+        "kind": "number",
+        "required": false,
+        "hint": "0–10. Set by the model, not a validated score."
+      },
+      {
+        "key": "lungSymptoms",
+        "label": "Lung symptoms (Keuhko-oireet)",
+        "kind": "choice",
+        "required": true,
+        "hint": "Select all that apply. May be empty.",
+        "options": [
+          "cough",
+          "fatigue",
+          "breathlessness",
+          "chest_pain",
+          "weight_loss",
+          "appetite_loss",
+          "finger_clubbing",
+          "lymph_node_enlargement",
+          "recurrent_pneumonia"
+        ],
+        "source": {
+          "label": "NICE NG12 via Bradford VTS aid (secondary copy)",
+          "url": "https://www.bradfordvts.co.uk/wp-content/onlineresources/clinical-knowledge/palliative-care/2ww%20Referral%20Criteria%20for%20the%20Different%20Cancers.pdf"
+        }
+      },
+      {
+        "key": "haemoptysis",
+        "label": "Coughing up blood (Veriyskä)",
+        "kind": "yesno",
+        "required": true,
+        "source": {
+          "label": "NICE NG12 via Bradford VTS aid (secondary copy)",
+          "url": "https://www.bradfordvts.co.uk/wp-content/onlineresources/clinical-knowledge/palliative-care/2ww%20Referral%20Criteria%20for%20the%20Different%20Cancers.pdf"
+        }
+      },
+      {
+        "key": "chestXrayResult",
+        "label": "Chest X-ray result (Keuhkojen röntgen, tulos)",
+        "kind": "choice",
+        "required": true,
+        "options": [
+          "normal",
+          "abnormal",
+          "not_done"
+        ],
+        "source": {
+          "label": "NICE NG12 via Bradford VTS aid (secondary copy)",
+          "url": "https://www.bradfordvts.co.uk/wp-content/onlineresources/clinical-knowledge/palliative-care/2ww%20Referral%20Criteria%20for%20the%20Different%20Cancers.pdf"
+        }
+      },
+      {
+        "key": "chestXrayFindings",
+        "label": "Chest X-ray findings (Röntgen löydökset)",
+        "kind": "text",
+        "required": false,
+        "hint": "Needed when the X-ray is abnormal."
+      },
+      {
+        "key": "chestXrayDate",
+        "label": "Chest X-ray date (Röntgen päivämäärä)",
+        "kind": "date",
+        "required": false
+      },
+      {
+        "key": "asbestosExposure",
+        "label": "Asbestos exposure (Asbestialtistus)",
+        "kind": "yesno",
+        "required": false,
+        "source": {
+          "label": "NICE NG12 via Bradford VTS aid (secondary copy)",
+          "url": "https://www.bradfordvts.co.uk/wp-content/onlineresources/clinical-knowledge/palliative-care/2ww%20Referral%20Criteria%20for%20the%20Different%20Cancers.pdf"
+        }
+      }
+    ]
+  },
+  {
+    "cancer": "colorectal",
+    "title": "Colorectal Referral template",
+    "source": {
+      "label": "NICE NG12 (paraphrased)",
+      "url": "https://www.nice.org.uk/guidance/ng12",
+      "placeholder": true
+    },
+    "fields": [
+      {
+        "key": "patientId",
+        "label": "Patient ID (Potilastunnus)",
+        "kind": "text",
+        "required": true,
+        "hint": "Made-up demo ID only."
+      },
+      {
+        "key": "age",
+        "label": "Age (Ikä)",
+        "kind": "number",
+        "required": true,
+        "source": {
+          "label": "NICE NG12 via Bradford VTS aid (secondary copy)",
+          "url": "https://www.bradfordvts.co.uk/wp-content/onlineresources/clinical-knowledge/palliative-care/2ww%20Referral%20Criteria%20for%20the%20Different%20Cancers.pdf"
+        }
+      },
+      {
+        "key": "sex",
+        "label": "Sex (Sukupuoli)",
+        "kind": "choice",
+        "required": true,
+        "options": [
+          "female",
+          "male",
+          "other",
+          "unknown"
+        ],
+        "source": {
+          "label": "NICE NG12 ovarian, via GPnotebook (secondary copy)",
+          "url": "https://gpnotebook.com/en-GB/pages/general-practice/urgent-referral-for-suspected-ovarian-cancer"
+        }
+      },
+      {
+        "key": "smokingStatus",
+        "label": "Smoking status (Tupakointi)",
+        "kind": "choice",
+        "required": true,
+        "options": [
+          "never",
+          "former",
+          "current",
+          "unknown"
+        ],
+        "source": {
+          "label": "NICE NG12 via Bradford VTS aid (secondary copy)",
+          "url": "https://www.bradfordvts.co.uk/wp-content/onlineresources/clinical-knowledge/palliative-care/2ww%20Referral%20Criteria%20for%20the%20Different%20Cancers.pdf"
+        }
+      },
+      {
+        "key": "packYears",
+        "label": "Pack-years (Pakkausvuodet)",
+        "kind": "number",
+        "required": false,
+        "source": {
+          "label": "Satakunnan Kansa, 11.11.2026 (lung CT route, news)",
+          "url": "https://www.satakunnankansa.fi/satakunta/art-2000012403607.html"
+        }
+      },
+      {
+        "key": "mainSymptom",
+        "label": "Main symptom (Pääoire)",
+        "kind": "text",
+        "required": true,
+        "source": {
+          "label": "KYS referral instruction (Syöpäkeskus v1, 17.12.2024)",
+          "url": "https://pshyvinvointialue.fi/documents/594193/718131/L%C3%A4hete+KYSin+Sy%C3%B6p%C3%A4keskuksen+poliklinikalle+(1).pdf"
+        }
+      },
+      {
+        "key": "symptomDurationWeeks",
+        "label": "Symptom duration (Oireen kesto)",
+        "kind": "number",
+        "required": true,
+        "unit": "weeks",
+        "source": {
+          "label": "NICE NG12 via Bradford VTS aid (secondary copy)",
+          "url": "https://www.bradfordvts.co.uk/wp-content/onlineresources/clinical-knowledge/palliative-care/2ww%20Referral%20Criteria%20for%20the%20Different%20Cancers.pdf"
+        }
+      },
+      {
+        "key": "symptomVisitCount",
+        "label": "Visits for this symptom (Käyntejä tästä oireesta)",
+        "kind": "number",
+        "required": true
+      },
+      {
+        "key": "examFindings",
+        "label": "Examination findings (Status)",
+        "kind": "longtext",
+        "required": true,
+        "source": {
+          "label": "KYS referral instruction (Syöpäkeskus v1, 17.12.2024)",
+          "url": "https://pshyvinvointialue.fi/documents/594193/718131/L%C3%A4hete+KYSin+Sy%C3%B6p%C3%A4keskuksen+poliklinikalle+(1).pdf"
+        }
+      },
+      {
+        "key": "generalCondition",
+        "label": "General condition (Yleiskunto)",
+        "kind": "text",
+        "required": true,
+        "source": {
+          "label": "KYS referral instruction (Syöpäkeskus v1, 17.12.2024)",
+          "url": "https://pshyvinvointialue.fi/documents/594193/718131/L%C3%A4hete+KYSin+Sy%C3%B6p%C3%A4keskuksen+poliklinikalle+(1).pdf"
+        }
+      },
+      {
+        "key": "weightLossKg",
+        "label": "Weight loss (Painonlasku)",
+        "kind": "number",
+        "required": false,
+        "unit": "kg",
+        "source": {
+          "label": "NICE NG12 via Bradford VTS aid (secondary copy)",
+          "url": "https://www.bradfordvts.co.uk/wp-content/onlineresources/clinical-knowledge/palliative-care/2ww%20Referral%20Criteria%20for%20the%20Different%20Cancers.pdf"
+        }
+      },
+      {
+        "key": "testsDone",
+        "label": "Tests done and results (Tehdyt tutkimukset ja tulokset)",
+        "kind": "text",
+        "required": true,
+        "hint": "Lab and imaging results.",
+        "source": {
+          "label": "KYS referral instruction (Syöpäkeskus v1, 17.12.2024)",
+          "url": "https://pshyvinvointialue.fi/documents/594193/718131/L%C3%A4hete+KYSin+Sy%C3%B6p%C3%A4keskuksen+poliklinikalle+(1).pdf"
+        }
+      },
+      {
+        "key": "currentMedicines",
+        "label": "Current medicines (Käytössä oleva lääkitys)",
+        "kind": "text",
+        "required": true,
+        "source": {
+          "label": "KYS referral instruction (Syöpäkeskus v1, 17.12.2024)",
+          "url": "https://pshyvinvointialue.fi/documents/594193/718131/L%C3%A4hete+KYSin+Sy%C3%B6p%C3%A4keskuksen+poliklinikalle+(1).pdf"
+        }
+      },
+      {
+        "key": "otherIllnesses",
+        "label": "Other illnesses (Muut sairaudet)",
+        "kind": "text",
+        "required": true,
+        "source": {
+          "label": "KYS referral instruction (Syöpäkeskus v1, 17.12.2024)",
+          "url": "https://pshyvinvointialue.fi/documents/594193/718131/L%C3%A4hete+KYSin+Sy%C3%B6p%C3%A4keskuksen+poliklinikalle+(1).pdf"
+        }
+      },
+      {
+        "key": "priorCancer",
+        "label": "Earlier cancer (Aiempi syöpä)",
+        "kind": "text",
+        "required": false,
+        "hint": "Type, year diagnosed and treatment. Empty if none.",
+        "source": {
+          "label": "KYS referral instruction (Syöpäkeskus v1, 17.12.2024)",
+          "url": "https://pshyvinvointialue.fi/documents/594193/718131/L%C3%A4hete+KYSin+Sy%C3%B6p%C3%A4keskuksen+poliklinikalle+(1).pdf"
+        }
+      },
+      {
+        "key": "suspectedDiagnosis",
+        "label": "Suspected diagnosis (Epäilty diagnoosi)",
+        "kind": "text",
+        "required": true,
+        "source": {
+          "label": "KYS referral instruction (Syöpäkeskus v1, 17.12.2024)",
+          "url": "https://pshyvinvointialue.fi/documents/594193/718131/L%C3%A4hete+KYSin+Sy%C3%B6p%C3%A4keskuksen+poliklinikalle+(1).pdf"
+        }
+      },
+      {
+        "key": "suspectedCancerType",
+        "label": "Suspected cancer type (Epäilty syöpätyyppi)",
+        "kind": "text",
+        "required": true
+      },
+      {
+        "key": "gpQuestion",
+        "label": "Question to the specialist (Kysymys erikoislääkärille)",
+        "kind": "text",
+        "required": true,
+        "source": {
+          "label": "KYS referral instruction (Syöpäkeskus v1, 17.12.2024)",
+          "url": "https://pshyvinvointialue.fi/documents/594193/718131/L%C3%A4hete+KYSin+Sy%C3%B6p%C3%A4keskuksen+poliklinikalle+(1).pdf"
+        }
+      },
+      {
+        "key": "urgency",
+        "label": "Urgency (Kiireellisyys)",
+        "kind": "choice",
+        "required": true,
+        "options": [
+          "urgent_2_week",
+          "urgent"
+        ],
+        "source": {
+          "label": "KYS referral instruction (Syöpäkeskus v1, 17.12.2024)",
+          "url": "https://pshyvinvointialue.fi/documents/594193/718131/L%C3%A4hete+KYSin+Sy%C3%B6p%C3%A4keskuksen+poliklinikalle+(1).pdf"
+        }
+      },
+      {
+        "key": "referralDate",
+        "label": "Referral date (Lähetteen päivämäärä)",
+        "kind": "date",
+        "required": true
+      },
+      {
+        "key": "referringGpId",
+        "label": "Referring GP ID (Lähettävän lääkärin tunnus)",
+        "kind": "text",
+        "required": true,
+        "source": {
+          "label": "KYS referral instruction (Syöpäkeskus v1, 17.12.2024)",
+          "url": "https://pshyvinvointialue.fi/documents/594193/718131/L%C3%A4hete+KYSin+Sy%C3%B6p%C3%A4keskuksen+poliklinikalle+(1).pdf"
+        }
+      },
+      {
+        "key": "matchedRuleIds",
+        "label": "Matched rules (Täsmäävät säännöt)",
+        "kind": "text",
+        "required": false
+      },
+      {
+        "key": "riskGradientAiEstimate",
+        "label": "AI estimate (Tekoälyarvio)",
+        "kind": "number",
+        "required": false,
+        "hint": "0–10. Set by the model, not a validated score."
+      },
+      {
+        "key": "bowelHabitChange",
+        "label": "Change in bowel habit (Suolentoiminnan muutos)",
+        "kind": "yesno",
+        "required": true,
+        "source": {
+          "label": "NICE NG12 via Bradford VTS aid (secondary copy)",
+          "url": "https://www.bradfordvts.co.uk/wp-content/onlineresources/clinical-knowledge/palliative-care/2ww%20Referral%20Criteria%20for%20the%20Different%20Cancers.pdf"
+        }
+      },
+      {
+        "key": "rectalBleeding",
+        "label": "Rectal bleeding (Peräsuolen verenvuoto)",
+        "kind": "yesno",
+        "required": true,
+        "source": {
+          "label": "NICE NG12 via Bradford VTS aid (secondary copy)",
+          "url": "https://www.bradfordvts.co.uk/wp-content/onlineresources/clinical-knowledge/palliative-care/2ww%20Referral%20Criteria%20for%20the%20Different%20Cancers.pdf"
+        }
+      },
+      {
+        "key": "abdominalMass",
+        "label": "Abdominal mass (Vatsan tuntuva kasvain)",
+        "kind": "yesno",
+        "required": true,
+        "source": {
+          "label": "NICE NG12 via Bradford VTS aid (secondary copy)",
+          "url": "https://www.bradfordvts.co.uk/wp-content/onlineresources/clinical-knowledge/palliative-care/2ww%20Referral%20Criteria%20for%20the%20Different%20Cancers.pdf"
+        }
+      },
+      {
+        "key": "ironDeficiencyAnaemia",
+        "label": "Iron-deficiency anaemia (Rautapuutosanemia)",
+        "kind": "yesno",
+        "required": true,
+        "source": {
+          "label": "NICE NG12 via Bradford VTS aid (secondary copy)",
+          "url": "https://www.bradfordvts.co.uk/wp-content/onlineresources/clinical-knowledge/palliative-care/2ww%20Referral%20Criteria%20for%20the%20Different%20Cancers.pdf"
+        }
+      },
+      {
+        "key": "haemoglobinGPerL",
+        "label": "Haemoglobin (Hemoglobiini)",
+        "kind": "number",
+        "required": false,
+        "unit": "g/L"
+      },
+      {
+        "key": "fitDone",
+        "label": "FIT done (FIT tehty)",
+        "kind": "yesno",
+        "required": true,
+        "source": {
+          "label": "NICE NG12 via Bradford VTS aid (secondary copy)",
+          "url": "https://www.bradfordvts.co.uk/wp-content/onlineresources/clinical-knowledge/palliative-care/2ww%20Referral%20Criteria%20for%20the%20Different%20Cancers.pdf"
+        }
+      },
+      {
+        "key": "fitValueUgHbPerG",
+        "label": "FIT value (FIT-arvo)",
+        "kind": "number",
+        "required": false,
+        "unit": "µg Hb/g",
+        "hint": "Needed when FIT is done.",
+        "source": {
+          "label": "NICE NG12 via Bradford VTS aid (secondary copy)",
+          "url": "https://www.bradfordvts.co.uk/wp-content/onlineresources/clinical-knowledge/palliative-care/2ww%20Referral%20Criteria%20for%20the%20Different%20Cancers.pdf"
+        }
+      },
+      {
+        "key": "rectalExamResult",
+        "label": "Rectal examination (Peräsuolen tutkimus)",
+        "kind": "choice",
+        "required": false,
+        "options": [
+          "normal",
+          "abnormal",
+          "not_done"
+        ],
+        "source": {
+          "label": "NICE NG12 via Bradford VTS aid (secondary copy)",
+          "url": "https://www.bradfordvts.co.uk/wp-content/onlineresources/clinical-knowledge/palliative-care/2ww%20Referral%20Criteria%20for%20the%20Different%20Cancers.pdf"
+        }
+      }
+    ]
+  },
+  {
+    "cancer": "ovarian",
+    "title": "Ovarian Referral template",
+    "source": {
+      "label": "NICE NG12 ovarian, via GPnotebook (secondary copy)",
+      "url": "https://gpnotebook.com/en-GB/pages/general-practice/urgent-referral-for-suspected-ovarian-cancer"
+    },
+    "fields": [
+      {
+        "key": "patientId",
+        "label": "Patient ID (Potilastunnus)",
+        "kind": "text",
+        "required": true,
+        "hint": "Made-up demo ID only."
+      },
+      {
+        "key": "age",
+        "label": "Age (Ikä)",
+        "kind": "number",
+        "required": true,
+        "source": {
+          "label": "NICE NG12 via Bradford VTS aid (secondary copy)",
+          "url": "https://www.bradfordvts.co.uk/wp-content/onlineresources/clinical-knowledge/palliative-care/2ww%20Referral%20Criteria%20for%20the%20Different%20Cancers.pdf"
+        }
+      },
+      {
+        "key": "sex",
+        "label": "Sex (Sukupuoli)",
+        "kind": "choice",
+        "required": true,
+        "options": [
+          "female",
+          "male",
+          "other",
+          "unknown"
+        ],
+        "source": {
+          "label": "NICE NG12 ovarian, via GPnotebook (secondary copy)",
+          "url": "https://gpnotebook.com/en-GB/pages/general-practice/urgent-referral-for-suspected-ovarian-cancer"
+        }
+      },
+      {
+        "key": "smokingStatus",
+        "label": "Smoking status (Tupakointi)",
+        "kind": "choice",
+        "required": true,
+        "options": [
+          "never",
+          "former",
+          "current",
+          "unknown"
+        ],
+        "source": {
+          "label": "NICE NG12 via Bradford VTS aid (secondary copy)",
+          "url": "https://www.bradfordvts.co.uk/wp-content/onlineresources/clinical-knowledge/palliative-care/2ww%20Referral%20Criteria%20for%20the%20Different%20Cancers.pdf"
+        }
+      },
+      {
+        "key": "packYears",
+        "label": "Pack-years (Pakkausvuodet)",
+        "kind": "number",
+        "required": false,
+        "source": {
+          "label": "Satakunnan Kansa, 11.11.2026 (lung CT route, news)",
+          "url": "https://www.satakunnankansa.fi/satakunta/art-2000012403607.html"
+        }
+      },
+      {
+        "key": "mainSymptom",
+        "label": "Main symptom (Pääoire)",
+        "kind": "text",
+        "required": true,
+        "source": {
+          "label": "KYS referral instruction (Syöpäkeskus v1, 17.12.2024)",
+          "url": "https://pshyvinvointialue.fi/documents/594193/718131/L%C3%A4hete+KYSin+Sy%C3%B6p%C3%A4keskuksen+poliklinikalle+(1).pdf"
+        }
+      },
+      {
+        "key": "symptomDurationWeeks",
+        "label": "Symptom duration (Oireen kesto)",
+        "kind": "number",
+        "required": true,
+        "unit": "weeks",
+        "source": {
+          "label": "NICE NG12 via Bradford VTS aid (secondary copy)",
+          "url": "https://www.bradfordvts.co.uk/wp-content/onlineresources/clinical-knowledge/palliative-care/2ww%20Referral%20Criteria%20for%20the%20Different%20Cancers.pdf"
+        }
+      },
+      {
+        "key": "symptomVisitCount",
+        "label": "Visits for this symptom (Käyntejä tästä oireesta)",
+        "kind": "number",
+        "required": true
+      },
+      {
+        "key": "examFindings",
+        "label": "Examination findings (Status)",
+        "kind": "longtext",
+        "required": true,
+        "source": {
+          "label": "KYS referral instruction (Syöpäkeskus v1, 17.12.2024)",
+          "url": "https://pshyvinvointialue.fi/documents/594193/718131/L%C3%A4hete+KYSin+Sy%C3%B6p%C3%A4keskuksen+poliklinikalle+(1).pdf"
+        }
+      },
+      {
+        "key": "generalCondition",
+        "label": "General condition (Yleiskunto)",
+        "kind": "text",
+        "required": true,
+        "source": {
+          "label": "KYS referral instruction (Syöpäkeskus v1, 17.12.2024)",
+          "url": "https://pshyvinvointialue.fi/documents/594193/718131/L%C3%A4hete+KYSin+Sy%C3%B6p%C3%A4keskuksen+poliklinikalle+(1).pdf"
+        }
+      },
+      {
+        "key": "weightLossKg",
+        "label": "Weight loss (Painonlasku)",
+        "kind": "number",
+        "required": false,
+        "unit": "kg",
+        "source": {
+          "label": "NICE NG12 via Bradford VTS aid (secondary copy)",
+          "url": "https://www.bradfordvts.co.uk/wp-content/onlineresources/clinical-knowledge/palliative-care/2ww%20Referral%20Criteria%20for%20the%20Different%20Cancers.pdf"
+        }
+      },
+      {
+        "key": "testsDone",
+        "label": "Tests done and results (Tehdyt tutkimukset ja tulokset)",
+        "kind": "text",
+        "required": true,
+        "hint": "Lab and imaging results.",
+        "source": {
+          "label": "KYS referral instruction (Syöpäkeskus v1, 17.12.2024)",
+          "url": "https://pshyvinvointialue.fi/documents/594193/718131/L%C3%A4hete+KYSin+Sy%C3%B6p%C3%A4keskuksen+poliklinikalle+(1).pdf"
+        }
+      },
+      {
+        "key": "currentMedicines",
+        "label": "Current medicines (Käytössä oleva lääkitys)",
+        "kind": "text",
+        "required": true,
+        "source": {
+          "label": "KYS referral instruction (Syöpäkeskus v1, 17.12.2024)",
+          "url": "https://pshyvinvointialue.fi/documents/594193/718131/L%C3%A4hete+KYSin+Sy%C3%B6p%C3%A4keskuksen+poliklinikalle+(1).pdf"
+        }
+      },
+      {
+        "key": "otherIllnesses",
+        "label": "Other illnesses (Muut sairaudet)",
+        "kind": "text",
+        "required": true,
+        "source": {
+          "label": "KYS referral instruction (Syöpäkeskus v1, 17.12.2024)",
+          "url": "https://pshyvinvointialue.fi/documents/594193/718131/L%C3%A4hete+KYSin+Sy%C3%B6p%C3%A4keskuksen+poliklinikalle+(1).pdf"
+        }
+      },
+      {
+        "key": "priorCancer",
+        "label": "Earlier cancer (Aiempi syöpä)",
+        "kind": "text",
+        "required": false,
+        "hint": "Type, year diagnosed and treatment. Empty if none.",
+        "source": {
+          "label": "KYS referral instruction (Syöpäkeskus v1, 17.12.2024)",
+          "url": "https://pshyvinvointialue.fi/documents/594193/718131/L%C3%A4hete+KYSin+Sy%C3%B6p%C3%A4keskuksen+poliklinikalle+(1).pdf"
+        }
+      },
+      {
+        "key": "suspectedDiagnosis",
+        "label": "Suspected diagnosis (Epäilty diagnoosi)",
+        "kind": "text",
+        "required": true,
+        "source": {
+          "label": "KYS referral instruction (Syöpäkeskus v1, 17.12.2024)",
+          "url": "https://pshyvinvointialue.fi/documents/594193/718131/L%C3%A4hete+KYSin+Sy%C3%B6p%C3%A4keskuksen+poliklinikalle+(1).pdf"
+        }
+      },
+      {
+        "key": "suspectedCancerType",
+        "label": "Suspected cancer type (Epäilty syöpätyyppi)",
+        "kind": "text",
+        "required": true
+      },
+      {
+        "key": "gpQuestion",
+        "label": "Question to the specialist (Kysymys erikoislääkärille)",
+        "kind": "text",
+        "required": true,
+        "source": {
+          "label": "KYS referral instruction (Syöpäkeskus v1, 17.12.2024)",
+          "url": "https://pshyvinvointialue.fi/documents/594193/718131/L%C3%A4hete+KYSin+Sy%C3%B6p%C3%A4keskuksen+poliklinikalle+(1).pdf"
+        }
+      },
+      {
+        "key": "urgency",
+        "label": "Urgency (Kiireellisyys)",
+        "kind": "choice",
+        "required": true,
+        "options": [
+          "urgent_2_week",
+          "urgent"
+        ],
+        "source": {
+          "label": "KYS referral instruction (Syöpäkeskus v1, 17.12.2024)",
+          "url": "https://pshyvinvointialue.fi/documents/594193/718131/L%C3%A4hete+KYSin+Sy%C3%B6p%C3%A4keskuksen+poliklinikalle+(1).pdf"
+        }
+      },
+      {
+        "key": "referralDate",
+        "label": "Referral date (Lähetteen päivämäärä)",
+        "kind": "date",
+        "required": true
+      },
+      {
+        "key": "referringGpId",
+        "label": "Referring GP ID (Lähettävän lääkärin tunnus)",
+        "kind": "text",
+        "required": true,
+        "source": {
+          "label": "KYS referral instruction (Syöpäkeskus v1, 17.12.2024)",
+          "url": "https://pshyvinvointialue.fi/documents/594193/718131/L%C3%A4hete+KYSin+Sy%C3%B6p%C3%A4keskuksen+poliklinikalle+(1).pdf"
+        }
+      },
+      {
+        "key": "matchedRuleIds",
+        "label": "Matched rules (Täsmäävät säännöt)",
+        "kind": "text",
+        "required": false
+      },
+      {
+        "key": "riskGradientAiEstimate",
+        "label": "AI estimate (Tekoälyarvio)",
+        "kind": "number",
+        "required": false,
+        "hint": "0–10. Set by the model, not a validated score."
+      },
+      {
+        "key": "bloatingOrDistension",
+        "label": "Bloating or abdominal distension (Vatsan turvotus tai pullistelu)",
+        "kind": "yesno",
+        "required": true,
+        "source": {
+          "label": "NICE NG12 ovarian, via GPnotebook (secondary copy)",
+          "url": "https://gpnotebook.com/en-GB/pages/general-practice/urgent-referral-for-suspected-ovarian-cancer"
+        }
+      },
+      {
+        "key": "earlySatietyOrAppetiteLoss",
+        "label": "Early fullness or loss of appetite (Nopea kylläisyyden tunne tai ruokahaluttomuus)",
+        "kind": "yesno",
+        "required": true,
+        "source": {
+          "label": "NICE NG12 ovarian, via GPnotebook (secondary copy)",
+          "url": "https://gpnotebook.com/en-GB/pages/general-practice/urgent-referral-for-suspected-ovarian-cancer"
+        }
+      },
+      {
+        "key": "pelvicOrAbdominalPain",
+        "label": "Pelvic or abdominal pain (Lantion tai vatsan kipu)",
+        "kind": "yesno",
+        "required": true,
+        "source": {
+          "label": "NICE NG12 ovarian, via GPnotebook (secondary copy)",
+          "url": "https://gpnotebook.com/en-GB/pages/general-practice/urgent-referral-for-suspected-ovarian-cancer"
+        }
+      },
+      {
+        "key": "urinarySymptoms",
+        "label": "Urinary urgency or frequency (Virtsaamisen kiireellisyys tai tiheys)",
+        "kind": "yesno",
+        "required": true,
+        "source": {
+          "label": "NICE NG12 ovarian, via GPnotebook (secondary copy)",
+          "url": "https://gpnotebook.com/en-GB/pages/general-practice/urgent-referral-for-suspected-ovarian-cancer"
+        }
+      },
+      {
+        "key": "symptomDaysPerMonth",
+        "label": "Days per month with symptoms (Oireiden päivät kuukaudessa)",
+        "kind": "number",
+        "required": true,
+        "unit": "days",
+        "hint": "NG12: particularly more than 12 times a month.",
+        "source": {
+          "label": "NICE NG12 ovarian, via GPnotebook (secondary copy)",
+          "url": "https://gpnotebook.com/en-GB/pages/general-practice/urgent-referral-for-suspected-ovarian-cancer"
+        }
+      },
+      {
+        "key": "ascites",
+        "label": "Ascites, fluid in the abdomen (Askites)",
+        "kind": "yesno",
+        "required": true,
+        "source": {
+          "label": "CRUK NG12 poster (secondary copy)",
+          "url": "https://publications.cancerresearchuk.org/cdn/shop/files/NICE_NG12_body_poster.pdf"
+        }
+      },
+      {
+        "key": "palpableMass",
+        "label": "Palpable pelvic or abdominal mass (Tuntuva lantion tai vatsan kasvain)",
+        "kind": "yesno",
+        "required": true,
+        "hint": "Not if clearly uterine fibroids.",
+        "source": {
+          "label": "CRUK NG12 poster (secondary copy)",
+          "url": "https://publications.cancerresearchuk.org/cdn/shop/files/NICE_NG12_body_poster.pdf"
+        }
+      },
+      {
+        "key": "ca125Done",
+        "label": "CA-125 test done (CA-125-tutkimus tehty)",
+        "kind": "yesno",
+        "required": true,
+        "source": {
+          "label": "NICE NG12 ovarian, via GPnotebook (secondary copy)",
+          "url": "https://gpnotebook.com/en-GB/pages/general-practice/urgent-referral-for-suspected-ovarian-cancer"
+        }
+      },
+      {
+        "key": "ca125ValueIuPerMl",
+        "label": "CA-125 (CA-125)",
+        "kind": "number",
+        "required": false,
+        "unit": "IU/mL",
+        "hint": "Required when CA-125 is done.",
+        "source": {
+          "label": "NICE NG12 ovarian, via GPnotebook (secondary copy)",
+          "url": "https://gpnotebook.com/en-GB/pages/general-practice/urgent-referral-for-suspected-ovarian-cancer"
+        }
+      },
+      {
+        "key": "ca125Date",
+        "label": "CA-125 date (CA-125-näytteen päivämäärä)",
+        "kind": "date",
+        "required": false,
+        "hint": "Required when CA-125 is done."
+      },
+      {
+        "key": "pelvicUltrasoundResult",
+        "label": "Pelvic ultrasound result (Lantion ultraäänitutkimus, tulos)",
+        "kind": "choice",
+        "required": true,
+        "options": [
+          "normal",
+          "abnormal",
+          "not_done"
+        ],
+        "source": {
+          "label": "CRUK NG12 poster (secondary copy)",
+          "url": "https://publications.cancerresearchuk.org/cdn/shop/files/NICE_NG12_body_poster.pdf"
+        }
+      },
+      {
+        "key": "pelvicUltrasoundFindings",
+        "label": "Ultrasound findings (Ultraäänilöydökset)",
+        "kind": "longtext",
+        "required": false,
+        "hint": "Required when the result is abnormal."
+      },
+      {
+        "key": "pelvicUltrasoundDate",
+        "label": "Ultrasound date (Ultraäänitutkimuksen päivämäärä)",
+        "kind": "date",
+        "required": false
+      },
+      {
+        "key": "menopausalStatus",
+        "label": "Menopausal status (Vaihdevuositila)",
+        "kind": "choice",
+        "required": true,
+        "options": [
+          "premenopausal",
+          "postmenopausal",
+          "unknown"
+        ]
+      },
+      {
+        "key": "familyHistoryBreastOrOvarianCancer",
+        "label": "Family history of breast or ovarian cancer (Suku-anamneesi: rinta- tai munasarjasyöpä)",
+        "kind": "yesno",
+        "required": true,
+        "source": {
+          "label": "Käypä hoito: hereditary breast and ovarian cancer (22.9.2025)",
+          "url": "https://www.kaypahoito.fi/nix03573"
+        }
+      },
+      {
+        "key": "brcaStatus",
+        "label": "Known BRCA or other high-risk gene variant (Tunnettu BRCA- tai muu riskigeenimuutos)",
+        "kind": "choice",
+        "required": true,
+        "options": [
+          "pathogenic_variant",
+          "no_pathogenic_variant",
+          "not_tested",
+          "unknown"
+        ],
+        "source": {
+          "label": "Käypä hoito: hereditary breast and ovarian cancer (22.9.2025)",
+          "url": "https://www.kaypahoito.fi/nix03573"
+        }
+      }
+    ]
+  }
+]

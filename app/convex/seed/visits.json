@@ -1,0 +1,236 @@
+[
+  {
+    "visitId": "SYN-001-v1",
+    "patientId": "SYN-001",
+    "order": 0,
+    "date": "2026-09-03",
+    "reason": "Dry cough, 3 weeks",
+    "symptom": "cough",
+    "note": "62M. Dry cough for 3 weeks, worse at night. No fever, no sputum. Ex-smoker, quit 2018, smoked about 20 a day for 30 years. Chest clear on auscultation, no wheeze. Obs: T 36.9, RR 16, SpO2 97% on air, HR 78. Looks well. Likely post-viral. Advised fluids and paracetamol, no antibiotics. Review if not better in 3 weeks."
+  },
+  {
+    "visitId": "SYN-001-v2",
+    "patientId": "SYN-001",
+    "order": 1,
+    "date": "2026-10-01",
+    "reason": "Cough not settling, 7 weeks",
+    "symptom": "cough",
+    "note": "Cough still here, about 7 weeks now, small amount of white sputum. Salbutamol from last time made no difference, I have stopped it. No wheeze. Mild breathlessness on stairs only, none at rest. Chest clear. SpO2 96% on air, HR 84, T 36.8. CRP 6. Weight not recorded today. Plan: repeat bloods with FBC, review in 4 weeks, sooner if worse or any blood in sputum."
+  },
+  {
+    "visitId": "SYN-001-v3",
+    "patientId": "SYN-001",
+    "order": 2,
+    "date": "2026-11-14",
+    "reason": "Cough 10 weeks, blood in sputum, weight loss",
+    "symptom": "cough",
+    "note": "Cough now 10 weeks, not settling. Past week: coughed up streaks of fresh blood on three mornings. Says he has lost about 4 kg since September, appetite down, tired. No cause found so far. Ex-smoker, quit 2018, roughly 30 pack-years. Obs: BP 138/84, HR 88, SpO2 95% on air, T 36.7, RR 18. Chest: reduced entry right lower zone, no wheeze. No palpable nodes in neck or axilla. Plan: urgent chest X-ray today, FBC, CRP, LFT, calcium. Urgent lung pathway referral, discussed with patient, he agrees."
+  },
+  {
+    "visitId": "SYN-002-v1",
+    "patientId": "SYN-002",
+    "order": 0,
+    "date": "2026-08-18",
+    "reason": "Change in bowel habit, bloating",
+    "symptom": "bowel change",
+    "note": "58F. About 6 weeks of looser stools, going 4 to 5 times a day, some straining. Bloating after meals. No weight loss reported, appetite fine. She has not noticed any blood. Never smoker. Abdomen soft, mild diffuse tenderness, no palpable mass. BMI 24. Mother had bowel polyps in her 70s. Plan: FBC, ferritin, CRP, coeliac screen, fluids. Review in 4 weeks. Return if rectal bleeding or weight loss."
+  },
+  {
+    "visitId": "SYN-002-v2",
+    "patientId": "SYN-002",
+    "order": 1,
+    "date": "2026-09-22",
+    "reason": "Tired, bowel change ongoing, pale",
+    "symptom": "bowel change",
+    "note": "Bowel change persisting, now about 10 weeks, alternating loose and normal stools. Small amount of bright red blood on toilet paper for the last 2 weeks. Feels tired and breathless on stairs. Bloods back: Hb 109 g/L (low), MCV 78, ferritin 9. CRP 4. BP 122/76, HR 80, T 36.6. Abdomen soft, no mass. Plan: FIT sent today, oral iron started, repeat FBC in 3 weeks. Refer if FIT positive or Hb falls."
+  },
+  {
+    "visitId": "SYN-002-v3",
+    "patientId": "SYN-002",
+    "order": 2,
+    "date": "2026-10-27",
+    "reason": "Repeat FBC low, FIT positive, rectal bleeding",
+    "symptom": "bowel change",
+    "note": "Still tired, 14 weeks of change in bowel habit, rectal bleeding with stools now more regular. No cause found yet. Weight 64 kg, was 67 kg in August. Never smoker. Iron-deficiency anaemia. FBC: Hb 98 g/L (down from 109), MCV 74, ferritin 6. CRP 8. FIT back today: 186 µg Hb/g, positive. Rectal exam: no mass felt, dark blood on glove. BP 118/74, HR 84, T 36.7, SpO2 98%. Plan: urgent colorectal referral (suspected cancer pathway), CEA and LFT sent, iron infusion discussed. Patient informed, agrees."
+  },
+  {
+    "visitId": "SYN-003-v1",
+    "patientId": "SYN-003",
+    "order": 0,
+    "date": "2026-09-18",
+    "reason": "Bloating, feeling full after meals",
+    "symptom": "bloating",
+    "note": "57F. Bloating for about 3 months, worse by evening. Feels full after small meals, appetite slightly down. Bowels alternating between loose and hard stools, no blood, no mucus. Postmenopausal since 2019, no bleeding since. No weight loss reported. Never smoker. BMI 26. BP 128/80, afebrile. Abdomen soft, not tender, no palpable mass. Impression: IBS-type symptoms. Plan: low-FODMAP leaflet, extra fibre, FBC and CRP sent, review in 4 weeks."
+  },
+  {
+    "visitId": "SYN-003-v2",
+    "patientId": "SYN-003",
+    "order": 1,
+    "date": "2026-10-23",
+    "reason": "Bloating constant, pelvic pain, IBS diet not helping",
+    "symptom": "bloating",
+    "note": "Bloating now constant for about 6 weeks, trousers tight by evening. Still full after a few mouthfuls, eating less, appetite poor. Dull lower pelvic pain on and off for 4 weeks, not linked to food. Low-FODMAP diet tried for 3 weeks, no real change. No urinary change. Weight stable. No vaginal bleeding. FBC and CRP normal. Abdomen mildly distended, soft, no palpable mass, no fluid thrill. Impression: persistent symptoms, not typical IBS at her age. Plan: CA-125 sent today, review when result back."
+  },
+  {
+    "visitId": "SYN-003-v3",
+    "patientId": "SYN-003",
+    "order": 2,
+    "date": "2026-11-14",
+    "reason": "CA-125 raised, third visit for bloating",
+    "symptom": "bloating",
+    "note": "CA-125 back today: 180 IU/mL (sent 23 Oct). Bloating and early fullness persist, now about 5 months, plus intermittent lower pelvic pain. Appetite still poor, weight down 1 kg. Abdomen mildly distended, soft, no palpable mass, no ascites on clinical exam. Afebrile, BP 124/78. Third visit for the same bloating, patient worried, wants to know what it is. Plan: urgent direct access pelvic and abdominal ultrasound, suspected gynae cancer pathway referral if the scan is abnormal. Explained the result and next steps, patient agrees, given direct line to the surgery."
+  },
+  {
+    "visitId": "SYN-004-v1",
+    "patientId": "SYN-004",
+    "order": 0,
+    "date": "2026-02-10",
+    "reason": "Night cough and wheeze",
+    "symptom": "asthma",
+    "note": "34F, 2 weeks of night-time cough and wheeze, worse in cold air. No fever. Never smoker. Hay fever in spring. Chest: scattered expiratory wheeze, otherwise clear. SpO2 98%, peak flow 380 L/min (predicted about 430). Plan: budesonide low-dose inhaler started, salbutamol as needed, asthma action plan given. Review in 6 weeks."
+  },
+  {
+    "visitId": "SYN-004-v2",
+    "patientId": "SYN-004",
+    "order": 1,
+    "date": "2026-06-02",
+    "reason": "Asthma review, flare after pollen",
+    "symptom": "asthma",
+    "note": "Flare in late May with pollen. Using salbutamol about 4 times a week, woke twice at night last month. Taking budesonide most days, some missed doses. Chest clear today, no wheeze. Peak flow 420 L/min (best 450). Inhaler technique corrected. Plan: continue budesonide, add a daily reminder, review in 3 months."
+  },
+  {
+    "visitId": "SYN-004-v3",
+    "patientId": "SYN-004",
+    "order": 2,
+    "date": "2026-10-05",
+    "reason": "Asthma check, well controlled",
+    "symptom": "asthma",
+    "note": "Doing much better. Salbutamol once in the past 3 weeks, no night waking. Chest clear, SpO2 99%. Peak flow 440 L/min. Inhaler technique good. Plan: continue current budesonide dose, asthma plan updated, annual review. Return earlier if breathless or needing rescue inhaler more than twice a week."
+  },
+  {
+    "visitId": "SYN-005-v1",
+    "patientId": "SYN-005",
+    "order": 0,
+    "date": "2026-03-12",
+    "reason": "Heartburn after meals",
+    "symptom": "reflux",
+    "note": "45M, heartburn and sour taste after meals for about 3 months, worse lying down. No dysphagia, no vomiting, no weight loss, no blood in stool. Never smoker. Alcohol about 8 units a week. BMI 27. Abdomen soft, non-tender. Plan: lifestyle advice (smaller meals, no eating late, less coffee), omeprazole 20 mg once daily for 4 weeks. No alarm symptoms. Review if not better."
+  },
+  {
+    "visitId": "SYN-005-v2",
+    "patientId": "SYN-005",
+    "order": 1,
+    "date": "2026-05-20",
+    "reason": "Reflux not settling on PPI",
+    "symptom": "reflux",
+    "note": "Heartburn better on omeprazole but returns when stopped. Taking it most days now. Occasional night-time regurgitation. Still no dysphagia, no vomiting, no GI bleeding. Weight 88 kg, same as March. Abdomen soft. Plan: continue omeprazole, add alginate at night, review in 3 months. Return if trouble swallowing or weight loss."
+  },
+  {
+    "visitId": "SYN-005-v3",
+    "patientId": "SYN-005",
+    "order": 2,
+    "date": "2026-09-16",
+    "reason": "Reflux stable, repeat prescription",
+    "symptom": "reflux",
+    "note": "Reflux mostly controlled on omeprazole 20 mg. Occasional flare after takeaway food. No dysphagia, no weight loss, no black stools or vomiting blood. Never smoker. Weight 87 kg. Abdomen soft. Plan: repeat prescription for 6 months, lifestyle reinforced. No endoscopy at this stage as symptoms mild and no alarm features. Review in 12 months or sooner if red flags."
+  },
+  {
+    "visitId": "SYN-006-v1",
+    "patientId": "SYN-006",
+    "order": 0,
+    "date": "2026-04-07",
+    "reason": "Low back pain, 2 weeks",
+    "symptom": "back pain",
+    "note": "51F, low back pain for 2 weeks after lifting a box at work. Mechanical, eases with rest, no pain below the knee. No saddle numbness, no bladder or bowel change, no fever, no weight loss. Never smoker. Lumbar spine: mild tenderness L4-5, movement full with some discomfort. Neuro exam normal, straight leg raise negative. Plan: short course of paracetamol and ibuprofen, stay active, physio referral. Review in 4 weeks if not better."
+  },
+  {
+    "visitId": "SYN-006-v2",
+    "patientId": "SYN-006",
+    "order": 1,
+    "date": "2026-07-22",
+    "reason": "Back pain flare, improving",
+    "symptom": "back pain",
+    "note": "Back pain returned after gardening, mainly right side, now 5 days. Physio helped a bit, still doing exercises. No leg symptoms, no numbness, no bladder or bowel change. Afebrile. Paraspinal tenderness right, movement near full, neuro normal. Weight unchanged. Plan: NSAID for 5 days, posture advice, back-care leaflet given. No imaging indicated at this stage. Review as needed."
+  },
+  {
+    "visitId": "SYN-007-v1",
+    "patientId": "SYN-007",
+    "order": 0,
+    "date": "2026-05-28",
+    "reason": "Right earache",
+    "symptom": "right earache",
+    "note": "39M, 3 days of right earache, runny nose, fever 38.0 yesterday, now settling. Hearing slightly reduced on right. Never smoker. Otoscopy: right tympanic membrane red and bulging, left normal. Chest clear, throat mildly red. T 37.8, HR 86, SpO2 98%. Diagnosis acute otitis media. Plan: amoxicillin 500 mg three times a day for 5 days (no penicillin allergy), paracetamol, review in 48 hours if not better."
+  },
+  {
+    "visitId": "SYN-008-v1",
+    "patientId": "SYN-008",
+    "order": 0,
+    "date": "2026-06-11",
+    "reason": "Burning on passing urine",
+    "symptom": "burning on passing urine",
+    "note": "72F, 2 days of dysuria and frequency, lower abdominal discomfort. No loin pain, no fever, no confusion. UTI 2 years ago. Never smoker. Urine dipstick: leucocytes 3+, nitrites positive, trace blood. T 36.9, BP 134/78, HR 76. Suprapubic tenderness, mild. Plan: MSU sent, trimethoprim 200 mg twice a day for 3 days pending culture, fluids. Return if fever or loin pain develops."
+  },
+  {
+    "visitId": "SYN-009-v1",
+    "patientId": "SYN-009",
+    "order": 0,
+    "date": "2026-08-05",
+    "reason": "Blood on toilet paper",
+    "symptom": "blood on toilet paper",
+    "note": "31M, 2 weeks of bright red blood on toilet paper after hard stools. No black stools, no abdominal pain, no change in bowel habit. No weight loss, appetite normal. Never smoker. No family history of bowel cancer. Lower-fibre diet, desk job, otherwise well. Perianal inspection: small external haemorrhoids, no mass. Hb 151 g/L (normal). Plan: fibre and fluids, topical haemorrhoid cream, review in 6 weeks if persisting. Return if bleeding increases or bowel habit changes."
+  },
+  {
+    "visitId": "SYN-010-v1",
+    "patientId": "SYN-010",
+    "order": 0,
+    "date": "2026-09-29",
+    "reason": "Cough 3 weeks, one blood streak",
+    "symptom": "cough",
+    "note": "44F, cough for 3 weeks after a cold, yellow sputum. Noticed one streak of blood once after a coughing fit, none since. Current smoker, about 5 a day for 20 years (roughly 5 pack-years). No weight loss, no night sweats, no fever. Chest clear, SpO2 98%, T 36.8, HR 80, RR 16. Likely post-viral. Plan: no antibiotics, honey and fluids, smoking cessation advice given. Chest X-ray if cough persists past 3 weeks or blood recurs."
+  },
+  {
+    "visitId": "SYN-011-v1",
+    "patientId": "SYN-011",
+    "order": 0,
+    "date": "2026-03-30",
+    "reason": "Left shoulder pain, 2 weeks",
+    "symptom": "left shoulder pain, 2 weeks",
+    "note": "61M, 2 weeks of left shoulder ache, worse reaching overhead, sleeps badly on that side. No neck pain, no numbness, no chest pain. Never smoker. No recent injury but a lot of gardening. Shoulder: painful arc 60 to 120 degrees, power full, no swelling. Impingement tests positive. Plan: ibuprofen 400 mg three times a day with food for 1 week, shoulder exercises, steroid injection if no better in 6 weeks."
+  },
+  {
+    "visitId": "SYN-012-v1",
+    "patientId": "SYN-012",
+    "order": 0,
+    "date": "2026-07-07",
+    "reason": "Migraine, more frequent",
+    "symptom": "migraine, more frequent",
+    "note": "47F, migraine with aura about twice a month for 6 months, previously rare. Throbbing headache, nausea, light sensitivity, lasting around 6 hours. Normal neurological exam between attacks. No headache on waking, no visual loss, no fever or neck stiffness. Never smoker. Combined pill stopped last month because of aura, now on copper coil. BP 122/80. Plan: naproxen for attacks, sumatriptan trial, review in 6 weeks."
+  },
+  {
+    "visitId": "SYN-013-v1",
+    "patientId": "SYN-013",
+    "order": 0,
+    "date": "2026-08-26",
+    "reason": "Weight down 1.5 kg",
+    "symptom": "weight down 1.5 kg",
+    "note": "70M, weight down about 1.5 kg over 2 months, now 81 kg. He changed his diet and started daily walks, cutting sugar. Appetite normal, no cough, no haemoptysis, no night sweats, no dysphagia. Ex-smoker, quit 2010, about 15 pack-years. Chest clear, SpO2 97%, HR 70. Abdomen soft. Plan: FBC, CRP, HbA1c, TSH sent. Weight recheck in 3 months. Return sooner if cough, breathlessness, bloody sputum or more weight loss."
+  },
+  {
+    "visitId": "SYN-014-v1",
+    "patientId": "SYN-014",
+    "order": 0,
+    "date": "2026-04-22",
+    "reason": "Itchy patches, elbows and knees",
+    "symptom": "itchy patches, elbows and knees",
+    "note": "26F, itchy dry patches inside both elbows and behind both knees for about 2 years, worse in winter. Itch sometimes wakes her. No weeping, no fever. Never smoker. Family history of asthma and eczema. Skin: erythematous, lichenified plaques in flexural areas, no signs of infection. Plan: emollient twice daily, mild topical steroid for flares, avoid harsh soaps, review in 8 weeks if not controlled."
+  },
+  {
+    "visitId": "SYN-015-v1",
+    "patientId": "SYN-015",
+    "order": 0,
+    "date": "2026-10-13",
+    "reason": "Right knee pain after running",
+    "symptom": "right knee pain after running",
+    "note": "52M, right knee pain for 3 weeks since increasing his running distance. Pain at front of knee, worse on stairs. No swelling, no locking, no giving way. Current smoker, 12 a day for about 30 years (roughly 18 pack-years). Knee: no effusion, patellofemoral crepitus, full range, ligaments stable. Plan: reduce running, quadriceps strengthening, short ibuprofen course, physio referral. Smoking cessation advised, declined pharmacotherapy today."
+  }
+]
