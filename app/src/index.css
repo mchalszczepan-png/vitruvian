@@ -1779,3 +1779,15 @@ textarea.input {
   display: grid;
   gap: 8px;
 }
+
+/* GP Aid: tech used per step (story 40) */
+.tech-used { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; margin: 0 0 16px; padding: 0; }
+
+/* Referral desk: Accept / Return (stories 29b, 30) */
+.desk-actions { margin-left: auto; align-self: center; display: flex; gap: 12px; }
+.return-box { display: grid; gap: 8px; margin: 0 0 16px; }
+.return-box label { font-weight: 600; }
+.return-box textarea { font: inherit; padding: 8px 12px; border: 1px solid #c9c2bd; border-radius: var(--r); resize: vertical; }
+.return-actions { display: flex; gap: 12px; }
+.return-reason { margin: 0 0 16px; padding: 8px 12px; border-left: 4px solid var(--amber); background: var(--amber-soft); }
+.form-error { margin: 0 0 16px; color: var(--wine); font-weight: 600; }
