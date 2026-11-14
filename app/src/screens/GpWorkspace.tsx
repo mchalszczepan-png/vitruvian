@@ -297,7 +297,7 @@ function PatientStep({ patient, aid, onFill, filled, onNext }: { patient: Patien
         <div className="risk-note" role="alert">
           <Icon name="alert" />
           <b>Potential cancer risk</b>
-          <span className="tag ai">AI estimate</span>
+          <span className="tag ai">AI estimate, not validated</span>
         </div>
       )}
       {flag ? (
@@ -441,13 +441,13 @@ function AidStep({
         </div>
         <div className="tile">
           <h3 style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-            Risk gradient <span className="tag ai">AI estimate</span>
+            Risk gradient <span className="tag ai">AI estimate, not validated</span>
           </h3>
           <div className="big">
             {aid.riskGradient}
             <small> / 10</small>
           </div>
-          <div className="meter" aria-label={`Risk gradient ${aid.riskGradient} of 10, AI estimate`}>
+          <div className="meter" aria-label={`Risk gradient ${aid.riskGradient} of 10, AI estimate, not validated`}>
             {Array.from({ length: 10 }, (_, i) => (
               <i key={i} className={i < aid.riskGradient ? 'on' : ''} />
             ))}

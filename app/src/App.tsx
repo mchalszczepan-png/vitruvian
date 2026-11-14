@@ -10,7 +10,7 @@ import { County } from './screens/County';
 type View = 'gp' | 'desk' | 'specialist' | 'county';
 const VIEWS: { id: View; label: string; who: string }[] = [
   { id: 'gp', label: 'GP', who: 'GP (yleislääkäri), health centre' },
-  { id: 'desk', label: 'Referral desk', who: 'Referral desk (lähetekäsittely), hospital' },
+  { id: 'desk', label: 'Referral desk', who: 'Referral desk (lähetekäsittely), hospital: sorting and completeness check' },
   { id: 'specialist', label: 'Specialist', who: 'Specialist (erikoislääkäri), hospital' },
   { id: 'county', label: 'Country data', who: 'Wellbeing services county (hyvinvointialue)' },
 ];
@@ -40,8 +40,7 @@ export default function App() {
   return (
     <div className="shell">
       <p className="disclaimer" role="note">
-        <strong>Research prototype. Not a medical device. Not for clinical use.</strong>
-        <span>Made-up patients only.</span>
+        <strong>Research prototype. Not a medical device. Not for clinical use. Made-up patients only.</strong>
       </p>
       <header className="topbar">
         <span className="wordmark">
