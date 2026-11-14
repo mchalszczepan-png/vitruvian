@@ -4,7 +4,7 @@
 // left for fill.ts to mark origin empty (required) or leave out (optional). Record fields never come from the model.
 // Research prototype. Not a medical device. Not for clinical use.
 import type { CancerType, FieldValue, FieldValues } from '../../src/data/types';
-import { chatCompletion, type ChatCfg } from './openai';
+import { chatCompletion, type CallLimits, type ChatCfg } from './openai';
 import { buildMessages, type ChatMessage, type CancerName, type EarlierNote, type RecordFacts } from './prompt';
 import { fieldError, isRequired, RECORD_KEYS, type FieldSpec } from './referralSchema';
 
@@ -55,6 +55,8 @@ export interface ModelReply {
 export interface FillOutput {
   values: Record<string, unknown>;
   evidence: Record<string, string>;
+  /** Set only by modal-lora: 'modal-lora' when the LoRA answered, 'gemma' when the Featherless fallback did. Absent otherwise. */
+  servedBy?: 'modal-lora' | 'gemma';
 }
 
 /** Removes a ```json ... ``` (or bare ```) fence around the reply. Returns the text unchanged when there is none. */
@@ -116,6 +118,7 @@ export function recordFactsFor(patient: { id: string; age: number; sex: string; 
 /**
  * One contract call with one retry. Returns the fields and evidence of the last reply that parsed.
  * A reply that does not parse at all leaves no fields, so every required field becomes origin empty in fill.ts.
+ * With `limits.retry` false (the LoRA fill) there is one request and no retry on invalid output; the caller decides what invalid means.
  */
 export async function fillFromNote(args: {
   cancer: CancerName;
@@ -125,6 +128,7 @@ export async function fillFromNote(args: {
   specs: FieldSpec[];
   chat: ChatCfg;
   fetchImpl?: typeof fetch;
+  limits?: CallLimits;
 }): Promise<FillOutput> {
   const messages: ChatMessage[] = buildMessages(args.cancer, args.todayNote, args.earlierNotes, args.recordFacts);
   const ask = async (): Promise<ModelReply | null> =>
@@ -135,11 +139,12 @@ export async function fillFromNote(args: {
         temperature: CONTRACT_TEMPERATURE,
         maxTokens: CONTRACT_MAX_TOKENS,
         fetchImpl: args.fetchImpl,
+        limits: args.limits,
       }),
     );
 
   let reply = await ask();
-  if (!reply || fieldProblems(args.specs, reply.fields, args.cancer).length > 0) {
+  if ((!reply || fieldProblems(args.specs, reply.fields, args.cancer).length > 0) && args.limits?.retry !== false) {
     const second = await ask();
     if (second) reply = second;
   }

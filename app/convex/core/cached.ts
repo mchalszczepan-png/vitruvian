@@ -77,7 +77,8 @@ export function withCache(port: ModelPort, store: Store, modelId: string): Model
       const hit = parse<FillOutput>((await store.getMany([key]))[key]);
       if (hit && typeof hit.values === 'object' && hit.values !== null) return hit;
       const out = await port.fill(input);
-      await store.setMany([{ key, value: JSON.stringify(out) }]);
+      // A fill the LoRA port handed to the gemma fallback is not stored: under the LoRA key it would replay a Featherless answer as LoRA.
+      if (!(port.name === 'modal-lora' && out.servedBy === 'gemma')) await store.setMany([{ key, value: JSON.stringify(out) }]);
       return out;
     },
   };

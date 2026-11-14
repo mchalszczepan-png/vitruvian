@@ -1,6 +1,8 @@
 // aid:get {patientId}: the Aid pipeline (docs/SPEC.md "Aid pipeline"). A shell: read the inputs, pick the port, run core/aid.ts.
 // aid:prewarm fills the model cache for every patient, so aid:get then makes zero model calls (demo prep: `npx convex run aid:prewarm`).
 // It also warms fill:fromNote for each patient with a suspected cancer (noRuleMatched false), so the Referral fill is cache-warm too.
+// With MODEL_PROVIDER=modal-lora, prewarm first schedules aid:warmLora: the Modal LoRA scales to zero (~13 min cold start), and
+// the fill falls back to gemma while it is cold. Fallback fills are not cached, so run prewarm again once the LoRA is warm.
 // Security: no auth yet (prototype with made-up patients). Anyone with the deployment URL can call it.
 // Research prototype. Not a medical device. Not for clinical use.
 import { v } from 'convex/values';
@@ -9,7 +11,7 @@ import { internal } from './_generated/api';
 import type { AidResult } from '../src/data/types';
 import { mapLimit, runAid, type RepeatOverride } from './core/aid';
 import { fillReferral } from './core/fill';
-import { makePort } from './core/ports';
+import { loraCfg, makePort } from './core/ports';
 import { buildRuleBook } from './core/rulebook';
 import { convexStore } from './lib/store';
 import { vectorRepeat } from './lib/repeatVector';
@@ -42,6 +44,41 @@ async function vectorRepeatOrUndefined(ctx: ActionCtx, patientId: string): Promi
 
 /** Fill calls in flight at once while prewarming. Each is a slow model call (~1 min on Gemma). */
 const FILL_CONCURRENCY = 4;
+/** Under the 10 min action limit. A cold LoRA start takes ~13 min, so this may end with ok false; the next call then warms it. */
+const WARM_TIMEOUT_MS = 9 * 60 * 1000;
+
+/**
+ * Wakes the Modal LoRA: GET {LORA_BASE_URL}/models with the Bearer key, redirects followed, one attempt. Logs status and ms only.
+ * status is null on a network error or the timeout.
+ */
+export const warmLora = internalAction({
+  args: {},
+  returns: v.object({ ok: v.boolean(), status: v.union(v.number(), v.null()), ms: v.number() }),
+  handler: async () => {
+    const cfg = loraCfg(process.env);
+    const started = Date.now();
+    const ctl = new AbortController();
+    const timer = setTimeout(() => ctl.abort(), WARM_TIMEOUT_MS);
+    let status: number | null = null;
+    let ok = false;
+    try {
+      const res = await fetch(`${cfg.baseUrl.replace(/\/+$/, '')}/models`, {
+        headers: { authorization: `Bearer ${cfg.apiKey}` },
+        signal: ctl.signal,
+      });
+      status = res.status;
+      ok = res.ok;
+      await res.text(); // drain the small body so the connection closes
+    } catch {
+      status = null; // network error or the timeout: no reason text, it could carry a URL or key
+    } finally {
+      clearTimeout(timer);
+    }
+    const ms = Date.now() - started;
+    console.log(`warmLora: status ${status ?? 'none'} in ${ms} ms`);
+    return { ok, status, ms };
+  },
+});
 
 /**
  * Runs the Aid for every patient, one after another, then warms the Referral fill for each patient whose Aid matched a Rule
@@ -53,6 +90,8 @@ export const prewarm = internalAction({
   handler: async (ctx) => {
     const ids = await ctx.runQuery(internal.data.patientIds, {});
     const model = makePort(process.env, convexStore(ctx));
+    // Start the LoRA now, in its own action, so the model calls below do not wait on it. Only the fill uses it.
+    if (model.name === 'modal-lora') await ctx.scheduler.runAfter(0, internal.aid.warmLora, {});
     const failed: string[] = [];
     const toFill: { patientId: string; cancer: AidResult['suspectedCancer'] }[] = [];
     let done = 0;

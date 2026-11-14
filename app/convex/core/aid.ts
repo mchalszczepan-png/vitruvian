@@ -78,14 +78,17 @@ function portProvider(name: string): 'stub' | 'gemma' | 'modal-lora' {
 /**
  * Story 40: which tech served each Aid step. Gemma and modal-lora answer the yes/no Rules on the Gemini Decisions API,
  * so the decisions step is 'gemini' there and 'stub' only for the stub port.
+ * modal-lora runs only the fill on the LoRA: facts and risk stay on Featherless ('gemma'). The fill badge is static: the
+ * aid result is built without running the fill, and the FieldValues fill result has no tech field, so a fallback is not shown here.
  * The repeat step names the source analyze() was given: vector search in aid:get, else the symptom field.
  */
 export function techUsedFor(portName: string, repeatSource: RepeatSource = 'symptom-match'): TechUsed[] {
   const port = portProvider(portName);
+  const chat = port === 'modal-lora' ? 'gemma' : port;
   return [
-    { step: 'facts', provider: port },
+    { step: 'facts', provider: chat },
     { step: 'decisions', provider: port === 'stub' ? 'stub' : 'gemini' },
-    { step: 'risk', provider: port },
+    { step: 'risk', provider: chat },
     { step: 'repeat', provider: repeatSource },
     { step: 'fill', provider: port },
   ];
