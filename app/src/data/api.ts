@@ -17,6 +17,7 @@ import type {
   Patient,
   Referral,
   ReferralTemplate,
+  ReferralView,
   RepeatVisitFlag,
   Rule,
   SmokingStatus,
@@ -24,6 +25,7 @@ import type {
   StagingTemplate,
   Visit,
 } from './types';
+import { toReferralView } from './referralSummary';
 
 const wait = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
@@ -433,8 +435,12 @@ async function mockSendReferral(r: Referral): Promise<Referral> {
   return r;
 }
 
-async function mockGetReferrals(): Promise<Referral[]> {
-  return [...sent];
+/** The Referral desk sees the view without the Risk gradient, built from the same visits, template and Rules as Convex. */
+async function mockGetReferrals(): Promise<ReferralView[]> {
+  return sent.map((r) => {
+    const patient = patients.find((p) => p.id === r.patientId)!;
+    return toReferralView(r, { visits: patient.visits, template: referralTemplates[r.cancer], rules });
+  });
 }
 
 /* ---------- Specialist and county ---------- */
@@ -527,7 +533,7 @@ export function sendReferral(r: Referral): Promise<Referral> {
   return viaConvex('sendReferral', () => convex.sendReferral(r), () => mockSendReferral(r));
 }
 
-export function getReferrals(): Promise<Referral[]> {
+export function getReferrals(): Promise<ReferralView[]> {
   return viaConvex('getReferrals', () => convex.getReferrals(), mockGetReferrals);
 }
 

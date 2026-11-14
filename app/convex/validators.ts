@@ -200,3 +200,41 @@ export const referralV = v.object({
   severity: severityV,
   repeatVisit: v.optional(repeatVisitFlagV),
 });
+
+/** Mirrors ReferralSummary in app/src/data/types.ts. Checkable facts only: no Risk gradient (decision 16). */
+export const referralSummaryV = v.object({
+  gpDecision: v.union(v.literal('refer-urgent'), v.literal('refer-routine'), v.literal('order-test'), v.literal('not-now')),
+  urgency: v.union(v.literal('urgent'), v.literal('routine')),
+  timeline: v.array(
+    v.object({ visitId: v.string(), date: v.string(), reason: v.string(), reasonFi: v.optional(v.string()) }),
+  ),
+  matchedRules: v.array(
+    v.object({ ruleId: v.string(), text: v.string(), source: sourceV, because: v.string(), visitDates: v.array(v.string()) }),
+  ),
+  tests: v.array(
+    v.object({
+      test: v.string(),
+      value: v.union(v.number(), v.null()),
+      unit: v.string(),
+      threshold: v.string(),
+      meetsThreshold: v.union(v.boolean(), v.null()),
+      source: sourceV,
+    }),
+  ),
+  redFlags: v.object({ present: v.array(v.string()), ruledOut: v.array(v.string()) }),
+  missingFields: v.array(v.object({ key: v.string(), label: v.string() })),
+});
+
+/** Mirrors ReferralView in app/src/data/types.ts: referralV without riskGradient and matchedRules, plus summary. */
+export const referralViewV = v.object({
+  id: v.string(),
+  patientId: v.string(),
+  cancer: cancerV,
+  urgency: v.union(v.literal('urgent'), v.literal('routine')),
+  decidedBy: v.literal('GP'),
+  decidedAt: v.string(),
+  fields: v.record(v.string(), fieldValueV),
+  severity: severityV,
+  repeatVisit: v.optional(repeatVisitFlagV),
+  summary: referralSummaryV,
+});

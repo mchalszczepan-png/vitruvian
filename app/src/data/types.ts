@@ -149,6 +149,41 @@ export interface Referral {
   repeatVisit?: RepeatVisitFlag;
 }
 
+/** A key test value against its threshold, e.g. FIT against >= 10 µg Hb/g, CA-125 against the NICE age band. */
+export interface ReferralTestValue {
+  test: string; // "FIT", "CA-125"
+  /** null when the test is not done or not recorded */
+  value: number | null;
+  unit: string;
+  threshold: string;
+  /** null when there is no value */
+  meetsThreshold: boolean | null;
+  source: Source;
+}
+
+/**
+ * Checkable facts for the Referral desk and Specialist (decision 16, docs/SPEC.md "Who sees the Risk gradient").
+ * It never carries the Risk gradient.
+ */
+export interface ReferralSummary {
+  gpDecision: GpDecision;
+  urgency: 'urgent' | 'routine';
+  /** every visit, oldest first */
+  timeline: { visitId: string; date: string; reason: string; reasonFi?: string }[];
+  matchedRules: { ruleId: string; text: string; source: Source; because: string; visitDates: string[] }[];
+  tests: ReferralTestValue[];
+  /** red-flag labels: present = yes in the Referral fields or a matched Rule; ruledOut = an explicit no in the Referral fields */
+  redFlags: { present: string[]; ruledOut: string[] };
+  /** required Referral template fields with no value */
+  missingFields: { key: string; label: string }[];
+}
+
+/** What getReferrals returns (Referral desk, Specialist): the stored Referral without the Risk gradient, plus the summary. */
+export interface ReferralView extends Omit<Referral, 'riskGradient' | 'matchedRules'> {
+  /** `fields` never contains riskGradientAiEstimate */
+  summary: ReferralSummary;
+}
+
 export interface StagingField extends TemplateField {
   group: 'tumour' | 'tnm' | 'diagnosis' | 'registry';
 }

@@ -4,7 +4,7 @@
 // Only external behaviour through api.ts is checked. A silent fallback to the mock fails the Convex suite.
 // Research prototype. Not a medical device. Not for clinical use.
 import { makeFunctionReference } from 'convex/server';
-import { convexTest } from 'convex-test';
+import { convexTest, type TestConvex } from 'convex-test';
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
 import schema from '../../convex/schema';
 import type { ConvexLike } from './convexBackend';
@@ -50,6 +50,7 @@ const BACKENDS = ['mock', 'convex'] as const;
 describe.each(BACKENDS)('data API contract: %s backend', (backend) => {
   let api: Api;
   let adapter: Adapter;
+  let convexTestInstance: TestConvex<typeof schema> | undefined;
   let warn: ReturnType<typeof vi.spyOn>;
 
   beforeAll(async () => {
@@ -59,9 +60,9 @@ describe.each(BACKENDS)('data API contract: %s backend', (backend) => {
     api = await import('./api');
     adapter = await import('./convexBackend');
     if (backend === 'convex') {
-      const t = convexTest(schema, convexModules);
-      await t.mutation(seedRun, {});
-      adapter.setConvexClient(t as unknown as ConvexLike);
+      convexTestInstance = convexTest(schema, convexModules);
+      await convexTestInstance.mutation(seedRun, {});
+      adapter.setConvexClient(convexTestInstance as unknown as ConvexLike);
     }
   });
 
@@ -190,6 +191,47 @@ describe.each(BACKENDS)('data API contract: %s backend', (backend) => {
     await api.sendReferral(referral);
     const listed = await api.getReferrals();
     expect(listed[0]?.id).toBe(referral.id);
-    expect(listed.find((r) => r.id === referral.id)).toEqual(referral);
+    const { riskGradient: _riskGradient, matchedRules: _matchedRules, ...referralWithoutRisk } = referral;
+    const { riskGradientAiEstimate: _aiEstimate, ...fieldsWithoutAiEstimate } = referral.fields;
+    expect(listed.find((r) => r.id === referral.id)).toEqual({
+      ...referralWithoutRisk,
+      fields: fieldsWithoutAiEstimate,
+      summary: expect.any(Object),
+    });
+  });
+
+  it('Referral desk view: the list carries no Risk gradient, and the summary lists every visit and the GP decision (decision 16)', async () => {
+    const aid = await api.getAid('SYN-001');
+    const patient = await api.getPatient('SYN-001');
+    const fields = await api.fillTemplateFromNote('SYN-001', 'lung', aid.matchedRules);
+    const referral: Referral = {
+      id: `REF-CONTRACT-${backend}-GRADIENT`,
+      patientId: 'SYN-001',
+      cancer: 'lung',
+      urgency: 'urgent',
+      decidedBy: 'GP',
+      decidedAt: '2026-11-14T11:00:00.000Z',
+      fields: { ...fields, riskGradientAiEstimate: { value: '7', origin: 'gemma', evidence: 'Aid' } },
+      matchedRules: aid.matchedRules,
+      riskGradient: 7,
+      severity: aid.severity,
+    };
+    await api.sendReferral(referral);
+    const views = await api.getReferrals();
+    expect(JSON.stringify(views)).not.toContain('riskGradient');
+    expect(JSON.stringify(views)).not.toContain('riskGradientAiEstimate');
+    const view = views.find((r) => r.id === referral.id);
+    expect(view?.summary.gpDecision).toBe('refer-urgent');
+    expect(view?.summary.timeline).toHaveLength(patient!.visits.length);
+    if (convexTestInstance) {
+      // The GP's Referral keeps the Risk gradient in the table (audit). Only the desk view drops it.
+      const stored = await convexTestInstance.run((ctx) =>
+        ctx.db
+          .query('referrals')
+          .withIndex('by_referral_id', (q) => q.eq('id', referral.id))
+          .unique(),
+      );
+      expect(stored?.riskGradient).toBe(7);
+    }
   });
 });

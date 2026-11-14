@@ -12,6 +12,7 @@ import type {
   Patient,
   Referral,
   ReferralTemplate,
+  ReferralView,
   RepeatVisitFlag,
   StagingReport,
   StagingTemplate,
@@ -52,7 +53,7 @@ const refs = {
   stagingTemplate: query<StagingTemplate>('templates:staging'),
   demoStaging: query<StagingReport>('staging:demo'),
   countyGet: query<CountyGap>('county:get'),
-  referralsList: query<Referral[]>('referrals:list'),
+  referralsList: query<ReferralView[]>('referrals:list'),
   referralsSend: mutation<Referral>('referrals:send'),
   aidGet: action<AidResult>('aid:get'),
   fillFromNote: action<FieldValues>('fill:fromNote'),
@@ -101,6 +102,6 @@ export async function sendReferral(referral: Referral): Promise<Referral> {
   return client().mutation(refs.referralsSend, { referral });
 }
 
-export async function getReferrals(): Promise<Referral[]> {
+export async function getReferrals(): Promise<ReferralView[]> {
   return run(refs.referralsList, {});
 }
