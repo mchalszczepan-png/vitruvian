@@ -9,7 +9,7 @@ import { severityForPatient } from '../lib/severity';
 import { factsJson, mergeFacts, type Facts } from './facts';
 import type { Decision, ModelPort, Question, Who } from './port';
 import type { RuleBook, RuleRow } from './rulebook';
-import { ppvQuestionsFor, ppvRiskFrom, type PublishedRisk } from './ppvRisk';
+import { ppvQuestionsFor, ppvRiskFrom, reasonWithPublishedRisk, type PublishedRisk } from './ppvRisk';
 
 /** Visits read, and distinct fact sets decided, at most this many in flight. */
 const CONCURRENCY = 6;
@@ -254,7 +254,7 @@ export async function analyze({ patient, book, model, repeat: override }: AidInp
       noRuleMatched,
       techUsed: techUsedFor(model.name, repeatSource, risk.servedBy, risk.servedModel),
       riskGradient,
-      riskReason: risk.reason,
+      riskReason: reasonWithPublishedRisk(risk.reason, publishedRisk),
       ...(risk.pointer !== undefined && risk.pointer !== rulesSay ? { riskModelPointer: risk.pointer } : {}),
       ...(triageSaid && risk.evidence?.length ? { riskEvidence: risk.evidence } : {}),
       matchedRules: matched,

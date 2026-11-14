@@ -68,9 +68,18 @@ function rowApplies(row: PpvRow, who: Who): boolean {
   return (row.sex === null || row.sex === who.sex) && (row.ageMin === null || who.age >= row.ageMin) && (row.ageMax === null || who.age <= row.ageMax);
 }
 
+/** ", and is the patient a man aged 55 to 64?" and the like. Age and sex are checked in code (rowApplies). */
+const WHO_CLAUSE = /, and is the patient (?:a (?:wo)?man)?(?: ?aged [^?]+)?\?$/;
+
+/**
+ * The row question without its age and sex clause. The Decisions API input holds the facts only, not the age or sex,
+ * so it answered "no" to "a man aged 55 to 64?" for a 62-year-old man and the wider all-ages row won.
+ */
+export const symptomQuestion = (question: string): string => question.replace(WHO_CLAUSE, '?');
+
 /** The questions for one cancer's rows that can apply to this person. The caller asks only the suspected cancer. */
 export function ppvQuestionsFor(cancer: CancerType, who: Who): Question[] {
-  return PPV_ROWS.filter((r) => r.cancer === cancer && rowApplies(r, who)).map((r) => ({ id: r.id, question: r.question }));
+  return PPV_ROWS.filter((r) => r.cancer === cancer && rowApplies(r, who)).map((r) => ({ id: r.id, question: symptomQuestion(r.question) }));
 }
 
 /** The stub Decisions API: the same yes/no per question as the real one, decided from Facts. Unknown ids get no. */
@@ -138,9 +147,26 @@ export function ppvRiskFrom(cancer: CancerType, who: Who, decisions: Record<stri
 /** Two decimals under 1%, one decimal above. Trailing zeros are dropped: 5 not 5.0, 0.5 not 0.50. */
 const formatPct = (pct: number): string => String(Number(pct.toFixed(pct < 1 ? 2 : 1)));
 
-/** "Published risk: 8.4% (Jones 2007 BMJ)". A lower bound reads "5% or more". The source is the label before its first comma. */
+/** "8.4% (Jones 2007 BMJ)". A lower bound reads "5% or more". The source is the label before its first comma. */
+const valueAndSource = (r: PublishedRisk): string =>
+  `${formatPct(r.pct)}%${r.isLowerBound ? ' or more' : ''} (${r.sourceLabel.split(',')[0].trim()})`;
+
+/** "Published risk: 8.4% (Jones 2007 BMJ)". */
 export function formatPublishedRisk(r: PublishedRisk): string {
-  const value = r.isLowerBound ? `${formatPct(r.pct)}% or more` : `${formatPct(r.pct)}%`;
-  const source = r.sourceLabel.split(',')[0].trim();
-  return `Published risk: ${value} (${source})`;
+  return `Published risk: ${valueAndSource(r)}`;
+}
+
+/** A percentage with its optional "(source)", except the NICE "3% threshold". */
+const PCT_FIGURE = /\b\d+(?:\.\d+)?\s?%(?!\s*threshold)(?:\s*\([^)]*\))?/g;
+
+/**
+ * The risk model's reason with every published figure replaced by the box's value and source, or removed when there is
+ * no box. The box (ppvRiskFrom) is the only source of the published risk, so one card never shows two numbers.
+ */
+export function reasonWithPublishedRisk(reason: string, r: PublishedRisk | null | undefined): string {
+  return reason
+    .replace(PCT_FIGURE, r ? valueAndSource(r) : '')
+    .replace(/\s+([,.;)])/g, '$1')
+    .replace(/\s{2,}/g, ' ')
+    .trim();
 }

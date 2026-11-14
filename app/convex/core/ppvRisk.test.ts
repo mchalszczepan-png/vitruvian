@@ -7,7 +7,16 @@ import type { CancerType } from '../../src/data/types';
 import { emptyFacts, type Facts } from './facts';
 import type { Decision, Question, Who } from './port';
 import { PPV_ROWS, type PpvRow, type SymptomKey } from './ppvRows';
-import { decideRowsFromFacts, formatPublishedRisk, ppvQuestionsFor, ppvRiskFrom, SYMPTOM_FACTS, type PublishedRisk } from './ppvRisk';
+import {
+  decideRowsFromFacts,
+  formatPublishedRisk,
+  ppvQuestionsFor,
+  ppvRiskFrom,
+  reasonWithPublishedRisk,
+  symptomQuestion,
+  SYMPTOM_FACTS,
+  type PublishedRisk,
+} from './ppvRisk';
 
 type SeedPatient = { id: string; age: number; sex: 'male' | 'female'; smokingStatus: Who['smokingStatus'] };
 const seedWho = (id: string): Who => {
@@ -164,7 +173,7 @@ describe('ppvQuestionsFor: only the rows that can apply by code', () => {
     }
   });
 
-  it('gives question ids that are unique and belong to the asked cancer only, with the row question', () => {
+  it('gives question ids that are unique and belong to the asked cancer only, with the row question minus age and sex', () => {
     for (const cancer of KNOWN_CANCERS) {
       for (const who of [matti, anneli, sirpa, control]) {
         const questions = ppvQuestionsFor(cancer, who);
@@ -172,10 +181,55 @@ describe('ppvQuestionsFor: only the rows that can apply by code', () => {
         expect(new Set(ids).size).toBe(ids.length);
         for (const q of questions) {
           expect(rowById(q.id).cancer).toBe(cancer);
-          expect(q.question).toBe(rowById(q.id).question);
+          expect(q.question).toBe(symptomQuestion(rowById(q.id).question));
         }
       }
     }
+  });
+});
+
+describe('symptomQuestion: the Decisions API is asked the symptom only', () => {
+  it('drops each age and sex clause form', () => {
+    expect(symptomQuestion('Has the patient had haemoptysis (coughing up blood) on any visit, and is the patient a man aged 55 to 64?')).toBe(
+      'Has the patient had haemoptysis (coughing up blood) on any visit?',
+    );
+    expect(symptomQuestion('Has X, and is the patient a man?')).toBe('Has X?');
+    expect(symptomQuestion('Has X, and is the patient a woman aged 50 or over?')).toBe('Has X?');
+    expect(symptomQuestion('Has X, and is the patient aged 40 to 69?')).toBe('Has X?');
+    expect(symptomQuestion('Has X?')).toBe('Has X?');
+  });
+
+  it('leaves no age or sex in any question sent (the API input has no age or sex)', () => {
+    for (const r of PPV_ROWS) expect(symptomQuestion(r.question)).not.toMatch(/\b(aged|a man|a woman)\b/);
+  });
+
+  it('Matti: an API that cannot see age or sex still gives the 55-64 male row, 8.37%, not the all-ages 7.5%', () => {
+    // The live bug: the API answered no to "a man aged 55 to 64?" (it is never told the age), so LUNG-PPV-13 won.
+    const decisions = Object.fromEntries(
+      ppvQuestionsFor('lung', matti).map((q) => [q.id, { yes: /haemoptysis/.test(q.question) && !/aged|a man|a woman/.test(q.question) }]),
+    );
+    const r = ppvRiskFrom('lung', matti, decisions)!;
+    expect(r.rowId).toBe('LUNG-PPV-06');
+    expect(r.pct).toBe(8.37);
+  });
+});
+
+describe('reasonWithPublishedRisk: the AI reason never carries its own published figure', () => {
+  const box = (): PublishedRisk => riskFromStub('lung', matti, mattiFacts)!;
+  const live = 'Haemoptysis on the third visit: published lung risk 8.38% (Jones 2007 BMJ), at or above the NICE 3% threshold.';
+
+  it("Matti: the model's 8.38% (the women 65-74 row) becomes the box's 8.4%, and the NICE 3% stays", () => {
+    expect(reasonWithPublishedRisk(live, box())).toBe(
+      'Haemoptysis on the third visit: published lung risk 8.4% (Jones 2007 BMJ), at or above the NICE 3% threshold.',
+    );
+  });
+
+  it('removes the figure and its source when there is no box', () => {
+    expect(reasonWithPublishedRisk(live, null)).toBe('Haemoptysis on the third visit: published lung risk, at or above the NICE 3% threshold.');
+  });
+
+  it('leaves a reason with no figure unchanged', () => {
+    expect(reasonWithPublishedRisk('Blood in sputum and weight loss in a smoker.', box())).toBe('Blood in sputum and weight loss in a smoker.');
   });
 });
 
