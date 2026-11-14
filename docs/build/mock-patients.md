@@ -24,7 +24,8 @@ Names are Finnish words that mean things like "example", "test" or "drawing", so
 | SYN-014 | Ilona Koeajo, 26 | Background. One-off eczema. |
 | SYN-015 | Oskari Piirros, 52, current smoker | Background. One-off knee pain. |
 
-Counties spread across 12 areas: Pirkanmaa (2), Uusimaa (2), Varsinais-Suomi (2), Pohjois-Pohjanmaa, Keski-Suomi, Lappi, Satakunta, Pohjois-Savo, Kanta-Häme, Etelä-Pohjanmaa, Kymenlaakso, Päijät-Häme.
+Counties spread across 12 areas: Lappi (2), Kymenlaakso (2), Uusimaa (2), Pirkanmaa, Varsinais-Suomi, Pohjois-Pohjanmaa, Keski-Suomi, Satakunta, Pohjois-Savo, Kanta-Häme, Etelä-Pohjanmaa, Päijät-Häme.
+Hero counties match the County view story (docs/research/data/county-cancer-data.md): SYN-001 Lappi (lung curative-treatment share 18.5% vs Finland 27.0%), SYN-002 Kymenlaakso (colonoscopy after a positive FIT 62.1% vs Finland 72.7%), SYN-003 Pohjois-Pohjanmaa (no public county ovarian data, shown as a gap).
 
 ## Red flags in the hero notes
 
