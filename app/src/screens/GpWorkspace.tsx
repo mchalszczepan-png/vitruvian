@@ -382,22 +382,22 @@ function Pointer({
           </div>
           <p className="nf-ptr-reason">{aid.riskReason}</p>
           {aid.publishedRisk && (
-            <div className="nf-ptr-ppv">
+            <details className="nf-ptr-ppv">
+              <summary>
+                {t('Published risk')} <Icon name="down" size={16} />
+              </summary>
               <p className="nf-ppv-row">
-                <span className="muted">{t('Published risk')}</span>
                 <b className="num">
                   {Math.round(aid.publishedRisk.pct * 10) / 10}%{aid.publishedRisk.isLowerBound ? t(' or more') : ''}
                 </b>
-              </p>
-              <p className="nf-ppv-row">
                 {aid.publishedRisk.aboveNg12Threshold && <span className="tag">{t('Above NG12 3%')}</span>}
-                <Source
-                  short
-                  source={{ label: aid.publishedRisk.sourceLabel, short: aid.publishedRisk.sourceLabel.split(',')[0], url: aid.publishedRisk.sourceUrl }}
-                />
               </p>
-              <p className="muted nf-ppv-note">{t('UK primary-care aggregate figure, not a personal probability. Matched by AI.')}</p>
-            </div>
+              <p className="muted">{t("Study figure, not this patient's risk.")}</p>
+              <Source
+                short
+                source={{ label: aid.publishedRisk.sourceLabel, short: aid.publishedRisk.sourceLabel.split(',')[0], url: aid.publishedRisk.sourceUrl }}
+              />
+            </details>
           )}
 
           {aid.testNeeded && !draft.sent && (

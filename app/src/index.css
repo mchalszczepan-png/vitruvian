@@ -2435,8 +2435,23 @@ textarea.input {
   align-items: baseline;
   gap: 4px 8px;
 }
-.nf-ppv-note {
-  text-wrap: pretty;
+/* Folded by default: one more risk number only when the GP asks (Michal, 15 Nov) */
+.nf-ptr-ppv summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--muted);
+  cursor: pointer;
+  list-style: none;
+}
+.nf-ptr-ppv summary::-webkit-details-marker {
+  display: none;
+}
+.nf-ptr-ppv[open] summary {
+  margin-bottom: 4px;
+}
+.nf-ptr-ppv[open] summary svg {
+  transform: rotate(180deg);
 }
 
 /* Patient search above the list */
