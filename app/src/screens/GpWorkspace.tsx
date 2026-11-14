@@ -294,6 +294,23 @@ function Why({ patient, aid, onLight }: { patient: Patient; aid: AidResult; onLi
           <Source source={aid.testNeeded.source} />
         </div>
       )}
+      {aid.riskEvidence && aid.riskEvidence.length > 0 && (
+        <div className="nf-why-item">
+          <p>Risk gradient read these words in the notes:</p>
+          <ul className="nf-evidence">
+            {aid.riskEvidence.map((e) => (
+              <li key={e}>
+                <mark>{e}</mark>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+      {aid.riskModelPointer && (
+        <p className="nf-why-item muted">
+          The risk model guessed {aid.riskModelPointer === 'none' ? 'no cancer' : cancerName[aid.riskModelPointer]}. A note only: the Rules decide.
+        </p>
+      )}
       <h3>Matched Rules · {aid.matchedRules.length}</h3>
       {aid.matchedRules.length === 0 && <p className="muted">No Rule matched the notes. The GP can still refer.</p>}
       {aid.matchedRules.map((m) => (
@@ -334,7 +351,7 @@ function Why({ patient, aid, onLight }: { patient: Patient; aid: AidResult; onLi
         <ul className="tech-used" aria-label="Tech used">
           {aid.techUsed.map((t) => (
             <li key={t.step} className={`tag ${t.provider === 'stub' || t.provider === 'mock' ? 'record' : 'gemma'}`}>
-              {techStep[t.step]}: {techProvider[t.provider]}
+              {techStep[t.step]}: {t.detail ?? techProvider[t.provider]}
             </li>
           ))}
         </ul>
