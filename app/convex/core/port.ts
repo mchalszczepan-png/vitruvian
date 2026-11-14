@@ -43,6 +43,8 @@ export interface RiskOutput {
   evidence?: string[];
   /** set only when a triage step was tried: 'medgemma' (MedGemma 27B) or 'modal-lora' (the E4B triage) answered it; 'gemma' is the prompted fallback. */
   servedBy?: 'medgemma' | 'modal-lora' | 'gemma';
+  /** set by a triage step: the model id that answered (e.g. vitruvian-triage-ppv). Picks the risk badge for a '-ppv' model. */
+  servedModel?: string;
 }
 
 export interface FillInput {

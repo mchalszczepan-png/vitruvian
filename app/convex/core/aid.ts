@@ -83,6 +83,9 @@ function portProvider(name: string): 'stub' | 'gemma' | 'modal-lora' {
 /** The triage badge text (ml/TRIAGE-CONTRACT.md label). The one place the wording lives. */
 export const TRIAGE_BADGE = 'Gemma 4 E4B, fine-tuned on synthetic GP notes, Gemini-teacher labels, not clinically validated';
 
+/** The published-risk triage badge (model id ending '-ppv'): the same E4B LoRA, scores from published PPVs. The one place the wording lives. */
+export const TRIAGE_PPV_BADGE = 'Gemma 4 E4B, fine-tuned on synthetic GP notes; scores computed from published UK primary-care PPVs; not clinically validated.';
+
 /** The MedGemma triage badge text: the first risk step (MEDGEMMA_TRIAGE_*). The one place the wording lives. */
 export const MEDGEMMA_BADGE = 'MedGemma 27B, fine-tuned on synthetic GP notes, Gemini-teacher labels, not clinically validated';
 
@@ -91,8 +94,8 @@ export const MEDGEMMA_BADGE = 'MedGemma 27B, fine-tuned on synthetic GP notes, G
  * so the decisions step is 'gemini' there and 'stub' only for the stub port.
  * modal-lora runs the fill on the LoRA, and the risk on the triage LoRA when it is configured. Facts stay on Featherless ('gemma').
  * riskServedBy is the servedBy of the risk answer: 'medgemma' gives MedGemma with MEDGEMMA_BADGE, 'modal-lora' the E4B triage LoRA
- * with TRIAGE_BADGE (both on Modal, so provider stays 'modal-lora', no new TechUsed value); 'gemma' or absent is the prompted
- * risk (a triage fallback, or no triage model), shown as gemma.
+ * with TRIAGE_BADGE, or TRIAGE_PPV_BADGE when riskServedModel ends '-ppv' (both on Modal, so provider stays 'modal-lora', no new
+ * TechUsed value); 'gemma' or absent is the prompted risk (a triage fallback, or no triage model), shown as gemma.
  * The fill badge is static: the aid result is built without running the fill, and the FieldValues fill result has no tech field,
  * so a fallback is not shown here.
  * The repeat step names the source analyze() was given: vector search (Gemini 'convex-vector' or 'embeddinggemma') in aid:get,
@@ -102,6 +105,7 @@ export function techUsedFor(
   portName: string,
   repeatSource: RepeatSource = 'symptom-match',
   riskServedBy?: 'medgemma' | 'modal-lora' | 'gemma',
+  riskServedModel?: string,
 ): TechUsed[] {
   const port = portProvider(portName);
   const chat = port === 'modal-lora' ? 'gemma' : port;
@@ -109,7 +113,7 @@ export function techUsedFor(
     riskServedBy === 'medgemma'
       ? { step: 'risk', provider: 'modal-lora', detail: MEDGEMMA_BADGE }
       : riskServedBy === 'modal-lora'
-        ? { step: 'risk', provider: 'modal-lora', detail: TRIAGE_BADGE }
+        ? { step: 'risk', provider: 'modal-lora', detail: riskServedModel?.endsWith('-ppv') ? TRIAGE_PPV_BADGE : TRIAGE_BADGE }
         : { step: 'risk', provider: chat };
   return [
     { step: 'facts', provider: chat },
@@ -248,7 +252,7 @@ export async function analyze({ patient, book, model, repeat: override }: AidInp
     aid: {
       suspectedCancer: cancer,
       noRuleMatched,
-      techUsed: techUsedFor(model.name, repeatSource, risk.servedBy),
+      techUsed: techUsedFor(model.name, repeatSource, risk.servedBy, risk.servedModel),
       riskGradient,
       riskReason: risk.reason,
       ...(risk.pointer !== undefined && risk.pointer !== rulesSay ? { riskModelPointer: risk.pointer } : {}),

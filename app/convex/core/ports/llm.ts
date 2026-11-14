@@ -10,7 +10,7 @@
 // Research prototype. Not a medical device. Not for clinical use.
 import { chatCompletion, fetchRetry, type CallLimits, type ChatCfg } from '../../model/openai';
 import { fieldProblems, fillFromNote, recordFactsFor, type FillOutput } from '../../model/contract';
-import { buildTriageMessages } from '../../model/triagePrompt';
+import { buildTriageMessages, triageSystemFor } from '../../model/triagePrompt';
 import { coerceFacts, factsJson, FACT_KEYS } from '../facts';
 import type { CancerType } from '../../../src/data/types';
 import type { Decision, FillInput, ModelPort, RiskInput, RiskOutput } from '../port';
@@ -97,9 +97,10 @@ async function triageRisk(
   fetchImpl: typeof fetch | undefined,
 ): Promise<RiskOutput> {
   const { today, earlier } = input.notes;
-  const messages = buildTriageMessages(today, earlier, { age: input.history.age, sex: input.history.sex });
+  // The system message follows the model id: a '-ppv' model gets SYSTEM_PPV (its ML contract), any other gets the rubric prompt.
+  const messages = buildTriageMessages(today, earlier, { age: input.history.age, sex: input.history.sex }, triageSystemFor(chat.model));
   const text = await chatCompletion({ cfg: chat, messages, temperature: 0, maxTokens: 1024, limits, fetchImpl });
-  return parseTriage(text, input, servedBy);
+  return { ...parseTriage(text, input, servedBy), servedModel: chat.model };
 }
 
 export function llmPort(cfg: LlmCfg): ModelPort {

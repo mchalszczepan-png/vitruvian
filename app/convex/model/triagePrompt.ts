@@ -14,20 +14,44 @@ Return ONE JSON object, no prose, no code fence:
 - evidence: 1 to 4 short phrases copied character for character from the notes, in the notes' own language.
 Use only what the notes, age and sex say. Never invent findings.`;
 
+/**
+ * Same text as SYSTEM_PPV in ml/triage_prompt.py, verbatim. The published-risk variant (model id ending '-ppv', e.g.
+ * vitruvian-triage-ppv) was trained on this prompt, and the ML contract ties the prompt to the model id, so triageSystemFor picks it.
+ */
+export const TRIAGE_SYSTEM_PPV = `You read one patient's GP visit notes (English or Finnish) and point out whether the symptoms suggest lung, colorectal or ovarian cancer. This is a pointer for the GP to look closer, not a diagnosis. Research prototype with made-up patients.
+Return ONE JSON object, no prose, no code fence:
+{"suspectedCancer": "lung" | "colorectal" | "ovarian" | "none", "riskGradient": 0-10, "scores": {"lung": 0-10, "colorectal": 0-10, "ovarian": 0-10}, "riskReason": "...", "evidence": ["...", "..."]}
+- scores: integers from the published UK primary-care positive predictive value (PPV) of the strongest symptom recorded on ANY visit, for this age and sex (Jones 2007, Hamilton 2005 and 2009, NICE NG12 evidence). 0 when no recorded symptom has a published figure; otherwise 5 + 2.5 x log2(PPV% / 3), rounded, between 1 and 10. So 5 is the NICE NG12 3% referral threshold, about 1% is 1, 1.5% is 3, 6% is 8, 12% or more is 10. Earlier visits count: a cough recorded at 2 or 3 separate visits has its own figure. Ovarian is 0 for a male patient.
+- suspectedCancer: the cancer the notes point to most, or "none" when nothing points beyond a vague or benign picture.
+- riskGradient: the score of suspectedCancer, or the highest score when it is "none".
+- riskReason: one English line naming the symptom, age and sex, the published risk and its source, and whether it is at or above the NICE 3% threshold.
+- evidence: up to 4 short phrases copied character for character from the notes, in the notes' own language, showing that symptom.
+Use only what the notes, age and sex say. Never invent findings.`;
+
+/** The system message for a triage model id: the published-risk prompt for a '-ppv' model, else TRIAGE_SYSTEM. */
+export function triageSystemFor(model: string): string {
+  return model.endsWith('-ppv') ? TRIAGE_SYSTEM_PPV : TRIAGE_SYSTEM;
+}
+
 export interface TriageEarlierNote {
   date: string;
   note: string;
 }
 
 /** Port of build_triage_messages(today_note, earlier_notes, patient). Key order: patient, earlierNotes, todayNote. */
-export function buildTriageMessages(todayNote: string, earlierNotes: TriageEarlierNote[], patient: { age: number; sex: string }): ChatMessage[] {
+export function buildTriageMessages(
+  todayNote: string,
+  earlierNotes: TriageEarlierNote[],
+  patient: { age: number; sex: string },
+  system: string = TRIAGE_SYSTEM,
+): ChatMessage[] {
   const user = {
     patient: { age: patient.age, sex: patient.sex },
     earlierNotes: earlierNotes.map((e) => ({ date: e.date, note: e.note })),
     todayNote,
   };
   return [
-    { role: 'system', content: TRIAGE_SYSTEM },
+    { role: 'system', content: system },
     { role: 'user', content: pyDumps(user, false, { item: ', ', kv: ': ' }) },
   ];
 }

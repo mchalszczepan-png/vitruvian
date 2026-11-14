@@ -121,6 +121,7 @@ describe('MedGemma triage: the answer', () => {
       pointer: 'colorectal',
       evidence: ['medgemma phrase'],
       servedBy: 'medgemma',
+      servedModel: 'vitruvian-medgemma',
     });
     const medCalls = calls.filter((c) => c.url === MEDGEMMA_URL);
     expect(medCalls).toHaveLength(1);
@@ -150,7 +151,7 @@ describe('MedGemma triage: each failure hands on', () => {
     const { fetchImpl, calls } = mockFetch(medAnswer);
     const out = await makePort(env, undefined, fetchImpl).risk(input);
 
-    expect(out).toEqual({ score: 4, reason: 'E4B reason.', pointer: 'lung', evidence: ['e4b phrase'], servedBy: 'modal-lora' });
+    expect(out).toEqual({ score: 4, reason: 'E4B reason.', pointer: 'lung', evidence: ['e4b phrase'], servedBy: 'modal-lora', servedModel: 'vitruvian-triage' });
     expect(calls.filter((c) => c.url === MEDGEMMA_URL)).toHaveLength(1);
     expect(calls.filter((c) => c.url === LORA_URL)).toHaveLength(1);
     expect(log).toHaveBeenCalledTimes(1);
