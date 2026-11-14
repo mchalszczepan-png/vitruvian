@@ -16,7 +16,15 @@ export async function readVisits(db: DatabaseReader, patientId: string): Promise
     .withIndex('by_patient', (q) => q.eq('patientId', patientId))
     .order('asc')
     .collect();
-  return rows.map((r) => ({ id: r.visitId, date: r.date, reason: r.reason, symptom: r.symptom, note: r.note }));
+  return rows.map((r) => ({
+    id: r.visitId,
+    date: r.date,
+    reason: r.reason,
+    symptom: r.symptom,
+    note: r.note,
+    ...(r.reasonFi !== undefined ? { reasonFi: r.reasonFi } : {}),
+    ...(r.gpNoteFi !== undefined ? { gpNoteFi: r.gpNoteFi } : {}),
+  }));
 }
 
 export async function readPatient(db: DatabaseReader, id: string): Promise<Patient | null> {

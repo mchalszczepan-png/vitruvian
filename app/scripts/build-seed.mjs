@@ -100,9 +100,20 @@ const SYMPTOM_GROUPS = [
 const symptomOf = (reason) => SYMPTOM_GROUPS.find(([, re]) => re.test(reason))?.[0] ?? reason.toLowerCase();
 
 const rawPatients = JSON.parse(readFileSync(resolve(docs, 'mock-patients.json'), 'utf8'));
+// Finnish twin: same patients, order, visit counts and dates; only reason and gpNote differ. Carried as reasonFi/gpNoteFi (display only).
+const rawFi = JSON.parse(readFileSync(resolve(docs, 'mock-patients.fi.json'), 'utf8'));
+if (rawFi.length !== rawPatients.length) throw new Error(`mock-patients.fi.json has ${rawFi.length} patients, English has ${rawPatients.length}`);
+rawPatients.forEach((p, i) => {
+  const f = rawFi[i];
+  if (f.patientId !== p.patientId) throw new Error(`mock-patients.fi.json: patient ${i + 1} is ${f.patientId}, English has ${p.patientId}`);
+  if (f.visits.length !== p.visits.length) throw new Error(`mock-patients.fi.json: ${p.patientId} has ${f.visits.length} visits, English has ${p.visits.length}`);
+  f.visits.forEach((fv, j) => {
+    if (fv.date !== p.visits[j].date) throw new Error(`mock-patients.fi.json: ${p.patientId} visit ${j + 1} date ${fv.date}, English has ${p.visits[j].date}`);
+  });
+});
 const patients = [];
 const visits = [];
-for (const p of rawPatients) {
+for (const [pi, p] of rawPatients.entries()) {
   patients.push({
     id: p.patientId,
     name: p.name,
@@ -120,6 +131,8 @@ for (const p of rawPatients) {
       reason: v.reason,
       symptom: symptomOf(v.reason),
       note: v.gpNote,
+      reasonFi: rawFi[pi].visits[i].reason,
+      gpNoteFi: rawFi[pi].visits[i].gpNote,
     });
   });
 }

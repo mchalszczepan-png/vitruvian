@@ -1,6 +1,7 @@
 // The only module the UI calls for data. Every function is async so Convex can replace the mock later.
 // Research prototype. Not a medical device. Not for clinical use.
 import rawPatients from '../../../docs/build/mock-patients.json';
+import rawPatientsFi from '../../../docs/build/mock-patients.fi.json';
 import * as convex from './convexBackend';
 import { countyGap } from './mock/county';
 import { rules, severity } from './mock/rules';
@@ -38,6 +39,9 @@ interface RawPatient {
   visits: { date: string; reason: string; gpNote: string }[];
 }
 
+/** Finnish twin of rawPatients (same order, visit counts and dates). */
+const rawFiByPatient = new Map((rawPatientsFi as RawPatient[]).map((p) => [p.patientId, p]));
+
 /** Symptom groups for the Repeat visit flag. Order matters: the first match wins. */
 const SYMPTOM_GROUPS: [string, RegExp][] = [
   ['asthma', /asthma|wheeze/i],
@@ -52,17 +56,28 @@ function symptomOf(reason: string): string {
   return SYMPTOM_GROUPS.find(([, re]) => re.test(reason))?.[0] ?? reason.toLowerCase();
 }
 
-const patients: Patient[] = (rawPatients as RawPatient[]).map((p) => ({
-  id: p.patientId,
-  name: p.name,
-  age: p.age,
-  sex: p.sex,
-  smokingStatus: p.smokingStatus,
-  county: p.wellbeingServicesCounty,
-  visits: p.visits.map(
-    (v, i): Visit => ({ id: `${p.patientId}-v${i + 1}`, date: v.date, reason: v.reason, symptom: symptomOf(v.reason), note: v.gpNote }),
-  ),
-}));
+const patients: Patient[] = (rawPatients as RawPatient[]).map((p) => {
+  const fi = rawFiByPatient.get(p.patientId);
+  return {
+    id: p.patientId,
+    name: p.name,
+    age: p.age,
+    sex: p.sex,
+    smokingStatus: p.smokingStatus,
+    county: p.wellbeingServicesCounty,
+    visits: p.visits.map(
+      (v, i): Visit => ({
+        id: `${p.patientId}-v${i + 1}`,
+        date: v.date,
+        reason: v.reason,
+        symptom: symptomOf(v.reason),
+        note: v.gpNote,
+        reasonFi: fi?.visits[i]?.reason,
+        gpNoteFi: fi?.visits[i]?.gpNote,
+      }),
+    ),
+  };
+});
 
 async function mockGetPatients(): Promise<Patient[]> {
   return patients;

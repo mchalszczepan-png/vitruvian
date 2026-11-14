@@ -28,6 +28,8 @@ export default defineSchema({
     reason: v.string(),
     symptom: v.string(),
     note: v.string(),
+    reasonFi: v.optional(v.string()),
+    gpNoteFi: v.optional(v.string()),
     embedding: v.optional(v.array(v.float64())),
   })
     .index('by_patient', ['patientId', 'order'])

@@ -114,9 +114,8 @@
         "value": "not_done"
       },
       "currentMedicines": {
-        "evidence": "Salbutamol from last time made no difference, I have stopped it.",
-        "origin": "gemma",
-        "value": "Salbutamol from last time made no difference, I have stopped it."
+        "origin": "empty",
+        "value": ""
       },
       "examFindings": {
         "evidence": "Chest: reduced entry right lower zone, no wheeze.",

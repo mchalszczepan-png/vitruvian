@@ -16,7 +16,8 @@ const SYSTEM_PREFIX = `You fill a GP Referral template from free-text GP notes. 
 Return ONE JSON object, no prose, no code fence: {"fields": {...}, "evidence": {...}}.
 - "fields" must validate against the JSON Schema below. Use only facts in the notes or recordFacts. Never invent.
 - If a required value is not in the notes, use null. If an optional field is not in the notes, leave it out.
-- "evidence" maps a field name to the exact words copied from the notes that justify it. Skip fields taken from recordFacts.
+- Write every free-text value in "fields" in English, even when the notes are Finnish (translate faithfully).
+- "evidence" maps a field name to the exact words copied from the notes that justify it, in the notes' own language. Skip fields taken from recordFacts.
 - Dates are YYYY-MM-DD. This is a research prototype with made-up patients.
 
 JSON Schema:

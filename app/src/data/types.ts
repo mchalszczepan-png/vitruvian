@@ -22,6 +22,10 @@ export interface Visit {
   symptom: string;
   /** GP free-text note */
   note: string;
+  /** Finnish translation of `reason`, for display only (the Aid reads English `note`) */
+  reasonFi?: string;
+  /** Finnish translation of `note`, for display only (the Aid reads English `note`) */
+  gpNoteFi?: string;
 }
 
 export type SmokingStatus = 'never' | 'former' | 'current' | 'unknown';

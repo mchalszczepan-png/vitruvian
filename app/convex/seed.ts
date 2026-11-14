@@ -41,7 +41,7 @@ export const run = mutation({
     const patients = patientsJson as Omit<Patient, 'visits'>[];
     for (const p of patients) await ctx.db.insert('patients', p);
 
-    const visits = visitsJson as { patientId: string; visitId: string; order: number; date: string; reason: string; symptom: string; note: string }[];
+    const visits = visitsJson as { patientId: string; visitId: string; order: number; date: string; reason: string; symptom: string; note: string; reasonFi?: string; gpNoteFi?: string }[];
     for (const r of visits) await ctx.db.insert('visits', r);
 
     for (const r of rulesJson as Rule[]) await ctx.db.insert('rules', r);

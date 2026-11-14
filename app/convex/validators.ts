@@ -18,6 +18,8 @@ export const visitInputV = v.object({
   reason: v.string(),
   symptom: v.string(),
   note: v.string(),
+  reasonFi: v.optional(v.string()),
+  gpNoteFi: v.optional(v.string()),
 });
 
 export const patientV = v.object({
