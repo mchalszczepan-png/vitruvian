@@ -158,9 +158,16 @@ def schema_errors(cancer: str, fields: dict) -> list[str]:
     """Validate fields against the cancer schema. A null required field is 'unknown', so it is removed before validation."""
     schema = copy.deepcopy(schema_for(cancer))
     required = schema.get("required", [])
-    unknown = {name for name in required if name in fields and fields[name] is None}
+    # A field made required by an if/then clause (e.g. ca125Done true -> ca125ValueIuPerMl) is "required" too,
+    # so null there also means unknown (same rule as ml/validate_data.py).
+    conditional = {name for clause in schema.get("allOf", []) for name in clause.get("then", {}).get("required", [])}
+    unknown = {name for name in set(required) | conditional if name in fields and fields[name] is None}
     cleaned = {k: v for k, v in fields.items() if k not in unknown}
     schema["required"] = [name for name in required if name not in unknown]
+    for clause in schema.get("allOf", []):
+        then = clause.get("then", {})
+        if "required" in then:
+            then["required"] = [name for name in then["required"] if name not in unknown]
     validator = jsonschema.Draft202012Validator(schema, format_checker=jsonschema.FormatChecker())
     problems = []
     for error in sorted(validator.iter_errors(cleaned), key=lambda e: list(e.absolute_path)):
@@ -295,8 +302,10 @@ def summarise(results: list[dict]) -> dict:
 def check_record(record: dict) -> list[str]:
     """Data QC for one eval record: split, labels, target validity, evidence grounding."""
     problems = []
-    if record.get("split") != "eval":
-        problems.append(f"split is {record.get('split')!r}, eval scoring refuses non-eval records")
+    # "dev" is a slice held out of train for choosing hyperparameters (ml/split_dev.py), so eval.jsonl
+    # stays untouched until the final comparison.
+    if record.get("split") not in ("eval", "dev"):
+        problems.append(f"split is {record.get('split')!r}, eval scoring refuses non-eval/dev records")
     if record.get("cancer") not in CANCERS:
         problems.append(f"unknown cancer {record.get('cancer')!r}")
     if record.get("language") not in LANGUAGES:

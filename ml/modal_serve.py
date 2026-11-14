@@ -6,7 +6,8 @@ Deploy from the repo root:
     uv run --with modal modal deploy ml/modal_serve.py
 
 Endpoint: OpenAI-compatible /v1/chat/completions on one URL.
-  model "vitruvian-lora"     -> base + LoRA adapter (from ml/modal_lora.py)
+  model "vitruvian-lora"     -> base + form-fill LoRA (ml/modal_lora.py)
+  model "vitruvian-triage"   -> base + cancer-pointer LoRA (ml/modal_lora.py --task triage, prompt ml/triage_prompt.py)
   model BASE_MODEL id        -> plain base model (prompted-Gemma fallback)
 Every /v1 request needs `Authorization: Bearer <key>`; the key lives in the Modal
 Secret `vitruvian-lora-api-key` (see ml/MODAL.md).
@@ -37,11 +38,18 @@ import modal
 
 # Must match BASE_MODEL in ml/modal_lora.py.
 BASE_MODEL = "google/gemma-4-E4B-it"
-ADAPTER_NAME = "vitruvian-lora"
-ADAPTER_DIR = "/vol/adapters/vitruvian-lora/latest"  # written by ml/modal_lora.py
+# Served model id -> adapter folder, both written by ml/modal_lora.py (the triage one with --task triage).
+ADAPTERS = {
+    "vitruvian-lora": "/vol/adapters/vitruvian-lora/latest",
+    "vitruvian-triage": "/vol/adapters/vitruvian-triage/latest",
+}
 VOLUME_NAME = "vitruvian-lora-vol"
 SECRET_NAME = "vitruvian-lora-api-key"
 GPU = "A100-80GB"
+# Containers run in the EU (Michal approved 2026-11-14; broad "eu" = 1.15x price, narrow "eu-west" would be 1.75x).
+# Request routing stays on Modal's default us-east (routing_region can only be set at first deploy, and a new
+# Function would change the URL); Modal's storage and logs are in the US. So: EU compute, not "data stays in the EU".
+REGION = "eu"
 PUBLIC_PORT = 8000  # gateway, what Modal exposes
 UPSTREAM_PORT = 8001  # vLLM, loopback only
 READY_TIMEOUT_S = 20 * 60
@@ -81,21 +89,21 @@ def _vllm_command() -> list[str]:
         "--gpu-memory-utilization",
         "0.90",
     ]
-    cfg = Path(ADAPTER_DIR, "adapter_config.json")
-    if cfg.is_file():
-        rank = int(json.loads(cfg.read_text())["r"])
+    present = {name: d for name, d in ADAPTERS.items() if Path(d, "adapter_config.json").is_file()}
+    for name in ADAPTERS.keys() - present.keys():
+        # Keep the base model up so the fallback works; that LoRA's model id returns 404.
+        print(f"WARNING: no adapter at {ADAPTERS[name]}; {name} is not served. Run ml/modal_lora.py first.")
+    if present:
+        rank = max(int(json.loads(Path(d, "adapter_config.json").read_text())["r"]) for d in present.values())
         cmd += [
             "--enable-lora",
             "--max-loras",
-            "1",
+            str(len(present)),
             "--max-lora-rank",
             str(rank),
             "--lora-modules",
-            f"{ADAPTER_NAME}={ADAPTER_DIR}",
+            *[f"{name}={d}" for name, d in present.items()],
         ]
-    else:
-        # Keep the base model up so the fallback works; the LoRA model id returns 404.
-        print(f"WARNING: no adapter at {ADAPTER_DIR}; serving base model only. Run ml/modal_lora.py first.")
     return cmd
 
 
@@ -201,6 +209,7 @@ def _open_gateway_when_ready(api_key: str) -> None:
 @app.function(
     image=SERVE_IMAGE,
     gpu=GPU,
+    region=REGION,
     volumes={"/vol": VOL},
     secrets=[API_SECRET],
     min_containers=0,
@@ -212,6 +221,7 @@ def _open_gateway_when_ready(api_key: str) -> None:
 @modal.web_server(port=PUBLIC_PORT, startup_timeout=READY_TIMEOUT_S + 60)
 def serve():
     VOL.reload()  # pick up the latest committed adapter
+    print("serve container", {k: os.environ.get(k) for k in ("MODAL_REGION", "MODAL_CLOUD_PROVIDER")})
     api_key = os.environ["VITRUVIAN_API_KEY"]
     subprocess.Popen(_vllm_command())
     threading.Thread(target=_open_gateway_when_ready, args=(api_key,), daemon=True).start()

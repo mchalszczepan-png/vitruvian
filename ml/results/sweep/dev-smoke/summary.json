@@ -1,0 +1,37 @@
+{
+  "tag": "dev-smoke",
+  "base_model": "google/gemma-4-E4B-it",
+  "data": "dev",
+  "container": {
+    "MODAL_REGION": "eu-north",
+    "MODAL_CLOUD_PROVIDER": "CLOUD_PROVIDER_UNSPECIFIED"
+  },
+  "summaries": {
+    "e4b-r16-ep3-v2": {
+      "records": 60,
+      "field_accuracy": 0.9040404040404041,
+      "field_accuracy_present": 0.8819142324425109,
+      "json_valid_rate": 1.0,
+      "schema_valid_rate": 0.9,
+      "format_miss_rate": 0.0,
+      "evidence_grounded_rate": 0.998960498960499,
+      "mean_latency_s": 7.419979575849997,
+      "errors": 0,
+      "prompt_tokens_total": 82323,
+      "completion_tokens_total": 38435
+    },
+    "google/gemma-4-E4B-it": {
+      "records": 60,
+      "field_accuracy": 0.6530303030303031,
+      "field_accuracy_present": 0.5841035120147874,
+      "json_valid_rate": 0.9666666666666667,
+      "schema_valid_rate": 0.5666666666666667,
+      "format_miss_rate": 0.0,
+      "evidence_grounded_rate": 0.7987804878048781,
+      "mean_latency_s": 7.619310297383335,
+      "errors": 0,
+      "prompt_tokens_total": 90050,
+      "completion_tokens_total": 40168
+    }
+  }
+}

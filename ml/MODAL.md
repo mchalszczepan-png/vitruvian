@@ -2,8 +2,35 @@
 
 Research prototype. All notes and patients are synthetic.
 
-Files: `ml/modal_lora.py` (train), `ml/modal_serve.py` (serve). Both must use the same
-`BASE_MODEL` constant. Run all commands from the repo root.
+Files: `ml/modal_lora.py` (train), `ml/modal_serve.py` (serve), `ml/modal_sweep.py` (score adapters
+on a GPU). All must use the same `BASE_MODEL` constant. Run all commands from the repo root.
+Modal environment: `vitruvian` (add `-e vitruvian` to every command).
+
+## Region (2026-11-14, approved by Michal)
+
+- All three apps pin `region="eu"` (broad EU, about 1.15x GPU price; a narrow region like `eu-west`
+  would be 1.75x). Containers log `MODAL_REGION` / `MODAL_CLOUD_PROVIDER` to prove where they ran.
+- Request routing stays on Modal's default `us-east` (the URL ends `.us-east.modal.run`). Changing
+  `routing_region` only works on a new Function, which would change the URL.
+- Modal's own storage, logs and large (>2 MiB) inputs and outputs are in the US.
+- So the claim is "EU GPU compute", never "data stays in Europe".
+
+## Two tasks, two adapters
+
+| Task | What it does | Train data | Adapter folder on the Volume | Eval |
+| --- | --- | --- | --- | --- |
+| `form` | GP notes -> Referral form fields + evidence quotes | `ml/data/train.jsonl` | `adapters/vitruvian-lora/` | `ml/eval.py` |
+| `triage` | Cancer pointer: lung / colorectal / ovarian / none, 0-10 score per cancer, reason, evidence | `ml/data/triage/train.jsonl` | `adapters/vitruvian-triage/` | `ml/triage_eval.py` |
+
+Triage data comes from `ml/triage_label.py` (Gemini 3.5 Flash teacher). It deletes every sentence that
+states the conclusion ("2WW lung cancer referral", "lähete") from the notes, then scores each cancer.
+Truth = the cancer each synthetic patient was generated with. Prompt: `ml/triage_prompt.py`.
+
+```sh
+uv run --with modal modal run -e vitruvian ml/modal_lora.py --task triage --run-name tri-e4b-r16-ep3 --gpu H100 --deployed
+uv run --with modal modal run -e vitruvian ml/modal_sweep.py --task triage --tag tri-cmp --data eval \
+    --adapters tri-e4b-r16-ep3 --include-base --deployed     # LoRA vs prompted E4B on the same vLLM
+```
 
 ## Base model
 
@@ -138,7 +165,9 @@ curl -s https://<workspace>--vitruvian-serve-serve.modal.run/v1/models \
   Clients should use a long timeout (eval.py `--timeout 600`) for the first call.
 - Model weights come from the Volume cache (`/vol/hf-cache`), written by the training run. Without it, the first serve downloads 16 GB.
 
-## Verification status
+## Verification status (written before the first Modal run; kept for the record)
+
+Since then: training, serving (EU), the gateway and both evals have run on Modal; results are in `ml/results/`.
 
 Checked locally, no Modal run and no spend:
 
