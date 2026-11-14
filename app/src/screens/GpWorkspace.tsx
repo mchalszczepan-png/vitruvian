@@ -193,24 +193,48 @@ function RecordSystem({
           {patients.map((p) => (
             <button key={p.id} aria-current={p.id === patient.id} onClick={() => onPatient(p.id)}>
               <span>{p.name}</span>
-              <small>
-                {p.id} · {p.age} · {p.visits.at(-1)?.reason}
-              </small>
+              <small>{p.visits.at(-1)?.reason}</small>
             </button>
           ))}
         </nav>
         <div className="ehr-chart">
-          <section className="ehr-info" aria-labelledby="ehr-info-h">
-            <h2 id="ehr-info-h">Patient Information</h2>
-            <table>
-              <tbody>
-                <tr><th scope="row">Name</th><td>{patient.name}</td></tr>
-                <tr><th scope="row">Patient ID</th><td>{patient.id}</td></tr>
-                <tr><th scope="row">Age</th><td>{patient.age}</td></tr>
-                <tr><th scope="row">Sex</th><td>{patient.sex === 'female' ? 'Female' : 'Male'}</td></tr>
-              </tbody>
-            </table>
-          </section>
+          {/* One line of patient details; name, ID and age are not repeated in the list. It scrolls away with the chart. */}
+          <p className="ehr-who">
+            <b>{patient.name}</b>
+            <span>
+              {patient.id} · {patient.age} · {patient.sex === 'female' ? 'Female' : 'Male'}
+            </span>
+          </p>
+          {/* The new entry is the GP's main action here. */}
+          <form
+            className="ehr-entry"
+            onSubmit={(e) => {
+              e.preventDefault();
+              addEntry();
+            }}
+          >
+            <label htmlFor="ehr-entry-text">New entry, today</label>
+            <textarea
+              id="ehr-entry-text"
+              className="input"
+              rows={5}
+              placeholder="Write today's note: symptoms, findings, plan"
+              value={entry}
+              onChange={(e) => setEntry(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
+                  e.preventDefault();
+                  addEntry();
+                }
+              }}
+            />
+            <div className="ehr-entry-foot">
+              <small>Ctrl + Enter to save</small>
+              <button className="btn primary" type="submit" disabled={!entry.trim()}>
+                Save entry
+              </button>
+            </div>
+          </form>
           <section className="ehr-history" aria-labelledby="ehr-history-h">
             <div className="ehr-history-head">
               <h2 id="ehr-history-h">Visit history</h2>
@@ -224,31 +248,6 @@ function RecordSystem({
               />
             </div>
             <div className="ehr-tl-box">
-              <form
-                className="ehr-entry"
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  addEntry();
-                }}
-              >
-                <textarea
-                  className="input"
-                  rows={2}
-                  placeholder="Add a new entry"
-                  aria-label="New visit entry"
-                  value={entry}
-                  onChange={(e) => setEntry(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
-                      e.preventDefault();
-                      addEntry();
-                    }
-                  }}
-                />
-                <button className="btn primary" type="submit" disabled={!entry.trim()}>
-                  Add entry
-                </button>
-              </form>
               {shown.length === 0 ? (
                 <p className="ehr-empty">No visits match “{query}”.</p>
               ) : (

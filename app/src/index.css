@@ -1930,3 +1930,64 @@ textarea.input {
   width: 32px;
   height: 32px;
 }
+
+/* Record chart (14 Nov): the whole chart scrolls, so the patient line scrolls away.
+   The new entry is the GP's main action, so it is the biggest thing on the chart. */
+.ehr-chart {
+  overflow: auto;
+}
+.ehr-history {
+  flex: none;
+}
+.ehr-tl-box {
+  flex: none;
+  overflow: visible;
+}
+.ehr-who {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+}
+.ehr-who b {
+  font-family: var(--title);
+  font-weight: 600;
+}
+.ehr-who span {
+  color: #5b6066;
+}
+.ehr-entry {
+  flex-shrink: 0;
+  display: grid;
+  grid-template-columns: none;
+  gap: 8px;
+  margin: 0;
+  padding: 16px;
+  background: #fff;
+  border: 2px solid var(--ink);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px -12px rgb(24 37 33 / 0.35);
+}
+.ehr-entry label {
+  font-family: var(--title);
+  font-weight: 600;
+}
+.ehr-entry textarea {
+  min-height: 136px;
+  border: 1px solid #d6d2cf;
+}
+.ehr-entry textarea:focus {
+  outline: 2px solid var(--amber);
+  outline-offset: 1px;
+}
+.ehr-entry-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.ehr-entry-foot small {
+  color: #5b6066;
+  font-size: var(--fs-1);
+}
