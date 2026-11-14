@@ -230,6 +230,16 @@ function Pointer({
             <span className="tag ai">AI estimate, not validated</span>
           </div>
           <p className="nf-ptr-reason">{aid.riskReason}</p>
+          {aid.publishedRisk && (
+            <div className="nf-ptr-ppv" title={aid.publishedRisk.because}>
+              <p>
+                Published risk: <b>{aid.publishedRisk.pct}%{aid.publishedRisk.isLowerBound ? ' or more' : ''}</b>{' '}
+                <Source source={{ label: aid.publishedRisk.sourceLabel, url: aid.publishedRisk.sourceUrl }} /> · matched by AI
+                {aid.publishedRisk.aboveNg12Threshold && <> · at or above the NICE NG12 3% line</>}
+              </p>
+              <p className="muted">UK primary-care data, not Finnish, not a personal probability.</p>
+            </div>
+          )}
 
           {aid.testNeeded && !draft.sent && (
             <p className="nf-ptr-gate">
@@ -294,6 +304,23 @@ function Why({ patient, aid, onLight }: { patient: Patient; aid: AidResult; onLi
           <Source source={aid.testNeeded.source} />
         </div>
       )}
+      {aid.riskEvidence && aid.riskEvidence.length > 0 && (
+        <div className="nf-why-item">
+          <p>Risk gradient read these words in the notes:</p>
+          <ul className="nf-evidence">
+            {aid.riskEvidence.map((e) => (
+              <li key={e}>
+                <mark>{e}</mark>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+      {aid.riskModelPointer && (
+        <p className="nf-why-item muted">
+          The risk model guessed {aid.riskModelPointer === 'none' ? 'no cancer' : cancerName[aid.riskModelPointer]}. A note only: the Rules decide.
+        </p>
+      )}
       <h3>Matched Rules · {aid.matchedRules.length}</h3>
       {aid.matchedRules.length === 0 && <p className="muted">No Rule matched the notes. The GP can still refer.</p>}
       {aid.matchedRules.map((m) => (
@@ -334,7 +361,7 @@ function Why({ patient, aid, onLight }: { patient: Patient; aid: AidResult; onLi
         <ul className="tech-used" aria-label="Tech used">
           {aid.techUsed.map((t) => (
             <li key={t.step} className={`tag ${t.provider === 'stub' || t.provider === 'mock' ? 'record' : 'gemma'}`}>
-              {techStep[t.step]}: {techProvider[t.provider]}
+              {techStep[t.step]}: {t.detail ? "AI" : techProvider[t.provider]}
             </li>
           ))}
         </ul>

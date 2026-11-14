@@ -2321,6 +2321,24 @@ textarea.input {
   }
 }
 
+/* Words the risk model cited from the notes */
+.nf-evidence {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+}
+.nf-evidence mark {
+  background: var(--amber-soft);
+  color: var(--ink);
+  border-radius: var(--r-sm);
+  padding: 0 8px;
+}
+.tech-used .tag {
+  white-space: normal;
+}
 /* "None known" checkbox on empty text fields (Michal, 14 Nov) */
 .none-known {
   display: inline-flex;
@@ -2336,4 +2354,13 @@ textarea.input {
   margin: 0;
   accent-color: var(--wine);
   cursor: pointer;
+}
+/* Published risk (PPV) next to the Risk gradient: evidence, not a decision */
+.nf-ptr-ppv {
+  display: grid;
+  gap: 0;
+}
+.nf-ptr-ppv p {
+  margin: 0;
+  text-wrap: pretty;
 }
