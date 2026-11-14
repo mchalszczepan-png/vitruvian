@@ -42,9 +42,45 @@ const COUNTY_DATA: { what: string; level: string; source: Src }[] = [
   {
     what: 'Lung cancer report 2019–2023',
     level: 'Wellbeing services county',
-    source: { label: 'Cancer Registry lung cancer report (not yet opened)', short: 'Lung report', url: 'https://syoparekisteri.fi/assets/themes/ssy3/factsheets/keuhkosyoparaportti.html', placeholder: true },
+    source: { label: 'Cancer Registry lung cancer report, 2019–2023', short: 'Lung report', url: 'https://syoparekisteri.fi/assets/themes/ssy3/factsheets/keuhkosyoparaportti.html' },
   },
 ];
+
+/* Real county numbers, checked 14 Nov 2026: docs/research/data/county-cancer-data.md. Wellbeing services counties only. */
+type Gap = { title: string; bars: { area: string; value: number; tone?: 'hi' | 'lo' }[]; note: string; source: Src };
+const COUNTY_GAPS: Gap[] = [
+  {
+    title: 'Lung cancer: treated with curative intent, 2019–2023',
+    bars: [
+      { area: 'Lappi', value: 18.5, tone: 'hi' },
+      { area: 'Vantaa-Kerava', value: 35.6, tone: 'lo' },
+      { area: 'Finland', value: 27.0 },
+    ],
+    note: 'Share of new lung cancer patients whose recorded first-year treatment aimed to cure. Lappi 131 of 710, Vantaa-Kerava 212 of 595, Finland 4,009 of 14,873. Recorded, not received: some areas under-report treatment. Stage and fitness differ by county.',
+    source: { label: 'Cancer Registry lung cancer report, Table 11, diagnoses 2019–2023', short: 'Lung report, 2019–2023', url: 'https://syoparekisteri.fi/assets/themes/ssy3/factsheets/keuhkosyoparaportti.html' },
+  },
+  {
+    title: 'Bowel screening: colonoscopy after a positive test, 2024',
+    bars: [
+      { area: 'Kymenlaakso', value: 62.1, tone: 'hi' },
+      { area: 'Etelä-Pohjanmaa', value: 81.8, tone: 'lo' },
+      { area: 'Finland', value: 72.7 },
+    ],
+    note: 'Share of people with a positive home stool test (FIT) who had a colonoscopy, as recorded. Same programme rules in every county.',
+    source: { label: 'Cancer Registry screening statistics, bowel programme, 2024', short: 'Screening stats, 2024', url: 'https://stats.cancerregistry.fi/joukkistilastot/suolisto.html' },
+  },
+  {
+    title: 'Bowel cancer: 5-year survival, 2024',
+    bars: [
+      { area: 'Päijät-Häme', value: 63, tone: 'hi' },
+      { area: 'Keski-Uusimaa', value: 74, tone: 'lo' },
+      { area: 'Finland', value: 68 },
+    ],
+    note: 'Relative survival. Not age-standardised: age, stage and case mix differ by county, so this is not a ranking of care quality.',
+    source: { label: 'Sotkanet indicator 3627, five-year relative survival of bowel cancer patients, 2024', short: 'Sotkanet 3627, 2024', url: 'https://sotkanet.fi/rest/1.1/json?indicator=3627&years=2024&genders=total' },
+  },
+];
+const ovarianSource: Src = { label: 'Cancer Registry, cancer in Finland 2024, Tables 15.1, 15.3, 5.1', short: 'Cancer Registry 2024', url: 'https://syoparekisteri.fi/assets/themes/ssy3/factsheets/syopa_2024_tilastoraportti.html' };
 
 /** One horizontal bar on a 0–100 or 0–max scale, with an optional target line. */
 function Bar({ label, value, max, display, tone, target }: { label: string; value: number; max: number; display: string; tone?: 'hi' | 'lo'; target?: { at: number; label: string } }) {
@@ -73,7 +109,6 @@ export function County() {
   if (!gap) return <div className="loading" aria-busy><i /><i /><i /></div>;
   const fig = (id: string) => gap.headline.find((f) => f.id === id)!;
   const route = fig('route-gap-lymphoma');
-  const lung = gap.comparisons[0];
 
   return (
     <div className="county">
@@ -123,32 +158,41 @@ export function County() {
         </section>
       </div>
 
-      <div className="two">
-        <section className="panel">
-          <h2>{lung.title}</h2>
-          <div className="bars" style={{ marginTop: 8 }}>
-            {lung.bars.map((b) => (
-              <Bar key={b.area} label={b.area} value={b.value} max={50} display={b.display} tone={b.value > 20 ? 'hi' : 'lo'} />
-            ))}
-          </div>
-          <More className="evidence">{lung.note}</More>
-          <Source source={lung.source} />
-        </section>
-
-        <section className="panel">
-          <h2>Goal 3 indicators (Tavoite 3)</h2>
-          <div>
-            {gap.goal3.map((g) => (
-              <div className="goal" key={g.id}>
-                <More className="fi" extra={<p>{g.howVitruvianMoves}</p>}>
-                  <span lang="fi">{g.name}</span>
-                </More>
-                <Source source={g.source} />
+      <section className="panel county-gaps">
+        <h2>County gaps (hyvinvointialueet)</h2>
+        <div className="three">
+          {COUNTY_GAPS.map((c) => (
+            <div key={c.title}>
+              <h3>{c.title}</h3>
+              <div className="bars">
+                {c.bars.map((b) => (
+                  <Bar key={b.area} label={b.area} value={b.value} max={100} display={`${b.value.toFixed(c.bars.some((x) => x.value % 1) ? 1 : 0)}%`} tone={b.tone} />
+                ))}
               </div>
-            ))}
-          </div>
-        </section>
-      </div>
+              <More className="evidence">{c.note}</More>
+              <Source source={c.source} short />
+            </div>
+          ))}
+        </div>
+        <p className="county-ovarian">
+          Ovarian cancer: no public county data. Finland only: 610 new cases in 2024, 48% 5-year survival.
+          <SourceIcon source={ovarianSource} />
+        </p>
+      </section>
+
+      <section className="panel">
+        <h2>Goal 3 indicators (Tavoite 3)</h2>
+        <div>
+          {gap.goal3.map((g) => (
+            <div className="goal" key={g.id}>
+              <More className="fi" extra={<p>{g.howVitruvianMoves}</p>}>
+                <span lang="fi">{g.name}</span>
+              </More>
+              <Source source={g.source} />
+            </div>
+          ))}
+        </div>
+      </section>
 
       <section className="next">
         <header className="next-head">
