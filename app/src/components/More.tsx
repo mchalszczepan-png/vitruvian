@@ -1,11 +1,13 @@
 import { useLayoutEffect, useRef, useState, type ReactNode } from 'react';
 import { Icon } from './Icon';
+import { useT } from './lang';
 
 /**
  * One line of text that trails off with an ellipsis. A chevron opens the full text,
  * plus any `extra` detail. The chevron shows only when there is more to see.
  */
 export function More({ children, extra, className = '', defaultOpen = false }: { children: ReactNode; extra?: ReactNode; className?: string; defaultOpen?: boolean }) {
+  const t = useT();
   const [open, setOpen] = useState(defaultOpen);
   const [over, setOver] = useState(false);
   const ref = useRef<HTMLParagraphElement>(null);
@@ -28,7 +30,7 @@ export function More({ children, extra, className = '', defaultOpen = false }: {
           {children}
         </p>
         {canOpen && (
-          <button type="button" className="more-btn" aria-expanded={open} aria-label={open ? 'Show less' : 'Show more'} onClick={() => setOpen(!open)}>
+          <button type="button" className="more-btn" aria-expanded={open} aria-label={t(open ? 'Show less' : 'Show more')} onClick={() => setOpen(!open)}>
             <Icon name={open ? 'up' : 'down'} size={16} />
           </button>
         )}

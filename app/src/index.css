@@ -2364,6 +2364,15 @@ textarea.input {
   .topbar .lang {
     margin-left: auto;
   }
+  .topbar .signout {
+    white-space: nowrap;
+  }
+}
+/* Narrow phones: the logo alone, so the longer Finnish sign-out fits (Michal, 15 Nov). */
+@media (max-width: 420px) {
+  .topbar .wordmark-text {
+    display: none;
+  }
   .nf {
     grid-template-columns: minmax(0, 1fr);
     height: auto;

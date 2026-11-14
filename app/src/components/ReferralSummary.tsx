@@ -2,7 +2,7 @@ import type { GpDecision, Patient, ReferralView } from '../data/types';
 import { More } from './More';
 import { Source, SourceIcon } from './Source';
 import { fmtDate, optionLabel } from './labels';
-import { useBi } from './lang';
+import { getLang, useBi } from './lang';
 
 /**
  * Referral summary for the Referral desk (decision 16, docs/SPEC.md "Who sees the Risk gradient").
@@ -16,7 +16,7 @@ const decisionLabel: Record<GpDecision, string> = {
   'not-now': 'Not now',
 };
 
-const shortDate = (iso: string) => new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+const shortDate = (iso: string) => getLang() === 'fi' ? `${Number(iso.slice(8, 10))}.${Number(iso.slice(5, 7))}.` : new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
 const plain = (label: string) => label.replace(/\s*\(.*\)\s*$/, '');
 
 export function ReferralSummary({ referral: ref, patient }: { referral: ReferralView; patient: Patient }) {
@@ -38,15 +38,15 @@ export function ReferralSummary({ referral: ref, patient }: { referral: Referral
   return (
     <section className="rsum" aria-labelledby="rsum-h">
       <header className="rsum-head">
-        <h2 id="rsum-h">Referral summary</h2>
-        <span className={`tag ${s.urgency === 'urgent' ? 'urgent' : 'gp'}`}>{s.urgency === 'urgent' ? 'Urgent' : 'Routine'}</span>
+        <h2 id="rsum-h">{t('Referral summary')}</h2>
+        <span className={`tag ${s.urgency === 'urgent' ? 'urgent' : 'gp'}`}>{t(s.urgency === 'urgent' ? 'Urgent' : 'Routine')}</span>
         <span className="rsum-who">
-          GP decision: {decisionLabel[s.gpDecision]} · {fmtDate(ref.decidedAt)}
+          {t('GP decision: {decision} · {date}', { decision: t(decisionLabel[s.gpDecision]), date: fmtDate(ref.decidedAt) })}
         </span>
       </header>
 
       <div className="rsum-row">
-        <h3>Symptom timeline</h3>
+        <h3>{t('Symptom timeline')}</h3>
         <ul className="rsum-tl">
           {timeline.map(([sym, dates]) => (
             <li key={sym}>
@@ -57,33 +57,33 @@ export function ReferralSummary({ referral: ref, patient }: { referral: Referral
       </div>
 
       <div className="rsum-row">
-        <h3>Key tests</h3>
+        <h3>{t('Key tests')}</h3>
         {s.tests.length ? (
           <table className="rsum-tests">
             <thead>
               <tr>
-                <th scope="col">Test</th>
-                <th scope="col">Value</th>
-                <th scope="col">Threshold</th>
+                <th scope="col">{t('Test')}</th>
+                <th scope="col">{t('Value')}</th>
+                <th scope="col">{t('Threshold')}</th>
                 <th scope="col">
-                  <span className="rsum-sr">Result</span>
+                  <span className="rsum-sr">{t('Result')}</span>
                 </th>
               </tr>
             </thead>
             <tbody>
-              {s.tests.map((t) => (
-                <tr key={t.test}>
+              {s.tests.map((row) => (
+                <tr key={row.test}>
                   <th scope="row">
-                    {t.test}
-                    <SourceIcon source={t.source} />
+                    {row.test}
+                    <SourceIcon source={row.source} />
                   </th>
-                  <td className="num">{t.value === null ? 'Not done' : `${t.value} ${t.unit}`}</td>
-                  <td>{t.threshold}</td>
+                  <td className="num">{row.value === null ? t('Not done') : `${row.value} ${row.unit}`}</td>
+                  <td>{row.threshold}</td>
                   <td>
-                    {t.meetsThreshold === null ? (
+                    {row.meetsThreshold === null ? (
                       <span className="rsum-muted">—</span>
                     ) : (
-                      <span className={`tag ${t.meetsThreshold ? 'urgent' : 'record'}`}>{t.meetsThreshold ? 'Above' : 'Below'}</span>
+                      <span className={`tag ${row.meetsThreshold ? 'urgent' : 'record'}`}>{t(row.meetsThreshold ? 'Above' : 'Below')}</span>
                     )}
                   </td>
                 </tr>
@@ -91,15 +91,15 @@ export function ReferralSummary({ referral: ref, patient }: { referral: Referral
             </tbody>
           </table>
         ) : (
-          <span className="rsum-muted">No gate test for this cancer type.</span>
+          <span className="rsum-muted">{t('No gate test for this cancer type.')}</span>
         )}
       </div>
 
       <div className="rsum-row">
-        <h3>Red flags</h3>
+        <h3>{t('Red flags')}</h3>
         <div className="rsum-flags">
           <div>
-            <span className="rsum-l">Present</span>
+            <span className="rsum-l">{t('Present')}</span>
             {present.length ? (
               present.map((f) => (
                 <span key={f} className="chip on">
@@ -107,11 +107,11 @@ export function ReferralSummary({ referral: ref, patient }: { referral: Referral
                 </span>
               ))
             ) : (
-              <span className="rsum-muted">None</span>
+              <span className="rsum-muted">{t('None')}</span>
             )}
           </div>
           <div>
-            <span className="rsum-l">Ruled out</span>
+            <span className="rsum-l">{t('Ruled out')}</span>
             {ruledOut.length ? (
               ruledOut.map((f) => (
                 <span key={f} className="chip">
@@ -119,14 +119,14 @@ export function ReferralSummary({ referral: ref, patient }: { referral: Referral
                 </span>
               ))
             ) : (
-              <span className="rsum-muted">None</span>
+              <span className="rsum-muted">{t('None')}</span>
             )}
           </div>
         </div>
       </div>
 
       <div className="rsum-row">
-        <h3>Missing fields</h3>
+        <h3>{t('Missing fields')}</h3>
         {s.missingFields.length ? (
           <div className="rsum-flags">
             <div>
@@ -138,12 +138,12 @@ export function ReferralSummary({ referral: ref, patient }: { referral: Referral
             </div>
           </div>
         ) : (
-          <span className="rsum-muted">None. Every required field is filled.</span>
+          <span className="rsum-muted">{t('None. Every required field is filled.')}</span>
         )}
       </div>
 
       <div className="rsum-row">
-        <h3>Matched Rules</h3>
+        <h3>{t('Matched Rules')}</h3>
         <div className="rules">
           {s.matchedRules.map((m) => (
             <div className="desk-rule" key={m.ruleId}>
@@ -153,14 +153,14 @@ export function ReferralSummary({ referral: ref, patient }: { referral: Referral
                   <span className="rule-id">{m.ruleId}</span>
                 </div>
                 <More>
-                  Reason: {m.because}
-                  {m.visitDates.length > 0 && ` Visits: ${m.visitDates.map(shortDate).join(', ')}.`}
+                  {t('Reason: {because}', { because: m.because })}
+                  {m.visitDates.length > 0 && ` ${t('Visits: {dates}.', { dates: m.visitDates.map(shortDate).join(', ') })}`}
                 </More>
               </div>
               <Source source={m.source} />
             </div>
           ))}
-          {s.matchedRules.length === 0 && <span className="rsum-muted">No Rule matched.</span>}
+          {s.matchedRules.length === 0 && <span className="rsum-muted">{t('No Rule matched.')}</span>}
         </div>
       </div>
     </section>

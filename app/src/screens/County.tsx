@@ -4,6 +4,7 @@ import { S } from '../data/mock/sources';
 import type { CountyGap, Source as Src } from '../data/types';
 import { More } from '../components/More';
 import { Source, SourceIcon } from '../components/Source';
+import { useT } from '../components/lang';
 
 /* Brief audit 14 Nov (docs/tracks/03-brief-audit.md, B1–B3): roadmap ties, target times, county data sources. */
 const ROADMAP_URL = 'https://files.hackjunction.app/resources/Kansallinen_syopastrategia_toimeenpanon_tiekartta_2026_2031.pdf';
@@ -102,6 +103,7 @@ function Bar({ label, value, max, display, tone, target }: { label: string; valu
 }
 
 export function County() {
+  const t = useT();
   const [gap, setGap] = useState<CountyGap>();
   useEffect(() => {
     getCountyGap().then(setGap);
@@ -113,12 +115,12 @@ export function County() {
   return (
     <div className="county">
       <header className="county-head">
-        <h1>Finland Cancer Statistics</h1>
+        <h1>{t('Finland Cancer Statistics')}</h1>
       </header>
 
       <div className="two">
         <section className="panel">
-          <h2>Days to treatment</h2>
+          <h2>{t('Days to treatment')}</h2>
           <div className="facts">
             {['lung-days-total', 'lung-days-primary-care', 'route-gap-lymphoma'].map((id) => {
               const f = fig(id);
@@ -136,52 +138,52 @@ export function County() {
             })}
           </div>
           <div className="bars" style={{ marginTop: 8 }}>
-            <Bar label="Primary healthcare route" value={127} max={140} display="127 days" tone="hi" />
-            <Bar label="Private or occupational route" value={76} max={140} display="76 days" tone="lo" />
+            <Bar label={t('Primary healthcare route')} value={127} max={140} display={t('{n} days', { n: 127 })} tone="hi" />
+            <Bar label={t('Private or occupational route')} value={76} max={140} display={t('{n} days', { n: 76 })} tone="lo" />
           </div>
-          <Source source={route.source} prefix="Route gap, national lymphoma cohort" />
+          <Source source={route.source} prefix={t('Route gap, national lymphoma cohort')} />
         </section>
 
         <section className="panel">
-          <h2>Stage data at diagnosis</h2>
+          <h2>{t('Stage data at diagnosis')}</h2>
           <div className="bars">
-            <Bar label="Pirkanmaa, clinical notifications, 2022" value={42} max={100} display="42%" tone="lo" target={{ at: 90, label: '90% target' }} />
-            <Bar label="Pirkanmaa, clinical notifications, 2024" value={80} max={100} display="80%" tone="hi" />
+            <Bar label={t('Pirkanmaa, clinical notifications, 2022')} value={42} max={100} display="42%" tone="lo" target={{ at: 90, label: t('90% target') }} />
+            <Bar label={t('Pirkanmaa, clinical notifications, 2024')} value={80} max={100} display="80%" tone="hi" />
           </div>
-          <Source source={fig('notifications-pirkanmaa').source} prefix="Pirkanmaa, wellbeing services county" />
+          <Source source={fig('notifications-pirkanmaa').source} prefix={t('Pirkanmaa, wellbeing services county')} />
           <div className="bars" style={{ marginTop: 32 }}>
-            <Bar label="Finland, spread data recorded, solid cancers, 2024" value={41.9} max={100} display="41.9%" target={{ at: 90, label: '90% coverage target' }} />
+            <Bar label={t('Finland, spread data recorded, solid cancers, 2024')} value={41.9} max={100} display="41.9%" target={{ at: 90, label: t('90% coverage target') }} />
           </div>
           <More className="evidence">{fig('stage-recorded-national').detail}</More>
           <Source source={fig('stage-recorded-national').source} prefix="National" />
-          <Source source={{ ...S.strategy, label: `${S.strategy.label}, p. 36 (90% targets)` }} prefix="Targets" />
+          <Source source={{ ...S.strategy, label: `${S.strategy.label}, p. 36 (90% targets)` }} prefix={t('Targets')} />
         </section>
       </div>
 
       <section className="panel county-gaps">
-        <h2>County gaps (hyvinvointialueet)</h2>
+        <h2>{t('County gaps (hyvinvointialueet)')}</h2>
         <div className="three">
           {COUNTY_GAPS.map((c) => (
             <div key={c.title}>
-              <h3>{c.title}</h3>
+              <h3>{t(c.title)}</h3>
               <div className="bars">
                 {c.bars.map((b) => (
                   <Bar key={b.area} label={b.area} value={b.value} max={100} display={`${b.value.toFixed(c.bars.some((x) => x.value % 1) ? 1 : 0)}%`} tone={b.tone} />
                 ))}
               </div>
-              <More className="evidence">{c.note}</More>
+              <More className="evidence">{t(c.note)}</More>
               <Source source={c.source} short />
             </div>
           ))}
         </div>
         <p className="county-ovarian">
-          Ovarian cancer: no public county data. Finland only: 610 new cases in 2024, 48% 5-year survival.
+          {t('Ovarian cancer: no public county data. Finland only: 610 new cases in 2024, 48% 5-year survival.')}
           <SourceIcon source={ovarianSource} />
         </p>
       </section>
 
       <section className="panel">
-        <h2>Goal 3 indicators (Tavoite 3)</h2>
+        <h2>{t('Goal 3 indicators (Tavoite 3)')}</h2>
         <div>
           {gap.goal3.map((g) => (
             <div className="goal" key={g.id}>
@@ -196,9 +198,9 @@ export function County() {
 
       <section className="next">
         <header className="next-head">
-          <h2>What a county does next</h2>
+          <h2>{t('What a county does next')}</h2>
           <span>
-            Goal 3 is 49.73 M€ of the 139.1 M€ roadmap
+            {t('Goal 3 is 49.73 M€ of the 139.1 M€ roadmap')}
             <SourceIcon source={roadmap('106, 109')} />
           </span>
         </header>
@@ -212,14 +214,14 @@ export function County() {
                 <More>{a.detail}</More>
                 {a.id === 'A3' && (
                   <More className="target-times">
-                    Target times: colorectal 3 weeks, breast 4, prostate 4–6. None for lung or ovarian. The guide is marked outdated.
+                    {t('Target times: colorectal 3 weeks, breast 4, prostate 4–6. None for lung or ovarian. The guide is marked outdated.')}
                   </More>
                 )}
-                <small>Owner: {a.owner}</small>
+                <small>{t('Owner: {owner}', { owner: a.owner })}</small>
                 <ul className="roadmap-ties">
                   {(ROADMAP[a.id] ?? []).map((r) => (
                     <li key={r.action}>
-                      <b>Roadmap {r.action}</b>
+                      <b>{t('Roadmap {action}', { action: r.action })}</b>
                       <span>
                         {r.owner} · {r.years} · {r.cost}
                       </span>
@@ -235,13 +237,13 @@ export function County() {
       </section>
 
       <section className="panel county-data">
-        <h2>Where county data lives</h2>
-        <p className="county-data-gap">No public county cancer wait data exists.</p>
+        <h2>{t('Where county data lives')}</h2>
+        <p className="county-data-gap">{t('No public county cancer wait data exists.')}</p>
         <ul>
           {COUNTY_DATA.map((d) => (
             <li key={d.what}>
-              <b>{d.what}</b>
-              <span>{d.level}</span>
+              <b>{t(d.what)}</b>
+              <span>{t(d.level)}</span>
               <Source source={d.source} short />
             </li>
           ))}

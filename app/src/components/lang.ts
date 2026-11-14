@@ -1,4 +1,5 @@
 import { useSyncExternalStore } from 'react';
+import { FI } from './fi';
 
 /* Label language switch (Michal, 14 Nov): show "Weight loss" or "Painonlasku", not both in brackets. */
 export type Lang = 'en' | 'fi';
@@ -41,8 +42,25 @@ export function bi(text: string, l: Lang): string {
   return m ? (l === 'fi' ? m[2] : m[1]) : text;
 }
 
-/** Same, as a hook for components. */
-export function useBi() {
-  const l = useLang();
-  return (text: string) => bi(text, l);
+export const getLang = (): Lang => lang;
+
+type Vars = Record<string, string | number>;
+
+/**
+ * Fixed app text in the chosen language (Michal, 15 Nov): a built-in word list, switched instantly.
+ * Notes and anything a person typed are never translated. Keys are the English text; {name} marks a value.
+ * Text missing from the list falls back to the bracket rule above, then to the English.
+ */
+export function tr(en: string, l: Lang, vars?: Vars): string {
+  const s = l === 'fi' ? (FI[en] ?? bi(en, 'fi')) : bi(en, 'en');
+  return vars ? s.replace(/\{(\w+)\}/g, (m, k: string) => (k in vars ? String(vars[k]) : m)) : s;
 }
+
+/** The translator as a hook, so a component re-renders when the language changes. */
+export function useT() {
+  const l = useLang();
+  return (en: string, vars?: Vars) => tr(en, l, vars);
+}
+
+/** Older name, kept for existing callers. */
+export const useBi = useT;

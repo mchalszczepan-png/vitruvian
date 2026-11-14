@@ -5,6 +5,7 @@ import { FieldInput } from '../components/FieldInput';
 import { Icon } from '../components/Icon';
 import { Source } from '../components/Source';
 import { cancerName, fmtDate } from '../components/labels';
+import { getLang, tr, useT } from '../components/lang';
 
 const ORDER: CancerType[] = ['lung', 'colorectal', 'ovarian'];
 const GROUPS: { key: StagingField['group']; title: string }[] = [
@@ -24,6 +25,7 @@ export function Specialist({ patients }: { patients: Patient[] }) {
   const [last, setLast] = useState<SavedStagingReport>();
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
+  const t = useT();
 
   useEffect(() => {
     getReferrals().then(setRefs).catch(() => setRefs([]));
@@ -39,7 +41,8 @@ export function Specialist({ patients }: { patients: Patient[] }) {
         setTpl(t);
         setReport(r);
       })
-      .catch((e) => setError(e instanceof Error ? e.message : 'Could not open the draft.'));
+      // getLang, not t: t is rebuilt every render, so listing it here would refetch the draft on each render.
+      .catch((e) => setError(e instanceof Error ? e.message : tr('Could not open the draft.', getLang())));
   }, [cancer, referralId]);
 
   const pickCancer = (c: CancerType) => {
@@ -88,7 +91,7 @@ export function Specialist({ patients }: { patients: Patient[] }) {
       setLast(s);
       setSaved((xs) => [s, ...xs.filter((x) => x.id !== s.id)]);
     } catch (e) {
-      setError(e instanceof Error ? e.message : 'Could not save the Staging report.');
+      setError(e instanceof Error ? e.message : t('Could not save the Staging report.'));
     } finally {
       setBusy(false);
     }
@@ -97,7 +100,7 @@ export function Specialist({ patients }: { patients: Patient[] }) {
   return (
     <div className="doc" style={{ height: '100%' }}>
       <header className="doc-head">
-        <div className="ptabs" role="tablist" aria-label="Cancer type" style={{ marginBottom: 12 }}>
+        <div className="ptabs" role="tablist" aria-label={t('Cancer type')} style={{ marginBottom: 12 }}>
           {ORDER.map((c) => (
             <button key={c} role="tab" className="ptab" aria-selected={c === cancer} onClick={() => pickCancer(c)}>
               {cancerName[c]}
@@ -107,9 +110,9 @@ export function Specialist({ patients }: { patients: Patient[] }) {
         <h1>{tpl.title}</h1>
         <div className="meta stg-meta">
           <label>
-            <span>Referral</span>
+            <span>{t('Referral')}</span>
             <select value={referralId ?? ''} onChange={(e) => pickReferral(e.target.value)}>
-              <option value="">Demo patient</option>
+              <option value="">{t('Demo patient')}</option>
               {mine.map((r) => (
                 <option key={r.id} value={r.id}>
                   {name(r) ?? r.patientId} · {fmtDate(r.decidedAt)}
@@ -117,24 +120,38 @@ export function Specialist({ patients }: { patients: Patient[] }) {
               ))}
             </select>
           </label>
-          {prefilled.size > 0 && <span className="tag record">{prefilled.size} {prefilled.size === 1 ? 'field' : 'fields'} copied from the record</span>}
+          {prefilled.size > 0 && (
+            <span className="tag record">
+              {prefilled.size === 1
+                ? t('{n} field copied from the record', { n: prefilled.size })
+                : t('{n} fields copied from the record', { n: prefilled.size })}
+            </span>
+          )}
           <Source source={tpl.source} short />
         </div>
       </header>
 
       <section>
-        <h2>{figo ? 'FIGO stage' : 'TNM and stage group'}</h2>
+        <h2>{figo ? t('FIGO stage') : t('TNM and stage group')}</h2>
         <div className="tnm">
           {tnmFields.filter((f) => f.key !== stageKey).map(field)}
           <div className="stage-result" aria-live="polite">
-            <small>{figo ? 'FIGO stage' : 'Stage group'}</small>
+            <small>{figo ? t('FIGO stage') : t('Stage group')}</small>
             <span className="v">{calc ?? '—'}</span>
-            <small>{calc ? (mismatch ? `Report says ${mismatch.reported}. Check before saving.` : 'Matches the report.') : figo ? 'No substage. Pick the stage by hand.' : 'Not in the grid. Pick the stage by hand.'}</small>
+            <small>
+              {calc
+                ? mismatch
+                  ? t('Report says {reported}. Check before saving.', { reported: mismatch.reported })
+                  : t('Matches the report.')
+                : figo
+                  ? t('No substage. Pick the stage by hand.')
+                  : t('Not in the grid. Pick the stage by hand.')}
+            </small>
           </div>
         </div>
         {calc && report.values[stageKey] !== calc && (
           <button className="linkbtn" style={{ marginTop: 10 }} onClick={() => set(stageKey, calc)}>
-            Use {calc} as the {figo ? 'FIGO stage' : 'stage group'}
+            {figo ? t('Use {calc} as the FIGO stage', { calc }) : t('Use {calc} as the stage group', { calc })}
           </button>
         )}
       </section>
@@ -142,7 +159,7 @@ export function Specialist({ patients }: { patients: Patient[] }) {
       <div className="two" style={{ gridTemplateColumns: '1fr 1fr 1fr' }}>
         {GROUPS.map((g) => (
           <section key={g.key}>
-            <h2>{g.title}</h2>
+            <h2>{t(g.title)}</h2>
             <div className="fields">{tpl.fields.filter((f) => f.group === g.key).map(field)}</div>
           </section>
         ))}
@@ -150,23 +167,23 @@ export function Specialist({ patients }: { patients: Patient[] }) {
 
       <div className="toolbar">
         <button className="btn primary" disabled={busy} onClick={save}>
-          <Icon name="send" /> Save Staging report
+          <Icon name="send" /> {t('Save Staging report')}
         </button>
         {last ? (
           <span className={`tag ${last.status === 'ready-for-registry' ? 'gemma' : 'warn'}`}>
             {last.status === 'ready-for-registry' ? (
               <>
-                <Icon name="check" size={12} /> Ready for registry
+                <Icon name="check" size={12} /> {t('Ready for registry')}
               </>
             ) : (
-              'Saved as draft'
+              t('Saved as draft')
             )}
           </span>
         ) : (
           <>
-            {check.readyForRegistry && <span className="tag gemma">Ready for registry when saved</span>}
-            {check.missingFields.length > 0 && <span className="notice">{check.missingFields.length} required fields empty.</span>}
-            {mismatch && <span className="notice">{figo ? 'FIGO stage does not match the substage.' : 'Stage group does not match T, N and M.'}</span>}
+            {check.readyForRegistry && <span className="tag gemma">{t('Ready for registry when saved')}</span>}
+            {check.missingFields.length > 0 && <span className="notice">{t('{n} required fields empty.', { n: check.missingFields.length })}</span>}
+            {mismatch && <span className="notice">{figo ? t('FIGO stage does not match the substage.') : t('Stage group does not match T, N and M.')}</span>}
           </>
         )}
         {error && (
@@ -178,14 +195,14 @@ export function Specialist({ patients }: { patients: Patient[] }) {
 
       {saved.length > 0 && (
         <section className="stg-saved">
-          <h2>Saved Staging reports</h2>
+          <h2>{t('Saved Staging reports')}</h2>
           <ul>
             {saved.map((s) => (
               <li key={s.id}>
                 <b>{name(s) ?? s.patientLabel}</b>
                 <span>{cancerName[s.cancer]}</span>
-                <span>Stage {s.values[s.cancer === 'ovarian' ? 'figoStage' : 'stageGroup'] || '—'}</span>
-                <span className={`tag ${s.status === 'ready-for-registry' ? 'gemma' : 'warn'}`}>{s.status === 'ready-for-registry' ? 'Ready for registry' : 'Draft'}</span>
+                <span>{t('Stage {stage}', { stage: s.values[s.cancer === 'ovarian' ? 'figoStage' : 'stageGroup'] || '—' })}</span>
+                <span className={`tag ${s.status === 'ready-for-registry' ? 'gemma' : 'warn'}`}>{s.status === 'ready-for-registry' ? t('Ready for registry') : t('Draft')}</span>
                 <small>{fmtDate(s.savedAt)}</small>
               </li>
             ))}

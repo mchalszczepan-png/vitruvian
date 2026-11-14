@@ -59,7 +59,7 @@ export function FieldInput({ field, value, onChange, showOrigin = true }: Props)
   } else if (field.kind === 'choice') {
     control = (
       <select id={id} className="input" value={v} onChange={(e) => onChange(e.target.value)}>
-        <option value="">Choose…</option>
+        <option value="">{t('Choose…')}</option>
         {field.options!.map((o) => (
           <option key={o} value={o}>
             {optionLabel(o)}
@@ -83,7 +83,7 @@ export function FieldInput({ field, value, onChange, showOrigin = true }: Props)
     control = field.unit ? (
       <div className="unit-row">
         {input}
-        <span>{field.unit}</span>
+        <span>{t(field.unit)}</span>
       </div>
     ) : (
       input
@@ -91,24 +91,24 @@ export function FieldInput({ field, value, onChange, showOrigin = true }: Props)
   }
 
   return (
-    <div className={`field${missing ? ' missing' : ''}${multi || field.kind === 'longtext' ? ' wide' : ''}`} title={value?.evidence && origin === 'gemma' ? `From the note: ${value.evidence}` : undefined}>
+    <div className={`field${missing ? ' missing' : ''}${multi || field.kind === 'longtext' ? ' wide' : ''}`} title={value?.evidence && origin === 'gemma' ? `${t('From the note:')} ${value.evidence}` : undefined}>
       <div className="field-top">
         <label id={`${id}-l`} htmlFor={id}>
           {t(field.label)}
         </label>
-        {missing && <span className="req">Required</span>}
+        {missing && <span className="req">{t('Required')}</span>}
         {showOrigin && origin !== 'empty' && <span className={`tag ${origin}`}>{originLabel[origin]}</span>}
       </div>
       {control}
       {field.kind === 'text' && (missing || value?.value === 'None known') && (
         <label className="none-known">
           <input type="checkbox" checked={value?.value === 'None known'} onChange={(e) => onChange(e.target.checked ? 'None known' : '')} />
-          None known
+          {t('None known')}
         </label>
       )}
       {value?.evidence && origin === 'gemma' && (
         <More className="evidence">
-          From the note: <q>{value.evidence}</q>
+          {t('From the note:')} <q>{value.evidence}</q>
         </More>
       )}
       {field.hint && !multi && <More className="evidence">{field.hint}</More>}

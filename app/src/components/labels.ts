@@ -1,6 +1,11 @@
 import type { CancerType, FieldOrigin } from '../data/types';
+import { getLang, tr } from './lang';
 
-export const cancerName: Record<CancerType, string> = { lung: 'Lung', colorectal: 'Colorectal', ovarian: 'Ovarian' };
+/** Reads the English word list through the current language. App re-renders the whole tree on a language change. */
+const translated = <K extends string>(o: Record<K, string>): Record<K, string> =>
+  new Proxy(o, { get: (t, k) => (typeof k === 'string' && k in t ? tr(t[k as K], getLang()) : undefined) });
+
+export const cancerName = translated<CancerType>({ lung: 'Lung', colorectal: 'Colorectal', ovarian: 'Ovarian' });
 
 const optionNames: Record<string, string> = {
   urgent_2_week: 'Urgent, within 2 weeks',
@@ -22,18 +27,18 @@ const optionNames: Record<string, string> = {
 };
 
 export function optionLabel(v: string): string {
-  if (optionNames[v]) return optionNames[v];
+  if (optionNames[v]) return tr(optionNames[v], getLang());
   const s = v.replace(/_/g, ' ');
-  return s.charAt(0).toUpperCase() + s.slice(1);
+  return tr(s.charAt(0).toUpperCase() + s.slice(1), getLang());
 }
 
-export const originLabel: Record<FieldOrigin, string> = {
+export const originLabel = translated<FieldOrigin>({
   record: 'Record',
   gemma: 'AI',
   gp: 'Edited by GP',
   empty: 'Empty',
-};
+});
 
 export function fmtDate(iso: string): string {
-  return new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+  return new Date(iso).toLocaleDateString(getLang() === 'fi' ? 'fi-FI' : 'en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
 }
