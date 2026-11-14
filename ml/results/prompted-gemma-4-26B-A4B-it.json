@@ -1,0 +1,4336 @@
+{
+  "label": "prompted-gemma-4-26B-A4B-it",
+  "model": "google/gemma-4-26B-A4B-it",
+  "base_url": "https://api.featherless.ai/v1",
+  "data": "ml/data/eval.jsonl",
+  "dry_run": false,
+  "started": "2026-11-14T18:23:42",
+  "summary": {
+    "overall": {
+      "records": 25,
+      "field_accuracy": 0.7661388550548112,
+      "field_accuracy_present": 0.7130044843049327,
+      "json_valid_rate": 1.0,
+      "schema_valid_rate": 0.4,
+      "format_miss_rate": 0.0,
+      "evidence_grounded_rate": 0.8846153846153846,
+      "mean_latency_s": 7.779883534724359,
+      "errors": 0,
+      "prompt_tokens_total": 30846,
+      "completion_tokens_total": 13206
+    },
+    "per_field": {
+      "abdominalMass": {
+        "correct": 8,
+        "total": 8,
+        "accuracy": 1.0
+      },
+      "age": {
+        "correct": 25,
+        "total": 25,
+        "accuracy": 1.0
+      },
+      "asbestosExposure": {
+        "correct": 8,
+        "total": 9,
+        "accuracy": 0.8888888888888888
+      },
+      "ascites": {
+        "correct": 6,
+        "total": 8,
+        "accuracy": 0.75
+      },
+      "bloatingOrDistension": {
+        "correct": 8,
+        "total": 8,
+        "accuracy": 1.0
+      },
+      "bowelHabitChange": {
+        "correct": 8,
+        "total": 8,
+        "accuracy": 1.0
+      },
+      "brcaStatus": {
+        "correct": 3,
+        "total": 8,
+        "accuracy": 0.375
+      },
+      "ca125Date": {
+        "correct": 8,
+        "total": 8,
+        "accuracy": 1.0
+      },
+      "ca125Done": {
+        "correct": 6,
+        "total": 8,
+        "accuracy": 0.75
+      },
+      "ca125ValueIuPerMl": {
+        "correct": 8,
+        "total": 8,
+        "accuracy": 1.0
+      },
+      "chestXrayDate": {
+        "correct": 8,
+        "total": 9,
+        "accuracy": 0.8888888888888888
+      },
+      "chestXrayFindings": {
+        "correct": 6,
+        "total": 9,
+        "accuracy": 0.6666666666666666
+      },
+      "chestXrayResult": {
+        "correct": 9,
+        "total": 9,
+        "accuracy": 1.0
+      },
+      "currentMedicines": {
+        "correct": 15,
+        "total": 25,
+        "accuracy": 0.6
+      },
+      "earlySatietyOrAppetiteLoss": {
+        "correct": 4,
+        "total": 8,
+        "accuracy": 0.5
+      },
+      "examFindings": {
+        "correct": 13,
+        "total": 25,
+        "accuracy": 0.52
+      },
+      "familyHistoryBreastOrOvarianCancer": {
+        "correct": 6,
+        "total": 8,
+        "accuracy": 0.75
+      },
+      "fitDone": {
+        "correct": 8,
+        "total": 8,
+        "accuracy": 1.0
+      },
+      "fitValueUgHbPerG": {
+        "correct": 8,
+        "total": 8,
+        "accuracy": 1.0
+      },
+      "generalCondition": {
+        "correct": 8,
+        "total": 25,
+        "accuracy": 0.32
+      },
+      "gpQuestion": {
+        "correct": 8,
+        "total": 25,
+        "accuracy": 0.32
+      },
+      "haemoglobinGPerL": {
+        "correct": 8,
+        "total": 8,
+        "accuracy": 1.0
+      },
+      "haemoptysis": {
+        "correct": 5,
+        "total": 9,
+        "accuracy": 0.5555555555555556
+      },
+      "ironDeficiencyAnaemia": {
+        "correct": 8,
+        "total": 8,
+        "accuracy": 1.0
+      },
+      "lungSymptoms": {
+        "correct": 8,
+        "total": 9,
+        "accuracy": 0.8888888888888888
+      },
+      "mainSymptom": {
+        "correct": 13,
+        "total": 25,
+        "accuracy": 0.52
+      },
+      "matchedRuleIds": {
+        "correct": 25,
+        "total": 25,
+        "accuracy": 1.0
+      },
+      "menopausalStatus": {
+        "correct": 4,
+        "total": 8,
+        "accuracy": 0.5
+      },
+      "otherIllnesses": {
+        "correct": 15,
+        "total": 25,
+        "accuracy": 0.6
+      },
+      "packYears": {
+        "correct": 24,
+        "total": 25,
+        "accuracy": 0.96
+      },
+      "palpableMass": {
+        "correct": 5,
+        "total": 8,
+        "accuracy": 0.625
+      },
+      "patientId": {
+        "correct": 25,
+        "total": 25,
+        "accuracy": 1.0
+      },
+      "pelvicOrAbdominalPain": {
+        "correct": 7,
+        "total": 8,
+        "accuracy": 0.875
+      },
+      "pelvicUltrasoundDate": {
+        "correct": 7,
+        "total": 8,
+        "accuracy": 0.875
+      },
+      "pelvicUltrasoundFindings": {
+        "correct": 8,
+        "total": 8,
+        "accuracy": 1.0
+      },
+      "pelvicUltrasoundResult": {
+        "correct": 8,
+        "total": 8,
+        "accuracy": 1.0
+      },
+      "priorCancer": {
+        "correct": 24,
+        "total": 25,
+        "accuracy": 0.96
+      },
+      "rectalBleeding": {
+        "correct": 8,
+        "total": 8,
+        "accuracy": 1.0
+      },
+      "rectalExamResult": {
+        "correct": 6,
+        "total": 8,
+        "accuracy": 0.75
+      },
+      "referralDate": {
+        "correct": 25,
+        "total": 25,
+        "accuracy": 1.0
+      },
+      "referringGpId": {
+        "correct": 25,
+        "total": 25,
+        "accuracy": 1.0
+      },
+      "riskGradientAiEstimate": {
+        "correct": 25,
+        "total": 25,
+        "accuracy": 1.0
+      },
+      "sex": {
+        "correct": 25,
+        "total": 25,
+        "accuracy": 1.0
+      },
+      "smokingStatus": {
+        "correct": 18,
+        "total": 25,
+        "accuracy": 0.72
+      },
+      "suspectedCancerType": {
+        "correct": 24,
+        "total": 25,
+        "accuracy": 0.96
+      },
+      "suspectedDiagnosis": {
+        "correct": 7,
+        "total": 25,
+        "accuracy": 0.28
+      },
+      "symptomDaysPerMonth": {
+        "correct": 2,
+        "total": 8,
+        "accuracy": 0.25
+      },
+      "symptomDurationWeeks": {
+        "correct": 19,
+        "total": 25,
+        "accuracy": 0.76
+      },
+      "symptomVisitCount": {
+        "correct": 16,
+        "total": 25,
+        "accuracy": 0.64
+      },
+      "testsDone": {
+        "correct": 9,
+        "total": 25,
+        "accuracy": 0.36
+      },
+      "urgency": {
+        "correct": 18,
+        "total": 25,
+        "accuracy": 0.72
+      },
+      "urinarySymptoms": {
+        "correct": 5,
+        "total": 8,
+        "accuracy": 0.625
+      },
+      "weightLossKg": {
+        "correct": 22,
+        "total": 25,
+        "accuracy": 0.88
+      }
+    },
+    "per_cancer": {
+      "colorectal": {
+        "records": 8,
+        "field_accuracy": 0.8064516129032258,
+        "field_accuracy_present": 0.7647058823529411,
+        "json_valid_rate": 1.0,
+        "schema_valid_rate": 0.75,
+        "format_miss_rate": 0.0,
+        "evidence_grounded_rate": 0.8990825688073395,
+        "mean_latency_s": 7.716506685384957,
+        "errors": 0,
+        "prompt_tokens_total": 9094,
+        "completion_tokens_total": 3742
+      },
+      "lung": {
+        "records": 9,
+        "field_accuracy": 0.789272030651341,
+        "field_accuracy_present": 0.7303921568627451,
+        "json_valid_rate": 1.0,
+        "schema_valid_rate": 0.2222222222222222,
+        "format_miss_rate": 0.0,
+        "evidence_grounded_rate": 0.8476190476190476,
+        "mean_latency_s": 6.339332086111729,
+        "errors": 0,
+        "prompt_tokens_total": 9849,
+        "completion_tokens_total": 3749
+      },
+      "ovarian": {
+        "records": 8,
+        "field_accuracy": 0.7147435897435898,
+        "field_accuracy_present": 0.6590038314176245,
+        "json_valid_rate": 1.0,
+        "schema_valid_rate": 0.25,
+        "format_miss_rate": 0.0,
+        "evidence_grounded_rate": 0.9,
+        "mean_latency_s": 9.463880763752968,
+        "errors": 0,
+        "prompt_tokens_total": 11903,
+        "completion_tokens_total": 5715
+      }
+    },
+    "per_language": {
+      "en": {
+        "records": 14,
+        "field_accuracy": 0.7977777777777778,
+        "field_accuracy_present": 0.7533875338753387,
+        "json_valid_rate": 1.0,
+        "schema_valid_rate": 0.5,
+        "format_miss_rate": 0.0,
+        "evidence_grounded_rate": 0.8811881188118812,
+        "mean_latency_s": 7.304851857937008,
+        "errors": 0,
+        "prompt_tokens_total": 16966,
+        "completion_tokens_total": 6836
+      },
+      "fi": {
+        "records": 11,
+        "field_accuracy": 0.7277628032345014,
+        "field_accuracy_present": 0.6633333333333333,
+        "json_valid_rate": 1.0,
+        "schema_valid_rate": 0.2727272727272727,
+        "format_miss_rate": 0.0,
+        "evidence_grounded_rate": 0.8888888888888888,
+        "mean_latency_s": 8.384469305180987,
+        "errors": 0,
+        "prompt_tokens_total": 13880,
+        "completion_tokens_total": 6370
+      }
+    },
+    "per_kind": {
+      "cancer": {
+        "records": 22,
+        "field_accuracy": 0.775623268698061,
+        "field_accuracy_present": 0.7258883248730964,
+        "json_valid_rate": 1.0,
+        "schema_valid_rate": 0.4090909090909091,
+        "format_miss_rate": 0.0,
+        "evidence_grounded_rate": 0.9085173501577287,
+        "mean_latency_s": 7.817568487141133,
+        "errors": 0,
+        "prompt_tokens_total": 27059,
+        "completion_tokens_total": 11642
+      },
+      "control": {
+        "records": 3,
+        "field_accuracy": 0.696969696969697,
+        "field_accuracy_present": 0.6153846153846154,
+        "json_valid_rate": 1.0,
+        "schema_valid_rate": 0.3333333333333333,
+        "format_miss_rate": 0.0,
+        "evidence_grounded_rate": 0.723404255319149,
+        "mean_latency_s": 7.503527217001344,
+        "errors": 0,
+        "prompt_tokens_total": 3787,
+        "completion_tokens_total": 1564
+      }
+    }
+  },
+  "records": [
+    {
+      "id": "eval-lung-fi-007",
+      "cancer": "lung",
+      "language": "fi",
+      "kind": "cancer",
+      "json_valid": true,
+      "format_miss": false,
+      "schema_valid": false,
+      "schema_errors": [
+        "(root): 'symptomVisitCount' is a required property",
+        "(root): 'currentMedicines' is a required property",
+        "(root): 'otherIllnesses' is a required property",
+        "(root): 'haemoptysis' is a required property"
+      ],
+      "field_scores": {
+        "age": {
+          "correct": true,
+          "present": true
+        },
+        "asbestosExposure": {
+          "correct": true,
+          "present": false
+        },
+        "chestXrayDate": {
+          "correct": true,
+          "present": false
+        },
+        "chestXrayFindings": {
+          "correct": true,
+          "present": false
+        },
+        "chestXrayResult": {
+          "correct": true,
+          "present": true
+        },
+        "currentMedicines": {
+          "correct": false,
+          "present": true
+        },
+        "examFindings": {
+          "correct": true,
+          "present": true
+        },
+        "generalCondition": {
+          "correct": false,
+          "present": true
+        },
+        "gpQuestion": {
+          "correct": true,
+          "present": true
+        },
+        "haemoptysis": {
+          "correct": false,
+          "present": true
+        },
+        "lungSymptoms": {
+          "correct": true,
+          "present": true
+        },
+        "mainSymptom": {
+          "correct": true,
+          "present": true
+        },
+        "matchedRuleIds": {
+          "correct": true,
+          "present": false
+        },
+        "otherIllnesses": {
+          "correct": false,
+          "present": true
+        },
+        "packYears": {
+          "correct": true,
+          "present": false
+        },
+        "patientId": {
+          "correct": true,
+          "present": true
+        },
+        "priorCancer": {
+          "correct": true,
+          "present": false
+        },
+        "referralDate": {
+          "correct": true,
+          "present": true
+        },
+        "referringGpId": {
+          "correct": true,
+          "present": true
+        },
+        "riskGradientAiEstimate": {
+          "correct": true,
+          "present": false
+        },
+        "sex": {
+          "correct": true,
+          "present": true
+        },
+        "smokingStatus": {
+          "correct": true,
+          "present": true
+        },
+        "suspectedCancerType": {
+          "correct": true,
+          "present": true
+        },
+        "suspectedDiagnosis": {
+          "correct": false,
+          "present": true
+        },
+        "symptomDurationWeeks": {
+          "correct": true,
+          "present": true
+        },
+        "symptomVisitCount": {
+          "correct": false,
+          "present": true
+        },
+        "testsDone": {
+          "correct": false,
+          "present": true
+        },
+        "urgency": {
+          "correct": false,
+          "present": true
+        },
+        "weightLossKg": {
+          "correct": true,
+          "present": false
+        }
+      },
+      "evidence_total": 8,
+      "evidence_grounded": 7,
+      "latency_s": 5.753215537988581,
+      "attempts": 1,
+      "usage": {
+        "prompt_tokens": 1005,
+        "completion_tokens": 293,
+        "total_tokens": 1298
+      },
+      "error": "",
+      "parse_problem": "",
+      "raw_reply": "{\"fields\":{\"patientId\":\"SYN-507\",\"age\":44,\"sex\":\"female\",\"smokingStatus\":\"current\",\"mainSymptom\":\"Väsymys ja ruokahaluttomuus\",\"symptomDurationWeeks\":6,\"examFindings\":\"keuhkot puhtaat, sydän normaali\",\"generalCondition\":\"yleiskunto tyydyttävä\",\"testsDone\":[{\"name\":\"röntgen\",\"result\":\"suunniteltu\"}],\"suspectedDiagnosis\":\"keuhkosyövän poissulku\",\"suspectedCancerType\":\"lung\",\"gpQuestion\":\"keuhkosyövän poissulku\",\"urgency\":\"urgent\",\"referralDate\":\"2026-09-29\",\"referringGpId\":\"GP-053\",\"lungSymptoms\":[\"fatigue\",\"appetite_loss\"],\"chestXrayResult\":\"not_done\"},\"evidence\":{\"mainSymptom\":\"Väsymys ja ruokahaluttomuus\",\"symptomDurationWeeks\":\"6 vk\",\"smokingStatus\":\"tupakoi\",\"examFindings\":\"keuhkot puhtaat, sydän normaali\",\"generalCondition\":\"yleiskunto tyydyttävä\",\"suspectedDiagnosis\":\"lähete keuhkosyövän poissulkuun\",\"gpQuestion\":\"keuhkosyövän poissulku\",\"lungSymptoms\":[\"Väsymys ja ruokahaluttomuus\"]}}"
+    },
+    {
+      "id": "eval-lung-en-005",
+      "cancer": "lung",
+      "language": "en",
+      "kind": "cancer",
+      "json_valid": true,
+      "format_miss": false,
+      "schema_valid": false,
+      "schema_errors": [
+        "(root): 'testsDone' is a required property",
+        "(root): 'haemoptysis' is a required property"
+      ],
+      "field_scores": {
+        "age": {
+          "correct": true,
+          "present": true
+        },
+        "asbestosExposure": {
+          "correct": true,
+          "present": false
+        },
+        "chestXrayDate": {
+          "correct": true,
+          "present": false
+        },
+        "chestXrayFindings": {
+          "correct": true,
+          "present": false
+        },
+        "chestXrayResult": {
+          "correct": true,
+          "present": true
+        },
+        "currentMedicines": {
+          "correct": true,
+          "present": true
+        },
+        "examFindings": {
+          "correct": true,
+          "present": true
+        },
+        "generalCondition": {
+          "correct": true,
+          "present": true
+        },
+        "gpQuestion": {
+          "correct": false,
+          "present": true
+        },
+        "haemoptysis": {
+          "correct": false,
+          "present": true
+        },
+        "lungSymptoms": {
+          "correct": true,
+          "present": true
+        },
+        "mainSymptom": {
+          "correct": true,
+          "present": true
+        },
+        "matchedRuleIds": {
+          "correct": true,
+          "present": false
+        },
+        "otherIllnesses": {
+          "correct": true,
+          "present": true
+        },
+        "packYears": {
+          "correct": true,
+          "present": true
+        },
+        "patientId": {
+          "correct": true,
+          "present": true
+        },
+        "priorCancer": {
+          "correct": true,
+          "present": false
+        },
+        "referralDate": {
+          "correct": true,
+          "present": true
+        },
+        "referringGpId": {
+          "correct": true,
+          "present": true
+        },
+        "riskGradientAiEstimate": {
+          "correct": true,
+          "present": false
+        },
+        "sex": {
+          "correct": true,
+          "present": true
+        },
+        "smokingStatus": {
+          "correct": true,
+          "present": true
+        },
+        "suspectedCancerType": {
+          "correct": true,
+          "present": true
+        },
+        "suspectedDiagnosis": {
+          "correct": false,
+          "present": true
+        },
+        "symptomDurationWeeks": {
+          "correct": true,
+          "present": true
+        },
+        "symptomVisitCount": {
+          "correct": true,
+          "present": true
+        },
+        "testsDone": {
+          "correct": false,
+          "present": true
+        },
+        "urgency": {
+          "correct": true,
+          "present": true
+        },
+        "weightLossKg": {
+          "correct": false,
+          "present": true
+        }
+      },
+      "evidence_total": 12,
+      "evidence_grounded": 11,
+      "latency_s": 5.81070902000647,
+      "attempts": 1,
+      "usage": {
+        "prompt_tokens": 1020,
+        "completion_tokens": 302,
+        "total_tokens": 1322
+      },
+      "error": "",
+      "parse_problem": "",
+      "raw_reply": "{\"fields\":{\"patientId\":\"SYN-505\",\"age\":55,\"sex\":\"male\",\"smokingStatus\":\"former\",\"packYears\":25,\"mainSymptom\":\"worsening cough and tiredness\",\"symptomDurationWeeks\":8,\"symptomVisitCount\":2,\"examFindings\":\"chest clear, no lymphadenopathy\",\"generalCondition\":\"poor, frail\",\"currentMedicines\":[\"ramipril 5mg od\"],\"otherIllnesses\":[\"hypertension\"],\"suspectedDiagnosis\":\"lung cancer\",\"suspectedCancerType\":\"lung\",\"gpQuestion\":\"2WW referral initiated for suspected lung cancer\",\"urgency\":\"urgent_2_week\",\"referralDate\":\"2026-10-06\",\"referringGpId\":\"GP-044\",\"lungSymptoms\":[\"cough\",\"fatigue\",\"weight_loss\"],\"chestXrayResult\":\"not_done\"},\"evidence\":{\"mainSymptom\":\"worsening cough and tiredness\",\"symptomDurationWeeks\":\"about 2 months\",\"symptomVisitCount\":\"2\",\"examFindings\":\"o/e chest clear, no lymphadenopathy\",\"generalCondition\":\"general condition looks poor, frail\",\"smokingStatus\":\"ex-smoker\",\"packYears\":\"25 pack-years\",\"currentMedicines\":\"ramipril 5mg od\",\"otherIllnesses\":\"Hx hypertension\",\"suspectedDiagnosis\":\"suspected lung cancer\",\"urgency\":\"2WW referral initiated\",\"lungSymptoms\":[\"cough\",\"tiredness\",\"weight loss\"]}}"
+    },
+    {
+      "id": "eval-lung-en-006",
+      "cancer": "lung",
+      "language": "en",
+      "kind": "cancer",
+      "json_valid": true,
+      "format_miss": false,
+      "schema_valid": false,
+      "schema_errors": [
+        "(root): 'testsDone' is a required property"
+      ],
+      "field_scores": {
+        "age": {
+          "correct": true,
+          "present": true
+        },
+        "asbestosExposure": {
+          "correct": true,
+          "present": false
+        },
+        "chestXrayDate": {
+          "correct": true,
+          "present": false
+        },
+        "chestXrayFindings": {
+          "correct": true,
+          "present": false
+        },
+        "chestXrayResult": {
+          "correct": true,
+          "present": true
+        },
+        "currentMedicines": {
+          "correct": true,
+          "present": true
+        },
+        "examFindings": {
+          "correct": true,
+          "present": true
+        },
+        "generalCondition": {
+          "correct": true,
+          "present": true
+        },
+        "gpQuestion": {
+          "correct": true,
+          "present": true
+        },
+        "haemoptysis": {
+          "correct": true,
+          "present": true
+        },
+        "lungSymptoms": {
+          "correct": true,
+          "present": true
+        },
+        "mainSymptom": {
+          "correct": true,
+          "present": true
+        },
+        "matchedRuleIds": {
+          "correct": true,
+          "present": false
+        },
+        "otherIllnesses": {
+          "correct": true,
+          "present": true
+        },
+        "packYears": {
+          "correct": true,
+          "present": false
+        },
+        "patientId": {
+          "correct": true,
+          "present": true
+        },
+        "priorCancer": {
+          "correct": true,
+          "present": false
+        },
+        "referralDate": {
+          "correct": true,
+          "present": true
+        },
+        "referringGpId": {
+          "correct": true,
+          "present": true
+        },
+        "riskGradientAiEstimate": {
+          "correct": true,
+          "present": false
+        },
+        "sex": {
+          "correct": true,
+          "present": true
+        },
+        "smokingStatus": {
+          "correct": true,
+          "present": true
+        },
+        "suspectedCancerType": {
+          "correct": true,
+          "present": true
+        },
+        "suspectedDiagnosis": {
+          "correct": false,
+          "present": true
+        },
+        "symptomDurationWeeks": {
+          "correct": true,
+          "present": true
+        },
+        "symptomVisitCount": {
+          "correct": true,
+          "present": true
+        },
+        "testsDone": {
+          "correct": false,
+          "present": true
+        },
+        "urgency": {
+          "correct": true,
+          "present": true
+        },
+        "weightLossKg": {
+          "correct": true,
+          "present": false
+        }
+      },
+      "evidence_total": 9,
+      "evidence_grounded": 9,
+      "latency_s": 4.332045996998204,
+      "attempts": 1,
+      "usage": {
+        "prompt_tokens": 1142,
+        "completion_tokens": 308,
+        "total_tokens": 1450
+      },
+      "error": "",
+      "parse_problem": "",
+      "raw_reply": "{\"fields\": {\"patientId\": \"SYN-506\", \"age\": 38, \"sex\": \"female\", \"smokingStatus\": \"never\", \"mainSymptom\": \"mild cough\", \"symptomDurationWeeks\": 3, \"symptomVisitCount\": 1, \"examFindings\": \"chest is clear with normal breath sounds and no wheeze\", \"generalCondition\": \"mostly well\", \"currentMedicines\": [], \"otherIllnesses\": [], \"suspectedDiagnosis\": \"malignancy\", \"suspectedCancerType\": \"lung\", \"gpQuestion\": \"please review for persistent cough\", \"urgency\": \"urgent_2_week\", \"referralDate\": \"2026-09-29\", \"referringGpId\": \"GP-044\", \"lungSymptoms\": [\"cough\"], \"haemoptysis\": false, \"chestXrayResult\": \"not_done\"}, \"evidence\": {\"mainSymptom\": \"mild cough\", \"symptomDurationWeeks\": \"three weeks\", \"examFindings\": \"chest is clear with normal breath sounds and no wheeze\", \"generalCondition\": \"mostly well\", \"smokingStatus\": \"lifelong non-smoker\", \"suspectedDiagnosis\": \"exclude malignancy\", \"gpQuestion\": \"please review for persistent cough\", \"haemoptysis\": \"No haemoptysis reported\", \"chestXrayResult\": \"No chest X-ray has been performed yet\"}}"
+    },
+    {
+      "id": "eval-lung-fi-008",
+      "cancer": "lung",
+      "language": "fi",
+      "kind": "cancer",
+      "json_valid": true,
+      "format_miss": false,
+      "schema_valid": false,
+      "schema_errors": [
+        "(root): 'haemoptysis' is a required property"
+      ],
+      "field_scores": {
+        "age": {
+          "correct": true,
+          "present": true
+        },
+        "asbestosExposure": {
+          "correct": true,
+          "present": false
+        },
+        "chestXrayDate": {
+          "correct": true,
+          "present": false
+        },
+        "chestXrayFindings": {
+          "correct": true,
+          "present": false
+        },
+        "chestXrayResult": {
+          "correct": true,
+          "present": true
+        },
+        "currentMedicines": {
+          "correct": true,
+          "present": true
+        },
+        "examFindings": {
+          "correct": true,
+          "present": true
+        },
+        "generalCondition": {
+          "correct": true,
+          "present": true
+        },
+        "gpQuestion": {
+          "correct": false,
+          "present": true
+        },
+        "haemoptysis": {
+          "correct": false,
+          "present": true
+        },
+        "lungSymptoms": {
+          "correct": true,
+          "present": true
+        },
+        "mainSymptom": {
+          "correct": true,
+          "present": true
+        },
+        "matchedRuleIds": {
+          "correct": true,
+          "present": false
+        },
+        "otherIllnesses": {
+          "correct": true,
+          "present": true
+        },
+        "packYears": {
+          "correct": true,
+          "present": false
+        },
+        "patientId": {
+          "correct": true,
+          "present": true
+        },
+        "priorCancer": {
+          "correct": true,
+          "present": false
+        },
+        "referralDate": {
+          "correct": true,
+          "present": true
+        },
+        "referringGpId": {
+          "correct": true,
+          "present": true
+        },
+        "riskGradientAiEstimate": {
+          "correct": true,
+          "present": false
+        },
+        "sex": {
+          "correct": true,
+          "present": true
+        },
+        "smokingStatus": {
+          "correct": false,
+          "present": true
+        },
+        "suspectedCancerType": {
+          "correct": true,
+          "present": true
+        },
+        "suspectedDiagnosis": {
+          "correct": true,
+          "present": true
+        },
+        "symptomDurationWeeks": {
+          "correct": true,
+          "present": true
+        },
+        "symptomVisitCount": {
+          "correct": true,
+          "present": true
+        },
+        "testsDone": {
+          "correct": true,
+          "present": true
+        },
+        "urgency": {
+          "correct": false,
+          "present": true
+        },
+        "weightLossKg": {
+          "correct": true,
+          "present": false
+        }
+      },
+      "evidence_total": 6,
+      "evidence_grounded": 6,
+      "latency_s": 4.016663185990183,
+      "attempts": 1,
+      "usage": {
+        "prompt_tokens": 1035,
+        "completion_tokens": 271,
+        "total_tokens": 1306
+      },
+      "error": "",
+      "parse_problem": "",
+      "raw_reply": "{\"fields\":{\"patientId\":\"SYN-508\",\"age\":51,\"sex\":\"male\",\"smokingStatus\":\"never\",\"mainSymptom\":\"Lievä yskä\",\"symptomDurationWeeks\":3,\"symptomVisitCount\":1,\"examFindings\":\"Keuhkot puhtaat, auskultoiden siisti.\",\"generalCondition\":\"Yleiskunto hyvä\",\"testsDone\":[],\"currentMedicines\":[],\"otherIllnesses\":[],\"suspectedDiagnosis\":\"keuhkosyöpäepäily\",\"suspectedCancerType\":\"lung\",\"gpQuestion\":\"pyydetään keuhkokuva ja tarvittavat selvittelyt\",\"urgency\":\"urgent\",\"referralDate\":\"2026-09-17\",\"referringGpId\":\"GP-015\",\"lungSymptoms\":[\"cough\"],\"chestXrayResult\":\"not_done\"},\"evidence\":{\"mainSymptom\":\"Lievä yskä\",\"symptomDurationWeeks\":\"noin 3 viikkoa\",\"examFindings\":\"Keuhkot puhtaat, auskultoiden siisti.\",\"generalCondition\":\"Yleiskunto hyvä\",\"suspectedDiagnosis\":\"keuhkosyöpäepäily\",\"gpQuestion\":\"pyydetään keuhkokuva ja tarvittavat selvittelyt\"}}"
+    },
+    {
+      "id": "eval-lung-en-003",
+      "cancer": "lung",
+      "language": "en",
+      "kind": "cancer",
+      "json_valid": true,
+      "format_miss": false,
+      "schema_valid": false,
+      "schema_errors": [
+        "(root): 'currentMedicines' is a required property",
+        "(root): 'otherIllnesses' is a required property",
+        "(root): 'haemoptysis' is a required property"
+      ],
+      "field_scores": {
+        "age": {
+          "correct": true,
+          "present": true
+        },
+        "asbestosExposure": {
+          "correct": true,
+          "present": true
+        },
+        "chestXrayDate": {
+          "correct": false,
+          "present": true
+        },
+        "chestXrayFindings": {
+          "correct": true,
+          "present": true
+        },
+        "chestXrayResult": {
+          "correct": true,
+          "present": true
+        },
+        "currentMedicines": {
+          "correct": false,
+          "present": true
+        },
+        "examFindings": {
+          "correct": true,
+          "present": true
+        },
+        "generalCondition": {
+          "correct": true,
+          "present": true
+        },
+        "gpQuestion": {
+          "correct": false,
+          "present": true
+        },
+        "haemoptysis": {
+          "correct": false,
+          "present": true
+        },
+        "lungSymptoms": {
+          "correct": true,
+          "present": true
+        },
+        "mainSymptom": {
+          "correct": true,
+          "present": true
+        },
+        "matchedRuleIds": {
+          "correct": true,
+          "present": false
+        },
+        "otherIllnesses": {
+          "correct": false,
+          "present": true
+        },
+        "packYears": {
+          "correct": true,
+          "present": false
+        },
+        "patientId": {
+          "correct": true,
+          "present": true
+        },
+        "priorCancer": {
+          "correct": true,
+          "present": false
+        },
+        "referralDate": {
+          "correct": true,
+          "present": true
+        },
+        "referringGpId": {
+          "correct": true,
+          "present": true
+        },
+        "riskGradientAiEstimate": {
+          "correct": true,
+          "present": false
+        },
+        "sex": {
+          "correct": true,
+          "present": true
+        },
+        "smokingStatus": {
+          "correct": true,
+          "present": true
+        },
+        "suspectedCancerType": {
+          "correct": true,
+          "present": true
+        },
+        "suspectedDiagnosis": {
+          "correct": true,
+          "present": true
+        },
+        "symptomDurationWeeks": {
+          "correct": true,
+          "present": true
+        },
+        "symptomVisitCount": {
+          "correct": true,
+          "present": true
+        },
+        "testsDone": {
+          "correct": true,
+          "present": true
+        },
+        "urgency": {
+          "correct": true,
+          "present": true
+        },
+        "weightLossKg": {
+          "correct": true,
+          "present": false
+        }
+      },
+      "evidence_total": 11,
+      "evidence_grounded": 10,
+      "latency_s": 5.941608518012799,
+      "attempts": 1,
+      "usage": {
+        "prompt_tokens": 1048,
+        "completion_tokens": 402,
+        "total_tokens": 1450
+      },
+      "error": "",
+      "parse_problem": "",
+      "raw_reply": "{\"fields\": {\"patientId\": \"SYN-503\", \"age\": 62, \"sex\": \"male\", \"smokingStatus\": \"never\", \"mainSymptom\": \"persistent enlarged lymph node in the neck\", \"symptomDurationWeeks\": 5, \"symptomVisitCount\": 2, \"examFindings\": \"firm non-tender left supraclavicular lymph node enlargement\", \"generalCondition\": \"PS 0, NAD\", \"testsDone\": [{\"name\": \"CXR\", \"date\": \"2026-04-10\", \"result\": \"left hilar shadowing\"}], \"suspectedDiagnosis\": \"lung cancer\", \"suspectedCancerType\": \"lung\", \"gpQuestion\": \"urgent review\", \"urgency\": \"urgent_2_week\", \"referralDate\": \"2026-05-15\", \"referringGpId\": \"GP-059\", \"lungSymptoms\": [\"breathlessness\", \"lymph_node_enlargement\"], \"chestXrayResult\": \"abnormal\", \"chestXrayFindings\": \"left hilar shadowing\", \"asbestosExposure\": true}, \"evidence\": {\"mainSymptom\": \"persistent enlarged lymph node in the neck\", \"symptomDurationWeeks\": \"5 weeks\", \"examFindings\": \"firm non-tender left supraclavicular lymph node enlargement\", \"generalCondition\": \"PS 0, NAD\", \"testsDone\": \"CXR (2026-04-10): left hilar shadowing\", \"suspectedDiagnosis\": \"lung cancer\", \"urgency\": \"2WW suspected-cancer referral\", \"lungSymptoms\": [\"breathlessness on exertion\", \"enlarged lymph node in the neck\"], \"chestXrayResult\": \"left hilar shadowing\", \"chestXrayFindings\": \"left hilar shadowing\", \"asbestosExposure\": \"occupational asbestos exposure in shipyard\"}}"
+    },
+    {
+      "id": "eval-lung-fi-004",
+      "cancer": "lung",
+      "language": "fi",
+      "kind": "cancer",
+      "json_valid": true,
+      "format_miss": false,
+      "schema_valid": true,
+      "schema_errors": [],
+      "field_scores": {
+        "age": {
+          "correct": true,
+          "present": true
+        },
+        "asbestosExposure": {
+          "correct": true,
+          "present": true
+        },
+        "chestXrayDate": {
+          "correct": true,
+          "present": false
+        },
+        "chestXrayFindings": {
+          "correct": false,
+          "present": true
+        },
+        "chestXrayResult": {
+          "correct": true,
+          "present": true
+        },
+        "currentMedicines": {
+          "correct": false,
+          "present": true
+        },
+        "examFindings": {
+          "correct": false,
+          "present": true
+        },
+        "generalCondition": {
+          "correct": false,
+          "present": true
+        },
+        "gpQuestion": {
+          "correct": true,
+          "present": true
+        },
+        "haemoptysis": {
+          "correct": true,
+          "present": true
+        },
+        "lungSymptoms": {
+          "correct": true,
+          "present": true
+        },
+        "mainSymptom": {
+          "correct": false,
+          "present": true
+        },
+        "matchedRuleIds": {
+          "correct": true,
+          "present": false
+        },
+        "otherIllnesses": {
+          "correct": true,
+          "present": true
+        },
+        "packYears": {
+          "correct": true,
+          "present": false
+        },
+        "patientId": {
+          "correct": true,
+          "present": true
+        },
+        "priorCancer": {
+          "correct": true,
+          "present": false
+        },
+        "referralDate": {
+          "correct": true,
+          "present": true
+        },
+        "referringGpId": {
+          "correct": true,
+          "present": true
+        },
+        "riskGradientAiEstimate": {
+          "correct": true,
+          "present": false
+        },
+        "sex": {
+          "correct": true,
+          "present": true
+        },
+        "smokingStatus": {
+          "correct": true,
+          "present": true
+        },
+        "suspectedCancerType": {
+          "correct": true,
+          "present": true
+        },
+        "suspectedDiagnosis": {
+          "correct": true,
+          "present": true
+        },
+        "symptomDurationWeeks": {
+          "correct": true,
+          "present": true
+        },
+        "symptomVisitCount": {
+          "correct": true,
+          "present": true
+        },
+        "testsDone": {
+          "correct": false,
+          "present": true
+        },
+        "urgency": {
+          "correct": true,
+          "present": true
+        },
+        "weightLossKg": {
+          "correct": true,
+          "present": false
+        }
+      },
+      "evidence_total": 14,
+      "evidence_grounded": 10,
+      "latency_s": 6.6754040800151415,
+      "attempts": 1,
+      "usage": {
+        "prompt_tokens": 1184,
+        "completion_tokens": 624,
+        "total_tokens": 1808
+      },
+      "error": "",
+      "parse_problem": "",
+      "raw_reply": "{\"fields\": {\"patientId\": \"SYN-504\", \"age\": 77, \"sex\": \"female\", \"smokingStatus\": \"never\", \"mainSymptom\": \"kaulan kyhmy ja hengenahdistus rasituksessa\", \"symptomDurationWeeks\": 5, \"symptomVisitCount\": 3, \"examFindings\": \"kaulassa edelleen tuntuu kiinteä noin 2 cm imusolmuke; keuhkot kuunnellen puhtaat\", \"generalCondition\": \"hyvä\", \"testsDone\": [{\"name\": \"keuhkokuva\", \"result\": \"todettu varjostuma\"}], \"currentMedicines\": [\"verenpainelääkitys\"], \"otherIllnesses\": [\"hypertensio\"], \"suspectedDiagnosis\": \"epäily keuhkosyövästä\", \"suspectedCancerType\": \"lung\", \"gpQuestion\": \"pyydetään kiireellinen 2 viikon lähete keuhkosairauksien poliklinikalle\", \"urgency\": \"urgent_2_week\", \"referralDate\": \"2026-11-09\", \"referringGpId\": \"GP-060\", \"lungSymptoms\": [\"breathlessness\", \"lymph_node_enlargement\"], \"haemoptysis\": false, \"chestXrayResult\": \"abnormal\", \"chestXrayFindings\": \"todettu varjostuma\", \"asbestosExposure\": true}, \"evidence\": {\"mainSymptom\": \"kaulan kyhmy edelleen ennallaan; lisäksi ilmaantunut hengenahdistusta rasituksessa\", \"symptomDurationWeeks\": \"kesto nyt noin 5 viikkoa\", \"examFindings\": \"keuhkot kuunnellen puhtaat; kaulassa edelleen tuntuu kiinteä noin 2 cm imusolmuke\", \"generalCondition\": \"yleiskunto hyvä\", \"testsDone\": [{\"name\": \"keuhkokuva\", \"result\": \"todettu varjostuma\"}], \"currentMedicines\": [\"verenpainelääkitys\"], \"otherIllnesses\": [\"hypertensio\"], \"suspectedDiagnosis\": \"epäily keuhkosyövästä\", \"gpQuestion\": \"pyydetään kiireellinen 2 viikon lähete keuhkosairauksien poliklinikalle\", \"lungSymptoms\": [\"hengenahdistusta rasituksessa\", \"kaulassa edelleen tuntuu kiinteä noin 2 cm imusolmuke\"], \"haemoptysis\": \"ei verta ysköksissä\", \"chestXrayResult\": \"keuhkokuva tehty jossa todettu varjostuma\", \"chestXrayFindings\": \"todettu varjostuma\", \"asbestosExposure\": \"altistunut asbestille työssään nuorena\"}}"
+    },
+    {
+      "id": "eval-lung-en-001",
+      "cancer": "lung",
+      "language": "en",
+      "kind": "cancer",
+      "json_valid": true,
+      "format_miss": false,
+      "schema_valid": false,
+      "schema_errors": [
+        "packYears: None is not of type 'number'",
+        "weightLossKg: None is not of type 'number'"
+      ],
+      "field_scores": {
+        "age": {
+          "correct": true,
+          "present": true
+        },
+        "asbestosExposure": {
+          "correct": false,
+          "present": true
+        },
+        "chestXrayDate": {
+          "correct": true,
+          "present": true
+        },
+        "chestXrayFindings": {
+          "correct": true,
+          "present": true
+        },
+        "chestXrayResult": {
+          "correct": true,
+          "present": true
+        },
+        "currentMedicines": {
+          "correct": false,
+          "present": true
+        },
+        "examFindings": {
+          "correct": false,
+          "present": true
+        },
+        "generalCondition": {
+          "correct": false,
+          "present": true
+        },
+        "gpQuestion": {
+          "correct": false,
+          "present": true
+        },
+        "haemoptysis": {
+          "correct": true,
+          "present": true
+        },
+        "lungSymptoms": {
+          "correct": false,
+          "present": true
+        },
+        "mainSymptom": {
+          "correct": false,
+          "present": true
+        },
+        "matchedRuleIds": {
+          "correct": true,
+          "present": false
+        },
+        "otherIllnesses": {
+          "correct": true,
+          "present": true
+        },
+        "packYears": {
+          "correct": false,
+          "present": true
+        },
+        "patientId": {
+          "correct": true,
+          "present": true
+        },
+        "priorCancer": {
+          "correct": true,
+          "present": false
+        },
+        "referralDate": {
+          "correct": true,
+          "present": true
+        },
+        "referringGpId": {
+          "correct": true,
+          "present": true
+        },
+        "riskGradientAiEstimate": {
+          "correct": true,
+          "present": false
+        },
+        "sex": {
+          "correct": true,
+          "present": true
+        },
+        "smokingStatus": {
+          "correct": true,
+          "present": true
+        },
+        "suspectedCancerType": {
+          "correct": true,
+          "present": true
+        },
+        "suspectedDiagnosis": {
+          "correct": true,
+          "present": true
+        },
+        "symptomDurationWeeks": {
+          "correct": false,
+          "present": true
+        },
+        "symptomVisitCount": {
+          "correct": true,
+          "present": true
+        },
+        "testsDone": {
+          "correct": false,
+          "present": true
+        },
+        "urgency": {
+          "correct": true,
+          "present": true
+        },
+        "weightLossKg": {
+          "correct": false,
+          "present": true
+        }
+      },
+      "evidence_total": 15,
+      "evidence_grounded": 12,
+      "latency_s": 7.1753863930061925,
+      "attempts": 1,
+      "usage": {
+        "prompt_tokens": 1229,
+        "completion_tokens": 547,
+        "total_tokens": 1776
+      },
+      "error": "",
+      "parse_problem": "",
+      "raw_reply": "{\"fields\":{\"patientId\":\"SYN-501\",\"age\":60,\"sex\":\"male\",\"smokingStatus\":\"current\",\"packYears\":null,\"mainSymptom\":\"worsening persistent cough\",\"symptomDurationWeeks\":28,\"symptomVisitCount\":4,\"examFindings\":\"noticeable finger clubbing and a firm, non-tender left supraclavicular lymph node palpable\",\"generalCondition\":\"wiped out\",\"weightLossKg\":null,\"testsDone\":[{\"name\":\"Chest X-ray\",\"date\":\"2026-05-03\",\"result\":\"left upper lobe consolidation\"},{\"name\":\"Routine bloods\",\"date\":\"2026-03-18\",\"result\":\"requested\"}],\"currentMedicines\":[\"Salbutamol\"],\"otherIllnesses\":[\"COPD\"],\"suspectedDiagnosis\":\"lung cancer\",\"suspectedCancerType\":\"lung\",\"gpQuestion\":\"Immediate 2WW lung cancer referral initiated\",\"urgency\":\"urgent_2_week\",\"referralDate\":\"2026-05-17\",\"referringGpId\":\"GP-016\",\"lungSymptoms\":[\"cough\",\"fatigue\",\"finger_clubbing\",\"lymph_node_enlargement\"],\"haemoptysis\":false,\"chestXrayResult\":\"abnormal\",\"chestXrayFindings\":\"left upper lobe consolidation\",\"chestXrayDate\":\"2026-05-03\"},\"evidence\":{\"mainSymptom\":\"worsening persistent cough\",\"symptomDurationWeeks\":\"started around November last year\",\"symptomVisitCount\":\"Patient attended surgery today... Review on 2025-12-17... Review on 2026-01-18... Consultation on 2026-03-18\",\"examFindings\":\"noticeable finger clubbing and a firm, non-tender left supraclavicular lymph node palpable\",\"generalCondition\":\"I feel completely wiped out\",\"testsDone\":[{\"name\":\"Chest X-ray\",\"result\":\"left upper lobe consolidation\"},{\"name\":\"Routine bloods\",\"result\":\"Routine bloods requested\"}],\"currentMedicines\":\"Salbutamol provided for COPD symptoms\",\"otherIllnesses\":\"COPD symptoms\",\"suspectedDiagnosis\":\"lung cancer\",\"urgency\":\"Immediate 2WW lung cancer referral initiated\",\"lungSymptoms\":[\"finger clubbing\",\"left supraclavicular lymph node palpable\",\"worsening persistent cough\",\"I feel completely wiped out\"],\"haemoptysis\":\"no haemoptysis reported when asked directly\",\"chestXrayResult\":\"reported left upper lobe consolidation\",\"chestXrayFindings\":\"left upper lobe consolidation\",\"chestXrayDate\":\"3.5.2026\"}}"
+    },
+    {
+      "id": "eval-lung-fi-002",
+      "cancer": "lung",
+      "language": "fi",
+      "kind": "cancer",
+      "json_valid": true,
+      "format_miss": false,
+      "schema_valid": true,
+      "schema_errors": [],
+      "field_scores": {
+        "age": {
+          "correct": true,
+          "present": true
+        },
+        "asbestosExposure": {
+          "correct": true,
+          "present": false
+        },
+        "chestXrayDate": {
+          "correct": true,
+          "present": true
+        },
+        "chestXrayFindings": {
+          "correct": false,
+          "present": true
+        },
+        "chestXrayResult": {
+          "correct": true,
+          "present": true
+        },
+        "currentMedicines": {
+          "correct": true,
+          "present": true
+        },
+        "examFindings": {
+          "correct": true,
+          "present": true
+        },
+        "generalCondition": {
+          "correct": false,
+          "present": true
+        },
+        "gpQuestion": {
+          "correct": false,
+          "present": true
+        },
+        "haemoptysis": {
+          "correct": true,
+          "present": true
+        },
+        "lungSymptoms": {
+          "correct": true,
+          "present": true
+        },
+        "mainSymptom": {
+          "correct": true,
+          "present": true
+        },
+        "matchedRuleIds": {
+          "correct": true,
+          "present": false
+        },
+        "otherIllnesses": {
+          "correct": true,
+          "present": true
+        },
+        "packYears": {
+          "correct": true,
+          "present": false
+        },
+        "patientId": {
+          "correct": true,
+          "present": true
+        },
+        "priorCancer": {
+          "correct": true,
+          "present": false
+        },
+        "referralDate": {
+          "correct": true,
+          "present": true
+        },
+        "referringGpId": {
+          "correct": true,
+          "present": true
+        },
+        "riskGradientAiEstimate": {
+          "correct": true,
+          "present": false
+        },
+        "sex": {
+          "correct": true,
+          "present": true
+        },
+        "smokingStatus": {
+          "correct": true,
+          "present": true
+        },
+        "suspectedCancerType": {
+          "correct": true,
+          "present": true
+        },
+        "suspectedDiagnosis": {
+          "correct": false,
+          "present": true
+        },
+        "symptomDurationWeeks": {
+          "correct": true,
+          "present": true
+        },
+        "symptomVisitCount": {
+          "correct": true,
+          "present": true
+        },
+        "testsDone": {
+          "correct": false,
+          "present": true
+        },
+        "urgency": {
+          "correct": true,
+          "present": true
+        },
+        "weightLossKg": {
+          "correct": true,
+          "present": false
+        }
+      },
+      "evidence_total": 16,
+      "evidence_grounded": 13,
+      "latency_s": 11.518719468993368,
+      "attempts": 1,
+      "usage": {
+        "prompt_tokens": 1120,
+        "completion_tokens": 579,
+        "total_tokens": 1699
+      },
+      "error": "",
+      "parse_problem": "",
+      "raw_reply": "{\"fields\":{\"patientId\":\"SYN-502\",\"age\":81,\"sex\":\"male\",\"smokingStatus\":\"former\",\"mainSymptom\":\"sitkeä yskä\",\"symptomDurationWeeks\":12,\"symptomVisitCount\":2,\"examFindings\":\"keuhkoissa heikentynyt hengitysääni vasemmalla, ei rahinoita\",\"generalCondition\":\"yleistila hyvä\",\"testsDone\":[{\"name\":\"keuhkokuvassa\",\"date\":\"2026-04-03\",\"result\":\"todettu varjostuma vasemmassa ylälohkossa\"}],\"currentMedicines\":[\"Salbutamoli\"],\"otherIllnesses\":[\"hypertonia\"],\"suspectedDiagnosis\":\"keuhkosyöpäepäilyn vuoksi\",\"suspectedCancerType\":\"lung\",\"gpQuestion\":\"Lähete erikoissairaanhoitoon keuhkosyöpäepäilyn vuoksi\",\"urgency\":\"urgent_2_week\",\"referralDate\":\"2026-04-25\",\"referringGpId\":\"GP-010\",\"lungSymptoms\":[\"cough\",\"recurrent_pneumonia\"],\"haemoptysis\":false,\"chestXrayResult\":\"abnormal\",\"chestXrayFindings\":\"todettu varjostuma vasemmassa ylälohkossa\",\"chestXrayDate\":\"2026-04-03\"},\"evidence\":{\"mainSymptom\":\"sitkeä yskä\",\"symptomDurationWeeks\":\"kolme kuukautta\",\"symptomVisitCount\":\"Vastaanotolla 81-vuotias mies... Aiemmin otetussa keuhkokuvassa...\",\"examFindings\":\"keuhkoissa heikentynyt hengitysääni vasemmalla, ei rahinoita\",\"generalCondition\":\"yleistila hyvä\",\"testsDone\":[{\"name\":\"keuhkokuvassa\",\"result\":\"todettu varjostuma vasemmassa ylälohkossa\"}],\"currentMedicines\":\"Lääkityksenä Salbutamoli\",\"otherIllnesses\":\"sairauksista hypertonia\",\"suspectedDiagnosis\":\"keuhkosyöpäepäilyn vuoksi\",\"gpQuestion\":\"Lähete erikoissairaanhoitoon keuhkosyöpäepäilyn vuoksi\",\"urgency\":\"kyseessä kiireellinen kahden viikon lähete\",\"lungSymptoms\":[\"sitkeä yskä\",\"kaksi keuhkokuumetta\"],\"haemoptysis\":\"Ei veriyskää\",\"chestXrayResult\":\"todettu varjostuma vasemmassa ylälohkossa\",\"chestXrayFindings\":\"todettu varjostuma vasemmassa ylälohkossa\",\"chestXrayDate\":\"2026-04-03\"}}"
+    },
+    {
+      "id": "eval-colorectal-en-004",
+      "cancer": "colorectal",
+      "language": "en",
+      "kind": "cancer",
+      "json_valid": true,
+      "format_miss": false,
+      "schema_valid": false,
+      "schema_errors": [
+        "weightLossKg: None is not of type 'number'"
+      ],
+      "field_scores": {
+        "abdominalMass": {
+          "correct": true,
+          "present": true
+        },
+        "age": {
+          "correct": true,
+          "present": true
+        },
+        "bowelHabitChange": {
+          "correct": true,
+          "present": true
+        },
+        "currentMedicines": {
+          "correct": false,
+          "present": true
+        },
+        "examFindings": {
+          "correct": true,
+          "present": true
+        },
+        "fitDone": {
+          "correct": true,
+          "present": true
+        },
+        "fitValueUgHbPerG": {
+          "correct": true,
+          "present": false
+        },
+        "generalCondition": {
+          "correct": false,
+          "present": true
+        },
+        "gpQuestion": {
+          "correct": true,
+          "present": true
+        },
+        "haemoglobinGPerL": {
+          "correct": true,
+          "present": false
+        },
+        "ironDeficiencyAnaemia": {
+          "correct": true,
+          "present": true
+        },
+        "mainSymptom": {
+          "correct": true,
+          "present": true
+        },
+        "matchedRuleIds": {
+          "correct": true,
+          "present": false
+        },
+        "otherIllnesses": {
+          "correct": true,
+          "present": true
+        },
+        "packYears": {
+          "correct": true,
+          "present": false
+        },
+        "patientId": {
+          "correct": true,
+          "present": true
+        },
+        "priorCancer": {
+          "correct": true,
+          "present": false
+        },
+        "rectalBleeding": {
+          "correct": true,
+          "present": true
+        },
+        "rectalExamResult": {
+          "correct": false,
+          "present": true
+        },
+        "referralDate": {
+          "correct": true,
+          "present": true
+        },
+        "referringGpId": {
+          "correct": true,
+          "present": true
+        },
+        "riskGradientAiEstimate": {
+          "correct": true,
+          "present": false
+        },
+        "sex": {
+          "correct": true,
+          "present": true
+        },
+        "smokingStatus": {
+          "correct": true,
+          "present": true
+        },
+        "suspectedCancerType": {
+          "correct": true,
+          "present": true
+        },
+        "suspectedDiagnosis": {
+          "correct": false,
+          "present": true
+        },
+        "symptomDurationWeeks": {
+          "correct": true,
+          "present": true
+        },
+        "symptomVisitCount": {
+          "correct": true,
+          "present": true
+        },
+        "testsDone": {
+          "correct": true,
+          "present": true
+        },
+        "urgency": {
+          "correct": true,
+          "present": true
+        },
+        "weightLossKg": {
+          "correct": false,
+          "present": true
+        }
+      },
+      "evidence_total": 9,
+      "evidence_grounded": 9,
+      "latency_s": 8.039500287006376,
+      "attempts": 1,
+      "usage": {
+        "prompt_tokens": 941,
+        "completion_tokens": 340,
+        "total_tokens": 1281
+      },
+      "error": "",
+      "parse_problem": "",
+      "raw_reply": "{\"fields\": {\"patientId\": \"SYN-513\", \"age\": 58, \"sex\": \"female\", \"smokingStatus\": \"unknown\", \"mainSymptom\": \"loose stools\", \"symptomDurationWeeks\": 2, \"symptomVisitCount\": 1, \"examFindings\": \"abdo soft non-tender; no abdo mass\", \"generalCondition\": null, \"weightLossKg\": null, \"testsDone\": [], \"currentMedicines\": [], \"otherIllnesses\": [], \"suspectedDiagnosis\": \"loose stools\", \"suspectedCancerType\": \"colorectal\", \"gpQuestion\": \"2WW colorectal referral\", \"urgency\": \"urgent_2_week\", \"referralDate\": \"2026-03-14\", \"referringGpId\": \"GP-052\", \"bowelHabitChange\": true, \"rectalBleeding\": false, \"abdominalMass\": false, \"ironDeficiencyAnaemia\": false, \"fitDone\": false, \"rectalExamResult\": \"not_done\"}, \"evidence\": {\"mainSymptom\": \"c/o loose stools\", \"symptomDurationWeeks\": \"2 weeks\", \"symptomVisitCount\": \"first visit for this issue\", \"examFindings\": \"abdo soft non-tender; no abdo mass\", \"gpQuestion\": \"2WW colorectal referral\", \"urgency\": \"2WW colorectal referral\", \"bowelHabitChange\": \"loose stools\", \"rectalBleeding\": \"no bleeding\", \"abdominalMass\": \"no abdo mass\"}}"
+    },
+    {
+      "id": "eval-colorectal-fi-003",
+      "cancer": "colorectal",
+      "language": "fi",
+      "kind": "cancer",
+      "json_valid": true,
+      "format_miss": false,
+      "schema_valid": true,
+      "schema_errors": [],
+      "field_scores": {
+        "abdominalMass": {
+          "correct": true,
+          "present": true
+        },
+        "age": {
+          "correct": true,
+          "present": true
+        },
+        "bowelHabitChange": {
+          "correct": true,
+          "present": true
+        },
+        "currentMedicines": {
+          "correct": false,
+          "present": true
+        },
+        "examFindings": {
+          "correct": true,
+          "present": true
+        },
+        "fitDone": {
+          "correct": true,
+          "present": true
+        },
+        "fitValueUgHbPerG": {
+          "correct": true,
+          "present": true
+        },
+        "generalCondition": {
+          "correct": true,
+          "present": true
+        },
+        "gpQuestion": {
+          "correct": true,
+          "present": true
+        },
+        "haemoglobinGPerL": {
+          "correct": true,
+          "present": false
+        },
+        "ironDeficiencyAnaemia": {
+          "correct": true,
+          "present": true
+        },
+        "mainSymptom": {
+          "correct": true,
+          "present": true
+        },
+        "matchedRuleIds": {
+          "correct": true,
+          "present": false
+        },
+        "otherIllnesses": {
+          "correct": false,
+          "present": true
+        },
+        "packYears": {
+          "correct": true,
+          "present": false
+        },
+        "patientId": {
+          "correct": true,
+          "present": true
+        },
+        "priorCancer": {
+          "correct": true,
+          "present": false
+        },
+        "rectalBleeding": {
+          "correct": true,
+          "present": true
+        },
+        "rectalExamResult": {
+          "correct": true,
+          "present": true
+        },
+        "referralDate": {
+          "correct": true,
+          "present": true
+        },
+        "referringGpId": {
+          "correct": true,
+          "present": true
+        },
+        "riskGradientAiEstimate": {
+          "correct": true,
+          "present": false
+        },
+        "sex": {
+          "correct": true,
+          "present": true
+        },
+        "smokingStatus": {
+          "correct": true,
+          "present": true
+        },
+        "suspectedCancerType": {
+          "correct": true,
+          "present": true
+        },
+        "suspectedDiagnosis": {
+          "correct": false,
+          "present": true
+        },
+        "symptomDurationWeeks": {
+          "correct": true,
+          "present": true
+        },
+        "symptomVisitCount": {
+          "correct": false,
+          "present": true
+        },
+        "testsDone": {
+          "correct": true,
+          "present": true
+        },
+        "urgency": {
+          "correct": true,
+          "present": true
+        },
+        "weightLossKg": {
+          "correct": true,
+          "present": false
+        }
+      },
+      "evidence_total": 12,
+      "evidence_grounded": 11,
+      "latency_s": 7.242845658998704,
+      "attempts": 1,
+      "usage": {
+        "prompt_tokens": 957,
+        "completion_tokens": 491,
+        "total_tokens": 1448
+      },
+      "error": "",
+      "parse_problem": "",
+      "raw_reply": "{\"fields\": {\"patientId\": \"SYN-512\", \"age\": 64, \"sex\": \"female\", \"smokingStatus\": \"unknown\", \"mainSymptom\": \"suolen toiminnan muutos\", \"symptomDurationWeeks\": 12, \"symptomVisitCount\": null, \"examFindings\": \"vatsa pehmeä, ei aristusta, ei palpoitavia massoja\", \"generalCondition\": \"yleistila hyvä\", \"testsDone\": [{\"name\": \"FIT\", \"result\": \"186 µg Hb/g\"}], \"currentMedicines\": [], \"otherIllnesses\": [], \"suspectedDiagnosis\": \"kolorektaalisyöpää\", \"suspectedCancerType\": \"colorectal\", \"gpQuestion\": \"pyydetään kiireellistä tähystystä\", \"urgency\": \"urgent_2_week\", \"referralDate\": \"2026-09-05\", \"referringGpId\": \"GP-038\", \"bowelHabitChange\": true, \"rectalBleeding\": true, \"abdominalMass\": false, \"ironDeficiencyAnaemia\": null, \"fitDone\": true, \"fitValueUgHbPerG\": 186, \"rectalExamResult\": \"not_done\"}, \"evidence\": {\"mainSymptom\": \"suolen toiminnan muutos\", \"symptomDurationWeeks\": \"n. 12 vk\", \"examFindings\": \"vatsa pehmeä, ei aristusta, ei palpoitavia massoja\", \"generalCondition\": \"yleistila hyvä\", \"testsDone\": [{\"name\": \"FIT\", \"result\": \"FIT 186 µg Hb/g\"}], \"suspectedDiagnosis\": \"epäillään kolorektaalisyöpää\", \"gpQuestion\": \"pyydetään kiireellistä tähystystä\", \"bowelHabitChange\": \"suolen toiminnan muutos\", \"rectalBleeding\": \"kirkasta verta ulostamisen yhteydessä\", \"abdominalMass\": \"ei palpoitavia massoja\", \"fitDone\": \"FIT 186 µg Hb/g\", \"fitValueUgHbPerG\": \"186 µg Hb/g\"}}"
+    },
+    {
+      "id": "eval-lung-ctrl-fi-001",
+      "cancer": "lung",
+      "language": "fi",
+      "kind": "control",
+      "json_valid": true,
+      "format_miss": false,
+      "schema_valid": false,
+      "schema_errors": [
+        "(root): 'currentMedicines' is a required property",
+        "(root): 'otherIllnesses' is a required property",
+        "(root): 'suspectedCancerType' is a required property",
+        "(root): 'urgency' is a required property"
+      ],
+      "field_scores": {
+        "age": {
+          "correct": true,
+          "present": true
+        },
+        "asbestosExposure": {
+          "correct": true,
+          "present": false
+        },
+        "chestXrayDate": {
+          "correct": true,
+          "present": false
+        },
+        "chestXrayFindings": {
+          "correct": false,
+          "present": true
+        },
+        "chestXrayResult": {
+          "correct": true,
+          "present": true
+        },
+        "currentMedicines": {
+          "correct": false,
+          "present": true
+        },
+        "examFindings": {
+          "correct": false,
+          "present": true
+        },
+        "generalCondition": {
+          "correct": false,
+          "present": true
+        },
+        "gpQuestion": {
+          "correct": false,
+          "present": true
+        },
+        "haemoptysis": {
+          "correct": true,
+          "present": true
+        },
+        "lungSymptoms": {
+          "correct": true,
+          "present": true
+        },
+        "mainSymptom": {
+          "correct": true,
+          "present": true
+        },
+        "matchedRuleIds": {
+          "correct": true,
+          "present": false
+        },
+        "otherIllnesses": {
+          "correct": false,
+          "present": true
+        },
+        "packYears": {
+          "correct": true,
+          "present": false
+        },
+        "patientId": {
+          "correct": true,
+          "present": true
+        },
+        "priorCancer": {
+          "correct": true,
+          "present": false
+        },
+        "referralDate": {
+          "correct": true,
+          "present": true
+        },
+        "referringGpId": {
+          "correct": true,
+          "present": true
+        },
+        "riskGradientAiEstimate": {
+          "correct": true,
+          "present": false
+        },
+        "sex": {
+          "correct": true,
+          "present": true
+        },
+        "smokingStatus": {
+          "correct": true,
+          "present": true
+        },
+        "suspectedCancerType": {
+          "correct": false,
+          "present": true
+        },
+        "suspectedDiagnosis": {
+          "correct": true,
+          "present": true
+        },
+        "symptomDurationWeeks": {
+          "correct": true,
+          "present": true
+        },
+        "symptomVisitCount": {
+          "correct": true,
+          "present": true
+        },
+        "testsDone": {
+          "correct": false,
+          "present": true
+        },
+        "urgency": {
+          "correct": false,
+          "present": true
+        },
+        "weightLossKg": {
+          "correct": true,
+          "present": false
+        }
+      },
+      "evidence_total": 14,
+      "evidence_grounded": 11,
+      "latency_s": 5.830236573994625,
+      "attempts": 1,
+      "usage": {
+        "prompt_tokens": 1066,
+        "completion_tokens": 423,
+        "total_tokens": 1489
+      },
+      "error": "",
+      "parse_problem": "",
+      "raw_reply": "{\"fields\":{\"patientId\":\"SYN-509\",\"age\":34,\"sex\":\"male\",\"smokingStatus\":\"never\",\"mainSymptom\":\"Yskä\",\"symptomDurationWeeks\":3,\"symptomVisitCount\":1,\"examFindings\":\"keuhkot puhtaat eikä sivuääniä, sydänäänet normaalit ja tasaiset\",\"generalCondition\":\"yleistila hyvä\",\"testsDone\":[{\"name\":\"keuhkoröntgen\",\"result\":\"keuhkot ovat puhtaat ilman tuoreita infiltraatteja tai keuhkokuumeeseen viittaavaa\"}],\"suspectedDiagnosis\":\"akuutti bronkiitti\",\"gpQuestion\":\"lähete tehdään varmuuden vuoksi jatkoarviota varten\",\"referralDate\":\"2026-06-13\",\"referringGpId\":\"GP-011\",\"lungSymptoms\":[\"cough\"],\"haemoptysis\":false,\"chestXrayResult\":\"normal\"},\"evidence\":{\"patientId\":\"SYN-509\",\"age\":\"34-vuotias\",\"sex\":\"mies\",\"smokingStatus\":\"Potilas ei tupakoi eikä ole koskaan tupakoinut\",\"mainSymptom\":\"Yskä\",\"symptomDurationWeeks\":\"kolme viikkoa\",\"examFindings\":\"keuhkot puhtaat eikä sivuääniä, sydänäänet normaalit ja tasaiset\",\"generalCondition\":\"yleistila hyvä\",\"testsDone\":[{\"name\":\"keuhkoröntgen\",\"result\":\"keuhkot ovat puhtaat ilman tuoreita infiltraatteja tai keuhkokuumeeseen viittaavaa\"}],\"suspectedDiagnosis\":\"Diagnoosina akuutti bronkiitti\",\"gpQuestion\":\"lähete tehdään varmuuden vuoksi jatkoarviota varten\",\"lungSymptoms\":[\"Yskä\"],\"haemoptysis\":\"Ei veriyskää\",\"chestXrayResult\":\"keuhkot ovat puhtaat ilman tuoreita infiltraatteja tai keuhkokuumeeseen viittaavaa\"}}"
+    },
+    {
+      "id": "eval-colorectal-en-002",
+      "cancer": "colorectal",
+      "language": "en",
+      "kind": "cancer",
+      "json_valid": true,
+      "format_miss": false,
+      "schema_valid": false,
+      "schema_errors": [
+        "(root): 'symptomVisitCount' is a required property",
+        "(root): 'testsDone' is a required property"
+      ],
+      "field_scores": {
+        "abdominalMass": {
+          "correct": true,
+          "present": true
+        },
+        "age": {
+          "correct": true,
+          "present": true
+        },
+        "bowelHabitChange": {
+          "correct": true,
+          "present": true
+        },
+        "currentMedicines": {
+          "correct": true,
+          "present": true
+        },
+        "examFindings": {
+          "correct": true,
+          "present": true
+        },
+        "fitDone": {
+          "correct": true,
+          "present": true
+        },
+        "fitValueUgHbPerG": {
+          "correct": true,
+          "present": false
+        },
+        "generalCondition": {
+          "correct": true,
+          "present": true
+        },
+        "gpQuestion": {
+          "correct": true,
+          "present": true
+        },
+        "haemoglobinGPerL": {
+          "correct": true,
+          "present": true
+        },
+        "ironDeficiencyAnaemia": {
+          "correct": true,
+          "present": true
+        },
+        "mainSymptom": {
+          "correct": true,
+          "present": true
+        },
+        "matchedRuleIds": {
+          "correct": true,
+          "present": false
+        },
+        "otherIllnesses": {
+          "correct": true,
+          "present": true
+        },
+        "packYears": {
+          "correct": true,
+          "present": false
+        },
+        "patientId": {
+          "correct": true,
+          "present": true
+        },
+        "priorCancer": {
+          "correct": true,
+          "present": false
+        },
+        "rectalBleeding": {
+          "correct": true,
+          "present": true
+        },
+        "rectalExamResult": {
+          "correct": true,
+          "present": true
+        },
+        "referralDate": {
+          "correct": true,
+          "present": true
+        },
+        "referringGpId": {
+          "correct": true,
+          "present": true
+        },
+        "riskGradientAiEstimate": {
+          "correct": true,
+          "present": false
+        },
+        "sex": {
+          "correct": true,
+          "present": true
+        },
+        "smokingStatus": {
+          "correct": true,
+          "present": true
+        },
+        "suspectedCancerType": {
+          "correct": true,
+          "present": true
+        },
+        "suspectedDiagnosis": {
+          "correct": false,
+          "present": true
+        },
+        "symptomDurationWeeks": {
+          "correct": true,
+          "present": true
+        },
+        "symptomVisitCount": {
+          "correct": false,
+          "present": true
+        },
+        "testsDone": {
+          "correct": false,
+          "present": true
+        },
+        "urgency": {
+          "correct": true,
+          "present": true
+        },
+        "weightLossKg": {
+          "correct": true,
+          "present": true
+        }
+      },
+      "evidence_total": 17,
+      "evidence_grounded": 15,
+      "latency_s": 7.868710636015749,
+      "attempts": 1,
+      "usage": {
+        "prompt_tokens": 1168,
+        "completion_tokens": 500,
+        "total_tokens": 1668
+      },
+      "error": "",
+      "parse_problem": "",
+      "raw_reply": "{\"fields\": {\"patientId\": \"SYN-511\", \"age\": 74, \"sex\": \"male\", \"smokingStatus\": \"former\", \"mainSymptom\": \"unintentional weight loss and significant fatigue\", \"symptomDurationWeeks\": 12, \"examFindings\": \"abdomen soft, non-tender, no palpable masses; rectal examination not done\", \"generalCondition\": \"good performance status, looks well\", \"weightLossKg\": 6, \"currentMedicines\": [\"Ramipril 5mg OD\"], \"otherIllnesses\": [\"hypertension\"], \"suspectedDiagnosis\": \"underlying malignancy\", \"suspectedCancerType\": \"colorectal\", \"gpQuestion\": \"Please kindly investigate for underlying malignancy given IDA and weight loss.\", \"urgency\": \"urgent_2_week\", \"referralDate\": \"2026-07-14\", \"referringGpId\": \"GP-058\", \"bowelHabitChange\": false, \"rectalBleeding\": false, \"abdominalMass\": false, \"ironDeficiencyAnaemia\": true, \"haemoglobinGPerL\": 98, \"fitDone\": false, \"rectalExamResult\": \"not_done\"}, \"evidence\": {\"mainSymptom\": \"unintentional weight loss and significant fatigue\", \"symptomDurationWeeks\": \"over the past 12 weeks\", \"examFindings\": \"abdomen soft, non-tender, no palpable masses; rectal examination not done\", \"generalCondition\": \"good performance status, looks well\", \"weightLossKg\": \"dropped nearly six kilos\", \"currentMedicines\": [\"Ramipril 5mg OD\"], \"otherIllnesses\": [\"Hx of hypertension\"], \"suspectedDiagnosis\": \"underlying malignancy\", \"gpQuestion\": \"Please kindly investigate for underlying malignancy given IDA and weight loss.\", \"urgency\": \"Raising 2WW suspected-cancer referral\", \"bowelHabitChange\": \"No change in bowel habit\", \"rectalBleeding\": \"no rectal bleeding\", \"abdominalMass\": \"no palpable masses\", \"ironDeficiencyAnaemia\": \"Recent bloods show iron-deficiency anaemia\", \"haemoglobinGPerL\": \"Hb 98 g/l\", \"fitDone\": \"FIT test not done\", \"rectalExamResult\": \"rectal examination not done\"}}"
+    },
+    {
+      "id": "eval-colorectal-en-001",
+      "cancer": "colorectal",
+      "language": "en",
+      "kind": "cancer",
+      "json_valid": true,
+      "format_miss": false,
+      "schema_valid": true,
+      "schema_errors": [],
+      "field_scores": {
+        "abdominalMass": {
+          "correct": true,
+          "present": true
+        },
+        "age": {
+          "correct": true,
+          "present": true
+        },
+        "bowelHabitChange": {
+          "correct": true,
+          "present": true
+        },
+        "currentMedicines": {
+          "correct": true,
+          "present": true
+        },
+        "examFindings": {
+          "correct": true,
+          "present": true
+        },
+        "fitDone": {
+          "correct": true,
+          "present": true
+        },
+        "fitValueUgHbPerG": {
+          "correct": true,
+          "present": false
+        },
+        "generalCondition": {
+          "correct": false,
+          "present": true
+        },
+        "gpQuestion": {
+          "correct": false,
+          "present": true
+        },
+        "haemoglobinGPerL": {
+          "correct": true,
+          "present": true
+        },
+        "ironDeficiencyAnaemia": {
+          "correct": true,
+          "present": true
+        },
+        "mainSymptom": {
+          "correct": true,
+          "present": true
+        },
+        "matchedRuleIds": {
+          "correct": true,
+          "present": false
+        },
+        "otherIllnesses": {
+          "correct": false,
+          "present": true
+        },
+        "packYears": {
+          "correct": true,
+          "present": false
+        },
+        "patientId": {
+          "correct": true,
+          "present": true
+        },
+        "priorCancer": {
+          "correct": true,
+          "present": false
+        },
+        "rectalBleeding": {
+          "correct": true,
+          "present": true
+        },
+        "rectalExamResult": {
+          "correct": true,
+          "present": true
+        },
+        "referralDate": {
+          "correct": true,
+          "present": true
+        },
+        "referringGpId": {
+          "correct": true,
+          "present": true
+        },
+        "riskGradientAiEstimate": {
+          "correct": true,
+          "present": false
+        },
+        "sex": {
+          "correct": true,
+          "present": true
+        },
+        "smokingStatus": {
+          "correct": false,
+          "present": true
+        },
+        "suspectedCancerType": {
+          "correct": true,
+          "present": true
+        },
+        "suspectedDiagnosis": {
+          "correct": true,
+          "present": true
+        },
+        "symptomDurationWeeks": {
+          "correct": true,
+          "present": true
+        },
+        "symptomVisitCount": {
+          "correct": true,
+          "present": true
+        },
+        "testsDone": {
+          "correct": true,
+          "present": true
+        },
+        "urgency": {
+          "correct": true,
+          "present": true
+        },
+        "weightLossKg": {
+          "correct": true,
+          "present": true
+        }
+      },
+      "evidence_total": 10,
+      "evidence_grounded": 9,
+      "latency_s": 4.266127434006194,
+      "attempts": 1,
+      "usage": {
+        "prompt_tokens": 1163,
+        "completion_tokens": 354,
+        "total_tokens": 1517
+      },
+      "error": "",
+      "parse_problem": "",
+      "raw_reply": "{\"fields\":{\"patientId\":\"SYN-510\",\"age\":60,\"sex\":\"male\",\"smokingStatus\":\"unknown\",\"mainSymptom\":\"change in bowel habit\",\"symptomDurationWeeks\":12,\"symptomVisitCount\":4,\"examFindings\":\"abdomen soft, non-tender, no palpable mass\",\"generalCondition\":null,\"weightLossKg\":4,\"testsDone\":[{\"name\":\"FBC Hb\",\"result\":\"125 g/l\"},{\"name\":\"CRP\",\"result\":\"3 mg/l\"}],\"currentMedicines\":[],\"otherIllnesses\":[],\"suspectedDiagnosis\":\"suspected colorectal cancer\",\"suspectedCancerType\":\"colorectal\",\"gpQuestion\":null,\"urgency\":\"urgent_2_week\",\"referralDate\":\"2026-07-16\",\"referringGpId\":\"GP-006\",\"bowelHabitChange\":true,\"rectalBleeding\":false,\"abdominalMass\":false,\"ironDeficiencyAnaemia\":false,\"haemoglobinGPerL\":125,\"fitDone\":false,\"rectalExamResult\":\"not_done\"},\"evidence\":{\"mainSymptom\":\"change in bowel habit\",\"symptomDurationWeeks\":\"12 weeks\",\"symptomVisitCount\":\"Initial consultation... Return visit... Follow-up... 2WW referral\",\"examFindings\":\"abdomen soft, non-tender, no palpable mass\",\"weightLossKg\":\"Weight loss: about 4 kg\",\"suspectedDiagnosis\":\"suspected colorectal cancer\",\"urgency\":\"2WW referral\",\"bowelHabitChange\":\"change in bowel habit\",\"rectalExamResult\":\"Rectal exam: not done\",\"haemoglobinGPerL\":\"Hb 125 g/l\"}}"
+    },
+    {
+      "id": "eval-colorectal-en-006",
+      "cancer": "colorectal",
+      "language": "en",
+      "kind": "cancer",
+      "json_valid": true,
+      "format_miss": false,
+      "schema_valid": true,
+      "schema_errors": [],
+      "field_scores": {
+        "abdominalMass": {
+          "correct": true,
+          "present": true
+        },
+        "age": {
+          "correct": true,
+          "present": true
+        },
+        "bowelHabitChange": {
+          "correct": true,
+          "present": true
+        },
+        "currentMedicines": {
+          "correct": true,
+          "present": true
+        },
+        "examFindings": {
+          "correct": false,
+          "present": true
+        },
+        "fitDone": {
+          "correct": true,
+          "present": true
+        },
+        "fitValueUgHbPerG": {
+          "correct": true,
+          "present": true
+        },
+        "generalCondition": {
+          "correct": false,
+          "present": true
+        },
+        "gpQuestion": {
+          "correct": false,
+          "present": true
+        },
+        "haemoglobinGPerL": {
+          "correct": true,
+          "present": false
+        },
+        "ironDeficiencyAnaemia": {
+          "correct": true,
+          "present": true
+        },
+        "mainSymptom": {
+          "correct": true,
+          "present": true
+        },
+        "matchedRuleIds": {
+          "correct": true,
+          "present": false
+        },
+        "otherIllnesses": {
+          "correct": true,
+          "present": true
+        },
+        "packYears": {
+          "correct": true,
+          "present": true
+        },
+        "patientId": {
+          "correct": true,
+          "present": true
+        },
+        "priorCancer": {
+          "correct": true,
+          "present": false
+        },
+        "rectalBleeding": {
+          "correct": true,
+          "present": true
+        },
+        "rectalExamResult": {
+          "correct": true,
+          "present": true
+        },
+        "referralDate": {
+          "correct": true,
+          "present": true
+        },
+        "referringGpId": {
+          "correct": true,
+          "present": true
+        },
+        "riskGradientAiEstimate": {
+          "correct": true,
+          "present": false
+        },
+        "sex": {
+          "correct": true,
+          "present": true
+        },
+        "smokingStatus": {
+          "correct": false,
+          "present": true
+        },
+        "suspectedCancerType": {
+          "correct": true,
+          "present": true
+        },
+        "suspectedDiagnosis": {
+          "correct": false,
+          "present": true
+        },
+        "symptomDurationWeeks": {
+          "correct": true,
+          "present": true
+        },
+        "symptomVisitCount": {
+          "correct": true,
+          "present": true
+        },
+        "testsDone": {
+          "correct": false,
+          "present": true
+        },
+        "urgency": {
+          "correct": true,
+          "present": true
+        },
+        "weightLossKg": {
+          "correct": true,
+          "present": true
+        }
+      },
+      "evidence_total": 21,
+      "evidence_grounded": 20,
+      "latency_s": 9.297137749003014,
+      "attempts": 1,
+      "usage": {
+        "prompt_tokens": 1157,
+        "completion_tokens": 633,
+        "total_tokens": 1790
+      },
+      "error": "",
+      "parse_problem": "",
+      "raw_reply": "{\"fields\": {\"patientId\": \"SYN-515\", \"age\": 77, \"sex\": \"male\", \"smokingStatus\": \"current\", \"packYears\": 15.0, \"mainSymptom\": \"change in bowel habit\", \"symptomDurationWeeks\": 12, \"symptomVisitCount\": 2, \"examFindings\": \"abdo soft non-tender no masses; rectal exam normal\", \"generalCondition\": \"feels fatigued\", \"weightLossKg\": 4.0, \"testsDone\": [{\"name\": \"FIT\", \"date\": \"2026-07-23\", \"result\": \"12 ug Hb/g\"}, {\"name\": \"FBC\", \"date\": \"2026-06-26\", \"result\": \"no anaemia\"}], \"currentMedicines\": [\"ramipril 5mg od\"], \"otherIllnesses\": [\"hypertension\"], \"suspectedDiagnosis\": \"colorectal cancer\", \"suspectedCancerType\": \"colorectal\", \"gpQuestion\": \"ref for 2WW colorectal cancer pathway\", \"urgency\": \"urgent_2_week\", \"referralDate\": \"2026-07-23\", \"referringGpId\": \"GP-013\", \"bowelHabitChange\": true, \"rectalBleeding\": false, \"abdominalMass\": false, \"ironDeficiencyAnaemia\": false, \"fitDone\": true, \"fitValueUgHbPerG\": 12.0, \"rectalExamResult\": \"normal\"}, \"evidence\": {\"smokingStatus\": \"10 a day for 30 years\", \"packYears\": \"10 a day for 30 years\", \"mainSymptom\": \"change in bowel habit\", \"symptomDurationWeeks\": \"12 weeks\", \"symptomVisitCount\": \"2\", \"examFindings\": \"o/e abdo soft non-tender no masses; rectal exam normal\", \"generalCondition\": \"feels fatigued\", \"weightLossKg\": \"weight loss about 4 kg\", \"testsDone\": [{\"name\": \"FIT\", \"result\": \"FIT test done result 12 ug Hb/g\"}, {\"name\": \"FBC\", \"result\": \"bloods show no anaemia\"}], \"currentMedicines\": \"current meds ramipril 5mg od\", \"otherIllnesses\": \"PMH hypertension\", \"suspectedDiagnosis\": \"colorectal cancer\", \"gpQuestion\": \"ref for 2WW colorectal cancer pathway\", \"urgency\": \"2WW\", \"bowelHabitChange\": \"change in bowel habit\", \"rectalBleeding\": \"no rectal bleeding\", \"abdominalMass\": \"no masses\", \"ironDeficiencyAnaemia\": \"no anaemia\", \"fitDone\": \"FIT test done\", \"fitValueUgHbPerG\": \"12 ug Hb/g\", \"rectalExamResult\": \"rectal exam normal\"}}"
+    },
+    {
+      "id": "eval-colorectal-en-005",
+      "cancer": "colorectal",
+      "language": "en",
+      "kind": "cancer",
+      "json_valid": true,
+      "format_miss": false,
+      "schema_valid": true,
+      "schema_errors": [],
+      "field_scores": {
+        "abdominalMass": {
+          "correct": true,
+          "present": true
+        },
+        "age": {
+          "correct": true,
+          "present": true
+        },
+        "bowelHabitChange": {
+          "correct": true,
+          "present": true
+        },
+        "currentMedicines": {
+          "correct": true,
+          "present": true
+        },
+        "examFindings": {
+          "correct": false,
+          "present": true
+        },
+        "fitDone": {
+          "correct": true,
+          "present": true
+        },
+        "fitValueUgHbPerG": {
+          "correct": true,
+          "present": false
+        },
+        "generalCondition": {
+          "correct": false,
+          "present": true
+        },
+        "gpQuestion": {
+          "correct": false,
+          "present": true
+        },
+        "haemoglobinGPerL": {
+          "correct": true,
+          "present": false
+        },
+        "ironDeficiencyAnaemia": {
+          "correct": true,
+          "present": true
+        },
+        "mainSymptom": {
+          "correct": false,
+          "present": true
+        },
+        "matchedRuleIds": {
+          "correct": true,
+          "present": false
+        },
+        "otherIllnesses": {
+          "correct": true,
+          "present": true
+        },
+        "packYears": {
+          "correct": true,
+          "present": false
+        },
+        "patientId": {
+          "correct": true,
+          "present": true
+        },
+        "priorCancer": {
+          "correct": true,
+          "present": false
+        },
+        "rectalBleeding": {
+          "correct": true,
+          "present": true
+        },
+        "rectalExamResult": {
+          "correct": true,
+          "present": true
+        },
+        "referralDate": {
+          "correct": true,
+          "present": true
+        },
+        "referringGpId": {
+          "correct": true,
+          "present": true
+        },
+        "riskGradientAiEstimate": {
+          "correct": true,
+          "present": false
+        },
+        "sex": {
+          "correct": true,
+          "present": true
+        },
+        "smokingStatus": {
+          "correct": false,
+          "present": true
+        },
+        "suspectedCancerType": {
+          "correct": true,
+          "present": true
+        },
+        "suspectedDiagnosis": {
+          "correct": false,
+          "present": true
+        },
+        "symptomDurationWeeks": {
+          "correct": true,
+          "present": true
+        },
+        "symptomVisitCount": {
+          "correct": true,
+          "present": true
+        },
+        "testsDone": {
+          "correct": false,
+          "present": true
+        },
+        "urgency": {
+          "correct": true,
+          "present": true
+        },
+        "weightLossKg": {
+          "correct": true,
+          "present": true
+        }
+      },
+      "evidence_total": 16,
+      "evidence_grounded": 14,
+      "latency_s": 8.137132730014855,
+      "attempts": 1,
+      "usage": {
+        "prompt_tokens": 1231,
+        "completion_tokens": 491,
+        "total_tokens": 1722
+      },
+      "error": "",
+      "parse_problem": "",
+      "raw_reply": "{\"fields\": {\"patientId\": \"SYN-514\", \"age\": 64, \"sex\": \"female\", \"smokingStatus\": \"unknown\", \"mainSymptom\": \"ongoing change in bowel habit\", \"symptomDurationWeeks\": 12, \"symptomVisitCount\": 3, \"examFindings\": \"abdo soft non-tender; no masses felt; rectal exam not done\", \"generalCondition\": \"feels fatigued\", \"weightLossKg\": 4.5, \"testsDone\": [{\"name\": \"FBC\", \"date\": \"2026-03-01\", \"result\": \"no anaemia\"}], \"currentMedicines\": [], \"otherIllnesses\": [\"hypertension\"], \"suspectedDiagnosis\": \"colorectal cancer\", \"suspectedCancerType\": \"colorectal\", \"gpQuestion\": \"complete 2WW colorectal cancer referral today\", \"urgency\": \"urgent_2_week\", \"referralDate\": \"2026-04-09\", \"referringGpId\": \"GP-014\", \"bowelHabitChange\": true, \"rectalBleeding\": false, \"abdominalMass\": false, \"ironDeficiencyAnaemia\": false, \"fitDone\": false, \"rectalExamResult\": \"not_done\"}, \"evidence\": {\"mainSymptom\": \"ongoing change in bowel habit\", \"symptomDurationWeeks\": \"12 weeks\", \"symptomVisitCount\": \"return visit\", \"examFindings\": \"abdo soft non-tender; no masses felt; rectal exam not done\", \"generalCondition\": \"feels fatigued\", \"weightLossKg\": \"weight loss noted around 4,5 kg\", \"testsDone\": [{\"name\": \"FBC\", \"result\": \"bloods checked previously show no anaemia\"}], \"otherIllnesses\": [\"Hx hypertension\"], \"suspectedDiagnosis\": \"colorectal cancer referral\", \"gpQuestion\": \"complete 2WW colorectal cancer referral today\", \"urgency\": \"2WW\", \"bowelHabitChange\": \"change in bowel habit\", \"rectalBleeding\": \"no rectal bleeding\", \"abdominalMass\": \"no masses felt\", \"ironDeficiencyAnaemia\": \"no anaemia\", \"rectalExamResult\": \"rectal exam not done\"}}"
+    },
+    {
+      "id": "eval-colorectal-en-007",
+      "cancer": "colorectal",
+      "language": "en",
+      "kind": "cancer",
+      "json_valid": true,
+      "format_miss": false,
+      "schema_valid": true,
+      "schema_errors": [],
+      "field_scores": {
+        "abdominalMass": {
+          "correct": true,
+          "present": true
+        },
+        "age": {
+          "correct": true,
+          "present": true
+        },
+        "bowelHabitChange": {
+          "correct": true,
+          "present": true
+        },
+        "currentMedicines": {
+          "correct": true,
+          "present": true
+        },
+        "examFindings": {
+          "correct": false,
+          "present": true
+        },
+        "fitDone": {
+          "correct": true,
+          "present": true
+        },
+        "fitValueUgHbPerG": {
+          "correct": true,
+          "present": false
+        },
+        "generalCondition": {
+          "correct": false,
+          "present": true
+        },
+        "gpQuestion": {
+          "correct": false,
+          "present": true
+        },
+        "haemoglobinGPerL": {
+          "correct": true,
+          "present": true
+        },
+        "ironDeficiencyAnaemia": {
+          "correct": true,
+          "present": true
+        },
+        "mainSymptom": {
+          "correct": false,
+          "present": true
+        },
+        "matchedRuleIds": {
+          "correct": true,
+          "present": false
+        },
+        "otherIllnesses": {
+          "correct": true,
+          "present": true
+        },
+        "packYears": {
+          "correct": true,
+          "present": false
+        },
+        "patientId": {
+          "correct": true,
+          "present": true
+        },
+        "priorCancer": {
+          "correct": true,
+          "present": false
+        },
+        "rectalBleeding": {
+          "correct": true,
+          "present": true
+        },
+        "rectalExamResult": {
+          "correct": true,
+          "present": true
+        },
+        "referralDate": {
+          "correct": true,
+          "present": true
+        },
+        "referringGpId": {
+          "correct": true,
+          "present": true
+        },
+        "riskGradientAiEstimate": {
+          "correct": true,
+          "present": false
+        },
+        "sex": {
+          "correct": true,
+          "present": true
+        },
+        "smokingStatus": {
+          "correct": false,
+          "present": true
+        },
+        "suspectedCancerType": {
+          "correct": true,
+          "present": true
+        },
+        "suspectedDiagnosis": {
+          "correct": false,
+          "present": true
+        },
+        "symptomDurationWeeks": {
+          "correct": false,
+          "present": true
+        },
+        "symptomVisitCount": {
+          "correct": false,
+          "present": true
+        },
+        "testsDone": {
+          "correct": false,
+          "present": true
+        },
+        "urgency": {
+          "correct": true,
+          "present": true
+        },
+        "weightLossKg": {
+          "correct": true,
+          "present": true
+        }
+      },
+      "evidence_total": 12,
+      "evidence_grounded": 10,
+      "latency_s": 8.528852314018877,
+      "attempts": 1,
+      "usage": {
+        "prompt_tokens": 1216,
+        "completion_tokens": 498,
+        "total_tokens": 1714
+      },
+      "error": "",
+      "parse_problem": "",
+      "raw_reply": "{\"fields\": {\"patientId\": \"SYN-516\", \"age\": 67, \"sex\": \"male\", \"smokingStatus\": \"unknown\", \"mainSymptom\": \"ongoing fatigue and noticeable weight loss\", \"symptomDurationWeeks\": null, \"symptomVisitCount\": null, \"examFindings\": \"abdo soft, no mass palpable; rectal exam NAD\", \"generalCondition\": null, \"weightLossKg\": 4, \"testsDone\": [{\"name\": \"Hb\", \"date\": \"2025-09-25\", \"result\": \"10.9 g/dl\"}, {\"name\": \"ferritin\", \"date\": \"2025-09-25\", \"result\": \"low\"}], \"currentMedicines\": [], \"otherIllnesses\": [\"hypertension\"], \"suspectedDiagnosis\": \"persistent IDA\", \"suspectedCancerType\": \"colorectal\", \"gpQuestion\": null, \"urgency\": \"urgent_2_week\", \"referralDate\": \"2026-02-14\", \"referringGpId\": \"GP-041\", \"bowelHabitChange\": false, \"rectalBleeding\": false, \"abdominalMass\": false, \"ironDeficiencyAnaemia\": true, \"haemoglobinGPerL\": 109, \"fitDone\": false, \"rectalExamResult\": \"normal\"}, \"evidence\": {\"mainSymptom\": \"c/o ongoing fatigue and noticeable weight loss\", \"examFindings\": \"abdo soft, no mass palpable; rectal exam NAD\", \"weightLossKg\": \"4 kg unintentional weight loss\", \"testsDone\": [{\"name\": \"Hb\", \"result\": \"Hb 10.9 g/dl\"}, {\"name\": \"ferritin\", \"result\": \"ferritin low\"}], \"otherIllnesses\": [\"Hx hypertension\"], \"suspectedDiagnosis\": \"review of persistent IDA\", \"urgency\": \"2WW colorectal cancer referral generated\", \"bowelHabitChange\": \"no bowel habit change\", \"rectalBleeding\": \"no rectal bleeding\", \"abdominalMass\": \"no mass palpable\", \"ironDeficiencyAnaemia\": \"persistent low Hb 10.9 g/dl and low ferritin\", \"rectalExamResult\": \"rectal exam NAD\"}}"
+    },
+    {
+      "id": "eval-colorectal-ctrl-en-001",
+      "cancer": "colorectal",
+      "language": "en",
+      "kind": "control",
+      "json_valid": true,
+      "format_miss": false,
+      "schema_valid": true,
+      "schema_errors": [],
+      "field_scores": {
+        "abdominalMass": {
+          "correct": true,
+          "present": true
+        },
+        "age": {
+          "correct": true,
+          "present": true
+        },
+        "bowelHabitChange": {
+          "correct": true,
+          "present": true
+        },
+        "currentMedicines": {
+          "correct": true,
+          "present": true
+        },
+        "examFindings": {
+          "correct": false,
+          "present": true
+        },
+        "fitDone": {
+          "correct": true,
+          "present": true
+        },
+        "fitValueUgHbPerG": {
+          "correct": true,
+          "present": false
+        },
+        "generalCondition": {
+          "correct": false,
+          "present": true
+        },
+        "gpQuestion": {
+          "correct": false,
+          "present": true
+        },
+        "haemoglobinGPerL": {
+          "correct": true,
+          "present": false
+        },
+        "ironDeficiencyAnaemia": {
+          "correct": true,
+          "present": true
+        },
+        "mainSymptom": {
+          "correct": false,
+          "present": true
+        },
+        "matchedRuleIds": {
+          "correct": true,
+          "present": false
+        },
+        "otherIllnesses": {
+          "correct": false,
+          "present": true
+        },
+        "packYears": {
+          "correct": true,
+          "present": false
+        },
+        "patientId": {
+          "correct": true,
+          "present": true
+        },
+        "priorCancer": {
+          "correct": true,
+          "present": false
+        },
+        "rectalBleeding": {
+          "correct": true,
+          "present": true
+        },
+        "rectalExamResult": {
+          "correct": false,
+          "present": true
+        },
+        "referralDate": {
+          "correct": true,
+          "present": true
+        },
+        "referringGpId": {
+          "correct": true,
+          "present": true
+        },
+        "riskGradientAiEstimate": {
+          "correct": true,
+          "present": false
+        },
+        "sex": {
+          "correct": true,
+          "present": true
+        },
+        "smokingStatus": {
+          "correct": false,
+          "present": true
+        },
+        "suspectedCancerType": {
+          "correct": true,
+          "present": true
+        },
+        "suspectedDiagnosis": {
+          "correct": false,
+          "present": true
+        },
+        "symptomDurationWeeks": {
+          "correct": false,
+          "present": true
+        },
+        "symptomVisitCount": {
+          "correct": true,
+          "present": true
+        },
+        "testsDone": {
+          "correct": true,
+          "present": true
+        },
+        "urgency": {
+          "correct": false,
+          "present": true
+        },
+        "weightLossKg": {
+          "correct": true,
+          "present": false
+        }
+      },
+      "evidence_total": 12,
+      "evidence_grounded": 10,
+      "latency_s": 8.351746674015885,
+      "attempts": 1,
+      "usage": {
+        "prompt_tokens": 1261,
+        "completion_tokens": 435,
+        "total_tokens": 1696
+      },
+      "error": "",
+      "parse_problem": "",
+      "raw_reply": "{\"fields\": {\"patientId\": \"SYN-517\", \"age\": 27, \"sex\": \"female\", \"smokingStatus\": \"unknown\", \"mainSymptom\": \"ongoing constipation\", \"symptomDurationWeeks\": 8, \"symptomVisitCount\": 3, \"examFindings\": \"abdomen is soft and non-tender with no palpable masses\", \"generalCondition\": \"not specified\", \"testsDone\": [{\"name\": \"FBC\", \"result\": \"normal\"}, {\"name\": \"CRP\", \"result\": \"normal\"}], \"currentMedicines\": [\"co-codamol\"], \"otherIllnesses\": [\"back pain\"], \"suspectedDiagnosis\": \"constipation secondary to co-codamol\", \"suspectedCancerType\": \"colorectal\", \"gpQuestion\": \"reassurance\", \"urgency\": \"urgent\", \"referralDate\": \"2026-05-03\", \"referringGpId\": \"GP-045\", \"bowelHabitChange\": true, \"rectalBleeding\": false, \"abdominalMass\": false, \"ironDeficiencyAnaemia\": false, \"fitDone\": false, \"rectalExamResult\": \"normal\"}, \"evidence\": {\"mainSymptom\": \"ongoing constipation\", \"symptomDurationWeeks\": \"persistent constipation lasting about 4 weeks now\", \"symptomVisitCount\": \"Patient returns\", \"examFindings\": \"abdomen is soft and non-tender with no palpable masses\", \"testsDone\": [{\"name\": \"FBC\", \"result\": \"normal\"}, {\"name\": \"CRP\", \"result\": \"normal\"}], \"currentMedicines\": \"takes co-codamol\", \"otherIllnesses\": \"painkillers for my back\", \"suspectedDiagnosis\": \"constipation secondary to co-codamol\", \"gpQuestion\": \"referred via colorectal cancer pathway for reassurance\", \"bowelHabitChange\": \"constipation\", \"rectalBleeding\": \"there is no blood at all when I wipe\", \"abdominalMass\": \"no palpable masses\"}}"
+    },
+    {
+      "id": "eval-ovarian-fi-001",
+      "cancer": "ovarian",
+      "language": "fi",
+      "kind": "cancer",
+      "json_valid": true,
+      "format_miss": false,
+      "schema_valid": false,
+      "schema_errors": [
+        "(root): 'symptomVisitCount' is a required property",
+        "(root): 'testsDone' is a required property",
+        "(root): 'earlySatietyOrAppetiteLoss' is a required property",
+        "(root): 'symptomDaysPerMonth' is a required property",
+        "(root): 'ca125Done' is a required property"
+      ],
+      "field_scores": {
+        "age": {
+          "correct": true,
+          "present": true
+        },
+        "ascites": {
+          "correct": true,
+          "present": true
+        },
+        "bloatingOrDistension": {
+          "correct": true,
+          "present": true
+        },
+        "brcaStatus": {
+          "correct": true,
+          "present": true
+        },
+        "ca125Date": {
+          "correct": true,
+          "present": false
+        },
+        "ca125Done": {
+          "correct": false,
+          "present": true
+        },
+        "ca125ValueIuPerMl": {
+          "correct": true,
+          "present": false
+        },
+        "currentMedicines": {
+          "correct": true,
+          "present": true
+        },
+        "earlySatietyOrAppetiteLoss": {
+          "correct": false,
+          "present": true
+        },
+        "examFindings": {
+          "correct": false,
+          "present": true
+        },
+        "familyHistoryBreastOrOvarianCancer": {
+          "correct": true,
+          "present": true
+        },
+        "generalCondition": {
+          "correct": false,
+          "present": true
+        },
+        "gpQuestion": {
+          "correct": true,
+          "present": true
+        },
+        "mainSymptom": {
+          "correct": false,
+          "present": true
+        },
+        "matchedRuleIds": {
+          "correct": true,
+          "present": false
+        },
+        "menopausalStatus": {
+          "correct": true,
+          "present": true
+        },
+        "otherIllnesses": {
+          "correct": true,
+          "present": true
+        },
+        "packYears": {
+          "correct": true,
+          "present": false
+        },
+        "palpableMass": {
+          "correct": true,
+          "present": true
+        },
+        "patientId": {
+          "correct": true,
+          "present": true
+        },
+        "pelvicOrAbdominalPain": {
+          "correct": true,
+          "present": true
+        },
+        "pelvicUltrasoundDate": {
+          "correct": true,
+          "present": false
+        },
+        "pelvicUltrasoundFindings": {
+          "correct": true,
+          "present": false
+        },
+        "pelvicUltrasoundResult": {
+          "correct": true,
+          "present": true
+        },
+        "priorCancer": {
+          "correct": true,
+          "present": false
+        },
+        "referralDate": {
+          "correct": true,
+          "present": true
+        },
+        "referringGpId": {
+          "correct": true,
+          "present": true
+        },
+        "riskGradientAiEstimate": {
+          "correct": true,
+          "present": false
+        },
+        "sex": {
+          "correct": true,
+          "present": true
+        },
+        "smokingStatus": {
+          "correct": true,
+          "present": true
+        },
+        "suspectedCancerType": {
+          "correct": true,
+          "present": true
+        },
+        "suspectedDiagnosis": {
+          "correct": true,
+          "present": true
+        },
+        "symptomDaysPerMonth": {
+          "correct": false,
+          "present": true
+        },
+        "symptomDurationWeeks": {
+          "correct": false,
+          "present": true
+        },
+        "symptomVisitCount": {
+          "correct": false,
+          "present": true
+        },
+        "testsDone": {
+          "correct": false,
+          "present": true
+        },
+        "urgency": {
+          "correct": false,
+          "present": true
+        },
+        "urinarySymptoms": {
+          "correct": false,
+          "present": true
+        },
+        "weightLossKg": {
+          "correct": true,
+          "present": false
+        }
+      },
+      "evidence_total": 16,
+      "evidence_grounded": 16,
+      "latency_s": 7.526060459000291,
+      "attempts": 1,
+      "usage": {
+        "prompt_tokens": 1417,
+        "completion_tokens": 576,
+        "total_tokens": 1993
+      },
+      "error": "",
+      "parse_problem": "",
+      "raw_reply": "{\"fields\": {\"patientId\": \"SYN-518\", \"age\": 38, \"sex\": \"female\", \"smokingStatus\": \"never\", \"mainSymptom\": \"jatkuva vatsan turvotus ja alavatsakipu\", \"symptomDurationWeeks\": 13, \"examFindings\": \"Vatsa pehmeä, ei aristusta, ei palpoitavaa massaa, ei askiteslöydöstä.\", \"generalCondition\": \"Yleiskunto hyvä.\", \"currentMedicines\": [], \"otherIllnesses\": [], \"suspectedDiagnosis\": \"epäily munasarjasyövästä\", \"suspectedCancerType\": \"ovarian\", \"gpQuestion\": \"Pyydetään kiireellistä gynekologista arviota ja ultraäänitutkimusta.\", \"urgency\": \"urgent\", \"referralDate\": \"2026-08-27\", \"referringGpId\": \"GP-034\", \"bloatingOrDistension\": true, \"pelvicOrAbdominalPain\": true, \"urinarySymptoms\": false, \"ascites\": false, \"palpableMass\": false, \"pelvicUltrasoundResult\": \"not_done\", \"menopausalStatus\": \"premenopausal\", \"familyHistoryBreastOrOvarianCancer\": false, \"brcaStatus\": \"not_tested\"}, \"evidence\": {\"smokingStatus\": \"Ei tupakoi\", \"mainSymptom\": \"jatkuva vatsan turvotus ja alavatsakipu\", \"symptomDurationWeeks\": \"kestäneet noin 3 kuukautta\", \"examFindings\": \"Vatsa pehmeä, ei aristusta, ei palpoitavaa massaa, ei askiteslöydöstä.\", \"generalCondition\": \"Yleiskunto hyvä.\", \"suspectedDiagnosis\": \"epäily munasarjasyövästä\", \"gpQuestion\": \"Pyydetään kiireellistä gynekologista arviota ja ultraäänitutkimusta.\", \"urgency\": \"kiireellisenä\", \"bloatingOrDistension\": \"vatsan turvotus\", \"pelvicOrAbdominalPain\": \"alavatsakipu\", \"urinarySymptoms\": \"Ei todettu virtsatieoireita.\", \"ascites\": \"ei askiteslöydöstä\", \"palpableMass\": \"ei palpoitavaa massaa\", \"menopausalStatus\": \"premenopausaalinen tilanne\", \"familyHistoryBreastOrOvarianCancer\": \"Ei sukutaustaa rinta- tai munasarjasyövästä\", \"brcaStatus\": \"BRCA-statusta ei testattu\"}}"
+    },
+    {
+      "id": "eval-ovarian-fi-002",
+      "cancer": "ovarian",
+      "language": "fi",
+      "kind": "cancer",
+      "json_valid": true,
+      "format_miss": false,
+      "schema_valid": false,
+      "schema_errors": [
+        "(root): 'symptomVisitCount' is a required property",
+        "(root): 'testsDone' is a required property",
+        "(root): 'currentMedicines' is a required property",
+        "(root): 'otherIllnesses' is a required property",
+        "(root): 'gpQuestion' is a required property"
+      ],
+      "field_scores": {
+        "age": {
+          "correct": true,
+          "present": true
+        },
+        "ascites": {
+          "correct": true,
+          "present": true
+        },
+        "bloatingOrDistension": {
+          "correct": true,
+          "present": true
+        },
+        "brcaStatus": {
+          "correct": false,
+          "present": true
+        },
+        "ca125Date": {
+          "correct": true,
+          "present": false
+        },
+        "ca125Done": {
+          "correct": false,
+          "present": true
+        },
+        "ca125ValueIuPerMl": {
+          "correct": true,
+          "present": false
+        },
+        "currentMedicines": {
+          "correct": false,
+          "present": true
+        },
+        "earlySatietyOrAppetiteLoss": {
+          "correct": false,
+          "present": true
+        },
+        "examFindings": {
+          "correct": false,
+          "present": true
+        },
+        "familyHistoryBreastOrOvarianCancer": {
+          "correct": true,
+          "present": true
+        },
+        "generalCondition": {
+          "correct": false,
+          "present": true
+        },
+        "gpQuestion": {
+          "correct": false,
+          "present": true
+        },
+        "mainSymptom": {
+          "correct": false,
+          "present": true
+        },
+        "matchedRuleIds": {
+          "correct": true,
+          "present": false
+        },
+        "menopausalStatus": {
+          "correct": true,
+          "present": true
+        },
+        "otherIllnesses": {
+          "correct": false,
+          "present": true
+        },
+        "packYears": {
+          "correct": true,
+          "present": false
+        },
+        "palpableMass": {
+          "correct": true,
+          "present": true
+        },
+        "patientId": {
+          "correct": true,
+          "present": true
+        },
+        "pelvicOrAbdominalPain": {
+          "correct": true,
+          "present": true
+        },
+        "pelvicUltrasoundDate": {
+          "correct": true,
+          "present": false
+        },
+        "pelvicUltrasoundFindings": {
+          "correct": true,
+          "present": true
+        },
+        "pelvicUltrasoundResult": {
+          "correct": true,
+          "present": true
+        },
+        "priorCancer": {
+          "correct": true,
+          "present": false
+        },
+        "referralDate": {
+          "correct": true,
+          "present": true
+        },
+        "referringGpId": {
+          "correct": true,
+          "present": true
+        },
+        "riskGradientAiEstimate": {
+          "correct": true,
+          "present": false
+        },
+        "sex": {
+          "correct": true,
+          "present": true
+        },
+        "smokingStatus": {
+          "correct": true,
+          "present": true
+        },
+        "suspectedCancerType": {
+          "correct": true,
+          "present": true
+        },
+        "suspectedDiagnosis": {
+          "correct": false,
+          "present": true
+        },
+        "symptomDaysPerMonth": {
+          "correct": false,
+          "present": true
+        },
+        "symptomDurationWeeks": {
+          "correct": false,
+          "present": true
+        },
+        "symptomVisitCount": {
+          "correct": false,
+          "present": true
+        },
+        "testsDone": {
+          "correct": false,
+          "present": true
+        },
+        "urgency": {
+          "correct": true,
+          "present": true
+        },
+        "urinarySymptoms": {
+          "correct": false,
+          "present": true
+        },
+        "weightLossKg": {
+          "correct": true,
+          "present": false
+        }
+      },
+      "evidence_total": 14,
+      "evidence_grounded": 14,
+      "latency_s": 9.38291668400052,
+      "attempts": 1,
+      "usage": {
+        "prompt_tokens": 1483,
+        "completion_tokens": 600,
+        "total_tokens": 2083
+      },
+      "error": "",
+      "parse_problem": "",
+      "raw_reply": "{\"fields\": {\"patientId\": \"SYN-519\", \"age\": 68, \"sex\": \"female\", \"smokingStatus\": \"never\", \"mainSymptom\": \"vatsa on ollut turvonnut ja kumman oloinen sekä alavatsalla ajoittaista jomotusta\", \"symptomDurationWeeks\": 12, \"examFindings\": \"vatsa pehmeä, lievää aristusta alavatsalla, ei selvää massaa, ei ascites-löydöstä\", \"generalCondition\": \"Yleiskunto hyvä\", \"suspectedDiagnosis\": \"munasarjasyöpäepäilyn vuoksi\", \"suspectedCancerType\": \"ovarian\", \"urgency\": \"urgent_2_week\", \"referralDate\": \"2026-07-03\", \"referringGpId\": \"GP-028\", \"bloatingOrDistension\": true, \"pelvicOrAbdominalPain\": true, \"ascites\": false, \"palpableMass\": false, \"pelvicUltrasoundResult\": \"abnormal\", \"pelvicUltrasoundFindings\": \"kompleksinen kysta n. 7 cm oikeassa ovaraariossa\", \"menopausalStatus\": \"postmenopausal\", \"familyHistoryBreastOrOvarianCancer\": false}, \"evidence\": {\"mainSymptom\": \"vatsa on ollut turvonnut ja kumman oloinen jo kolmisen kuukautta, ja alavatsalla on ajoittaista jomotusta\", \"symptomDurationWeeks\": \"kolmisen kuukautta\", \"examFindings\": \"vatsa pehmeä, lievää aristusta alavatsalla, ei selvää massaa, ei ascites-löydöstä\", \"generalCondition\": \"Yleiskunto hyvä\", \"suspectedDiagnosis\": \"munasarjasyöpäepäilyn vuoksi\", \"urgency\": \"kahden viikon sisällä\", \"bloatingOrDistension\": \"vatsa on ollut turvonnut ja kumman oloinen\", \"pelvicOrAbdominalPain\": \"alavatsalla on ajoittaista jomotusta\", \"ascites\": \"ei ascites-löydöstä\", \"palpableMass\": \"ei selvää massaa\", \"pelvicUltrasoundResult\": \"Aiemmassa gynekologisessa UÄ:ssä todettu kompleksinen kysta n. 7 cm oikeassa ovaraariossa\", \"pelvicUltrasoundFindings\": \"kompleksinen kysta n. 7 cm oikeassa ovaraariossa\", \"menopausalStatus\": \"postmenopausaalinen\", \"familyHistoryBreastOrOvarianCancer\": \"Ei sukuhistoriaa rinta- tai munasarjasyövästä\"}}"
+    },
+    {
+      "id": "eval-ovarian-en-006",
+      "cancer": "ovarian",
+      "language": "en",
+      "kind": "cancer",
+      "json_valid": true,
+      "format_miss": false,
+      "schema_valid": true,
+      "schema_errors": [],
+      "field_scores": {
+        "age": {
+          "correct": true,
+          "present": true
+        },
+        "ascites": {
+          "correct": true,
+          "present": true
+        },
+        "bloatingOrDistension": {
+          "correct": true,
+          "present": true
+        },
+        "brcaStatus": {
+          "correct": true,
+          "present": true
+        },
+        "ca125Date": {
+          "correct": true,
+          "present": false
+        },
+        "ca125Done": {
+          "correct": true,
+          "present": true
+        },
+        "ca125ValueIuPerMl": {
+          "correct": true,
+          "present": false
+        },
+        "currentMedicines": {
+          "correct": true,
+          "present": true
+        },
+        "earlySatietyOrAppetiteLoss": {
+          "correct": true,
+          "present": true
+        },
+        "examFindings": {
+          "correct": true,
+          "present": true
+        },
+        "familyHistoryBreastOrOvarianCancer": {
+          "correct": true,
+          "present": true
+        },
+        "generalCondition": {
+          "correct": true,
+          "present": true
+        },
+        "gpQuestion": {
+          "correct": false,
+          "present": true
+        },
+        "mainSymptom": {
+          "correct": false,
+          "present": true
+        },
+        "matchedRuleIds": {
+          "correct": true,
+          "present": false
+        },
+        "menopausalStatus": {
+          "correct": false,
+          "present": true
+        },
+        "otherIllnesses": {
+          "correct": true,
+          "present": true
+        },
+        "packYears": {
+          "correct": true,
+          "present": false
+        },
+        "palpableMass": {
+          "correct": true,
+          "present": true
+        },
+        "patientId": {
+          "correct": true,
+          "present": true
+        },
+        "pelvicOrAbdominalPain": {
+          "correct": true,
+          "present": true
+        },
+        "pelvicUltrasoundDate": {
+          "correct": true,
+          "present": false
+        },
+        "pelvicUltrasoundFindings": {
+          "correct": true,
+          "present": false
+        },
+        "pelvicUltrasoundResult": {
+          "correct": true,
+          "present": true
+        },
+        "priorCancer": {
+          "correct": true,
+          "present": false
+        },
+        "referralDate": {
+          "correct": true,
+          "present": true
+        },
+        "referringGpId": {
+          "correct": true,
+          "present": true
+        },
+        "riskGradientAiEstimate": {
+          "correct": true,
+          "present": false
+        },
+        "sex": {
+          "correct": true,
+          "present": true
+        },
+        "smokingStatus": {
+          "correct": true,
+          "present": true
+        },
+        "suspectedCancerType": {
+          "correct": true,
+          "present": true
+        },
+        "suspectedDiagnosis": {
+          "correct": false,
+          "present": true
+        },
+        "symptomDaysPerMonth": {
+          "correct": true,
+          "present": true
+        },
+        "symptomDurationWeeks": {
+          "correct": true,
+          "present": true
+        },
+        "symptomVisitCount": {
+          "correct": true,
+          "present": true
+        },
+        "testsDone": {
+          "correct": true,
+          "present": true
+        },
+        "urgency": {
+          "correct": true,
+          "present": true
+        },
+        "urinarySymptoms": {
+          "correct": true,
+          "present": true
+        },
+        "weightLossKg": {
+          "correct": true,
+          "present": false
+        }
+      },
+      "evidence_total": 15,
+      "evidence_grounded": 14,
+      "latency_s": 5.910189917020034,
+      "attempts": 1,
+      "usage": {
+        "prompt_tokens": 1378,
+        "completion_tokens": 485,
+        "total_tokens": 1863
+      },
+      "error": "",
+      "parse_problem": "",
+      "raw_reply": "{\"fields\": {\"patientId\": \"SYN-523\", \"age\": 48, \"sex\": \"female\", \"smokingStatus\": \"unknown\", \"mainSymptom\": \"ongoing mild lower abdominal discomfort\", \"symptomDurationWeeks\": 8, \"symptomVisitCount\": 2, \"examFindings\": \"abdomen soft, no tenderness, no palpable mass, no ascites\", \"generalCondition\": \"fit and well\", \"testsDone\": [], \"currentMedicines\": [], \"otherIllnesses\": [], \"suspectedDiagnosis\": \"ovarian cancer\", \"suspectedCancerType\": \"ovarian\", \"gpQuestion\": \"ovarian cancer assessment\", \"urgency\": \"urgent_2_week\", \"referralDate\": \"2026-06-13\", \"referringGpId\": \"GP-015\", \"bloatingOrDistension\": false, \"earlySatietyOrAppetiteLoss\": false, \"pelvicOrAbdominalPain\": true, \"urinarySymptoms\": false, \"symptomDaysPerMonth\": 4, \"ascites\": false, \"palpableMass\": false, \"ca125Done\": false, \"pelvicUltrasoundResult\": \"not_done\", \"menopausalStatus\": \"unknown\", \"familyHistoryBreastOrOvarianCancer\": false, \"brcaStatus\": \"unknown\"}, \"evidence\": {\"mainSymptom\": \"ongoing mild lower abdominal discomfort\", \"symptomDurationWeeks\": \"eight weeks ago\", \"symptomVisitCount\": \"Patient returns today\", \"examFindings\": \"O/E abdomen soft, no tenderness, no palpable mass, no ascites\", \"generalCondition\": \"General condition fit and well\", \"suspectedDiagnosis\": \"ovarian cancer\", \"gpQuestion\": \"ovarian cancer assessment\", \"urgency\": \"2WW\", \"bloatingOrDistension\": \"Denies bloating\", \"earlySatietyOrAppetiteLoss\": \"early satiety, appetite loss\", \"pelvicOrAbdominalPain\": \"lower abdominal discomfort\", \"urinarySymptoms\": \"Denies ... urinary symptoms\", \"symptomDaysPerMonth\": \"four days per month\", \"ascites\": \"no ascites\", \"palpableMass\": \"no palpable mass\"}}"
+    },
+    {
+      "id": "eval-ovarian-fi-004",
+      "cancer": "ovarian",
+      "language": "fi",
+      "kind": "cancer",
+      "json_valid": true,
+      "format_miss": false,
+      "schema_valid": false,
+      "schema_errors": [
+        "(root): 'symptomVisitCount' is a required property",
+        "(root): 'gpQuestion' is a required property",
+        "(root): 'symptomDaysPerMonth' is a required property",
+        "(root): 'ascites' is a required property",
+        "(root): 'palpableMass' is a required property"
+      ],
+      "field_scores": {
+        "age": {
+          "correct": true,
+          "present": true
+        },
+        "ascites": {
+          "correct": false,
+          "present": true
+        },
+        "bloatingOrDistension": {
+          "correct": true,
+          "present": true
+        },
+        "brcaStatus": {
+          "correct": false,
+          "present": true
+        },
+        "ca125Date": {
+          "correct": true,
+          "present": true
+        },
+        "ca125Done": {
+          "correct": true,
+          "present": true
+        },
+        "ca125ValueIuPerMl": {
+          "correct": true,
+          "present": true
+        },
+        "currentMedicines": {
+          "correct": true,
+          "present": true
+        },
+        "earlySatietyOrAppetiteLoss": {
+          "correct": true,
+          "present": true
+        },
+        "examFindings": {
+          "correct": false,
+          "present": true
+        },
+        "familyHistoryBreastOrOvarianCancer": {
+          "correct": true,
+          "present": true
+        },
+        "generalCondition": {
+          "correct": false,
+          "present": true
+        },
+        "gpQuestion": {
+          "correct": false,
+          "present": true
+        },
+        "mainSymptom": {
+          "correct": false,
+          "present": true
+        },
+        "matchedRuleIds": {
+          "correct": true,
+          "present": false
+        },
+        "menopausalStatus": {
+          "correct": true,
+          "present": true
+        },
+        "otherIllnesses": {
+          "correct": true,
+          "present": true
+        },
+        "packYears": {
+          "correct": true,
+          "present": false
+        },
+        "palpableMass": {
+          "correct": false,
+          "present": true
+        },
+        "patientId": {
+          "correct": true,
+          "present": true
+        },
+        "pelvicOrAbdominalPain": {
+          "correct": true,
+          "present": true
+        },
+        "pelvicUltrasoundDate": {
+          "correct": true,
+          "present": true
+        },
+        "pelvicUltrasoundFindings": {
+          "correct": true,
+          "present": true
+        },
+        "pelvicUltrasoundResult": {
+          "correct": true,
+          "present": true
+        },
+        "priorCancer": {
+          "correct": true,
+          "present": false
+        },
+        "referralDate": {
+          "correct": true,
+          "present": true
+        },
+        "referringGpId": {
+          "correct": true,
+          "present": true
+        },
+        "riskGradientAiEstimate": {
+          "correct": true,
+          "present": false
+        },
+        "sex": {
+          "correct": true,
+          "present": true
+        },
+        "smokingStatus": {
+          "correct": true,
+          "present": true
+        },
+        "suspectedCancerType": {
+          "correct": true,
+          "present": true
+        },
+        "suspectedDiagnosis": {
+          "correct": false,
+          "present": true
+        },
+        "symptomDaysPerMonth": {
+          "correct": false,
+          "present": true
+        },
+        "symptomDurationWeeks": {
+          "correct": true,
+          "present": true
+        },
+        "symptomVisitCount": {
+          "correct": false,
+          "present": true
+        },
+        "testsDone": {
+          "correct": true,
+          "present": true
+        },
+        "urgency": {
+          "correct": true,
+          "present": true
+        },
+        "urinarySymptoms": {
+          "correct": true,
+          "present": true
+        },
+        "weightLossKg": {
+          "correct": true,
+          "present": false
+        }
+      },
+      "evidence_total": 24,
+      "evidence_grounded": 21,
+      "latency_s": 12.201898294006241,
+      "attempts": 1,
+      "usage": {
+        "prompt_tokens": 1501,
+        "completion_tokens": 878,
+        "total_tokens": 2379
+      },
+      "error": "",
+      "parse_problem": "",
+      "raw_reply": "{\"fields\": {\"patientId\": \"SYN-521\", \"age\": 82, \"sex\": \"female\", \"smokingStatus\": \"never\", \"mainSymptom\": \"Alavatsakipua ja turvotusta\", \"symptomDurationWeeks\": 6, \"examFindings\": \"Abdomen: pehmeä, aristava alavatsa, ei selkeää resistenssiä\", \"generalCondition\": \"Yleiskunto hyvä\", \"testsDone\": [{\"name\": \"S -CA125\", \"date\": \"2026-06-14\", \"result\": \"78 U/l\"}, {\"name\": \"Uä-tutkimus alavatsa\", \"date\": \"2026-07-15\", \"result\": \"kiinteä massa oikealla ovariossa\"}], \"currentMedicines\": [\"Parasetamol 1 g tarvittaessa\"], \"otherIllnesses\": [\"Hypertonia\"], \"suspectedDiagnosis\": \"munasarjasyöpää\", \"suspectedCancerType\": \"ovarian\", \"urgency\": \"urgent_2_week\", \"referralDate\": \"2026-07-18\", \"referringGpId\": \"GP-025\", \"bloatingOrDistension\": true, \"pelvicOrAbdominalPain\": true, \"urinarySymptoms\": false, \"earlySatietyOrAppetiteLoss\": false, \"ca125Done\": true, \"ca125ValueIuPerMl\": 78, \"ca125Date\": \"2026-06-14\", \"pelvicUltrasoundResult\": \"abnormal\", \"pelvicUltrasoundFindings\": \"kiinteä massa oikealla ovariossa\", \"pelvicUltrasoundDate\": \"2026-07-15\", \"menopausalStatus\": \"postmenopausal\", \"familyHistoryBreastOrOvarianCancer\": false}, \"evidence\": {\"age\": \"82-v\", \"sex\": \"nainen\", \"smokingStatus\": \"Tupakointi: ei koskaan\", \"mainSymptom\": \"Alavatsakipua ja turvotusta edelleen\", \"symptomDurationWeeks\": \"Alavatsakipua jatkunut kuusi viikkoa\", \"examFindings\": \"Abdomen: pehmeä, aristava alavatsa, ei selkeää resistenssiä\", \"generalCondition\": \"Yleiskunto hyvä\", \"testsDone\": [{\"name\": \"S -CA125\", \"result\": \"78 U/l\"}, {\"name\": \"Uä-tutkimus alavatsa\", \"result\": \"kiinteä massa oikealla ovariossa\"}], \"currentMedicines\": [\"Parasetamol 1 g tarvittaessa\"], \"otherIllnesses\": [\"Hypertonia\"], \"suspectedDiagnosis\": \"Epäillään munasarjasyöpää\", \"urgency\": \"Lähete kiireellisenä kahdessa viossa\", \"bloatingOrDistension\": \"turvotusta\", \"earlySatietyOrAppetiteLoss\": \"ei varhaista kylläisyyttä\", \"pelvicOrAbdominalPain\": \"Alavatsakipua\", \"urinarySymptoms\": \"Ei virtsatieoireita\", \"ca125Done\": \"S -CA125: 78 U/l\", \"ca125ValueIuPerMl\": \"78 U/l\", \"ca125Date\": \"14.06.2026\", \"pelvicUltrasoundResult\": \"kiinteä massa oikealla ovariossa\", \"pelvicUltrasoundFindings\": \"kiinteä massa oikealla ovariossa\", \"pelvicUltrasoundDate\": \"15.07.2026\", \"menopausalStatus\": \"Menopausi ollut vuosia sitten\", \"familyHistoryBreastOrOvarianCancer\": \"Ei sukuhistoriaa rinta- tai munasarjasyövästä\"}}"
+    },
+    {
+      "id": "eval-ovarian-fi-005",
+      "cancer": "ovarian",
+      "language": "fi",
+      "kind": "cancer",
+      "json_valid": true,
+      "format_miss": false,
+      "schema_valid": false,
+      "schema_errors": [
+        "(root): 'symptomVisitCount' is a required property",
+        "(root): 'currentMedicines' is a required property",
+        "(root): 'otherIllnesses' is a required property",
+        "(root): 'earlySatietyOrAppetiteLoss' is a required property",
+        "(root): 'symptomDaysPerMonth' is a required property"
+      ],
+      "field_scores": {
+        "age": {
+          "correct": true,
+          "present": true
+        },
+        "ascites": {
+          "correct": false,
+          "present": true
+        },
+        "bloatingOrDistension": {
+          "correct": true,
+          "present": true
+        },
+        "brcaStatus": {
+          "correct": false,
+          "present": true
+        },
+        "ca125Date": {
+          "correct": true,
+          "present": true
+        },
+        "ca125Done": {
+          "correct": true,
+          "present": true
+        },
+        "ca125ValueIuPerMl": {
+          "correct": true,
+          "present": true
+        },
+        "currentMedicines": {
+          "correct": false,
+          "present": true
+        },
+        "earlySatietyOrAppetiteLoss": {
+          "correct": false,
+          "present": true
+        },
+        "examFindings": {
+          "correct": true,
+          "present": true
+        },
+        "familyHistoryBreastOrOvarianCancer": {
+          "correct": false,
+          "present": true
+        },
+        "generalCondition": {
+          "correct": false,
+          "present": true
+        },
+        "gpQuestion": {
+          "correct": false,
+          "present": true
+        },
+        "mainSymptom": {
+          "correct": false,
+          "present": true
+        },
+        "matchedRuleIds": {
+          "correct": true,
+          "present": false
+        },
+        "menopausalStatus": {
+          "correct": false,
+          "present": true
+        },
+        "otherIllnesses": {
+          "correct": false,
+          "present": true
+        },
+        "packYears": {
+          "correct": true,
+          "present": false
+        },
+        "palpableMass": {
+          "correct": false,
+          "present": true
+        },
+        "patientId": {
+          "correct": true,
+          "present": true
+        },
+        "pelvicOrAbdominalPain": {
+          "correct": true,
+          "present": true
+        },
+        "pelvicUltrasoundDate": {
+          "correct": true,
+          "present": true
+        },
+        "pelvicUltrasoundFindings": {
+          "correct": true,
+          "present": true
+        },
+        "pelvicUltrasoundResult": {
+          "correct": true,
+          "present": true
+        },
+        "priorCancer": {
+          "correct": true,
+          "present": false
+        },
+        "referralDate": {
+          "correct": true,
+          "present": true
+        },
+        "referringGpId": {
+          "correct": true,
+          "present": true
+        },
+        "riskGradientAiEstimate": {
+          "correct": true,
+          "present": false
+        },
+        "sex": {
+          "correct": true,
+          "present": true
+        },
+        "smokingStatus": {
+          "correct": true,
+          "present": true
+        },
+        "suspectedCancerType": {
+          "correct": true,
+          "present": true
+        },
+        "suspectedDiagnosis": {
+          "correct": false,
+          "present": true
+        },
+        "symptomDaysPerMonth": {
+          "correct": false,
+          "present": true
+        },
+        "symptomDurationWeeks": {
+          "correct": true,
+          "present": true
+        },
+        "symptomVisitCount": {
+          "correct": false,
+          "present": true
+        },
+        "testsDone": {
+          "correct": false,
+          "present": true
+        },
+        "urgency": {
+          "correct": true,
+          "present": true
+        },
+        "urinarySymptoms": {
+          "correct": true,
+          "present": true
+        },
+        "weightLossKg": {
+          "correct": true,
+          "present": true
+        }
+      },
+      "evidence_total": 19,
+      "evidence_grounded": 17,
+      "latency_s": 9.582891169004142,
+      "attempts": 1,
+      "usage": {
+        "prompt_tokens": 1468,
+        "completion_tokens": 837,
+        "total_tokens": 2305
+      },
+      "error": "",
+      "parse_problem": "",
+      "raw_reply": "{\"fields\": {\"patientId\": \"SYN-522\", \"age\": 76, \"sex\": \"female\", \"smokingStatus\": \"never\", \"mainSymptom\": \"Vatsan turvotusta ja painontunnetta\", \"symptomDurationWeeks\": 12, \"examFindings\": \"vatsa pehmeä, ei aristusta, ei selvää massaa palpoitavissa\", \"generalCondition\": \"hyvä\", \"weightLossKg\": 3.5, \"testsDone\": [{\"name\": \"gynekologinen ultraääni\", \"date\": \"2026-09-10\", \"result\": \"Kookas noin 7 cm kompleksinen kysta oikeassa ovariossa\"}, {\"name\": \"Ca-125\", \"date\": \"2026-09-10\", \"result\": \"45.2 IU/ml\"}], \"suspectedDiagnosis\": \"epäily ovariaalisyövästä\", \"suspectedCancerType\": \"ovarian\", \"gpQuestion\": \"pyydetään kiireellinen arvio ja jatkotutkimukset 2 viikon sisällä\", \"urgency\": \"urgent_2_week\", \"referralDate\": \"2026-09-17\", \"referringGpId\": \"GP-017\", \"bloatingOrDistension\": true, \"pelvicOrAbdominalPain\": false, \"urinarySymptoms\": false, \"ca125Done\": true, \"ca125ValueIuPerMl\": 45.2, \"ca125Date\": \"2026-09-10\", \"pelvicUltrasoundResult\": \"abnormal\", \"pelvicUltrasoundFindings\": \"Kookas noin 7 cm kompleksinen kysta oikeassa ovariossa\", \"pelvicUltrasoundDate\": \"2026-09-10\"}, \"evidence\": {\"smokingStatus\": \"tupakoi ei koskaan\", \"mainSymptom\": \"Vatsan turvotusta ja painontunnetta\", \"symptomDurationWeeks\": \"3 kk ajan\", \"examFindings\": \"vatsa pehmeä, ei aristusta, ei selvää massaa palpoitavissa\", \"generalCondition\": \"yleistila hyvä\", \"weightLossKg\": \"paino laskenut 3.5 kg\", \"testsDone\": [{\"name\": \"gynekologinen ultraääni\", \"result\": \"Kookas noin 7 cm kompleksinen kysta oikeassa ovariossa\"}, {\"name\": \"Ca-125\", \"result\": \"45.2 IU/ml\"}], \"suspectedDiagnosis\": \"epäily ovariaalisyövästä\", \"gpQuestion\": \"pyydetään kiireellinen arvio ja jatkotutkimukset 2 viikon sisällä\", \"urgency\": \"2 viikon sisällä\", \"bloatingOrDistension\": \"Vatsa turvottanut\", \"pelvicOrAbdominalPain\": \"ei kipua\", \"urinarySymptoms\": \"ei virtsaongelmia\", \"ca125Done\": \"Ca-125 45.2 IU/ml 10.09.2026\", \"ca125ValueIuPerMl\": \"45.2\", \"ca125Date\": \"10.09.2026\", \"pelvicUltrasoundResult\": \"gynekologinen ultraääni 10.09.2026: Kookas noin 7 cm kompleksinen kysta oikeassa ovariossa\", \"pelvicUltrasoundFindings\": \"Kookas noin 7 cm kompleksinen kysta oikeassa ovariossa\", \"pelvicUltrasoundDate\": \"10.09.2026\"}}"
+    },
+    {
+      "id": "eval-ovarian-fi-003",
+      "cancer": "ovarian",
+      "language": "fi",
+      "kind": "cancer",
+      "json_valid": true,
+      "format_miss": false,
+      "schema_valid": false,
+      "schema_errors": [
+        "(root): 'testsDone' is a required property",
+        "(root): 'earlySatietyOrAppetiteLoss' is a required property",
+        "(root): 'pelvicOrAbdominalPain' is a required property",
+        "(root): 'urinarySymptoms' is a required property",
+        "(root): 'symptomDaysPerMonth' is a required property"
+      ],
+      "field_scores": {
+        "age": {
+          "correct": true,
+          "present": true
+        },
+        "ascites": {
+          "correct": true,
+          "present": true
+        },
+        "bloatingOrDistension": {
+          "correct": true,
+          "present": true
+        },
+        "brcaStatus": {
+          "correct": true,
+          "present": true
+        },
+        "ca125Date": {
+          "correct": true,
+          "present": true
+        },
+        "ca125Done": {
+          "correct": true,
+          "present": true
+        },
+        "ca125ValueIuPerMl": {
+          "correct": true,
+          "present": true
+        },
+        "currentMedicines": {
+          "correct": false,
+          "present": true
+        },
+        "earlySatietyOrAppetiteLoss": {
+          "correct": false,
+          "present": true
+        },
+        "examFindings": {
+          "correct": false,
+          "present": true
+        },
+        "familyHistoryBreastOrOvarianCancer": {
+          "correct": true,
+          "present": true
+        },
+        "generalCondition": {
+          "correct": false,
+          "present": true
+        },
+        "gpQuestion": {
+          "correct": true,
+          "present": true
+        },
+        "mainSymptom": {
+          "correct": true,
+          "present": true
+        },
+        "matchedRuleIds": {
+          "correct": true,
+          "present": false
+        },
+        "menopausalStatus": {
+          "correct": false,
+          "present": true
+        },
+        "otherIllnesses": {
+          "correct": false,
+          "present": true
+        },
+        "packYears": {
+          "correct": true,
+          "present": false
+        },
+        "palpableMass": {
+          "correct": false,
+          "present": true
+        },
+        "patientId": {
+          "correct": true,
+          "present": true
+        },
+        "pelvicOrAbdominalPain": {
+          "correct": false,
+          "present": true
+        },
+        "pelvicUltrasoundDate": {
+          "correct": true,
+          "present": true
+        },
+        "pelvicUltrasoundFindings": {
+          "correct": true,
+          "present": true
+        },
+        "pelvicUltrasoundResult": {
+          "correct": true,
+          "present": true
+        },
+        "priorCancer": {
+          "correct": false,
+          "present": true
+        },
+        "referralDate": {
+          "correct": true,
+          "present": true
+        },
+        "referringGpId": {
+          "correct": true,
+          "present": true
+        },
+        "riskGradientAiEstimate": {
+          "correct": true,
+          "present": false
+        },
+        "sex": {
+          "correct": true,
+          "present": true
+        },
+        "smokingStatus": {
+          "correct": true,
+          "present": true
+        },
+        "suspectedCancerType": {
+          "correct": true,
+          "present": true
+        },
+        "suspectedDiagnosis": {
+          "correct": false,
+          "present": true
+        },
+        "symptomDaysPerMonth": {
+          "correct": false,
+          "present": true
+        },
+        "symptomDurationWeeks": {
+          "correct": true,
+          "present": true
+        },
+        "symptomVisitCount": {
+          "correct": true,
+          "present": true
+        },
+        "testsDone": {
+          "correct": false,
+          "present": true
+        },
+        "urgency": {
+          "correct": false,
+          "present": true
+        },
+        "urinarySymptoms": {
+          "correct": false,
+          "present": true
+        },
+        "weightLossKg": {
+          "correct": true,
+          "present": false
+        }
+      },
+      "evidence_total": 19,
+      "evidence_grounded": 18,
+      "latency_s": 12.498311244999059,
+      "attempts": 1,
+      "usage": {
+        "prompt_tokens": 1644,
+        "completion_tokens": 798,
+        "total_tokens": 2442
+      },
+      "error": "",
+      "parse_problem": "",
+      "raw_reply": "{\"fields\": {\"patientId\": \"SYN-520\", \"age\": 38, \"sex\": \"female\", \"smokingStatus\": \"never\", \"mainSymptom\": \"vatsa turvottaa\", \"symptomDurationWeeks\": 8, \"symptomVisitCount\": 4, \"examFindings\": \"vatsa pehmeä, ei aristusta, ei selkeää resistenssiä; asites negaatio\", \"generalCondition\": \"yleiskondis hyvä\", \"currentMedicines\": [], \"otherIllnesses\": [], \"priorCancer\": {\"type\": \"rintasyöpä\", \"yearDiagnosed\": 2025, \"treatment\": \"leikkauksella ja sytostaateilla\"}, \"suspectedDiagnosis\": \"munasarjasyöpää\", \"suspectedCancerType\": \"ovarian\", \"gpQuestion\": \"pyydetään kiireellistä gynekologin arviota ja kuvantamista\", \"urgency\": \"urgent\", \"referralDate\": \"2026-06-14\", \"referringGpId\": \"GP-026\", \"bloatingOrDistension\": true, \"ascites\": false, \"ca125Done\": true, \"ca125ValueIuPerMl\": 85, \"ca125Date\": \"2026-06-10\", \"pelvicUltrasoundResult\": \"abnormal\", \"pelvicUltrasoundFindings\": \"munasarjassa kiinteä muutos\", \"pelvicUltrasoundDate\": \"2026-06-12\", \"familyHistoryBreastOrOvarianCancer\": true, \"brcaStatus\": \"pathogenic_variant\"}, \"evidence\": {\"smokingStatus\": \"ei tupakoi\", \"mainSymptom\": \"vatsa turvottaa\", \"symptomDurationWeeks\": \"kahden kuukauden ajan\", \"symptomVisitCount\": \"Vastaanotto 14.6.2026. ... Vastaanotto 18.3.2026. ... Vastaanotto 25.4.2026. ... Vastaanotto 25.5.2026.\", \"examFindings\": \"vatsa pehmeä, ei aristusta, ei selkeää resistenssiä; asites negaatio\", \"generalCondition\": \"yleiskondis hyvä\", \"priorCancer\": \"aiemmin sairastettu rintasyöpä vuonna 2025 hoidettu leikkauksella ja sytostaateilla\", \"suspectedDiagnosis\": \"epäillään munasarjasyöpää\", \"gpQuestion\": \"pyydetään kiireellistä gynekologin arviota ja kuvantamista\", \"bloatingOrDistension\": \"vatsa turvottaa\", \"ascites\": \"asites negaatio\", \"ca125Done\": \"CA-125 otettu 10.6.2026\", \"ca125ValueIuPerMl\": \"tulos 85\", \"ca125Date\": \"10.6.2026\", \"pelvicUltrasoundResult\": \"lantion ultraääni tehty 12.6.2026 jossa munasarjassa kiinteä muutos\", \"pelvicUltrasoundFindings\": \"munasarjassa kiinteä muutos\", \"pelvicUltrasoundDate\": \"12.6.2026\", \"familyHistoryBreastOrOvarianCancer\": \"suvussa munasarjasyöpää\", \"brcaStatus\": \"tiedossa BRCA1-mutaatio\"}}"
+    },
+    {
+      "id": "eval-ovarian-en-007",
+      "cancer": "ovarian",
+      "language": "en",
+      "kind": "cancer",
+      "json_valid": true,
+      "format_miss": false,
+      "schema_valid": true,
+      "schema_errors": [],
+      "field_scores": {
+        "age": {
+          "correct": true,
+          "present": true
+        },
+        "ascites": {
+          "correct": true,
+          "present": true
+        },
+        "bloatingOrDistension": {
+          "correct": true,
+          "present": true
+        },
+        "brcaStatus": {
+          "correct": false,
+          "present": true
+        },
+        "ca125Date": {
+          "correct": true,
+          "present": true
+        },
+        "ca125Done": {
+          "correct": true,
+          "present": true
+        },
+        "ca125ValueIuPerMl": {
+          "correct": true,
+          "present": true
+        },
+        "currentMedicines": {
+          "correct": true,
+          "present": true
+        },
+        "earlySatietyOrAppetiteLoss": {
+          "correct": true,
+          "present": true
+        },
+        "examFindings": {
+          "correct": false,
+          "present": true
+        },
+        "familyHistoryBreastOrOvarianCancer": {
+          "correct": false,
+          "present": true
+        },
+        "generalCondition": {
+          "correct": true,
+          "present": true
+        },
+        "gpQuestion": {
+          "correct": false,
+          "present": true
+        },
+        "mainSymptom": {
+          "correct": false,
+          "present": true
+        },
+        "matchedRuleIds": {
+          "correct": true,
+          "present": false
+        },
+        "menopausalStatus": {
+          "correct": true,
+          "present": true
+        },
+        "otherIllnesses": {
+          "correct": true,
+          "present": true
+        },
+        "packYears": {
+          "correct": true,
+          "present": false
+        },
+        "palpableMass": {
+          "correct": true,
+          "present": true
+        },
+        "patientId": {
+          "correct": true,
+          "present": true
+        },
+        "pelvicOrAbdominalPain": {
+          "correct": true,
+          "present": true
+        },
+        "pelvicUltrasoundDate": {
+          "correct": true,
+          "present": true
+        },
+        "pelvicUltrasoundFindings": {
+          "correct": true,
+          "present": true
+        },
+        "pelvicUltrasoundResult": {
+          "correct": true,
+          "present": true
+        },
+        "priorCancer": {
+          "correct": true,
+          "present": false
+        },
+        "referralDate": {
+          "correct": true,
+          "present": true
+        },
+        "referringGpId": {
+          "correct": true,
+          "present": true
+        },
+        "riskGradientAiEstimate": {
+          "correct": true,
+          "present": false
+        },
+        "sex": {
+          "correct": true,
+          "present": true
+        },
+        "smokingStatus": {
+          "correct": false,
+          "present": true
+        },
+        "suspectedCancerType": {
+          "correct": true,
+          "present": true
+        },
+        "suspectedDiagnosis": {
+          "correct": false,
+          "present": true
+        },
+        "symptomDaysPerMonth": {
+          "correct": false,
+          "present": true
+        },
+        "symptomDurationWeeks": {
+          "correct": true,
+          "present": true
+        },
+        "symptomVisitCount": {
+          "correct": false,
+          "present": true
+        },
+        "testsDone": {
+          "correct": true,
+          "present": true
+        },
+        "urgency": {
+          "correct": true,
+          "present": true
+        },
+        "urinarySymptoms": {
+          "correct": true,
+          "present": true
+        },
+        "weightLossKg": {
+          "correct": true,
+          "present": false
+        }
+      },
+      "evidence_total": 22,
+      "evidence_grounded": 22,
+      "latency_s": 10.280179938999936,
+      "attempts": 1,
+      "usage": {
+        "prompt_tokens": 1552,
+        "completion_tokens": 835,
+        "total_tokens": 2387
+      },
+      "error": "",
+      "parse_problem": "",
+      "raw_reply": "{\"fields\": {\"patientId\": \"SYN-524\", \"age\": 84, \"sex\": \"female\", \"smokingStatus\": \"unknown\", \"mainSymptom\": \"persistent abdominal bloating and early satiety\", \"symptomDurationWeeks\": 16, \"symptomVisitCount\": null, \"examFindings\": \"abdomen soft, mild distension, no palpable mass, no ascites. BP 130/80\", \"generalCondition\": \"good, fully mobile\", \"testsDone\": [{\"name\": \"FBC\", \"result\": \"Hb 124 g/l, WCC 6.5, Plt 250\"}, {\"name\": \"CRP\", \"result\": \"3 mg/l\"}, {\"name\": \"CA125\", \"date\": \"2026-08-05\", \"result\": \"85.4 IU/ml\"}, {\"name\": \"Pelvic USS\", \"date\": \"2026-08-06\", \"result\": \"complex right adnexal mass measuring 5cm with solid elements\"}], \"currentMedicines\": [\"amlodipine 5mg od\"], \"otherIllnesses\": [\"hypertension\"], \"suspectedDiagnosis\": \"ovarian cancer\", \"suspectedCancerType\": \"ovarian\", \"gpQuestion\": null, \"urgency\": \"urgent_2_week\", \"referralDate\": \"2026-08-21\", \"referringGpId\": \"GP-029\", \"bloatingOrDistension\": true, \"earlySatietyOrAppetiteLoss\": true, \"pelvicOrAbdominalPain\": false, \"urinarySymptoms\": false, \"symptomDaysPerMonth\": null, \"ascites\": false, \"palpableMass\": false, \"ca125Done\": true, \"ca125ValueIuPerMl\": 85.4, \"ca125Date\": \"2026-08-05\", \"pelvicUltrasoundResult\": \"abnormal\", \"pelvicUltrasoundFindings\": \"complex right adnexal mass measuring 5cm with solid elements\", \"pelvicUltrasoundDate\": \"2026-08-06\", \"menopausalStatus\": \"postmenopausal\", \"familyHistoryBreastOrOvarianCancer\": null, \"brcaStatus\": \"unknown\"}, \"evidence\": {\"mainSymptom\": \"persistent abdominal bloating and early satiety\", \"symptomDurationWeeks\": \"sixteen weeks\", \"examFindings\": \"abdomen soft, mild distension, no palpable mass, no ascites. BP 130/80\", \"generalCondition\": \"good, fully mobile\", \"currentMedicines\": \"amlodipine 5mg od\", \"otherIllnesses\": \"hypertension\", \"suspectedDiagnosis\": \"2WW ovarian cancer referral\", \"suspectedCancerType\": \"ovarian\", \"urgency\": \"2WW ovarian cancer referral\", \"bloatingOrDistension\": \"abdominal bloating\", \"earlySatietyOrAppetiteLoss\": \"early satiety\", \"pelvicOrAbdominalPain\": \"No pelvic pain\", \"urinarySymptoms\": \"no urinary symptoms\", \"ascites\": \"no ascites\", \"palpableMass\": \"no palpable mass\", \"ca125Done\": \"CA125: 85.4 IU/ml\", \"ca125ValueIuPerMl\": \"85.4\", \"ca125Date\": \"05/08/2026\", \"pelvicUltrasoundResult\": \"Pelvic USS: complex right adnexal mass\", \"pelvicUltrasoundFindings\": \"complex right adnexal mass measuring 5cm with solid elements\", \"pelvicUltrasoundDate\": \"06/08/2026\", \"menopausalStatus\": \"postmenopausal\"}}"
+    },
+    {
+      "id": "eval-ovarian-ctrl-en-001",
+      "cancer": "ovarian",
+      "language": "en",
+      "kind": "control",
+      "json_valid": true,
+      "format_miss": false,
+      "schema_valid": false,
+      "schema_errors": [
+        "(root): 'urgency' is a required property",
+        "(root): 'menopausalStatus' is a required property",
+        "(root): 'brcaStatus' is a required property"
+      ],
+      "field_scores": {
+        "age": {
+          "correct": true,
+          "present": true
+        },
+        "ascites": {
+          "correct": true,
+          "present": true
+        },
+        "bloatingOrDistension": {
+          "correct": true,
+          "present": true
+        },
+        "brcaStatus": {
+          "correct": false,
+          "present": true
+        },
+        "ca125Date": {
+          "correct": true,
+          "present": false
+        },
+        "ca125Done": {
+          "correct": true,
+          "present": true
+        },
+        "ca125ValueIuPerMl": {
+          "correct": true,
+          "present": false
+        },
+        "currentMedicines": {
+          "correct": true,
+          "present": true
+        },
+        "earlySatietyOrAppetiteLoss": {
+          "correct": true,
+          "present": true
+        },
+        "examFindings": {
+          "correct": true,
+          "present": true
+        },
+        "familyHistoryBreastOrOvarianCancer": {
+          "correct": true,
+          "present": true
+        },
+        "generalCondition": {
+          "correct": false,
+          "present": true
+        },
+        "gpQuestion": {
+          "correct": false,
+          "present": true
+        },
+        "mainSymptom": {
+          "correct": false,
+          "present": true
+        },
+        "matchedRuleIds": {
+          "correct": true,
+          "present": false
+        },
+        "menopausalStatus": {
+          "correct": false,
+          "present": true
+        },
+        "otherIllnesses": {
+          "correct": false,
+          "present": true
+        },
+        "packYears": {
+          "correct": true,
+          "present": false
+        },
+        "palpableMass": {
+          "correct": true,
+          "present": true
+        },
+        "patientId": {
+          "correct": true,
+          "present": true
+        },
+        "pelvicOrAbdominalPain": {
+          "correct": true,
+          "present": true
+        },
+        "pelvicUltrasoundDate": {
+          "correct": false,
+          "present": true
+        },
+        "pelvicUltrasoundFindings": {
+          "correct": true,
+          "present": true
+        },
+        "pelvicUltrasoundResult": {
+          "correct": true,
+          "present": true
+        },
+        "priorCancer": {
+          "correct": true,
+          "present": false
+        },
+        "referralDate": {
+          "correct": true,
+          "present": true
+        },
+        "referringGpId": {
+          "correct": true,
+          "present": true
+        },
+        "riskGradientAiEstimate": {
+          "correct": true,
+          "present": false
+        },
+        "sex": {
+          "correct": true,
+          "present": true
+        },
+        "smokingStatus": {
+          "correct": true,
+          "present": true
+        },
+        "suspectedCancerType": {
+          "correct": true,
+          "present": true
+        },
+        "suspectedDiagnosis": {
+          "correct": false,
+          "present": true
+        },
+        "symptomDaysPerMonth": {
+          "correct": true,
+          "present": true
+        },
+        "symptomDurationWeeks": {
+          "correct": false,
+          "present": true
+        },
+        "symptomVisitCount": {
+          "correct": true,
+          "present": true
+        },
+        "testsDone": {
+          "correct": false,
+          "present": true
+        },
+        "urgency": {
+          "correct": false,
+          "present": true
+        },
+        "urinarySymptoms": {
+          "correct": true,
+          "present": true
+        },
+        "weightLossKg": {
+          "correct": true,
+          "present": false
+        }
+      },
+      "evidence_total": 21,
+      "evidence_grounded": 13,
+      "latency_s": 8.32859840299352,
+      "attempts": 1,
+      "usage": {
+        "prompt_tokens": 1460,
+        "completion_tokens": 706,
+        "total_tokens": 2166
+      },
+      "error": "",
+      "parse_problem": "",
+      "raw_reply": "{\"fields\": {\"patientId\": \"SYN-525\", \"age\": 30, \"sex\": \"female\", \"smokingStatus\": \"never\", \"mainSymptom\": \"heavy periods and pelvic pressure\", \"symptomDurationWeeks\": 10, \"symptomVisitCount\": 2, \"examFindings\": \"abdomen is soft and non-tender with no palpable masses or ascites\", \"generalCondition\": null, \"testsDone\": [{\"name\": \"Pelvic US\", \"date\": \"2026-04-05\", \"result\": \"uterine fibroids with clear ovaries and no free fluid\"}], \"currentMedicines\": [\"tranexamic acid\", \"mefenamic acid\"], \"otherIllnesses\": [\"heavy menses\"], \"suspectedDiagnosis\": \"symptomatic fibroids\", \"suspectedCancerType\": \"ovarian\", \"gpQuestion\": \"gynaecology review regarding symptomatic fibroids\", \"referralDate\": \"2026-05-05\", \"referringGpId\": \"GP-009\", \"bloatingOrDistension\": false, \"earlySatietyOrAppetiteLoss\": false, \"pelvicOrAbdominalPain\": true, \"urinarySymptoms\": false, \"symptomDaysPerMonth\": 5, \"ascites\": false, \"palpableMass\": false, \"ca125Done\": false, \"pelvicUltrasoundResult\": \"abnormal\", \"pelvicUltrasoundFindings\": \"uterine fibroids with clear ovaries and no free fluid\", \"pelvicUltrasoundDate\": \"2026-04-05\", \"familyHistoryBreastOrOvarianCancer\": false}, \"evidence\": {\"smokingStatus\": \"lifelong non-smoker\", \"mainSymptom\": \"heavy periods and pelvic pressure\", \"symptomDurationWeeks\": \"heavy periods starting eight weeks ago\", \"symptomVisitCount\": \"2026-03-13... 2026-05-05\", \"examFindings\": \"abdomen is soft and non-tender with no palpable masses or ascites\", \"testsDone\": [{\"name\": \"Pelvic US\", \"result\": \"uterine fibroids with clear ovaries and no free fluid\"}], \"currentMedicines\": [\"tranexamic acid\", \"mefenamic acid\"], \"otherIllnesses\": [\"Hx of heavy menses\"], \"suspectedDiagnosis\": \"symptomatic fibroids\", \"suspectedCancerType\": \"ovarian\", \"gpQuestion\": \"Referral sent for gynaecology review regarding symptomatic fibroids\", \"bloatingOrDistension\": \"I do not bloat outside my period\", \"earlySatietyOrAppetiteLoss\": \"no... early fullness\", \"pelvicOrAbdominalPain\": \"pelvic pressure... lower tummy aches constantly\", \"urinarySymptoms\": \"no waterworks issues\", \"symptomDaysPerMonth\": \"heavy for five days every month\", \"ascites\": \"no... ascites\", \"palpableMass\": \"no palpable masses\", \"pelvicUltrasoundResult\": \"abnormal\", \"pelvicUltrasoundFindings\": \"uterine fibroids with clear ovaries and no free fluid\", \"familyHistoryBreastOrOvarianCancer\": \"no family history of breast or ovarian cancer\"}}"
+    }
+  ]
+}

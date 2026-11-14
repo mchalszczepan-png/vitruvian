@@ -1,0 +1,297 @@
+[
+  {
+    "patientId": "SYN-001",
+    "synthetic": true,
+    "name": "Matti Esimerkki",
+    "age": 62,
+    "sex": "male",
+    "smokingStatus": "former",
+    "wellbeingServicesCounty": "Pirkanmaa",
+    "visits": [
+      {
+        "date": "2026-09-03",
+        "reason": "Kuiva yskä, 3 viikkoa",
+        "gpNote": "62-v. mies. Kuiva yskä 3 viikkoa, pahempi öisin. Ei kuumetta, ei limaa. Entinen tupakoitsija, lopettanut 2018, polttanut n. 20 savuketta/vrk 30 vuoden ajan. Keuhkot auskultoiden puhtaat, ei vinkunaa. Status: T 36,9, hengitystaajuus 16/min, SpO2 97 % huoneilmalla, syke 78. Yleistila hyvä. Arvio: todennäköisesti virusinfektion jälkeinen yskä. Ohjattu nesteytys ja parasetamoli, ei antibioottia. Kontrolli, jos ei parempi 3 viikossa."
+      },
+      {
+        "date": "2026-10-01",
+        "reason": "Yskä ei hellitä, 7 viikkoa",
+        "gpNote": "Yskä jatkuu, nyt n. 7 viikkoa, vähän valkoista limaa. Nesteistä ja parasetamolista ei apua. Ei vinkunaa. Lievää hengenahdistusta vain portaissa, levossa ei. Keuhkot puhtaat. SpO2 96 % huoneilmalla, syke 84, T 36,8. CRP 6. Painoa ei mitattu tänään. Suunnitelma: verikokeet uudelleen, mukana PVK, kontrolli 4 viikon kuluttua, aiemmin jos pahenee tai ysköksissä vähänkin verta."
+      },
+      {
+        "date": "2026-11-14",
+        "reason": "Yskä 10 viikkoa, verta ysköksissä, painonlasku",
+        "gpNote": "Yskä jatkunut nyt 10 viikkoa, ei hellitä. Viimeisen viikon aikana yskinyt kolmena aamuna tuoreita veriviiruja. Kertoo laihtuneensa n. 4 kg syyskuusta, ruokahalu heikentynyt, väsynyt. Syytä ei toistaiseksi löydetty. Entinen tupakoitsija, lopettanut 2018, n. 30 askivuotta. Status: RR 138/84, syke 88, SpO2 95 % huoneilmalla, T 36,7, hengitystaajuus 18/min. Keuhkot: hengitysäänet hiljentyneet oikealla alakentässä, ei vinkunaa. Kaulalla ja kainaloissa ei palpoitavia imusolmukkeita. Suunnitelma: kiireellinen keuhkokuva tänään, PVK, CRP, maksa-arvot, kalsium. Kiireellinen lähete keuhkosyöpäepäilyn tutkimuspolulle, keskusteltu potilaan kanssa, hän on samaa mieltä."
+      }
+    ]
+  },
+  {
+    "patientId": "SYN-002",
+    "synthetic": true,
+    "name": "Anneli Harjoitus",
+    "age": 58,
+    "sex": "female",
+    "smokingStatus": "never",
+    "wellbeingServicesCounty": "Varsinais-Suomi",
+    "visits": [
+      {
+        "date": "2026-08-18",
+        "reason": "Suolentoiminnan muutos, vatsan turvotus",
+        "gpNote": "58-v. nainen. N. 6 viikkoa löysempiä ulosteita, 4–5 kertaa päivässä, jonkin verran ponnistelua. Vatsan turvotusta aterioiden jälkeen. Ei kerro laihtuneensa, ruokahalu hyvä. Ei ole huomannut verta. Ei koskaan tupakoinut. Vatsa pehmeä, lievää diffuusia aristusta, ei palpoitavaa resistenssiä. BMI 24. Äidillä suolistopolyyppeja 70–79-vuotiaana. Suunnitelma: PVK, ferritiini, CRP, keliakiavasta-aineet, munuaisarvot. Kontrolli 4 viikon kuluttua. Yhteys, jos peräsuolivuotoa tai painonlaskua."
+      },
+      {
+        "date": "2026-09-22",
+        "reason": "Väsymys, suolentoiminnan muutos jatkuu, kalpea",
+        "gpNote": "Suolentoiminnan muutos jatkuu, nyt n. 10 viikkoa, vuorotellen löysiä ja normaaleja ulosteita. Viimeiset 2 viikkoa vähän kirkasta punaista verta WC-paperissa. Väsynyt ja hengästyy portaissa. Laboratoriotulokset: Hb 109 g/l (matala), MCV 78, ferritiini 9. CRP 4. RR 122/76, syke 80, T 36,6. Vatsa pehmeä, ei resistenssiä. Suunnitelma: FIT-näyte lähetetty tänään, suun kautta otettava rautavalmiste aloitettu, PVK uudelleen 3 viikon kuluttua. Lähete, jos FIT positiivinen tai Hb laskee."
+      },
+      {
+        "date": "2026-10-27",
+        "reason": "Kontrolli-PVK matala, FIT positiivinen, peräsuolivuoto",
+        "gpNote": "Edelleen väsynyt, suolentoiminnan muutos 14 viikkoa, peräsuolivuotoa ulostamisen yhteydessä nyt säännöllisemmin. Syytä ei vielä löydetty. Paino 64 kg, elokuussa 67 kg. Ei koskaan tupakoinut. Raudanpuuteanemia. PVK: Hb 98 g/l (aiemmin 109), MCV 74, ferritiini 6. CRP 8. FIT-tulos tänään: 186 µg Hb/g, positiivinen. Peräsuolen palpaatio: ei tunnu resistenssiä, hanskassa tummaa verta. RR 118/74, syke 84, T 36,7, SpO2 98 %. Suunnitelma: kiireellinen lähete kolorektaaliyksikköön (syöpäepäily), CEA ja maksa-arvot lähetetty, rautainfuusiosta keskusteltu. Potilaalle kerrottu, hyväksyy suunnitelman."
+      }
+    ]
+  },
+  {
+    "patientId": "SYN-003",
+    "synthetic": true,
+    "name": "Sirpa Luonnos",
+    "age": 57,
+    "sex": "female",
+    "smokingStatus": "never",
+    "wellbeingServicesCounty": "Pohjois-Pohjanmaa",
+    "visits": [
+      {
+        "date": "2026-09-18",
+        "reason": "Vatsan turvotus, täysinäisyyden tunne aterioiden jälkeen",
+        "gpNote": "57-v. nainen. Vatsan turvotusta n. 3 kuukautta, pahempi iltaa kohden. Täysinäisyyden tunne jo pienten aterioiden jälkeen, ruokahalu hieman heikentynyt. Ulosteet vuorotellen löysiä ja kovia, ei verta, ei limaa. Postmenopausaalinen vuodesta 2019, ei vuotoja sen jälkeen. Ei kerro laihtuneensa. Ei koskaan tupakoinut. BMI 26. RR 128/80, kuumeeton. Vatsa pehmeä, ei aristava, ei palpoitavaa resistenssiä. Arvio: IBS-tyyppiset oireet. Suunnitelma: FODMAP-niukan ruokavalion ohje, lisää kuitua, PVK ja CRP lähetetty, kontrolli 4 viikon kuluttua."
+      },
+      {
+        "date": "2026-10-23",
+        "reason": "Jatkuva vatsan turvotus, lantion alueen kipu, IBS-ruokavaliosta ei apua",
+        "gpNote": "Vatsan turvotus nyt jatkuvaa n. 6 viikon ajan, housut kiristävät iltaa kohden. Edelleen täysinäisyyden tunne muutaman suupalan jälkeen, syö vähemmän, ruokahalu huono. Ajoittaista tylppää kipua alavatsalla lantion alueella 4 viikkoa, ei yhteyttä ruokailuun. FODMAP-niukkaa ruokavaliota kokeiltu 3 viikkoa, ei olennaista muutosta. Ei muutoksia virtsaamisessa. Paino vakaa. Ei emätinverenvuotoa. PVK ja CRP normaalit. Vatsa lievästi distendoitunut, pehmeä, ei palpoitavaa resistenssiä, ei nesteaaltoa. Arvio: pitkittyneet oireet, ikään nähden ei tyypillinen IBS. Suunnitelma: CA-125 lähetetty tänään, kontrolli kun tulos valmis."
+      },
+      {
+        "date": "2026-11-14",
+        "reason": "CA-125 koholla, kolmas käynti vatsan turvotuksen vuoksi",
+        "gpNote": "CA-125-tulos tänään: 180 kU/l (lähetetty 23.10.). Vatsan turvotus ja varhainen täysinäisyyden tunne jatkuvat, nyt n. 5 kuukautta, lisäksi ajoittaista kipua alavatsalla lantion alueella. Ruokahalu edelleen huono, paino laskenut 1 kg. Vatsa lievästi distendoitunut, pehmeä, ei palpoitavaa resistenssiä, kliinisesti ei askitesta. Kuumeeton, RR 124/78. Kolmas käynti saman turvotuksen vuoksi, potilas huolissaan, haluaa tietää mistä on kyse. Suunnitelma: kiireellinen suoralähete lantion ja vatsan ultraäänitutkimukseen, lähete gynekologisen syöpäepäilyn tutkimuspolulle, jos löydös on poikkeava. Tulos ja jatkotoimet selitetty, potilas hyväksyy, annettu terveysaseman suora puhelinnumero."
+      }
+    ]
+  },
+  {
+    "patientId": "SYN-004",
+    "synthetic": true,
+    "name": "Eeva Testinen",
+    "age": 34,
+    "sex": "female",
+    "smokingStatus": "never",
+    "wellbeingServicesCounty": "Uusimaa",
+    "visits": [
+      {
+        "date": "2026-02-10",
+        "reason": "Yöllinen yskä ja hengityksen vinkuna",
+        "gpNote": "34-v. nainen, 2 viikkoa yöllistä yskää ja hengityksen vinkunaa, pahempi kylmässä ilmassa. Ei kuumetta. Ei koskaan tupakoinut. Keväisin heinänuha. Keuhkot: hajanaisia uloshengitysvaiheen vinkunoita, muuten puhtaat. SpO2 98 %, PEF 380 l/min (viitearvo n. 430). Suunnitelma: aloitettu pieniannoksinen budesonidi-inhalaattori, salbutamoli tarvittaessa, astman omahoito-ohje annettu. Kontrolli 6 viikon kuluttua."
+      },
+      {
+        "date": "2026-06-02",
+        "reason": "Astmakontrolli, pahenemisvaihe siitepölyaikaan",
+        "gpNote": "Pahenemisvaihe toukokuun lopulla siitepölyaikaan. Käyttänyt salbutamolia n. 4 kertaa viikossa, herännyt yöllä kahdesti viime kuussa. Ottaa budesonidia useimpina päivinä, joitakin annoksia jäänyt väliin. Keuhkot tänään puhtaat, ei vinkunaa. PEF 420 l/min (paras 450). Inhalaatiotekniikka korjattu. Suunnitelma: budesonidi jatkuu, päivittäinen muistutus käyttöön, kontrolli 3 kuukauden kuluttua."
+      },
+      {
+        "date": "2026-10-05",
+        "reason": "Astmakontrolli, hyvässä hoitotasapainossa",
+        "gpNote": "Vointi paljon parempi. Salbutamolia kerran viimeisen 3 viikon aikana, ei yöheräilyä. Keuhkot puhtaat, SpO2 99 %. PEF 440 l/min. Inhalaatiotekniikka hyvä. Suunnitelma: nykyinen budesonidiannos jatkuu, astman hoitosuunnitelma päivitetty, vuosikontrolli. Yhteys aiemmin, jos hengenahdistusta tai tarvitsee kohtauslääkettä useammin kuin kahdesti viikossa."
+      }
+    ]
+  },
+  {
+    "patientId": "SYN-005",
+    "synthetic": true,
+    "name": "Jari Oletettu",
+    "age": 45,
+    "sex": "male",
+    "smokingStatus": "never",
+    "wellbeingServicesCounty": "Keski-Suomi",
+    "visits": [
+      {
+        "date": "2026-03-12",
+        "reason": "Närästys aterioiden jälkeen",
+        "gpNote": "45-v. mies, närästystä ja hapanta makua suussa aterioiden jälkeen n. 3 kuukautta, pahempi makuulla. Ei nielemisvaikeutta, ei oksentelua, ei painonlaskua, ei verta ulosteessa. Ei koskaan tupakoinut. Alkoholia n. 8 annosta viikossa. BMI 27. Vatsa pehmeä, ei aristava. Suunnitelma: elintapaohjaus (pienemmät ateriat, ei myöhäistä syömistä, vähemmän kahvia), omepratsoli 20 mg 1 x/vrk 4 viikon ajan. Ei hälytysoireita. Kontrolli, jos ei parane."
+      },
+      {
+        "date": "2026-05-20",
+        "reason": "Refluksi ei rauhoitu PPI-lääkityksellä",
+        "gpNote": "Närästys parempi omepratsolilla, mutta palaa lopetettaessa. Ottaa sitä nyt useimpina päivinä. Ajoittain yöllistä regurgitaatiota. Edelleen ei nielemisvaikeutta, ei oksentelua, ei GI-vuotoa. Paino 88 kg, sama kuin maaliskuussa. Vatsa pehmeä. Suunnitelma: omepratsoli jatkuu, lisäksi alginaatti iltaisin, kontrolli 3 kuukauden kuluttua. Yhteys, jos nielemisvaikeutta tai painonlaskua."
+      },
+      {
+        "date": "2026-09-16",
+        "reason": "Refluksi tasapainossa, reseptin uusinta",
+        "gpNote": "Refluksi pääosin hallinnassa omepratsolilla 20 mg. Ajoittain pahenee noutoruoan jälkeen. Ei nielemisvaikeutta, ei painonlaskua, ei mustia ulosteita eikä verioksennusta. Ei koskaan tupakoinut. Paino 87 kg. Vatsa pehmeä. Suunnitelma: resepti uusittu 6 kuukaudeksi, elintapaohjausta vahvistettu. Ei tähystystä tässä vaiheessa, koska oireet lieviä eikä hälytysmerkkejä. Kontrolli 12 kuukauden kuluttua tai aiemmin, jos hälytysoireita."
+      }
+    ]
+  },
+  {
+    "patientId": "SYN-006",
+    "synthetic": true,
+    "name": "Sanna Vaihtoehto",
+    "age": 51,
+    "sex": "female",
+    "smokingStatus": "never",
+    "wellbeingServicesCounty": "Pirkanmaa",
+    "visits": [
+      {
+        "date": "2026-04-07",
+        "reason": "Alaselkäkipu, 2 viikkoa",
+        "gpNote": "51-v. nainen, alaselkäkipu 2 viikkoa laatikon noston jälkeen töissä. Mekaaninen, helpottaa levolla, ei kipua polven alapuolelle. Ei ratsupaikka-alueen puutumista, ei virtsaamis- tai ulostamismuutoksia, ei kuumetta, ei painonlaskua. Ei koskaan tupakoinut. Lanneranka: lievä aristus L4-5, liikkuvuus täysi, liikkeissä jonkin verran kipua. Neurologinen status normaali, Lasègue negatiivinen. Suunnitelma: lyhyt parasetamoli- ja ibuprofeenikuuri, pysyttävä aktiivisena, lähete fysioterapiaan. Kontrolli 4 viikon kuluttua, jos ei parane."
+      },
+      {
+        "date": "2026-07-22",
+        "reason": "Selkäkivun pahenemisvaihe, paranemassa",
+        "gpNote": "Selkäkipu palannut puutarhatöiden jälkeen, lähinnä oikealla, nyt 5 päivää. Fysioterapiasta ollut jonkin verran apua, tekee edelleen harjoitteita. Ei alaraajaoireita, ei puutumista, ei virtsaamis- tai ulostamismuutoksia. Kuumeeton. Paravertebraalista aristusta oikealla, liikkuvuus lähes täysi, neurologisesti normaali. Paino ennallaan. Suunnitelma: tulehduskipulääke 5 päivän ajan, ryhtiohjeet, selän omahoito-ohje annettu. Kuvantamiselle ei tässä vaiheessa aihetta. Kontrolli tarvittaessa."
+      }
+    ]
+  },
+  {
+    "patientId": "SYN-007",
+    "synthetic": true,
+    "name": "Tuomas Piirtäjä",
+    "age": 39,
+    "sex": "male",
+    "smokingStatus": "never",
+    "wellbeingServicesCounty": "Lappi",
+    "visits": [
+      {
+        "date": "2026-05-28",
+        "reason": "Oikean korvan kipu",
+        "gpNote": "39-v. mies, 3 päivää oikean korvan kipua, nuhaa, eilen kuumetta 38,0, nyt laskemassa. Kuulo hieman heikentynyt oikealla. Ei koskaan tupakoinut. Otoskopia: oikea tärykalvo punoittava ja pullottava, vasen normaali. Keuhkot puhtaat, nielu lievästi punoittava. T 37,8, syke 86, SpO2 98 %. Diagnoosi: äkillinen välikorvatulehdus. Suunnitelma: amoksisilliini 500 mg 3 x/vrk 5 päivän ajan (ei penisilliiniallergiaa), parasetamoli, kontrolli 48 tunnin kuluttua, jos ei parane."
+      }
+    ]
+  },
+  {
+    "patientId": "SYN-008",
+    "synthetic": true,
+    "name": "Helena Kuvaaja",
+    "age": 72,
+    "sex": "female",
+    "smokingStatus": "never",
+    "wellbeingServicesCounty": "Satakunta",
+    "visits": [
+      {
+        "date": "2026-06-11",
+        "reason": "Kirvely virtsatessa",
+        "gpNote": "72-v. nainen, 2 päivää virtsakirvelyä ja tihentynyttä virtsaamistarvetta, alavatsan epämukavuutta. Ei kylkikipua, ei kuumetta, ei sekavuutta. Virtsatieinfektio 2 vuotta sitten. Ei koskaan tupakoinut. Virtsan liuskakoe: leukosyytit 3+, nitriitti positiivinen, verta jälkiä. T 36,9, RR 134/78, syke 76. Lievä aristus häpyluun yläpuolella. Suunnitelma: virtsan bakteeriviljely (keskisuihkunäyte) lähetetty, trimetopriimi 200 mg 2 x/vrk 3 päivän ajan viljelyvastausta odotellessa, nesteytys. Yhteys, jos kuumetta tai kylkikipua ilmaantuu."
+      }
+    ]
+  },
+  {
+    "patientId": "SYN-009",
+    "synthetic": true,
+    "name": "Kalle Nimetön",
+    "age": 31,
+    "sex": "male",
+    "smokingStatus": "never",
+    "wellbeingServicesCounty": "Uusimaa",
+    "visits": [
+      {
+        "date": "2026-08-05",
+        "reason": "Verta WC-paperissa",
+        "gpNote": "31-v. mies, 2 viikkoa kirkasta punaista verta WC-paperissa kovien ulosteiden jälkeen. Ei mustia ulosteita, ei vatsakipua, ei muutosta suolentoiminnassa. Ei painonlaskua, ruokahalu normaali. Ei koskaan tupakoinut. Suvussa ei suolistosyöpää. Niukkakuituinen ruokavalio, istumatyö, muuten terve. Peräaukon inspektio: pieniä ulkoisia peräpukamia, ei resistenssiä. Hb 151 g/l (normaali). Suunnitelma: kuitua ja nesteitä, paikallinen peräpukamavoide, kontrolli 6 viikon kuluttua, jos oireet jatkuvat. Yhteys, jos verenvuoto lisääntyy tai suolentoiminta muuttuu."
+      }
+    ]
+  },
+  {
+    "patientId": "SYN-010",
+    "synthetic": true,
+    "name": "Riitta Vertailu",
+    "age": 44,
+    "sex": "female",
+    "smokingStatus": "current",
+    "wellbeingServicesCounty": "Pohjois-Savo",
+    "visits": [
+      {
+        "date": "2026-09-29",
+        "reason": "Yskä 3 viikkoa, yksi veriviiru",
+        "gpNote": "44-v. nainen, yskä 3 viikkoa flunssan jälkeen, keltaista limaa. Huomannut kerran yskänkohtauksen jälkeen yhden veriviirun, ei sen jälkeen. Tupakoi, n. 5 savuketta/vrk 20 vuoden ajan (n. 5 askivuotta). Ei painonlaskua, ei yöhikoilua, ei kuumetta. Keuhkot puhtaat, SpO2 98 %, T 36,8, syke 80, hengitystaajuus 16/min. Arvio: todennäköisesti virusinfektion jälkeinen. Suunnitelma: ei antibioottia, hunajaa ja nesteitä, tupakoinnin lopettamisohjausta annettu. Keuhkokuva, jos yskä jatkuu vielä 3 viikkoa tai verta tulee uudelleen."
+      }
+    ]
+  },
+  {
+    "patientId": "SYN-011",
+    "synthetic": true,
+    "name": "Ahti Kaavio",
+    "age": 61,
+    "sex": "male",
+    "smokingStatus": "never",
+    "wellbeingServicesCounty": "Kanta-Häme",
+    "visits": [
+      {
+        "date": "2026-03-30",
+        "reason": "Vasemman olkapään kipu, 2 viikkoa",
+        "gpNote": "61-v. mies, 2 viikkoa vasemman olkapään särkyä, pahempi kurottaessa pään yläpuolelle, nukkuu huonosti sillä kyljellä. Ei niskakipua, ei puutumista, ei rintakipua. Ei koskaan tupakoinut. Ei tuoretta vammaa, mutta paljon puutarhatöitä. Olkapää: kivulias kaari 60–120 astetta, voima täysi, ei turvotusta. Pinnetestit positiiviset. Suunnitelma: ibuprofeeni 400 mg 3 x/vrk ruoan kanssa 1 viikon ajan, olkapään harjoitteet, kortisonipistos, jos ei parempi 6 viikossa."
+      }
+    ]
+  },
+  {
+    "patientId": "SYN-012",
+    "synthetic": true,
+    "name": "Mirjam Lukema",
+    "age": 47,
+    "sex": "female",
+    "smokingStatus": "never",
+    "wellbeingServicesCounty": "Varsinais-Suomi",
+    "visits": [
+      {
+        "date": "2026-07-07",
+        "reason": "Migreeni, kohtaukset tihentyneet",
+        "gpNote": "47-v. nainen, aurallinen migreeni n. kahdesti kuukaudessa 6 kuukauden ajan, aiemmin harvoin. Sykkivä päänsärky, pahoinvointi, valonarkuus, kestää n. 6 tuntia. Kohtausten välillä neurologinen status normaali. Ei päänsärkyä herätessä, ei näönmenetystä, ei kuumetta eikä niskajäykkyyttä. Ei koskaan tupakoinut. Yhdistelmäehkäisypillerit lopetettu viime kuussa auran vuoksi, nyt kuparikierukka. RR 122/80. Suunnitelma: naprokseeni kohtauksiin, sumatriptaanikokeilu, kontrolli 6 viikon kuluttua."
+      }
+    ]
+  },
+  {
+    "patientId": "SYN-013",
+    "synthetic": true,
+    "name": "Veikko Taulukko",
+    "age": 70,
+    "sex": "male",
+    "smokingStatus": "former",
+    "wellbeingServicesCounty": "Etelä-Pohjanmaa",
+    "visits": [
+      {
+        "date": "2026-08-26",
+        "reason": "Paino laskenut 1,5 kg",
+        "gpNote": "70-v. mies, paino laskenut n. 1,5 kg 2 kuukaudessa, nyt 81 kg. Muuttanut ruokavaliotaan ja aloittanut päivittäiset kävelylenkit, vähentänyt sokeria. Ruokahalu normaali, ei yskää, ei veriyskää, ei yöhikoilua, ei nielemisvaikeutta. Entinen tupakoitsija, lopettanut 2010, n. 15 askivuotta. Keuhkot puhtaat, SpO2 97 %, syke 70. Vatsa pehmeä. Suunnitelma: PVK, CRP, HbA1c, TSH lähetetty. Paino uudelleen 3 kuukauden kuluttua. Yhteys aiemmin, jos yskää, hengenahdistusta, verisiä ysköksiä tai lisää painonlaskua."
+      }
+    ]
+  },
+  {
+    "patientId": "SYN-014",
+    "synthetic": true,
+    "name": "Ilona Koeajo",
+    "age": 26,
+    "sex": "female",
+    "smokingStatus": "never",
+    "wellbeingServicesCounty": "Kymenlaakso",
+    "visits": [
+      {
+        "date": "2026-04-22",
+        "reason": "Kutisevat läiskät kyynärpäiden ja polvien alueella",
+        "gpNote": "26-v. nainen, kutisevia kuivia läiskiä molemmissa kyynärtaipeissa ja polvitaipeissa n. 2 vuotta, pahempi talvella. Kutina herättää toisinaan. Ei erittävää ihottumaa, ei kuumetta. Ei koskaan tupakoinut. Suvussa astmaa ja ekseemaa. Iho: punoittavia, likenifioituneita plakkeja taivealueilla, ei infektion merkkejä. Suunnitelma: perusvoide 2 x/vrk, mieto kortisonivoide pahenemisvaiheisiin, voimakkaita saippuoita vältettävä, kontrolli 8 viikon kuluttua, jos ei hallinnassa."
+      }
+    ]
+  },
+  {
+    "patientId": "SYN-015",
+    "synthetic": true,
+    "name": "Oskari Piirros",
+    "age": 52,
+    "sex": "male",
+    "smokingStatus": "current",
+    "wellbeingServicesCounty": "Päijät-Häme",
+    "visits": [
+      {
+        "date": "2026-10-13",
+        "reason": "Oikean polven kipu juoksun jälkeen",
+        "gpNote": "52-v. mies, oikean polven kipu 3 viikkoa siitä lähtien, kun pidensi juoksumatkoja. Kipu polven etuosassa, pahempi portaissa. Ei turvotusta, ei lukkiutumista, ei pettämistä. Tupakoi, 12 savuketta/vrk n. 30 vuoden ajan (n. 18 askivuotta). Polvi: ei nestettä, patellofemoraalista krepitaatiota, liikelaajuus täysi, nivelsiteet tukevat. Suunnitelma: juoksun vähentäminen, nelipäisen reisilihaksen vahvistaminen, lyhyt ibuprofeenikuuri, lähete fysioterapiaan. Tupakoinnin lopettamista suositeltu, lääkehoidosta kieltäytyi tänään."
+      }
+    ]
+  }
+]

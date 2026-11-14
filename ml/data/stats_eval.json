@@ -1,0 +1,36 @@
+{
+  "split": "eval",
+  "records_in_file": 25,
+  "by_cancer_kind_language": {
+    "lung/cancer/fi": 4,
+    "lung/cancer/en": 4,
+    "colorectal/cancer/en": 6,
+    "colorectal/cancer/fi": 1,
+    "lung/control/fi": 1,
+    "colorectal/control/en": 1,
+    "ovarian/cancer/fi": 5,
+    "ovarian/cancer/en": 2,
+    "ovarian/control/en": 1
+  },
+  "run_counts": {
+    "attempts": 25,
+    "validation_failures": 0,
+    "call_failures": 0,
+    "near_duplicates": 0,
+    "records_ok": 25,
+    "records_failed": 0,
+    "pruned_evidence": 49,
+    "in_tokens": 39355,
+    "out_tokens": 23836
+  },
+  "run_results": {
+    "ok": 25,
+    "failed": 0,
+    "budget_stop": 0
+  },
+  "est_cost_usd": 0.0714,
+  "price_assumption_usd_per_M": {
+    "in": 0.3,
+    "out": 2.5
+  }
+}
