@@ -119,8 +119,7 @@ const FI_SHARED: Record<string, string> = {
   'Published risk': 'Julkaistu riski',
   ' or more': ' tai enemmän',
   'Above NG12 3%': 'Yli NG12:n 3 %',
-  'UK primary-care aggregate figure, not a personal probability. Matched by AI.':
-    'Brittiläisen perusterveydenhuollon kokonaisluku, ei henkilökohtainen todennäköisyys. Tekoäly valitsi luvun.',
+  "Study figure, not this patient's risk.": 'Tutkimuksen luku, ei tämän potilaan riski.',
   '{test} needed before a Referral': '{test} tarvitaan ennen lähetettä',
   'Urgent Referral sent to the Referral desk': 'Kiireellinen lähete lähetetty lähetteiden käsittelyyn',
   'Routine Referral sent to the Referral desk': 'Ei-kiireellinen lähete lähetetty lähetteiden käsittelyyn',

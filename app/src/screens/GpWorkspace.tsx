@@ -157,14 +157,17 @@ export function GpWorkspace({ patients, patientId, onPatient }: Props) {
   return (
     <div className="nf">
       <nav className="nf-list" aria-label={t("Today's patients")}>
-        <input
-          type="search"
-          className="nf-search"
-          placeholder={t('Search patients')}
-          aria-label={t('Search patients')}
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-        />
+        <div className="nf-search-wrap">
+          <Icon name="search" size={16} />
+          <input
+            type="search"
+            className="nf-search"
+            placeholder={t('Search patients')}
+            aria-label={t('Search patients')}
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+          />
+        </div>
         {shown.length === 0 && <p className="nf-list-none">{t('No patient matches.')}</p>}
         {shown.map((p) => (
           <button key={p.id} aria-current={p.id === patient.id} onClick={() => onPatient(p.id)}>
@@ -196,12 +199,10 @@ export function GpWorkspace({ patients, patientId, onPatient }: Props) {
           </tbody>
         </table>
 
+        <button className="btn small nf-add" type="button" disabled={hasBlank} onClick={addNote}>
+          <Icon name="plus" size={16} /> {t('Add note')}
+        </button>
         <ol className="nf-tl" aria-label={t('Visits, newest first')}>
-          <li className="nf-tl-add">
-            <button className="btn small" type="button" disabled={hasBlank} onClick={addNote}>
-              <Icon name="plus" size={16} /> {t('Add note')}
-            </button>
-          </li>
           {draft.notes.map((n, i) => {
             const label = (
               <>
@@ -381,22 +382,22 @@ function Pointer({
           </div>
           <p className="nf-ptr-reason">{aid.riskReason}</p>
           {aid.publishedRisk && (
-            <div className="nf-ptr-ppv">
+            <details className="nf-ptr-ppv">
+              <summary>
+                {t('Published risk')} <Icon name="down" size={16} />
+              </summary>
               <p className="nf-ppv-row">
-                <span className="muted">{t('Published risk')}</span>
                 <b className="num">
                   {Math.round(aid.publishedRisk.pct * 10) / 10}%{aid.publishedRisk.isLowerBound ? t(' or more') : ''}
                 </b>
-              </p>
-              <p className="nf-ppv-row">
                 {aid.publishedRisk.aboveNg12Threshold && <span className="tag">{t('Above NG12 3%')}</span>}
-                <Source
-                  short
-                  source={{ label: aid.publishedRisk.sourceLabel, short: aid.publishedRisk.sourceLabel.split(',')[0], url: aid.publishedRisk.sourceUrl }}
-                />
               </p>
-              <p className="muted nf-ppv-note">{t('UK primary-care aggregate figure, not a personal probability. Matched by AI.')}</p>
-            </div>
+              <p className="muted">{t("Study figure, not this patient's risk.")}</p>
+              <Source
+                short
+                source={{ label: aid.publishedRisk.sourceLabel, short: aid.publishedRisk.sourceLabel.split(',')[0], url: aid.publishedRisk.sourceUrl }}
+              />
+            </details>
           )}
 
           {aid.testNeeded && !draft.sent && (
