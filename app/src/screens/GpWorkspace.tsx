@@ -231,13 +231,35 @@ function Pointer({
           </div>
           <p className="nf-ptr-reason">{aid.riskReason}</p>
           {aid.publishedRisk && (
-            <div className="nf-ptr-ppv" title={aid.publishedRisk.because}>
+            <div className="nf-ptr-ppv">
               <p>
-                Published risk: <b>{aid.publishedRisk.pct}%{aid.publishedRisk.isLowerBound ? ' or more' : ''}</b>{' '}
-                <Source source={{ label: aid.publishedRisk.sourceLabel, url: aid.publishedRisk.sourceUrl }} /> · matched by AI
-                {aid.publishedRisk.aboveNg12Threshold && <> · at or above the NICE NG12 3% line</>}
+                Published risk:{' '}
+                <b>
+                  {Math.round(aid.publishedRisk.pct * 10) / 10}%{aid.publishedRisk.isLowerBound ? ' or more' : ''}
+                </b>{' '}
+                <Source
+                  short
+                  source={{ label: aid.publishedRisk.sourceLabel, short: aid.publishedRisk.sourceLabel.split(',')[0], url: aid.publishedRisk.sourceUrl }}
+                />{' '}
+                · decided by AI
+                {aid.publishedRisk.aboveNg12Threshold && <span className="muted"> · at or above NICE NG12's 3% threshold</span>}
               </p>
-              <p className="muted">UK primary-care data, not Finnish, not a personal probability.</p>
+              <More
+                className="muted"
+                extra={
+                  <div className="nf-ppv-more">
+                    <p>{aid.publishedRisk.because}</p>
+                    {(aid.publishedRisk.studyPopulation || aid.publishedRisk.quote) && (
+                      <p className="muted">
+                        {aid.publishedRisk.studyPopulation}
+                        {aid.publishedRisk.quote && <> “{aid.publishedRisk.quote}”</>}
+                      </p>
+                    )}
+                  </div>
+                }
+              >
+                UK primary-care aggregate figure, not a personal probability.
+              </More>
             </div>
           )}
 
