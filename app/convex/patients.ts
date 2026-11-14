@@ -7,6 +7,7 @@ import { internal } from './_generated/api';
 import { action, query } from './_generated/server';
 import { repeatFlag } from './lib/repeat';
 import { vectorRepeat } from './lib/repeatVector';
+import { embedderFrom } from './model/embed';
 import { readPatient, readVisits } from './lib/read';
 
 export const list = query({
@@ -44,7 +45,13 @@ export const repeatVisitSimilar = action({
   args: { id: v.string() },
   handler: async (ctx, { id }): Promise<RepeatVisitFlag | null> => {
     const docs = await ctx.runQuery(internal.data.visitDocs, { patientId: id });
-    const vector = await vectorRepeat(ctx, id, docs);
+    // An embedder or vector search failure falls back to the symptom field, as aid:get does. Providers are never mixed.
+    let vector: Awaited<ReturnType<typeof vectorRepeat>> = null;
+    try {
+      vector = await vectorRepeat(ctx, id, docs, embedderFrom(process.env));
+    } catch (e) {
+      console.log(`repeatVisitSimilar ${id} vector Repeat failed, using the symptom field: ${e instanceof Error ? e.message : 'error'}`);
+    }
     if (vector) return vector.flag;
     return repeatFlag(docs.map((d) => ({ id: d.visitId, date: d.date, symptom: d.symptom })));
   },

@@ -13,6 +13,7 @@ import { mapLimit, runAid, type RepeatOverride } from './core/aid';
 import { fillReferral } from './core/fill';
 import { loraCfg, makePort } from './core/ports';
 import { buildRuleBook } from './core/rulebook';
+import { embedderFrom } from './model/embed';
 import { convexStore } from './lib/store';
 import { vectorRepeat } from './lib/repeatVector';
 import { aidResultV } from './validators';
@@ -28,14 +29,17 @@ export const get = action({
 });
 
 /**
- * Repeat from vector search over the stored embeddings (techUsed 'convex-vector'). Undefined when today's visit has no
- * embedding or vector search throws: core/aid.ts then counts the symptom field ('symptom-match'). Logs the error message only.
+ * Repeat from vector search over the stored embeddings: techUsed 'embeddinggemma' when EmbeddingGemma made the query vector,
+ * else 'convex-vector' (Gemini or no embedder). Undefined when there is no query vector or the embedder or vector search
+ * throws: core/aid.ts then counts the symptom field ('symptom-match'). Logs the error message only.
  */
 async function vectorRepeatOrUndefined(ctx: ActionCtx, patientId: string): Promise<RepeatOverride | undefined> {
   try {
+    const embedder = embedderFrom(process.env);
     const docs = await ctx.runQuery(internal.data.visitDocs, { patientId });
-    const vector = await vectorRepeat(ctx, patientId, docs);
-    return vector ? { flag: vector.flag, source: 'convex-vector' } : undefined;
+    const vector = await vectorRepeat(ctx, patientId, docs, embedder);
+    const source = embedder?.provider === 'embeddinggemma' ? 'embeddinggemma' : 'convex-vector';
+    return vector ? { flag: vector.flag, source } : undefined;
   } catch (e) {
     console.log(`aid:get ${patientId} vector Repeat failed, using the symptom field: ${e instanceof Error ? e.message : 'error'}`);
     return undefined;
