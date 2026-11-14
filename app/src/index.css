@@ -2312,7 +2312,7 @@ textarea.input {
   .topbar .who {
     display: none;
   }
-  .topbar .signout {
+  .topbar .lang {
     margin-left: auto;
   }
   .nf {
@@ -2561,4 +2561,21 @@ textarea.input {
 .btn.primary:disabled::before {
   background: var(--paper-2);
   box-shadow: none;
+}
+/* EN / FI label switch */
+.lang {
+  display: flex;
+  gap: 4px;
+}
+.lang .btn {
+  min-width: 48px;
+}
+.login-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.login-head h2 {
+  margin-bottom: 8px;
 }

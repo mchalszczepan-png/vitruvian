@@ -6,10 +6,12 @@ import { ReferralSummary } from '../components/ReferralSummary';
 import { STATUS_REASON_MAX } from '../data/referralSummary';
 import { Source } from '../components/Source';
 import { cancerName, fmtDate, optionLabel, originLabel } from '../components/labels';
+import { useBi } from '../components/lang';
 
 const statusLabel: Record<ReferralStatus, string> = { sent: 'New', accepted: 'Accepted', returned: 'Returned to the GP' };
 
 export function ReferralDesk({ patients, focusId, onGoGp }: { patients: Patient[]; focusId?: string; onGoGp?: () => void }) {
+  const t = useBi();
   const [refs, setRefs] = useState<ReferralView[] | null>(null);
   const [openId, setOpenId] = useState<string | undefined>(focusId);
   const [template, setTemplate] = useState<ReferralTemplate>();
@@ -185,7 +187,7 @@ export function ReferralDesk({ patients, focusId, onGoGp }: { patients: Patient[
                   return (
                     <div key={f.key} style={{ display: 'contents' }}>
                       <dt>
-                        {f.label}
+                        {t(f.label)}
                         {f.required && <span className="req"> *</span>}
                       </dt>
                       <dd>

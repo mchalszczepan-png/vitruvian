@@ -1,17 +1,20 @@
 import { useState } from 'react';
 import { Icon, Mark } from '../components/Icon';
+import { useBi } from '../components/lang';
+import { LangSwitch } from '../components/LangSwitch';
 
 export type Role = 'gp' | 'desk' | 'specialist';
 export const ROLES: { id: Role; label: string; place: string; user: string }[] = [
-  { id: 'gp', label: 'GP', place: 'Health centre (terveyskeskus)', user: 'Dr. Demo, Pirkkala health centre' },
-  { id: 'desk', label: 'Referral desk', place: 'Hospital (sairaala)', user: 'Desk nurse Demo, Tays hospital' },
-  { id: 'specialist', label: 'Specialist', place: 'Hospital (sairaala)', user: 'Dr. Demo, Tays hospital' },
+  { id: 'gp', label: 'GP', place: 'Health centre (Terveyskeskus)', user: 'Dr. Demo, Pirkkala health centre' },
+  { id: 'desk', label: 'Referral desk', place: 'Hospital (Sairaala)', user: 'Desk nurse Demo, Tays hospital' },
+  { id: 'specialist', label: 'Specialist', place: 'Hospital (Sairaala)', user: 'Dr. Demo, Tays hospital' },
 ];
 
 /** Fake sign-in: any username and password work. Each role opens only its own screen. */
 export function Login({ onSignIn }: { onSignIn: (r: Role) => void }) {
   const [user, setUser] = useState('');
   const [pass, setPass] = useState('');
+  const t = useBi();
   return (
     <div className="login">
       <aside className="login-brand">
@@ -29,7 +32,10 @@ export function Login({ onSignIn }: { onSignIn: (r: Role) => void }) {
           onSignIn('gp');
         }}
       >
-        <h2>Sign in</h2>
+        <div className="login-head">
+          <h2>Sign in</h2>
+          <LangSwitch />
+        </div>
         <input className="input" aria-label="Username" placeholder="Username" autoComplete="off" value={user} onChange={(e) => setUser(e.target.value)} />
         <input className="input" aria-label="Password" placeholder="Password" type="password" autoComplete="off" value={pass} onChange={(e) => setPass(e.target.value)} />
         <p className="login-hint">Any username and password work. Choose your role.</p>
@@ -39,7 +45,7 @@ export function Login({ onSignIn }: { onSignIn: (r: Role) => void }) {
               <button type="button" onClick={() => onSignIn(r.id)}>
                 <span>
                   <b>{r.label}</b>
-                  <small>{r.place}</small>
+                  <small>{t(r.place)}</small>
                 </span>
                 <Icon name="arrow" size={16} />
               </button>

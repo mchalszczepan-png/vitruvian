@@ -1,6 +1,7 @@
 import type { FieldValue, TemplateField } from '../data/types';
 import { More } from './More';
 import { optionLabel, originLabel } from './labels';
+import { useBi } from './lang';
 
 interface Props {
   field: TemplateField;
@@ -12,6 +13,7 @@ interface Props {
 
 /** One Referral template field. Any field is editable; a GP edit marks the value as the GP's own. */
 export function FieldInput({ field, value, onChange, showOrigin = true }: Props) {
+  const t = useBi();
   const v = value?.value ?? '';
   const origin = value && v !== '' ? value.origin : 'empty';
   const missing = field.required && v === '';
@@ -92,7 +94,7 @@ export function FieldInput({ field, value, onChange, showOrigin = true }: Props)
     <div className={`field${missing ? ' missing' : ''}`} title={value?.evidence && origin === 'gemma' ? `From the note: ${value.evidence}` : undefined}>
       <div className="field-top">
         <label id={`${id}-l`} htmlFor={id}>
-          {field.label}
+          {t(field.label)}
         </label>
         {field.required && <span className="req">Required</span>}
         {showOrigin && <span className={`tag ${origin}`}>{originLabel[origin]}</span>}
