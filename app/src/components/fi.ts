@@ -47,6 +47,10 @@ const FI_SHARED: Record<string, string> = {
   'Show more': 'Näytä lisää',
   'Show less': 'Näytä vähemmän',
   'Show all': 'Näytä kaikki',
+  'Add note': 'Lisää merkintä',
+  'Note {n}': 'Merkintä {n}',
+  'Fold note': 'Pienennä merkintä',
+  'Empty note': 'Tyhjä merkintä',
   'opens in new tab': 'avautuu uuteen välilehteen',
 
   // Referral field options

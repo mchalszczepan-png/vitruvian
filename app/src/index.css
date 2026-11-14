@@ -2573,6 +2573,78 @@ textarea.input {
 .note-text li::marker {
   color: var(--muted);
 }
+/* Today's notes: fold one to a single line; Add note starts a separate one (Michal, 15 Nov) */
+.nf-note-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.nf-note-head .icon-btn {
+  display: inline-grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  margin: -4px -4px -4px 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: var(--muted);
+  cursor: pointer;
+}
+.nf-note-head .icon-btn:hover {
+  background: var(--paper);
+  color: var(--ink);
+}
+.nf-tl > li.nf-tl-add {
+  padding: 0;
+  background: none;
+  border: 0;
+}
+.nf-tl > li.nf-tl-add::before {
+  content: none;
+}
+.nf-tl-add .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.nf-tl-today .nf-note.nf-note-furled {
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  padding: 8px 16px;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  border-width: 1px;
+  border-color: #e3dfdc;
+  box-shadow: none;
+  cursor: pointer;
+}
+.nf-note-furled:hover {
+  border-color: var(--slate);
+}
+.nf-note-furled .nf-note-label {
+  white-space: nowrap;
+}
+.nf-note-peek {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.nf-note-furled small {
+  color: var(--muted);
+  white-space: nowrap;
+}
+@media (max-width: 720px) {
+  .nf-note-furled small {
+    display: none;
+  }
+}
 /* A saved note folds itself to four lines; the chevron opens the rest */
 .note-fold-body {
   max-height: calc(1.6em * 4);
