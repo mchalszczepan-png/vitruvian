@@ -2711,3 +2711,20 @@ img.mark {
     white-space: nowrap;
   }
 }
+
+/* MedGemma terms notice, required by the HAI-DEF Terms of Use */
+.login-terms {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--fs-1);
+  text-wrap: pretty;
+}
+.login-terms a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+/* Logo on the dark login panel: show it light */
+.login-logo img.mark {
+  filter: brightness(0) invert(1);
+}
