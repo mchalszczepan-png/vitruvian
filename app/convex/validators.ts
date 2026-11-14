@@ -274,6 +274,7 @@ export const techUsedV = v.object({
     v.literal('stub'),
     v.literal('mock'),
   ),
+  detail: v.optional(v.string()),
 });
 
 /** Mirrors AidResult in app/src/data/types.ts. Checkable facts plus the one model output (riskGradient). */
@@ -283,6 +284,8 @@ export const aidResultV = v.object({
   techUsed: v.optional(v.array(techUsedV)),
   riskGradient: v.number(),
   riskReason: v.string(),
+  riskModelPointer: v.optional(v.union(cancerV, v.literal('none'))),
+  riskEvidence: v.optional(v.array(v.string())),
   matchedRules: v.array(matchedRuleV),
   severity: severityV,
   testNeeded: v.optional(v.object({ test: v.string(), threshold: v.string(), why: v.string(), source: sourceV })),

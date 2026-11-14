@@ -49,13 +49,13 @@ The base is candidate A, with three pieces taken from B.
   - `makePort(env, store?)` is the only env reader.
   - `stub` gives `stubPort()`. `gemma` and `modal-lora` give the same `llmPort(cfg)`, wrapped in `withCache(port, store)`.
   - Optional `GEMMA_FALLBACK_*` (all three or none) adds a second chat endpoint: `chatCompletion` tries the primary once, and on any failure logs one line and calls the fallback. The LoRA call has no fallback, so its 25 s single attempt is unchanged. The cache key uses `GEMMA_MODEL` only.
-  - `modal-lora` reads `LORA_BASE_URL`, `LORA_API_KEY`, `LORA_MODEL` (`loraCfg`, makePort) and uses them for the fill alone: 25 s, no retry, redirects not followed. On any failure the fill falls back to the `gemma` endpoint (`GEMMA_*`), logs one line, and returns `servedBy: 'gemma'`. `withCache` does not store a fallback fill under the LoRA key. The `techUsed` fill step is static `modal-lora` (the aid result runs no fill, and `FieldValues` has no tech field).
+  - `modal-lora` reads `LORA_BASE_URL`, `LORA_API_KEY`, `LORA_MODEL` (`loraCfg`, makePort) and uses them for the fill, and for the risk when `LORA_TRIAGE_MODEL` is set (`vitruvian-triage`, same endpoint and key): 25 s, no retry, redirects not followed. The triage risk falls back to the prompted risk on any failure (`servedBy: 'gemma'`, one log line, not cached). The triage model id is in the risk cache key only. Its cancer guess is a note (`riskModelPointer`); the Rules pick the cancer. Research prototype: 92.3% cancer-type accuracy on 78 synthetic held-out notes, not risk accuracy. On any failure the fill falls back to the `gemma` endpoint (`GEMMA_*`), logs one line, and returns `servedBy: 'gemma'`. `withCache` does not store a fallback fill under the LoRA key. The `techUsed` fill step is static `modal-lora` (the aid result runs no fill, and `FieldValues` has no tech field).
   - `llmPort` owns the one chat client (`model/openai.ts` plus a 20 s timeout and one retry on network, 429 or 5xx), the one JSON parser, the Gemini Decisions POST and the unchanged contract fill.
 - **Numeric Rules are decided in code.** COLO-01 (FIT) and OVAR-06 (CA-125) are computed from the bands in every mode, so they are exact and free.
 - **The cache** is the existing `decisionCache` key/value table with batched `getMany`/`setMany`. It caches:
   - `extractFacts` by `(port, model id, sha(note))`;
   - `decide` by `(rule, question, sha(facts))`;
-  - `risk` by `sha(input)`.
+  - `risk` by `sha(input)`, with the triage model id when there is one (`risk:v2:`).
 
   Fill is never cached. All calls run at temperature 0, so replaying from the cache is correct. This gives B's "do model work once per note" without three new tables.
 - **The pure core.** `core/aid.ts` `analyze()` is the one place the pipeline order is written:

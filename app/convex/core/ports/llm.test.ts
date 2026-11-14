@@ -22,6 +22,13 @@ function setup(reply: (url: string, body: Record<string, unknown>) => Response) 
   return { port, calls };
 }
 const chat = (content: string) => json({ choices: [{ message: { content } }] });
+const riskInput = {
+  cancer: 'lung' as const,
+  matched: [],
+  history: { visitCount: 1, repeatVisit: false, lasting: 0, age: 60, sex: 'male', visits: [] },
+  noRuleMatched: true,
+  notes: { today: 'Cough.', earlier: [] },
+};
 
 describe('llmPort', () => {
   it('extractFacts posts to {baseUrl}/chat/completions at temperature 0 and keeps only typed fact keys', async () => {
@@ -50,7 +57,7 @@ describe('llmPort', () => {
 
   it('a risk reply without a number throws, and a failing call names the HTTP status only (one retry on 5xx)', async () => {
     const bad = setup(() => chat('{"reason": "no score"}'));
-    await expect(bad.port.risk({ cancer: 'lung', matched: [], history: { visitCount: 1, repeatVisit: false, lasting: 0, age: 60, sex: 'male', visits: [] } })).rejects.toThrow('no numeric score');
+    await expect(bad.port.risk(riskInput)).rejects.toThrow('no numeric score');
 
     const down = setup(() => new Response('secret-looking-body', { status: 503 }));
     const err = await down.port.extractFacts('note').catch((e: Error) => e);
@@ -67,7 +74,7 @@ describe('llmPort', () => {
     };
     const cached = withCache(port, store, 'test-model');
     const args = { facts: emptyFacts(), who: { age: 60, sex: 'male', smokingStatus: 'former' } as const, questions: [{ id: 'LUNG-02', question: 'Coughed up blood?' }] };
-    const risk = { cancer: 'lung' as const, matched: [], history: { visitCount: 1, repeatVisit: false, lasting: 0, age: 60, sex: 'male', visits: [] } };
+    const risk = riskInput;
     const first = [await cached.decide(args), await cached.risk(risk)];
     const second = [await cached.decide(args), await cached.risk(risk)];
     expect(second).toEqual(first);

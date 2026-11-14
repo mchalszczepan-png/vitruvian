@@ -1,5 +1,78 @@
 import { describe, expect, it } from 'vitest';
-import { lastingCount, mapLimit, pickCancer, snippetOf, techUsedFor, withoutSafetyNet, type RepeatSource } from './aid';
+import { analyze, lastingCount, mapLimit, pickCancer, snippetOf, TRIAGE_BADGE, techUsedFor, withoutSafetyNet, type RepeatSource } from './aid';
+import { buildRuleBook, type RuleBook } from './rulebook';
+import { stubPort } from './ports/stub';
+import type { ModelPort } from './port';
+import type { Patient, Visit } from '../../src/data/types';
+import rulesJson from '../seed/rules.json';
+import severityJson from '../seed/severity.json';
+import patientsJson from '../seed/patients.json';
+import visitsJson from '../seed/visits.json';
+
+describe('techUsedFor: the triage risk', () => {
+  const riskOf = (servedBy?: 'modal-lora' | 'gemma') => techUsedFor('modal-lora', 'symptom-match', servedBy).find((t) => t.step === 'risk');
+
+  it('a triage answer gives the risk step modal-lora with the TRIAGE_BADGE detail', () => {
+    expect(riskOf('modal-lora')).toEqual({ step: 'risk', provider: 'modal-lora', detail: TRIAGE_BADGE });
+    expect(TRIAGE_BADGE).toBe('Gemma 4 E4B, fine-tuned on synthetic GP notes, Gemini-teacher labels, not clinically validated');
+  });
+
+  it('a fallback or no triage keeps the prompted risk on gemma, with no detail', () => {
+    expect(riskOf('gemma')).toEqual({ step: 'risk', provider: 'gemma' });
+    expect(riskOf()).toEqual({ step: 'risk', provider: 'gemma' });
+  });
+});
+
+describe('analyze: the triage pointer and evidence', () => {
+  const book: RuleBook = buildRuleBook({ rules: rulesJson as never, severities: severityJson as never });
+  const visits = visitsJson as { patientId: string; visitId: string; order: number; date: string; reason: string; symptom: string; note: string; reasonFi?: string; gpNoteFi?: string }[];
+  const patientFor = (id: string): Patient => {
+    const p = (patientsJson as Omit<Patient, 'visits'>[]).find((x) => x.id === id)!;
+    const vs: Visit[] = visits
+      .filter((v) => v.patientId === id)
+      .sort((a, b) => a.order - b.order)
+      .map((v) => ({ id: v.visitId, date: v.date, reason: v.reason, symptom: v.symptom, note: v.note, reasonFi: v.reasonFi, gpNoteFi: v.gpNoteFi }));
+    return { ...p, visits: vs };
+  };
+  const withRisk = (risk: Partial<Awaited<ReturnType<ModelPort['risk']>>>): ModelPort => ({
+    ...stubPort(),
+    risk: async () => ({ score: 5, reason: 'r', ...risk }),
+  });
+
+  it('riskModelPointer is set when the triage guess differs from the Rules, and riskEvidence comes with a triage answer', async () => {
+    const patient = patientFor('SYN-001');
+    const base = await analyze({ patient, book, model: stubPort() });
+    const other = base.aid.suspectedCancer === 'lung' ? 'colorectal' : 'lung';
+    const out = await analyze({ patient, book, model: withRisk({ pointer: other, evidence: ['a phrase'], servedBy: 'modal-lora' }) });
+    expect(out.aid.riskModelPointer).toBe(other);
+    expect(out.aid.riskEvidence).toEqual(['a phrase']);
+    expect(out.aid.techUsed?.find((t) => t.step === 'risk')).toEqual({ step: 'risk', provider: 'modal-lora', detail: TRIAGE_BADGE });
+  });
+
+  it('riskModelPointer is not set when it matches the Rules, and nothing is set without a triage answer', async () => {
+    const patient = patientFor('SYN-001');
+    const base = await analyze({ patient, book, model: stubPort() });
+    const same = await analyze({ patient, book, model: withRisk({ pointer: base.aid.suspectedCancer, evidence: ['x'], servedBy: 'modal-lora' }) });
+    expect(same.aid).not.toHaveProperty('riskModelPointer');
+    expect(same.aid.riskEvidence).toEqual(['x']);
+
+    // Evidence is shown only for a triage answer: a prompted risk (no servedBy) carries none.
+    const prompted = await analyze({ patient, book, model: withRisk({ evidence: ['x'] }) });
+    expect(prompted.aid).not.toHaveProperty('riskModelPointer');
+    expect(prompted.aid).not.toHaveProperty('riskEvidence');
+  });
+
+  it('with no Rule matched the Rules say none: a pointer is shown, and a none pointer is not', async () => {
+    const patient = patientFor('SYN-001');
+    const silent: ModelPort = { ...withRisk({}), decide: async () => ({}) };
+    const shown = await analyze({ patient, book, model: { ...silent, risk: withRisk({ pointer: 'lung', servedBy: 'modal-lora' }).risk } });
+    expect(shown.aid.noRuleMatched).toBe(true);
+    expect(shown.aid.riskModelPointer).toBe('lung');
+
+    const none = await analyze({ patient, book, model: { ...silent, risk: withRisk({ pointer: 'none', servedBy: 'modal-lora' }).risk } });
+    expect(none.aid).not.toHaveProperty('riskModelPointer');
+  });
+});
 
 describe('techUsedFor', () => {
   it('repeat step names the source: symptom field by default, convex-vector when the caller ran vector search', () => {
