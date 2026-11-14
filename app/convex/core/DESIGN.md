@@ -48,6 +48,7 @@ The base is candidate A, with three pieces taken from B.
 - **One seam.** `ModelPort { name; extractFacts(note); decide({facts, who, questions}); risk(input); fill(input) }`, with domain types only.
   - `makePort(env, store?)` is the only env reader.
   - `stub` gives `stubPort()`. `gemma` and `modal-lora` give the same `llmPort(cfg)`, wrapped in `withCache(port, store)`.
+  - Optional `GEMMA_FALLBACK_*` (all three or none) adds a second chat endpoint: `chatCompletion` tries the primary once, and on any failure logs one line and calls the fallback. The LoRA call has no fallback, so its 25 s single attempt is unchanged. The cache key uses `GEMMA_MODEL` only.
   - `modal-lora` reads `LORA_BASE_URL`, `LORA_API_KEY`, `LORA_MODEL` (`loraCfg`, makePort) and uses them for the fill alone: 25 s, no retry, redirects not followed. On any failure the fill falls back to the `gemma` endpoint (`GEMMA_*`), logs one line, and returns `servedBy: 'gemma'`. `withCache` does not store a fallback fill under the LoRA key. The `techUsed` fill step is static `modal-lora` (the aid result runs no fill, and `FieldValues` has no tech field).
   - `llmPort` owns the one chat client (`model/openai.ts` plus a 20 s timeout and one retry on network, 429 or 5xx), the one JSON parser, the Gemini Decisions POST and the unchanged contract fill.
 - **Numeric Rules are decided in code.** COLO-01 (FIT) and OVAR-06 (CA-125) are computed from the bands in every mode, so they are exact and free.

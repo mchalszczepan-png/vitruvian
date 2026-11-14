@@ -39,6 +39,7 @@ Convex uses the ids in `docs/build/rules.md` (`LUNG-02`, `COLO-04`, `OVAR-06`). 
 ## Model provider switch
 
 Convex env `MODEL_PROVIDER` = `stub` (deterministic, tests and offline demo) | `gemma` (prompted hosted Gemma, OpenAI-style API) | `modal-lora` (the Modal-served LoRA for the Referral fill only; facts, decisions and risk still run as `gemma`). `GEMMA_BASE_URL`, `GEMMA_API_KEY`, `GEMMA_MODEL` for `gemma` and `modal-lora`; `GEMINI_API_KEY` for the Decisions API and embeddings. `modal-lora` also needs `LORA_BASE_URL` (ends in `/v1`), `LORA_MODEL` (`vitruvian-lora`) and `LORA_API_KEY`; `makePort` throws, naming them, when one is missing. Keys live only in Convex env. Never in client code, docs or git.
+Optional `GEMMA_FALLBACK_BASE_URL`, `GEMMA_FALLBACK_API_KEY`, `GEMMA_FALLBACK_MODEL` (all three or none): a second chat endpoint. The primary gets one try (20 s); on any failure the call goes to the fallback, which gets the normal 20 s and one retry.
 
 `modal-lora` fill: one request to the LoRA with a 25 s timeout and no retry. A timeout, a 303 (the Modal cold start, ~13 min; redirects are not followed), a non-2xx or output the contract rejects falls back to the `gemma` fill, logs one line `fill: modal-lora failed (<reason>), fell back to gemma`, and the result says `servedBy: gemma`. A fallback fill is not cached under the LoRA key. `aid:prewarm` schedules `aid:warmLora` first (GET `/models`, 9 min limit) so the LoRA starts warm; run prewarm again once it is warm to cache LoRA fills.
 
