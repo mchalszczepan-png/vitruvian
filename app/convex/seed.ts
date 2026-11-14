@@ -1,6 +1,7 @@
 // Seeding from docs/build data (built into convex/seed/*.json by app/scripts/build-seed.mjs).
 // seed:run clears and reinserts the seeded tables (idempotent). It keeps `referrals` and `decisionCache`.
 // seed:embedVisits (internal) embeds visit notes with Gemini gemini-embedding-001 at 768 dims. No-op without GEMINI_API_KEY.
+// seed:run schedules seed:embedVisits, so a reseed re-embeds.
 // Research prototype. Not a medical device. Not for clinical use. All patients are made up.
 /// <reference types="node" />
 import { v } from 'convex/values';
@@ -50,6 +51,8 @@ export const run = mutation({
     for (const r of stagingReportsJson as unknown as StagingReport[]) await ctx.db.insert('stagingReports', r);
     for (const s of severityJson as Severity[]) await ctx.db.insert('severity', s);
     await ctx.db.insert('countyGap', countyGapJson as CountyGap);
+    // Clearing visits drops their embeddings, so embed the new rows (no-op without GEMINI_API_KEY).
+    await ctx.scheduler.runAfter(0, internal.seed.embedVisits, {});
 
     return {
       patients: patients.length,
