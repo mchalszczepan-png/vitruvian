@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { getReferralTemplate, getReferrals } from '../data/api';
 import type { Patient, Referral, ReferralTemplate } from '../data/types';
 import { Icon } from '../components/Icon';
+import { More } from '../components/More';
 import { Source } from '../components/Source';
 import { cancerName, fmtDate, optionLabel, originLabel } from '../components/labels';
 
@@ -30,7 +31,6 @@ export function ReferralDesk({ patients, focusId, onGoGp }: { patients: Patient[
       <div className="empty-state">
         <Icon name="doc" size={28} />
         <h2>No Referrals yet</h2>
-        <p>Referrals arrive here when a GP decides to refer. Try Matti Esimerkki in the GP view.</p>
         <button className="btn primary" onClick={onGoGp}>
           Go to the GP view
         </button>
@@ -65,13 +65,11 @@ export function ReferralDesk({ patients, focusId, onGoGp }: { patients: Patient[
             <h1>
               {open.urgency === 'urgent' ? 'Urgent' : 'Routine'} {cancerName[open.cancer].toLowerCase()} Referral
             </h1>
-            <div className="meta">
-              <span>
-                {patient.name}, {patient.age}, {patient.sex} · {patient.id} (made-up)
-              </span>
-              <span>Decided by the GP, {fmtDate(open.decidedAt)}</span>
-              {open.repeatVisit && <span className="tag gp">Repeat visit: {open.repeatVisit.count} visits</span>}
-            </div>
+            {open.repeatVisit && (
+              <div className="meta">
+                <span className="tag gp">Repeat visit: {open.repeatVisit.count} visits</span>
+              </div>
+            )}
           </header>
 
           <div className="summary-strip">
@@ -86,9 +84,9 @@ export function ReferralDesk({ patients, focusId, onGoGp }: { patients: Patient[
               <span className="v">{open.riskGradient} / 10</span>
             </div>
             <div>
-              <span className="l">Severity, 5-year survival</span>
+              <span className="l">Severity</span>
               <span className="v">{open.severity.fiveYearSurvivalPct === null ? 'Pending' : `${open.severity.fiveYearSurvivalPct}%`}</span>
-              <Source source={open.severity.source} />
+              <Source source={open.severity.source} short />
             </div>
             <div style={{ marginLeft: 'auto', alignSelf: 'center', display: 'flex', gap: 10 }}>
               {st === 'new' ? (
@@ -115,7 +113,7 @@ export function ReferralDesk({ patients, focusId, onGoGp }: { patients: Patient[
                     <b>{m.rule.text}</b>
                     <span className="rule-id">{m.rule.id}</span>
                   </div>
-                  <p>Because: {m.because}</p>
+                  <More>Because: {m.because}</More>
                   <Source source={m.rule.source} />
                 </div>
               ))}
@@ -147,9 +145,6 @@ export function ReferralDesk({ patients, focusId, onGoGp }: { patients: Patient[
                 })}
               </dl>
             )}
-            <p className="notice" style={{ marginTop: 12 }}>
-              * Required field. Tags show where each value came from.
-            </p>
           </section>
         </article>
       )}

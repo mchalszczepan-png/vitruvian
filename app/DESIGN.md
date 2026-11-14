@@ -23,9 +23,9 @@ Hard-coded colours also appear. The record-system greys (#eceae8, #d9d6d3, #f4f3
 
 ## Type
 
-- `--serif`: Source Serif 4. Used for headings (h1 to h3), wordmark, big numbers (`.big`, `.v`), section titles, and Goal 3 names.
-- `--sans`: Inter. Used for the body and all UI. Both load from Google Fonts in `index.html`.
-- Scale: `--step--1` 0.8125rem, `--step-0` 0.9375rem, `--step-1` 1.0625rem, `--step-2` 1.375rem, `--step-3` 1.875rem, `--step-4` 2.75rem.
+- `--title`: IBM Plex Mono. Used for all titles and subtitles: headings (h1 to h3), wordmark, section titles, tile titles.
+- `--sans`: Open Sans. Used for every other text, including big numbers. Both load from Google Fonts in `index.html`.
+- Scale: three sizes only, all multiples of 16px: `--fs-1` 16px (body, labels, sub-headings), `--fs-2` 32px (key figures), `--fs-3` 48px (page titles).
 - Base size 16px, line height 1.5. `.num` and big numbers use tabular figures.
 
 ## Shape and motion

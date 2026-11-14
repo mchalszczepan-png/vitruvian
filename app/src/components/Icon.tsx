@@ -4,6 +4,8 @@ const paths = {
   alert: 'M10 3 18 17H2L10 3Zm0 5v4m0 2.5v.5',
   check: 'M4 10.5 8 14.5 16 5.5',
   arrow: 'M4 10h12m-5-5 5 5-5 5',
+  down: 'M5 8l5 5 5-5',
+  up: 'M5 12l5-5 5 5',
   repeat: 'M4 8a6 6 0 0 1 10.5-3.5L16 6M16 2v4h-4M16 12a6 6 0 0 1-10.5 3.5L4 14m0 4v-4h4',
   doc: 'M5 2h7l4 4v12H5V2Zm7 0v4h4M8 10h5M8 13h5',
   plug: 'M7 2v4m6-4v4M5 6h10v3a5 5 0 0 1-10 0V6Zm5 8v4',

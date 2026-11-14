@@ -13,15 +13,14 @@
   --wine-soft: #f3dde6;
   --muted: #5a606a; /* slate tint for secondary text, 5.9:1 on paper */
 
-  --serif: 'Source Serif 4', Georgia, serif;
-  --sans: 'Inter', system-ui, sans-serif;
+  /* Titles and subtitles: IBM Plex Mono. Everything else: Open Sans. */
+  --title: 'IBM Plex Mono', ui-monospace, monospace;
+  --sans: 'Open Sans', system-ui, sans-serif;
 
-  --step--1: 0.8125rem;
-  --step-0: 0.9375rem;
-  --step-1: 1.0625rem;
-  --step-2: 1.375rem;
-  --step-3: 1.875rem;
-  --step-4: 2.75rem;
+  /* Three sizes only, all multiples of 16px. */
+  --fs-1: 1rem; /* 16px: body, labels, sub-headings */
+  --fs-2: 2rem; /* 32px: key figures */
+  --fs-3: 3rem; /* 48px: page titles */
 
   --r-sm: 8px;
   --r: 14px;
@@ -58,12 +57,21 @@ h4,
 p {
   margin: 0;
 }
+small,
+h2,
+h3,
+h4 {
+  font-size: var(--fs-1);
+}
+h1 {
+  font-size: var(--fs-3);
+}
 h1,
 h2,
 h3 {
-  font-family: var(--serif);
+  font-family: var(--title);
   font-weight: 600;
-  letter-spacing: -0.01em;
+  letter-spacing: 0;
   text-wrap: balance;
 }
 ::selection {
@@ -110,7 +118,7 @@ button {
 .disclaimer {
   background: var(--ink);
   color: var(--paper);
-  font-size: var(--step--1);
+  font-size: var(--fs-1);
   padding: 6px 24px;
   display: flex;
   gap: 16px;
@@ -127,8 +135,8 @@ button {
   padding: 14px 28px;
 }
 .wordmark {
-  font-family: var(--serif);
-  font-size: var(--step-2);
+  font-family: var(--title);
+  font-size: var(--fs-1);
   font-weight: 600;
   display: flex;
   align-items: center;
@@ -137,7 +145,7 @@ button {
 .topbar .who {
   margin-left: auto;
   color: var(--muted);
-  font-size: var(--step--1);
+  font-size: var(--fs-1);
 }
 .main {
   min-height: 0;
@@ -156,7 +164,7 @@ button {
   padding: 8px 20px;
   cursor: pointer;
   font-weight: 500;
-  font-size: var(--step-0);
+  font-size: var(--fs-1);
   color: var(--slate);
   isolation: isolate;
   display: flex;
@@ -194,7 +202,7 @@ button {
 }
 .ptab .n {
   font-variant-numeric: tabular-nums;
-  font-size: var(--step--1);
+  font-size: var(--fs-1);
   opacity: 0.75;
 }
 
@@ -249,7 +257,7 @@ button {
 }
 .btn.small {
   padding: 6px 14px;
-  font-size: var(--step--1);
+  font-size: var(--fs-1);
 }
 .btn:disabled {
   cursor: not-allowed;
@@ -273,7 +281,7 @@ button {
   cursor: pointer;
   text-decoration: underline;
   text-underline-offset: 3px;
-  font-size: var(--step--1);
+  font-size: var(--fs-1);
 }
 
 /* ---------- Tags ---------- */
@@ -284,7 +292,7 @@ button {
   align-items: center;
   gap: 5px;
   padding: 2px 10px;
-  font-size: 0.75rem;
+  font-size: var(--fs-1);
   font-weight: 600;
   white-space: nowrap;
 }
@@ -324,7 +332,7 @@ button {
 }
 .req {
   color: var(--wine);
-  font-size: 0.75rem;
+  font-size: var(--fs-1);
   font-weight: 600;
 }
 
@@ -333,7 +341,7 @@ button {
   display: inline-flex;
   align-items: baseline;
   gap: 5px;
-  font-size: 0.75rem;
+  font-size: var(--fs-1);
   color: var(--muted);
   text-decoration: none;
   max-width: 100%;
@@ -367,7 +375,7 @@ button {
 
 /* The generic record system: deliberately plain, system font, not Vitruvian styled */
 .ehr {
-  font-family: system-ui, sans-serif;
+  font-family: var(--sans);
   background: #eceae8;
   border-radius: var(--r);
   display: grid;
@@ -379,7 +387,7 @@ button {
 .ehr-bar {
   background: #d9d6d3;
   padding: 8px 16px;
-  font-size: 0.8125rem;
+  font-size: var(--fs-1);
   display: flex;
   gap: 16px;
   align-items: center;
@@ -408,7 +416,7 @@ button {
   border: 0;
   background: none;
   padding: 7px 16px;
-  font-size: 0.8125rem;
+  font-size: var(--fs-1);
   cursor: pointer;
   display: grid;
   gap: 1px;
@@ -431,13 +439,13 @@ button {
   align-content: start;
 }
 .ehr-chart h2 {
-  font-family: system-ui, sans-serif;
-  font-size: 1.125rem;
+  font-family: var(--title);
+  font-size: var(--fs-1);
   font-weight: 600;
   letter-spacing: 0;
 }
 .ehr-meta {
-  font-size: 0.8125rem;
+  font-size: var(--fs-1);
   color: #4d5257;
   display: flex;
   gap: 18px;
@@ -447,7 +455,7 @@ button {
   background: #fff;
   border-radius: 6px;
   padding: 10px 14px;
-  font-size: 0.8125rem;
+  font-size: var(--fs-1);
   display: grid;
   gap: 4px;
 }
@@ -480,7 +488,7 @@ button {
   color: var(--ink);
   border-radius: 999px;
   padding: 2px 10px 2px 6px;
-  font-size: 0.75rem;
+  font-size: var(--fs-1);
 }
 .ehr-visit p {
   line-height: 1.5;
@@ -504,11 +512,11 @@ button {
   gap: 12px;
 }
 .dock-head .wordmark {
-  font-size: var(--step-1);
+  font-size: var(--fs-1);
 }
 .dock-head .following {
   margin-left: auto;
-  font-size: var(--step--1);
+  font-size: var(--fs-1);
   color: var(--muted);
   display: flex;
   align-items: center;
@@ -525,15 +533,15 @@ button {
   align-content: start;
 }
 .section-title {
-  font-family: var(--serif);
-  font-size: var(--step-2);
+  font-family: var(--title);
+  font-size: var(--fs-1);
   display: flex;
   align-items: baseline;
   gap: 12px;
 }
 .lede {
   color: var(--muted);
-  font-size: var(--step-0);
+  font-size: var(--fs-1);
   max-width: 62ch;
 }
 
@@ -547,13 +555,13 @@ button {
   gap: 6px;
 }
 .flag h3 {
-  font-size: var(--step-1);
+  font-size: var(--fs-1);
   display: flex;
   align-items: center;
   gap: 8px;
 }
 .flag p {
-  font-size: var(--step--1);
+  font-size: var(--fs-1);
   color: #4a3a0c;
 }
 .timeline {
@@ -565,11 +573,11 @@ button {
   grid-template-columns: 92px 18px 1fr;
   gap: 10px;
   padding: 8px 0;
-  font-size: var(--step-0);
+  font-size: var(--fs-1);
 }
 .tl-item time {
   color: var(--muted);
-  font-size: var(--step--1);
+  font-size: var(--fs-1);
   padding-top: 2px;
 }
 .tl-mark {
@@ -589,7 +597,7 @@ button {
 .tl-item small {
   display: block;
   color: var(--muted);
-  font-size: var(--step--1);
+  font-size: var(--fs-1);
 }
 
 /* Template fields */
@@ -638,7 +646,7 @@ button {
 }
 .field label {
   font-weight: 500;
-  font-size: var(--step--1);
+  font-size: var(--fs-1);
 }
 .field-top .tag {
   margin-left: auto;
@@ -649,7 +657,7 @@ button {
   border-radius: var(--r-sm);
   background: var(--paper-2);
   padding: 8px 12px;
-  font-size: var(--step-0);
+  font-size: var(--fs-1);
   transition: background 160ms var(--ease);
 }
 .input:hover {
@@ -666,7 +674,7 @@ textarea.input {
   line-height: 1.45;
 }
 .evidence {
-  font-size: 0.75rem;
+  font-size: var(--fs-1);
   color: var(--muted);
   line-height: 1.4;
 }
@@ -689,7 +697,7 @@ textarea.input {
 }
 .unit-row span {
   color: var(--muted);
-  font-size: var(--step--1);
+  font-size: var(--fs-1);
 }
 .toolbar {
   display: flex;
@@ -723,25 +731,25 @@ textarea.input {
   box-shadow: var(--shadow);
 }
 .tile h3 {
-  font-family: var(--sans);
-  font-size: var(--step--1);
+  font-family: var(--title);
+  font-size: var(--fs-1);
   font-weight: 600;
   color: var(--slate);
   letter-spacing: 0;
 }
 .tile .big {
-  font-family: var(--serif);
-  font-size: var(--step-3);
+  font-family: var(--sans);
+  font-size: var(--fs-2);
   line-height: 1.1;
   font-weight: 600;
   font-variant-numeric: tabular-nums;
 }
 .tile .big small {
-  font-size: var(--step-1);
+  font-size: var(--fs-1);
   color: var(--muted);
 }
 .tile p {
-  font-size: 0.75rem;
+  font-size: var(--fs-1);
   color: var(--muted);
   line-height: 1.4;
 }
@@ -791,16 +799,16 @@ textarea.input {
 }
 .rule-top b {
   font-weight: 600;
-  font-size: var(--step-0);
+  font-size: var(--fs-1);
 }
 .rule-id {
   margin-left: auto;
-  font-size: 0.75rem;
+  font-size: var(--fs-1);
   color: var(--muted);
   font-variant-numeric: tabular-nums;
 }
 .rule p {
-  font-size: var(--step--1);
+  font-size: var(--fs-1);
   color: var(--slate);
 }
 .rule-visits {
@@ -809,7 +817,7 @@ textarea.input {
   padding: 0;
   display: grid;
   gap: 2px;
-  font-size: var(--step--1);
+  font-size: var(--fs-1);
   color: var(--slate);
 }
 .rule-visits li {
@@ -847,7 +855,7 @@ textarea.input {
   gap: 14px;
 }
 .decide h3 {
-  font-size: var(--step-2);
+  font-size: var(--fs-1);
 }
 .decide .row {
   display: flex;
@@ -869,7 +877,7 @@ textarea.input {
   gap: 8px;
 }
 .notice {
-  font-size: 0.75rem;
+  font-size: var(--fs-1);
   color: var(--muted);
   display: flex;
   gap: 6px;
@@ -924,7 +932,7 @@ textarea.input {
   overflow: auto;
 }
 .inbox h2 {
-  font-size: var(--step-2);
+  font-size: var(--fs-1);
   padding: 4px 4px 10px;
 }
 .inbox button {
@@ -947,7 +955,7 @@ textarea.input {
 }
 .inbox small {
   color: var(--muted);
-  font-size: var(--step--1);
+  font-size: var(--fs-1);
 }
 .doc {
   background: var(--card);
@@ -964,7 +972,7 @@ textarea.input {
   gap: 8px;
 }
 .doc-head h1 {
-  font-size: var(--step-4);
+  font-size: var(--fs-3);
   line-height: 1.05;
 }
 .doc-head .meta {
@@ -973,24 +981,24 @@ textarea.input {
   flex-wrap: wrap;
   align-items: center;
   color: var(--muted);
-  font-size: var(--step-0);
+  font-size: var(--fs-1);
 }
 .doc h2 {
-  font-size: var(--step-2);
+  font-size: var(--fs-1);
   margin-bottom: 12px;
 }
 .kv {
   display: grid;
   grid-template-columns: minmax(200px, 300px) minmax(0, 1fr) auto;
   column-gap: 24px;
-  font-size: var(--step-0);
+  font-size: var(--fs-1);
 }
 .kv > * {
   padding: 9px 0;
 }
 .kv dt {
   color: var(--slate);
-  font-size: var(--step--1);
+  font-size: var(--fs-1);
   font-weight: 500;
   padding-top: 11px;
 }
@@ -1029,14 +1037,14 @@ textarea.input {
   gap: 4px;
 }
 .summary-strip .v {
-  font-family: var(--serif);
-  font-size: var(--step-3);
+  font-family: var(--sans);
+  font-size: var(--fs-2);
   font-weight: 600;
   font-variant-numeric: tabular-nums;
   line-height: 1.1;
 }
 .summary-strip .l {
-  font-size: var(--step--1);
+  font-size: var(--fs-1);
   color: var(--slate);
   font-weight: 500;
 }
@@ -1062,13 +1070,13 @@ textarea.input {
   color: var(--paper);
 }
 .stage-result .v {
-  font-family: var(--serif);
-  font-size: var(--step-4);
+  font-family: var(--sans);
+  font-size: var(--fs-3);
   font-weight: 600;
   line-height: 1;
 }
 .stage-result small {
-  font-size: var(--step--1);
+  font-size: var(--fs-1);
   opacity: 0.8;
 }
 .form-grid {
@@ -1101,7 +1109,7 @@ textarea.input {
   max-width: 900px;
 }
 .county-head h1 {
-  font-size: var(--step-4);
+  font-size: var(--fs-3);
   line-height: 1.05;
 }
 .facts {
@@ -1117,8 +1125,8 @@ textarea.input {
   box-shadow: 0 -1px 0 rgb(58 65 76 / 0.1);
 }
 .fact .v {
-  font-family: var(--serif);
-  font-size: var(--step-3);
+  font-family: var(--sans);
+  font-size: var(--fs-2);
   font-weight: 600;
   font-variant-numeric: tabular-nums;
   line-height: 1.1;
@@ -1128,7 +1136,7 @@ textarea.input {
   display: block;
 }
 .fact p {
-  font-size: var(--step--1);
+  font-size: var(--fs-1);
   color: var(--muted);
   max-width: 75ch;
   margin: 2px 0 4px;
@@ -1142,7 +1150,7 @@ textarea.input {
   grid-template-columns: 210px minmax(0, 1fr) 90px;
   gap: 14px;
   align-items: center;
-  font-size: var(--step--1);
+  font-size: var(--fs-1);
 }
 .bar-track {
   position: relative;
@@ -1173,7 +1181,7 @@ textarea.input {
   position: absolute;
   top: -18px;
   left: 4px;
-  font-size: 0.6875rem;
+  font-size: var(--fs-1);
   white-space: nowrap;
   color: #6b4b00;
   font-weight: 600;
@@ -1193,10 +1201,10 @@ textarea.input {
   align-content: start;
 }
 .panel h2 {
-  font-size: var(--step-2);
+  font-size: var(--fs-1);
 }
 .panel .lede {
-  font-size: var(--step--1);
+  font-size: var(--fs-1);
 }
 .goal {
   display: grid;
@@ -1207,12 +1215,12 @@ textarea.input {
   box-shadow: 0 -1px 0 rgb(58 65 76 / 0.1);
 }
 .goal .fi {
-  font-family: var(--serif);
-  font-size: var(--step-0);
+  font-family: var(--sans);
+  font-size: var(--fs-1);
   font-weight: 500;
 }
 .goal p {
-  font-size: var(--step--1);
+  font-size: var(--fs-1);
   color: var(--slate);
 }
 .next {
@@ -1234,7 +1242,7 @@ textarea.input {
     var(--ink);
 }
 .next h2 {
-  font-size: var(--step-3);
+  font-size: var(--fs-2);
 }
 .next .src {
   color: #c9c3c0;
@@ -1248,22 +1256,158 @@ textarea.input {
   gap: 14px;
 }
 .action .k {
-  font-family: var(--serif);
+  font-family: var(--sans);
   font-weight: 600;
   color: var(--amber);
-  font-size: var(--step-1);
+  font-size: var(--fs-1);
 }
 .action b {
-  font-size: var(--step-1);
+  font-size: var(--fs-1);
   font-weight: 600;
 }
 .action p {
   color: #ddd5d2;
-  font-size: var(--step--1);
+  font-size: var(--fs-1);
   margin: 4px 0;
   max-width: 70ch;
 }
 .action small {
   color: #c9c3c0;
-  font-size: 0.75rem;
+  font-size: var(--fs-1);
+}
+
+/* One-line text with an ellipsis and a chevron to open it (design pass, 14 Nov) */
+.more {
+  min-width: 0;
+  display: grid;
+  gap: 8px;
+}
+.more-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  min-width: 0;
+}
+.more-text {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  line-height: 1.5;
+}
+.more.open .more-text {
+  white-space: normal;
+}
+.more-btn {
+  flex: none;
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--slate);
+  cursor: pointer;
+}
+.more-btn:hover,
+.more-btn[aria-expanded='true'] {
+  background: var(--lilac-soft);
+  color: var(--ink);
+}
+.more-btn:focus-visible {
+  outline: 2px solid var(--wine);
+  outline-offset: 2px;
+}
+.next .more-btn {
+  color: #ddd5d2;
+}
+.next .more-btn:hover,
+.next .more-btn[aria-expanded='true'] {
+  background: rgb(255 255 255 / 0.12);
+  color: var(--paper);
+}
+.rule-snippets {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 4px;
+  color: var(--slate);
+}
+.rule-snippets b {
+  font-weight: 600;
+  color: var(--ink);
+  margin-right: 8px;
+}
+.rule-visits {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* More room, less clutter */
+.dock-body {
+  gap: 32px;
+  padding: 16px 32px 32px;
+}
+.aid-tiles {
+  grid-template-columns: repeat(auto-fit, minmax(208px, 1fr));
+  gap: 16px;
+}
+.tile {
+  padding: 24px;
+  gap: 12px;
+}
+.rules {
+  gap: 12px;
+}
+.rule {
+  padding: 16px 20px;
+  gap: 8px;
+}
+.fact {
+  padding: 24px 0;
+}
+.goal {
+  padding: 16px 0;
+}
+.panel {
+  padding: 32px;
+  gap: 24px;
+}
+.next {
+  padding: 32px;
+  gap: 24px;
+}
+.ehr-visit .more-text {
+  white-space: nowrap;
+}
+.ehr-visit .more.open .more-text {
+  white-space: pre-wrap;
+}
+.ehr-chart {
+  gap: 16px;
+  padding: 24px;
+}
+.ehr-visit {
+  padding: 16px;
+  gap: 8px;
+}
+.aid-tiles {
+  grid-template-columns: 1fr 1fr;
+}
+.aid-tiles .tile:nth-child(3) {
+  grid-column: 1 / -1;
+}
+.tile h3 {
+  flex-wrap: wrap;
+}
+.rule-id {
+  white-space: nowrap;
+}
+.rule-top b {
+  min-width: 0;
 }

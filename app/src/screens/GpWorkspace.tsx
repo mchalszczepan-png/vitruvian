@@ -3,6 +3,7 @@ import { MOCK_NOTICE, fillTemplateFromNote, getAid, getReferralTemplate, repeatV
 import type { AidResult, FieldValues, GpDecision, Patient, Referral, ReferralTemplate } from '../data/types';
 import { FieldInput } from '../components/FieldInput';
 import { Icon, Mark } from '../components/Icon';
+import { More } from '../components/More';
 import { Source } from '../components/Source';
 import { cancerName, fmtDate } from '../components/labels';
 
@@ -71,9 +72,9 @@ export function GpWorkspace({ patients, patientId, onPatient, onOpenDesk }: Prop
         <header className="dock-head">
           <Mark size={20} />
           <span className="wordmark">Vitruvian</span>
-          <span className="following">
+          <span className="following" title="Following the open record">
             <Icon name="plug" size={14} />
-            Following the open record: {patient.name.split(' ')[0]}, {patient.id}
+            {patient.id}
           </span>
         </header>
         <nav className="dock-tabs ptabs" role="tablist" aria-label="Steps">
@@ -154,7 +155,6 @@ function RecordSystem({
     <section className="ehr" aria-label="Your existing record system (example)">
       <div className="ehr-bar">
         <b>Patient record system</b>
-        <span>Example only, unbranded. Vitruvian docks beside it.</span>
         <span className="grey">Today 14 Nov 2026</span>
       </div>
       <div className="ehr-body">
@@ -171,12 +171,10 @@ function RecordSystem({
         <div className="ehr-chart">
           <h2>{patient.name}</h2>
           <div className="ehr-meta">
-            <span>{patient.id} (made-up)</span>
+            <span>{patient.id}</span>
             <span>
               {patient.age} y, {patient.sex}
             </span>
-            <span>Smoking: {patient.smokingStatus}</span>
-            <span>{patient.county}</span>
           </div>
           {visits.map((v, i) => (
             <article key={v.id} id={`visit-${v.id}`} className={`ehr-visit${i === 0 ? ' today' : ''}${lit.includes(v.id) ? ' lit' : ''}`}>
@@ -190,7 +188,7 @@ function RecordSystem({
                   <Mark size={12} /> Read by Vitruvian: {fed.get(v.id)!.join(', ')}
                 </span>
               )}
-              <p>{v.note}</p>
+              <More key={`${patient.id}-${v.id}`} defaultOpen={i === 0}>{v.note}</More>
             </article>
           ))}
         </div>
@@ -218,16 +216,16 @@ function PatientStep({ patient, aid, onFill, filled, onNext }: { patient: Patien
             <Icon name="repeat" />
             Repeat visit: visit {flag.count} for {flag.symptom}
           </h3>
-          <p>
+          <More>
             {flag.count} visits for the same symptom in {flag.windowMonths} months. Vitruvian flags 3 or more. The flag is a prompt to look again, not a
             finding.
-          </p>
+          </More>
         </div>
       ) : (
         <p className="lede">No Repeat visit: fewer than 3 visits for “{today.symptom}” in 6 months.</p>
       )}
       <div>
-        <h3 className="section-title" style={{ fontSize: 'var(--step-1)', marginBottom: 8 }}>
+        <h3 className="section-title" style={{ fontSize: 'var(--fs-1)', marginBottom: 8 }}>
           Visit history
         </h3>
         <ol className="timeline" style={{ listStyle: 'none', padding: 0, margin: 0 }}>
@@ -235,10 +233,7 @@ function PatientStep({ patient, aid, onFill, filled, onNext }: { patient: Patien
             <li key={v.id} className={`tl-item${v.id === today.id ? ' today' : ids.has(v.id) ? ' same' : ''}`}>
               <time className="num">{fmtDate(v.date)}</time>
               <i className="tl-mark" aria-hidden />
-              <span>
-                {v.reason}
-                <small>{v.id === today.id ? 'Today, open in the record system' : ids.has(v.id) ? `Same symptom: ${v.symptom}` : v.symptom}</small>
-              </span>
+              <span>{v.reason}</span>
             </li>
           ))}
         </ol>
@@ -251,14 +246,13 @@ function PatientStep({ patient, aid, onFill, filled, onNext }: { patient: Patien
         ) : (
           <button className="btn primary" onClick={onFill} disabled={!aid}>
             <Icon name="doc" />
-            {aid ? `Fill the ${cancerName[aid.suspectedCancer]} Referral template from the notes` : 'Reading the record…'}
+            {aid ? `Fill the ${cancerName[aid.suspectedCancer]} Referral template` : 'Reading the record…'}
           </button>
         )}
       </div>
-      <p className="notice">
-        <Icon name="spark" size={12} />
+      <More className="notice">
         {MOCK_NOTICE.gemma} Nothing is sent until the GP decides.
-      </p>
+      </More>
     </>
   );
 }
@@ -281,7 +275,6 @@ function TemplateStep({ draft, onChange, onNext }: { draft: Draft; onChange: (ke
         <div className="section-title">
           <h2>Gemma is reading the notes</h2>
         </div>
-        <p className="lede">Filling the Referral template from today's note and earlier visits.</p>
         <div className="loading" aria-busy>
           <i />
           <i />
@@ -302,7 +295,7 @@ function TemplateStep({ draft, onChange, onNext }: { draft: Draft; onChange: (ke
             <i key={i} className={i < stats.done ? 'on' : ''} />
           ))}
         </span>
-        <span className="num" style={{ fontSize: 'var(--step--1)', fontWeight: 600 }}>
+        <span className="num" style={{ fontSize: 'var(--fs-1)', fontWeight: 600 }}>
           {stats.done} of {stats.req} required fields filled
         </span>
         {stats.missing.length > 0 && (
@@ -355,7 +348,6 @@ function AidStep({
         <div className="tile">
           <h3>Suspected cancer type</h3>
           <div className="big">{cancerName[aid.suspectedCancer]}</div>
-          <p>The cancer type with the most matched Rules.</p>
         </div>
         <div className="tile">
           <h3 style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
@@ -370,26 +362,31 @@ function AidStep({
               <i key={i} className={i < aid.riskGradient ? 'on' : ''} />
             ))}
           </div>
-          <p>
+          <More>
             {aid.riskReason} {MOCK_NOTICE.gradient}
-          </p>
+          </More>
         </div>
         <div className="tile">
           <h3>Severity</h3>
           <div className="big">
             {sev.fiveYearSurvivalPct === null ? 'Pending' : `${sev.fiveYearSurvivalPct}%`}
           </div>
-          <p>5-year survival. {sev.population.split('.')[0]}.</p>
+          <More
+            extra={
+              band && (
+                <p className="band">
+                  <strong>
+                    Age {band.min === 0 ? `under ${band.max + 1}` : `${band.min}–${band.max}`}: {band.pct}%
+                  </strong>{' '}
+                  {band.sex === 'female' ? 'women' : 'men'}, {band.period}.{' '}
+                  {band.source !== sev.source && <Source source={band.source} short />}
+                </p>
+              )
+            }
+          >
+            5-year survival. {sev.population.split('.')[0]}.
+          </More>
           <Source source={sev.source} short />
-          {band && (
-            <p className="band">
-              <strong>
-                Age {band.min === 0 ? `under ${band.max + 1}` : `${band.min}–${band.max}`}: {band.pct}%
-              </strong>{' '}
-              {band.sex === 'female' ? 'women' : 'men'}, {band.period}.{' '}
-              {band.source !== sev.source && <Source source={band.source} short />}
-            </p>
-          )}
         </div>
       </div>
 
@@ -398,16 +395,16 @@ function AidStep({
           <b style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
             <Icon name="alert" /> {aid.testNeeded.test} needed before a Referral
           </b>
-          <p style={{ fontSize: 'var(--step--1)' }}>
+          <More>
             {aid.testNeeded.why}{aid.testNeeded.threshold && ` Threshold ${aid.testNeeded.threshold}.`}
-          </p>
+          </More>
           <Source source={aid.testNeeded.source} />
         </div>
       )}
 
       <div>
-        <h2 className="section-title" style={{ marginBottom: 10 }}>
-          Matched Rules <span className="num" style={{ fontSize: 'var(--step-0)', color: 'var(--muted)' }}>{aid.matchedRules.length}</span>
+        <h2 className="section-title" style={{ marginBottom: 16 }}>
+          Matched Rules <span className="num" style={{ fontSize: 'var(--fs-1)', color: 'var(--muted)' }}>{aid.matchedRules.length}</span>
         </h2>
         <div className="rules">
           {flag && (
@@ -432,19 +429,31 @@ function AidStep({
                 <b>{m.rule.text}</b>
                 <span className="rule-id">{m.rule.id}</span>
               </div>
-              <p>Because: {m.because}</p>
+              <More
+                extra={
+                  <ul className="rule-snippets">
+                    {m.visits.map((v) => (
+                      <li key={v.visitId}>
+                        <b>{shortDate(v.date)}</b> “{v.snippet}”
+                      </li>
+                    ))}
+                  </ul>
+                }
+              >
+                Because: {m.because}
+              </More>
               <ul className="rule-visits" aria-label={`Visits that back ${m.rule.id}`}>
                 {m.visits.map((v) => (
                   <li key={v.visitId}>
                     <button
                       type="button"
+                      title={v.snippet}
                       onFocus={() => onLight([v.visitId])}
                       onBlur={() => onLight([])}
                       onClick={() => document.getElementById(`visit-${v.visitId}`)?.scrollIntoView({ block: 'nearest', behavior: 'smooth' })}
                     >
                       {shortDate(v.date)}
                     </button>
-                    <span>“{v.snippet}”</span>
                   </li>
                 ))}
               </ul>
@@ -460,7 +469,6 @@ function AidStep({
           <b style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
             <Icon name="check" /> {draft.sent.urgency === 'urgent' ? 'Urgent' : 'Routine'} Referral sent to the Referral desk
           </b>
-          <p style={{ fontSize: 'var(--step--1)' }}>Decided by the GP. The Aid informed the decision; it did not make it.</p>
           <div>
             <button className="btn primary small" onClick={() => onOpenDesk(draft.sent!.id)}>
               See it as the Referral desk sees it <Icon name="arrow" size={14} />
@@ -471,7 +479,7 @@ function AidStep({
         <div className="decide">
           <h3>GP decides</h3>
           {!canRefer && (
-            <p style={{ fontSize: 'var(--step--1)' }}>
+            <p style={{ fontSize: 'var(--fs-1)' }}>
               {missing.length} required field{missing.length === 1 ? '' : 's'} still empty.{' '}
               <button className="linkbtn" onClick={onFixFields}>
                 Fill {missing.length === 1 ? 'it' : 'them'} in the Referral template
@@ -494,8 +502,8 @@ function AidStep({
               Not now
             </button>
           </div>
-          {draft.decision === 'order-test' && <p style={{ fontSize: 'var(--step--1)' }}>Noted. Order {aid.testNeeded?.test.replace(/^Urgent u/, 'urgent u')} in the record system; Vitruvian checks again when the result is in.</p>}
-          {draft.decision === 'not-now' && <p style={{ fontSize: 'var(--step--1)' }}>Noted. No Referral sent. The Repeat visit flag stays on the record.</p>}
+          {draft.decision === 'order-test' && <p style={{ fontSize: 'var(--fs-1)' }}>Noted. Order {aid.testNeeded?.test.replace(/^Urgent u/, 'urgent u')} in the record system; Vitruvian checks again when the result is in.</p>}
+          {draft.decision === 'not-now' && <p style={{ fontSize: 'var(--fs-1)' }}>Noted. No Referral sent. The Repeat visit flag stays on the record.</p>}
         </div>
       )}
     </>

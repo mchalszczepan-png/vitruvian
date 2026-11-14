@@ -50,9 +50,7 @@ export function Specialist() {
         </div>
         <h1>{tpl.title}</h1>
         <div className="meta">
-          <span>{report.patientLabel}</span>
-          <span>{tpl.tnmEdition}</span>
-          <Source source={tpl.source} prefix="Staging grid" />
+          <Source source={tpl.source} short />
         </div>
       </header>
 
@@ -65,7 +63,7 @@ export function Specialist() {
               <FieldInput key={f.key} field={f} value={{ value: report.values[f.key] ?? '', origin: 'gp' }} showOrigin={false} onChange={(v) => set(f.key, v)} />
             ))}
           <div className="stage-result" aria-live="polite">
-            <small>{figo ? 'FIGO stage, from the substage' : 'Stage group, calculated from T, N and M'}</small>
+            <small>{figo ? 'FIGO stage' : 'Stage group'}</small>
             <span className="v">{calc ?? '—'}</span>
             <small>{calc ? (mismatch ? `Report says ${chosen}. Check before sending.` : 'Matches the report.') : figo ? 'No substage. Pick the stage by hand.' : 'Not in the grid. Pick the stage by hand.'}</small>
           </div>

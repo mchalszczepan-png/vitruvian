@@ -1,4 +1,5 @@
 import type { FieldValue, TemplateField } from '../data/types';
+import { More } from './More';
 import { optionLabel, originLabel } from './labels';
 
 interface Props {
@@ -105,11 +106,11 @@ export function FieldInput({ field, value, onChange, showOrigin = true }: Props)
         </div>
       )}
       {value?.evidence && origin === 'gemma' && (
-        <p className="evidence">
+        <More className="evidence">
           From the note: <q>{value.evidence}</q>
-        </p>
+        </More>
       )}
-      {field.hint && !multi && <p className="evidence">{field.hint}</p>}
+      {field.hint && !multi && <More className="evidence">{field.hint}</More>}
     </div>
   );
 }

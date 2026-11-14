@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { getCountyGap } from '../data/api';
 import { S } from '../data/mock/sources';
 import type { CountyGap } from '../data/types';
+import { More } from '../components/More';
 import { Source } from '../components/Source';
 
 /** One horizontal bar on a 0–100 or 0–max scale, with an optional target line. */
@@ -36,7 +37,6 @@ export function County() {
     <div className="county">
       <header className="county-head">
         <h1>Where the county loses days and data</h1>
-        <p className="lede">Public, aggregate figures only. Each figure names its area level: national, county or cooperation area. Levels are never mixed in one chart.</p>
       </header>
 
       <div className="two">
@@ -50,7 +50,7 @@ export function County() {
                   <span className="v">{f.value}</span>
                   <div>
                     <b>{f.label}</b>
-                    <p>{f.detail}</p>
+                    <More>{f.detail}</More>
                     <Source source={f.source} />
                   </div>
                 </div>
@@ -66,16 +66,15 @@ export function County() {
 
         <section className="panel">
           <h2>Stage data at diagnosis</h2>
-          <p className="lede">Two different measures, each against its own 2030 target from the National cancer strategy. Not comparable with each other.</p>
-          <div className="bars" style={{ marginTop: 18 }}>
+          <div className="bars">
             <Bar label="Pirkanmaa, clinical notifications, 2022" value={42} max={100} display="42%" tone="lo" target={{ at: 90, label: '90% target' }} />
             <Bar label="Pirkanmaa, clinical notifications, 2024" value={80} max={100} display="80%" tone="hi" />
           </div>
           <Source source={fig('notifications-pirkanmaa').source} prefix="Pirkanmaa, wellbeing services county" />
-          <div className="bars" style={{ marginTop: 22 }}>
+          <div className="bars" style={{ marginTop: 32 }}>
             <Bar label="Finland, spread data recorded, solid cancers, 2024" value={41.9} max={100} display="41.9%" target={{ at: 90, label: '90% coverage target' }} />
           </div>
-          <p className="evidence">{fig('stage-recorded-national').detail}</p>
+          <More className="evidence">{fig('stage-recorded-national').detail}</More>
           <Source source={fig('stage-recorded-national').source} prefix="National" />
           <Source source={{ ...S.strategy, label: `${S.strategy.label}, p. 36 (90% targets)` }} prefix="Targets" />
         </section>
@@ -89,7 +88,7 @@ export function County() {
               <Bar key={b.area} label={b.area} value={b.value} max={50} display={b.display} tone={b.value > 20 ? 'hi' : 'lo'} />
             ))}
           </div>
-          <p className="evidence">{lung.note}</p>
+          <More className="evidence">{lung.note}</More>
           <Source source={lung.source} />
         </section>
 
@@ -98,10 +97,9 @@ export function County() {
           <div>
             {gap.goal3.map((g) => (
               <div className="goal" key={g.id}>
-                <span className="fi" lang="fi">
-                  {g.name}
-                </span>
-                <p>{g.howVitruvianMoves}</p>
+                <More className="fi" extra={<p>{g.howVitruvianMoves}</p>}>
+                  <span lang="fi">{g.name}</span>
+                </More>
                 <Source source={g.source} />
               </div>
             ))}
@@ -116,7 +114,7 @@ export function County() {
             <span className="k">{a.id}</span>
             <div>
               <b>{a.title}</b>
-              <p>{a.detail}</p>
+              <More>{a.detail}</More>
               <small>Owner: {a.owner}</small>
               <div>{a.source && <Source source={a.source} />}</div>
             </div>
