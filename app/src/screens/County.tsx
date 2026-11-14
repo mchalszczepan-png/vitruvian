@@ -3,7 +3,7 @@ import { getCountyGap } from '../data/api';
 import { S } from '../data/mock/sources';
 import type { CountyGap } from '../data/types';
 import { More } from '../components/More';
-import { Source } from '../components/Source';
+import { Source, SourceIcon } from '../components/Source';
 
 /** One horizontal bar on a 0–100 or 0–max scale, with an optional target line. */
 function Bar({ label, value, max, display, tone, target }: { label: string; value: number; max: number; display: string; tone?: 'hi' | 'lo'; target?: { at: number; label: string } }) {
@@ -11,14 +11,15 @@ function Bar({ label, value, max, display, tone, target }: { label: string; valu
     <div className="bar-row">
       <span>{label}</span>
       <div className="bar-track">
-        <div className={`bar-fill ${tone ?? ''}`} style={{ width: `${(value / max) * 100}%` }} />
+        <div className={`bar-fill ${tone ?? ''}`} style={{ width: `${(value / max) * 100}%` }}>
+          <span className="bar-num">{display}</span>
+        </div>
         {target && (
           <div className="bar-target" style={{ left: `${(target.at / max) * 100}%` }}>
             <span>{target.label}</span>
           </div>
         )}
       </div>
-      <span className="val">{display}</span>
     </div>
   );
 }
@@ -36,7 +37,7 @@ export function County() {
   return (
     <div className="county">
       <header className="county-head">
-        <h1>Where the county loses days and data</h1>
+        <h1>Finland Cancer Statistics</h1>
       </header>
 
       <div className="two">
@@ -49,9 +50,10 @@ export function County() {
                 <div className="fact" key={f.id} style={{ gridTemplateColumns: '170px minmax(0,1fr)' }}>
                   <span className="v">{f.value}</span>
                   <div>
-                    <b>{f.label}</b>
-                    <More>{f.detail}</More>
-                    <Source source={f.source} />
+                    <b className="study">
+                      {f.label}
+                      <SourceIcon source={f.source} />
+                    </b>
                   </div>
                 </div>
               );

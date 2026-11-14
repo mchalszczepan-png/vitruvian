@@ -14,3 +14,17 @@ export function Source({ source, prefix = 'Source', short = false }: { source: S
     </a>
   );
 }
+
+/** Just the external-link icon; the source name and link show on hover or focus. */
+export function SourceIcon({ source }: { source: S }) {
+  return (
+    <a className="src-icon" href={source.url} target="_blank" rel="noreferrer" aria-label={`Source: ${source.label} (opens in new tab)`}>
+      <Icon name="link" size={16} />
+      <span className="src-tip" role="tooltip">
+        {source.label}
+        {source.placeholder && <b className="ph">Placeholder source</b>}
+        <small>{source.url}</small>
+      </span>
+    </a>
+  );
+}

@@ -1540,3 +1540,79 @@ textarea.input {
 .ehr-info {
   flex-shrink: 0;
 }
+
+/* County: study titles with a hover source link; numbers inside bars. */
+.study {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.src-icon {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  color: var(--wine);
+}
+.src-icon:hover,
+.src-icon:focus-visible {
+  background: var(--amber-soft);
+}
+.src-tip {
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + 6px);
+  left: 0;
+  display: none;
+  width: max-content;
+  max-width: 360px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  background: #1f2328;
+  color: #fff;
+  font-weight: 400;
+  font-size: var(--fs-1);
+  line-height: 1.4;
+  white-space: normal;
+  box-shadow: var(--shadow);
+}
+.src-tip small {
+  display: block;
+  color: #c9d1d9;
+  overflow-wrap: anywhere;
+  font-size: var(--fs-1);
+}
+.src-tip .ph {
+  display: block;
+  color: var(--amber);
+}
+.src-icon:hover .src-tip,
+.src-icon:focus-visible .src-tip {
+  display: block;
+}
+.bar-row {
+  grid-template-columns: 210px minmax(0, 1fr);
+}
+.bar-fill {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-width: max-content;
+  padding: 0 10px;
+}
+.bar-num {
+  transform: skewX(calc(-1 * var(--skew)));
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  color: #fff;
+}
+.bar-fill.lo .bar-num {
+  color: #2a1a33;
+}
+.bar-target span {
+  left: auto;
+  right: 6px;
+}
