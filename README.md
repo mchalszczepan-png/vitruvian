@@ -2,4 +2,7 @@
 
 # Vitruvian
 
-Created in [T3 Code](https://t3.codes).
+**See Cancer before it Strikes.**
+
+Junction 2026 hackathon project (AstraZeneca challenge: Equal Care Across Finland).
+All code in this repository is written during the event and released under the [MIT License](LICENSE).

@@ -1,0 +1,6 @@
+.claude/
+.mcp.json
+.env
+.env.*
+*.pem
+*.key
