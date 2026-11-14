@@ -156,7 +156,7 @@ export function Specialist({ patients }: { patients: Patient[] }) {
         )}
       </section>
 
-      <div className="two" style={{ gridTemplateColumns: '1fr 1fr 1fr' }}>
+      <div className="two groups">
         {GROUPS.map((g) => (
           <section key={g.key}>
             <h2>{t(g.title)}</h2>

@@ -89,11 +89,13 @@ h3 {
 }
 /* Patient lists scroll without a bar: it clipped the rounded corner (Michal, 15 Nov). The cut-off last row shows there is more. */
 .nf-list,
-.inbox {
+.inbox,
+.doc {
   scrollbar-width: none;
 }
 .nf-list::-webkit-scrollbar,
-.inbox::-webkit-scrollbar {
+.inbox::-webkit-scrollbar,
+.doc::-webkit-scrollbar {
   display: none;
 }
 a {
@@ -1023,6 +1025,9 @@ textarea.input {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 28px;
+}
+.two.groups {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 .three {
   display: grid;
@@ -2881,4 +2886,35 @@ img.mark {
 /* Logo on the dark login panel: show it light */
 .login-logo img.mark {
   filter: brightness(0) invert(1);
+}
+
+/* Phone: Staging report and County statistics stack to one column, no sideways scroll (Michal, 15 Nov) */
+@media (max-width: 720px) {
+  .doc {
+    padding: 24px 16px;
+  }
+  .doc-head h1,
+  .county-head h1 {
+    font-size: var(--fs-2);
+  }
+  .two,
+  .two.groups,
+  .three,
+  .tnm,
+  .form-grid,
+  .fact,
+  .kv {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .fact {
+    gap: 8px;
+  }
+  .panel,
+  .next {
+    padding: 24px 16px;
+  }
+  .bar-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 4px;
+  }
 }
