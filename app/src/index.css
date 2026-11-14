@@ -2069,7 +2069,7 @@ textarea.input {
 }
 .nf-main {
   min-height: 0;
-  overflow: auto;
+  overflow: hidden auto; /* never drag sideways (Michal, 15 Nov) */
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -2440,13 +2440,24 @@ textarea.input {
 }
 
 /* Patient search above the list */
-.nf-search {
+.nf-search-wrap {
   position: sticky;
   top: 0;
   z-index: 1;
+}
+.nf-search-wrap svg {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted);
+  pointer-events: none;
+}
+.nf-search {
+  display: block;
   width: 100%;
   font: inherit;
-  padding: 12px 16px;
+  padding: 12px 16px 12px 40px;
   border: 0;
   border-bottom: 1px solid #cfcac6;
   background: #e4e1df;
@@ -2486,6 +2497,7 @@ textarea.input {
 }
 .nf-tl > li {
   position: relative;
+  min-width: 0;
   padding: 8px 16px;
   background: var(--card);
   border: 1px solid #e9e1dd;
@@ -2596,18 +2608,16 @@ textarea.input {
   background: var(--paper);
   color: var(--ink);
 }
-.nf-tl > li.nf-tl-add {
-  padding: 0;
-  background: none;
-  border: 0;
-}
-.nf-tl > li.nf-tl-add::before {
-  content: none;
-}
-.nf-tl-add .btn {
+.nf-add {
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  align-self: flex-start;
+  margin-left: 32px;
+}
+/* A folded note is one line: its dot sits level with the line, like earlier visits */
+.nf-tl > .nf-tl-today:has(.nf-note-furled)::before {
+  top: 12px;
 }
 .nf-tl-today .nf-note.nf-note-furled {
   flex-direction: row;
