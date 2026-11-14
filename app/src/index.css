@@ -155,13 +155,13 @@ button {
 /* Parallelogram tabs: the signature move */
 .ptabs {
   display: flex;
-  gap: 6px;
+  gap: 2px;
 }
 .ptab {
   position: relative;
   border: 0;
   background: none;
-  padding: 8px 20px;
+  padding: 2px 12px;
   cursor: pointer;
   font-weight: 500;
   font-size: var(--fs-1);
@@ -169,7 +169,7 @@ button {
   isolation: isolate;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
 }
 .ptab::before {
   content: '';
@@ -523,7 +523,7 @@ button {
   gap: 6px;
 }
 .dock-tabs {
-  padding: 0 24px 12px;
+  padding: 0 24px 8px;
 }
 .dock-body {
   overflow: auto;
