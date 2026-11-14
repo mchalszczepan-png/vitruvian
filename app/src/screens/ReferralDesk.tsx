@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { getReferralTemplate, getReferrals } from '../data/api';
 import type { Patient, Referral, ReferralTemplate } from '../data/types';
 import { Icon } from '../components/Icon';
-import { More } from '../components/More';
+import { ReferralSummary, HIDDEN_DESK_FIELDS } from '../components/ReferralSummary';
 import { Source } from '../components/Source';
 import { cancerName, fmtDate, optionLabel, originLabel } from '../components/labels';
 
@@ -90,12 +90,6 @@ export function ReferralDesk({ patients, focusId, onGoGp }: { patients: Patient[
               <span className="v">{cancerName[open.cancer]}</span>
             </div>
             <div>
-              <span className="l" style={{ display: 'flex', gap: 8 }}>
-                Risk gradient <span className="tag ai">AI estimate</span>
-              </span>
-              <span className="v">{open.riskGradient} / 10</span>
-            </div>
-            <div>
               <span className="l">Severity</span>
               <span className="v">{open.severity.fiveYearSurvivalPct === null ? 'Pending' : `${open.severity.fiveYearSurvivalPct}%`}</span>
               <Source source={open.severity.source} short />
@@ -116,29 +110,13 @@ export function ReferralDesk({ patients, focusId, onGoGp }: { patients: Patient[
             </div>
           </div>
 
-          <section>
-            <h2>Matched Rules</h2>
-            <div className="rules">
-              {open.matchedRules.map((m) => (
-                <div className="desk-rule" key={m.rule.id}>
-                  <div className="rule">
-                    <div className="rule-top">
-                      <b>{m.rule.text}</b>
-                      <span className="rule-id">{m.rule.id}</span>
-                    </div>
-                    <More>Reason: {m.because}</More>
-                  </div>
-                  <Source source={m.rule.source} />
-                </div>
-              ))}
-            </div>
-          </section>
+          <ReferralSummary referral={open} patient={patient} template={template} />
 
           <section>
             <h2>Referral template</h2>
             {template && (
               <dl className="kv">
-                {template.fields.map((f) => {
+                {template.fields.filter((f) => !HIDDEN_DESK_FIELDS.has(f.key)).map((f) => {
                   const v = open.fields[f.key];
                   const val = v?.value ? (f.kind === 'choice' || f.kind === 'yesno' ? v.value.split(', ').map(optionLabel).join(', ') : v.value) : '—';
                   return (
