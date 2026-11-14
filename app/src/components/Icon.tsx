@@ -36,11 +36,7 @@ export function Icon({ name, size = 16, label }: { name: IconName; size?: number
   );
 }
 
+/** The Vitruvian logo (wine figure in a circle). */
 export function Mark({ size = 22 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 32 32" aria-hidden>
-      <path d="M11 4h16a2 2 0 0 1 2 2.4l-4.2 20A2 2 0 0 1 22.8 28H5a2 2 0 0 1-2-2.4l4.2-20A2 2 0 0 1 9.2 4Z" fill="#690C3E" />
-      <path d="M15 10h6.5l-2.2 12H12.8Z" fill="#F3BA2C" />
-    </svg>
-  );
+  return <img className="mark" src="/logo.png" width={size} height={size} alt="" aria-hidden />;
 }

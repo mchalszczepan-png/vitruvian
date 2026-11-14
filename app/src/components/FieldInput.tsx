@@ -91,13 +91,13 @@ export function FieldInput({ field, value, onChange, showOrigin = true }: Props)
   }
 
   return (
-    <div className={`field${missing ? ' missing' : ''}`} title={value?.evidence && origin === 'gemma' ? `From the note: ${value.evidence}` : undefined}>
+    <div className={`field${missing ? ' missing' : ''}${multi || field.kind === 'longtext' ? ' wide' : ''}`} title={value?.evidence && origin === 'gemma' ? `From the note: ${value.evidence}` : undefined}>
       <div className="field-top">
         <label id={`${id}-l`} htmlFor={id}>
           {t(field.label)}
         </label>
-        {field.required && <span className="req">Required</span>}
-        {showOrigin && <span className={`tag ${origin}`}>{originLabel[origin]}</span>}
+        {missing && <span className="req">Required</span>}
+        {showOrigin && origin !== 'empty' && <span className={`tag ${origin}`}>{originLabel[origin]}</span>}
       </div>
       {control}
       {field.kind === 'text' && (missing || value?.value === 'None known') && (
