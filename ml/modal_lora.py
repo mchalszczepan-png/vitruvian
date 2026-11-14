@@ -36,7 +36,10 @@ VOL_MOUNT = "/vol"
 ADAPTER_NAME = "vitruvian-lora"
 # --task triage trains the cancer pointer (which cancer or none, 0-10 risk, reason, evidence) into its own
 # adapter folder, so it never overwrites the form-fill adapter's latest.
-TASKS = {"form": ADAPTER_NAME, "triage": "vitruvian-triage"}
+# --task triage-ppv: same pointer, scores from published PPVs (ml/triage_ppv_label.py, prompt SYSTEM_PPV).
+TASKS = {"form": ADAPTER_NAME, "triage": "vitruvian-triage", "triage-ppv": "vitruvian-triage-ppv"}
+# triage task -> its data folder under ml/data/ and the system prompt key in triage_prompt.SYSTEMS
+TRIAGE_DATA = {"triage": ("triage", "rubric"), "triage-ppv": ("triage-ppv", "ppv")}
 CONTROL_OVERSAMPLE = 2  # triage: controls are ~1/5 of the rows; repeat them so "none" is not under-learned
 # E4B: 8.0B params, 16 GB bf16 weights, 262k-token vocab (large logits). 80 GB leaves headroom; 40 GB untested.
 GPU = "A100-80GB"
@@ -107,9 +110,11 @@ def build_train_rows(train_file: Path) -> list[dict]:
 def build_triage_rows(train_file: Path) -> list[dict]:
     """Triage records (ml/triage_label.py output) -> prompt-completion rows with ml/triage_prompt.py."""
     sys.path.insert(0, str(HERE))
-    from triage_prompt import build_triage_messages, target_json
+    from triage_prompt import SYSTEMS, build_triage_messages, target_json
 
-    assert train_file.name == "train.jsonl" and train_file.parent.name == "triage", train_file
+    folder_prompt = {folder: prompt for folder, prompt in TRIAGE_DATA.values()}
+    assert train_file.name == "train.jsonl" and train_file.parent.name in folder_prompt, train_file
+    system = SYSTEMS[folder_prompt[train_file.parent.name]]
     rows: list[dict] = []
     for line in train_file.read_text(encoding="utf-8").splitlines():
         if not line.strip():
@@ -118,7 +123,7 @@ def build_triage_rows(train_file: Path) -> list[dict]:
         assert rec["split"] == "train" and rec["synthetic"] is True and rec["task"] == "triage", rec["id"]
         inp = rec["input"]
         row = {
-            "prompt": build_triage_messages(inp["todayNote"], inp["earlierNotes"], inp["patient"]),
+            "prompt": build_triage_messages(inp["todayNote"], inp["earlierNotes"], inp["patient"], system),
             "completion": [{"role": "assistant", "content": target_json(rec["target"])}],
         }
         rows += [row] * (CONTROL_OVERSAMPLE if rec["truth"] == "none" else 1)
@@ -128,7 +133,7 @@ def build_triage_rows(train_file: Path) -> list[dict]:
 
 def upload_train_rows(train_file: Path, run_name: str, task: str = "form") -> str:
     """Build prompt-completion rows from train_file and put them on the Volume; returns the remote path."""
-    rows = build_triage_rows(train_file) if task == "triage" else build_train_rows(train_file)
+    rows = build_triage_rows(train_file) if task in TRIAGE_DATA else build_train_rows(train_file)
     print(f"built {len(rows)} training rows from {train_file}")
     remote_dataset = f"/datasets/{run_name}/train.jsonl"
     local_tmp = HERE / f".train-prompt-completion-{run_name}.jsonl"  # gitignored scratch, removed below
@@ -164,8 +169,8 @@ def main(
     was cancelled when the client lost its connection (2026-11-14, v2 died at step 62/198).
     --no-promote keeps the run out of .../latest, which the live server loads (use it for sweep runs)."""
     assert task in TASKS, f"--task must be one of {list(TASKS)}"
-    if task == "triage" and train_file == str(HERE / "data" / "train.jsonl"):
-        train_file = str(HERE / "data" / "triage" / "train.jsonl")
+    if task in TRIAGE_DATA and train_file == str(HERE / "data" / "train.jsonl"):
+        train_file = str(HERE / "data" / TRIAGE_DATA[task][0] / "train.jsonl")
     run_name = run_name or time.strftime("%Y%m%d-%H%M%S")
     remote_dataset = upload_train_rows(Path(train_file), run_name, task)
     kwargs = dict(

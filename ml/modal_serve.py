@@ -42,6 +42,7 @@ BASE_MODEL = "google/gemma-4-E4B-it"
 ADAPTERS = {
     "vitruvian-lora": "/vol/adapters/vitruvian-lora/latest",
     "vitruvian-triage": "/vol/adapters/vitruvian-triage/latest",
+    "vitruvian-triage-ppv": "/vol/adapters/vitruvian-triage-ppv/latest",  # ml/modal_lora.py --task triage-ppv
 }
 VOLUME_NAME = "vitruvian-lora-vol"
 SECRET_NAME = "vitruvian-lora-api-key"

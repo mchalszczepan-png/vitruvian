@@ -37,6 +37,8 @@ TASKS = {
     "form": ("vitruvian-lora", "/root/ml/eval.py",
              {"dev": "/root/ml/data/sweep/dev.jsonl", "eval": "/root/ml/data/eval.jsonl"}),
     "triage": ("vitruvian-triage", "/root/ml/triage_eval.py", {"eval": "/root/ml/data/triage/eval.jsonl"}),
+    # Published-PPV scores; triage_eval.py picks SYSTEM_PPV for data under triage-ppv/.
+    "triage-ppv": ("vitruvian-triage-ppv", "/root/ml/triage_eval.py", {"eval": "/root/ml/data/triage-ppv/eval.jsonl"}),
 }
 PORT = 8001
 REGION = "eu"  # same as ml/modal_serve.py and ml/modal_lora.py; see the note there

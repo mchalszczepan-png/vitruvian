@@ -15,12 +15,13 @@ Modal environment: `vitruvian` (add `-e vitruvian` to every command).
 - Modal's own storage, logs and large (>2 MiB) inputs and outputs are in the US.
 - So the claim is "EU GPU compute", never "data stays in Europe".
 
-## Two tasks, two adapters
+## Three tasks, three adapters
 
 | Task | What it does | Train data | Adapter folder on the Volume | Eval |
 | --- | --- | --- | --- | --- |
 | `form` | GP notes -> Referral form fields + evidence quotes | `ml/data/train.jsonl` | `adapters/vitruvian-lora/` | `ml/eval.py` |
 | `triage` | Cancer pointer: lung / colorectal / ovarian / none, 0-10 score per cancer, reason, evidence | `ml/data/triage/train.jsonl` | `adapters/vitruvian-triage/` | `ml/triage_eval.py` |
+| `triage-ppv` | Same pointer, scores from published UK PPVs (prompt `SYSTEM_PPV`) | `ml/data/triage-ppv/train.jsonl` (`ml/triage_ppv_label.py`) | `adapters/vitruvian-triage-ppv/` | `ml/triage_eval.py` (picks `SYSTEM_PPV` for triage-ppv data) |
 
 Triage data comes from `ml/triage_label.py` (Gemini 3.5 Flash teacher). It deletes every sentence that
 states the conclusion ("2WW lung cancer referral", "lähete") from the notes, then scores each cancer.
@@ -28,6 +29,8 @@ Truth = the cancer each synthetic patient was generated with. Prompt: `ml/triage
 
 ```sh
 uv run --with modal modal run -e vitruvian ml/modal_lora.py --task triage --run-name tri-e4b-r16-ep3 --gpu H100 --deployed
+uv run --with modal modal run -e vitruvian ml/modal_lora.py --task triage-ppv --run-name tri-ppv-e4b-r16-ep3 --gpu H100 --deployed
+uv run --with modal modal run -e vitruvian ml/modal_sweep.py --task triage-ppv --tag tri-ppv-cmp --data eval --adapters tri-ppv-e4b-r16-ep3 --include-base
 uv run --with modal modal run -e vitruvian ml/modal_sweep.py --task triage --tag tri-cmp --data eval \
     --adapters tri-e4b-r16-ep3 --include-base --deployed     # LoRA vs prompted E4B on the same vLLM
 ```

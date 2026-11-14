@@ -20,7 +20,11 @@ Metrics (overall and per language):
   right_cancer  of cancer patients flagged, share pointing at the right cancer
   auroc_risk    AUROC of riskGradient, cancer vs control (ranking quality of the risk number)
   auroc_truth   AUROC of scores[true cancer] for that cancer's patients vs controls, pooled
-  score_mae     mean |score - teacher score| over the 3 cancers (teacher = Gemini labels)
+  score_mae     mean |score - target score| over the 3 cancers (target = Gemini labels in triage/, published-PPV
+                scores in triage-ppv/)
+  scores_exact  all 3 scores equal the target; truth_score_mae: |score - target| for the true cancer (or the top
+                score for a control), the number the GP sees
+  --prompt rubric|ppv picks triage_prompt.SYSTEM or SYSTEM_PPV (default: ppv for data under triage-ppv/)
   valid_json, grounded (evidence copied from the notes), latency
 """
 from __future__ import annotations
@@ -103,6 +107,10 @@ def evaluate_reply(record: dict, reply: str, *, latency_s: float = 0.0, attempts
         "evidence_total": len(parsed["evidence"]),
         "evidence_grounded": grounded,
         "score_abs_err": mean(abs(parsed["scores"][c] - teacher[c]) for c in CANCERS),
+        "scores_exact": all(round(parsed["scores"][c]) == teacher[c] for c in CANCERS),
+        "truth_score_abs_err": (abs(parsed["scores"][record["truth"]] - teacher[record["truth"]])
+                                if record["truth"] != "none"
+                                else abs(max(parsed["scores"].values()) - max(teacher.values()))),
     })
     return out
 
@@ -139,6 +147,8 @@ def metrics(results: list[dict]) -> dict:
         "auroc_risk": auroc([risk(r) for r in cancer], [risk(r) for r in control]),
         "auroc_truth": auroc(truth_pos, truth_neg),
         "score_mae": mean(r["score_abs_err"] for r in valid) if valid else None,
+        "scores_exact": _rate(sum(r["scores_exact"] for r in valid), n),
+        "truth_score_mae": mean(r["truth_score_abs_err"] for r in valid) if valid else None,
         "valid_json": _rate(len(valid), n),
         "grounded": _rate(sum(r["evidence_grounded"] for r in valid), sum(r["evidence_total"] for r in valid)),
         "mean_latency_s": mean(r["latency_s"] for r in results) if results else None,
@@ -155,10 +165,11 @@ def summarise(results: list[dict]) -> dict:
     return {"overall": metrics(results), "by_language": by_lang, "recall_by_truth": by_truth, "confusion": confusion}
 
 
-def run_eval(records: list[dict], caller: Caller, concurrency: int) -> list[dict]:
+def run_eval(records: list[dict], caller: Caller, concurrency: int, system: str = triage_prompt.SYSTEM) -> list[dict]:
     def one(record: dict) -> dict:
         inp = record["input"]
-        messages = triage_prompt.build_triage_messages(inp["todayNote"], inp.get("earlierNotes", []), inp["patient"])
+        messages = triage_prompt.build_triage_messages(inp["todayNote"], inp.get("earlierNotes", []), inp["patient"],
+                                                       system)
         attempts, reply, error = 0, "", ""
         t0 = time.monotonic()
         try:
@@ -196,7 +207,8 @@ def wrong_caller(record: dict, _m: list[dict]) -> tuple[str, dict]:
 LINES = [("accuracy", "4-way accuracy", "pct"), ("sensitivity", "cancer flagged", "pct"),
          ("specificity", "control left at none", "pct"), ("right_cancer", "right cancer when flagged", "pct"),
          ("auroc_risk", "AUROC risk (cancer vs control)", "f3"), ("auroc_truth", "AUROC true-cancer score", "f3"),
-         ("score_mae", "score MAE vs teacher", "f2"), ("valid_json", "valid JSON", "pct"),
+         ("score_mae", "score MAE vs target", "f2"), ("truth_score_mae", "shown-score MAE vs target", "f2"),
+         ("scores_exact", "all 3 scores exact", "pct"), ("valid_json", "valid JSON", "pct"),
          ("grounded", "evidence grounded", "pct"), ("mean_latency_s", "mean latency s", "f2"), ("errors", "call errors", "int")]
 
 
@@ -247,7 +259,9 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--timeout", type=float, default=120.0)
     p.add_argument("--self-test", action="store_true")
     p.add_argument("--dry-run", action="store_true")
+    p.add_argument("--prompt", choices=sorted(triage_prompt.SYSTEMS), help="default: ppv for triage-ppv data")
     a = p.parse_args(argv)
+    prompt = a.prompt or ("ppv" if a.data.parent.name == "triage-ppv" else "rubric")
 
     if a.compare:
         return compare(*a.compare)
@@ -262,12 +276,12 @@ def main(argv: list[str] | None = None) -> int:
         key = a.key_file.read_text().strip() if a.key_file else None
         caller = make_chat_caller(a.base_url, a.model, key, a.timeout)
     t0 = time.time()
-    results = run_eval(records, caller, a.concurrency)
+    results = run_eval(records, caller, a.concurrency, triage_prompt.SYSTEMS[prompt])
     summary = summarise(results)
     out = a.out or RESULTS_DIR / f"{a.label}.json"
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps({"label": a.label, "model": a.model, "data": str(a.data), "task": "triage",
-                               "wall_s": round(time.time() - t0, 1), "summary": summary, "results": results},
+                               "prompt": prompt, "wall_s": round(time.time() - t0, 1), "summary": summary, "results": results},
                               indent=2, ensure_ascii=False))
     print_summary(a.label, summary)
     print(f"\nwrote {out}")

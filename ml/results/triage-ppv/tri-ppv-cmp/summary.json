@@ -1,0 +1,48 @@
+{
+  "tag": "tri-ppv-cmp",
+  "task": "triage-ppv",
+  "base_model": "google/gemma-4-E4B-it",
+  "data": "eval",
+  "container": {
+    "MODAL_REGION": "eu-north",
+    "MODAL_CLOUD_PROVIDER": "CLOUD_PROVIDER_AWS"
+  },
+  "summaries": {
+    "tri-ppv-e4b-r16-ep3": {
+      "n": 78,
+      "n_cancer": 44,
+      "n_control": 34,
+      "accuracy": 0.9487179487179487,
+      "sensitivity": 0.9318181818181818,
+      "specificity": 0.9705882352941176,
+      "right_cancer": 1.0,
+      "auroc_risk": 0.80548128342246,
+      "auroc_truth": 0.8714349376114082,
+      "score_mae": 0.23076923076923075,
+      "scores_exact": 0.8076923076923077,
+      "truth_score_mae": 0.5897435897435898,
+      "valid_json": 1.0,
+      "grounded": 1.0,
+      "mean_latency_s": 2.226923076923077,
+      "errors": 0
+    },
+    "google/gemma-4-E4B-it": {
+      "n": 78,
+      "n_cancer": 44,
+      "n_control": 34,
+      "accuracy": 0.6794871794871795,
+      "sensitivity": 0.8636363636363636,
+      "specificity": 0.4411764705882353,
+      "right_cancer": 1.0,
+      "auroc_risk": 0.8175133689839572,
+      "auroc_truth": 0.9329322638146168,
+      "score_mae": 1.3034188034188035,
+      "scores_exact": 0.08974358974358974,
+      "truth_score_mae": 3.3846153846153846,
+      "valid_json": 1.0,
+      "grounded": 0.98989898989899,
+      "mean_latency_s": 2.4353846153846153,
+      "errors": 0
+    }
+  }
+}

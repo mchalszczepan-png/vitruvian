@@ -69,3 +69,42 @@ One training config, chosen before scoring.
 Caveats: synthetic notes from one generator; scores are taught by a Gemini 3.5 Flash teacher; the notes were
 redacted to remove sentences that state the conclusion ("2WW lung cancer referral"). Not a medical device.
 Results: `ml/results/triage/`. Data: `ml/triage_label.py`. Eval: `ml/triage_eval.py`.
+
+## Published-risk variant: `vitruvian-triage-ppv` (live on the same endpoint, not wired into the backend yet)
+
+**Label:** "Gemma 4 E4B, fine-tuned on synthetic GP notes; scores computed from published UK primary-care PPVs;
+not clinically validated."
+
+Same request and response shape. Two differences:
+
+- `model: "vitruvian-triage-ppv"`, and the system message is `triage_prompt.SYSTEM_PPV` (verbatim), not `SYSTEM`.
+- `scores` mean something fixed: the published positive predictive value (PPV) of the strongest symptom recorded on
+  **any** visit, for this age and sex, from the same table as the backend's published-risk line
+  (`docs/build/risk-ppv.json`: Jones 2007, Hamilton 2005/2009, NICE NG12 evidence). Score = 0 when no symptom has a
+  figure, else `round(5 + 2.5 * log2(PPV% / 3))` clamped to 1-10. **5 = the NICE NG12 3% threshold**; 1% ≈ 1,
+  1.5% ≈ 3, 6% ≈ 8, 12%+ = 10. Earlier visits count (a cough at 2 or 3 visits has its own row). `riskReason` names
+  the symptom, the PPV and the study. `evidence` may be empty when no symptom has a figure.
+
+How the training labels were made (`ml/triage_ppv_label.py`): Gemini only reads the notes (which symptoms, on how many
+visits, lowest Hb, iron deficiency, latest CA-125, each with a quote). The score is computed in code from the table,
+with the same "highest yes row" rule as `app/convex/core/ppvRisk.ts`. Gemini never scores. `suspectedCancer` is
+still the cancer the synthetic patient was generated with.
+
+Held-out, same 78 patients (target = the published-risk score):
+
+| Model | Shown score off by (MAE) | All 3 scores exact | Cancer-type accuracy | Control left at none | Latency |
+| --- | --- | --- | --- | --- | --- |
+| `vitruvian-triage-ppv` (E4B + LoRA) | **0.59** | **80.8%** | 94.9% | 97.1% | 2.2 s |
+| `vitruvian-triage` (current, Gemini-teacher scores) | 3.08 | 0% | 92.3% | 85.3% | — |
+| prompted Gemma 4 E4B with `SYSTEM_PPV` | 3.38 | 9.0% | 67.9% | 44.1% | 2.4 s |
+
+Shown score = the score the GP sees (true cancer's score; top score for a control). Paired sign test on that error:
+closer than the current LoRA on 70 patients, further on 8 (p ≈ 2e-13); closer than prompted E4B on 60, further on 6
+(p ≈ 3e-12). Cancer-type accuracy vs the current LoRA: 5 vs 3 patients (McNemar p = 0.73), so **no claim that it is
+better at picking the cancer**; vs prompted E4B 21 vs 0 (p < 0.001). One training config (r16, 3 epochs), chosen
+before scoring.
+
+Honest caveat: the published single-symptom figures are low for most of these synthetic lung patients (smoking is not
+in the table), so the published score separates cancer from control less well (AUROC 0.75 for the target itself,
+0.81 for the model) than the Gemini-teacher score did (0.96). It is closer to published evidence, not a better
+detector. Results: `ml/results/triage-ppv/`.
