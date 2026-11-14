@@ -27,6 +27,12 @@ import type {
   Visit,
 } from './types';
 import { STATUS_REASON_MAX, toReferralView, type ReferralRecord } from './referralSummary';
+import { buildStagingDraft } from './stagingDraft';
+import { checkStaging } from './stagingCheck';
+import type { SavedStagingReport, StagingStatus } from './types';
+
+// Story 31–33 check, re-exported so screens can run it on a report they hold.
+export { checkStaging } from './stagingCheck';
 
 const wait = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
@@ -471,6 +477,46 @@ async function mockGetDemoStaging(cancer: CancerType): Promise<StagingReport> {
   return structuredClone(demoStaging[cancer]);
 }
 
+/** Story 32: the draft is built from the mock Referral store and the mock patients, as the Convex draft is from its tables. */
+async function mockGetStagingDraft(referralId: string): Promise<StagingReport> {
+  await wait(300);
+  const r = sent.find((x) => x.id === referralId);
+  if (!r) throw new Error(`Unknown Referral ${referralId}`);
+  const patient = patients.find((p) => p.id === r.patientId);
+  if (!patient) throw new Error(`Unknown patient ${r.patientId}`);
+  return buildStagingDraft(r, patient, stagingTemplates[r.cancer]);
+}
+
+/** Story 33: saved Staging reports in memory. A report with the same referralId (or patientId + cancer) replaces the earlier one. */
+const savedStaging: SavedStagingReport[] = [];
+let stagingSeq = 0;
+
+async function mockSaveStagingReport(report: StagingReport): Promise<SavedStagingReport> {
+  await wait(300);
+  if (report.referralId !== undefined && !sent.some((x) => x.id === report.referralId)) throw new Error(`Unknown Referral ${report.referralId}`);
+  const check = checkStaging(stagingTemplates[report.cancer], report.values);
+  const status: StagingStatus = check.readyForRegistry ? 'ready-for-registry' : 'draft';
+  const savedAt = new Date().toISOString();
+  const i = savedStaging.findIndex((x) =>
+    report.referralId !== undefined
+      ? x.referralId === report.referralId
+      : report.patientId !== undefined && x.patientId === report.patientId && x.cancer === report.cancer,
+  );
+  if (i >= 0) {
+    savedStaging[i] = { ...report, id: savedStaging[i].id, status, check, savedAt };
+    return structuredClone(savedStaging[i]);
+  }
+  stagingSeq += 1;
+  const saved: SavedStagingReport = { ...report, id: `STG-MOCK-${stagingSeq}`, status, check, savedAt };
+  savedStaging.push(saved);
+  return structuredClone(saved);
+}
+
+/** Newest first by savedAt (ISO strings sort by time). */
+async function mockGetSavedStagingReports(): Promise<SavedStagingReport[]> {
+  return savedStaging.map((x) => structuredClone(x)).sort((a, b) => b.savedAt.localeCompare(a.savedAt));
+}
+
 async function mockGetCountyGap(): Promise<CountyGap> {
   return countyGap;
 }
@@ -572,6 +618,21 @@ export function getStagingTemplate(cancer: CancerType): Promise<StagingTemplate>
 
 export function getDemoStaging(cancer: CancerType): Promise<StagingReport> {
   return viaConvex('getDemoStaging', () => convex.getDemoStaging(cancer), () => mockGetDemoStaging(cancer));
+}
+
+/** Story 32: the draft Staging report for a Referral, prefilled only with facts that exist (never stage data). */
+export function getStagingDraft(referralId: string): Promise<StagingReport> {
+  return viaConvex('getStagingDraft', () => convex.getStagingDraft(referralId), () => mockGetStagingDraft(referralId));
+}
+
+/** Story 33: saves the report. The returned status and check come from the server-side check, never from the caller. */
+export function saveStagingReport(report: StagingReport): Promise<SavedStagingReport> {
+  return viaConvex('saveStagingReport', () => convex.saveStagingReport(report), () => mockSaveStagingReport(report));
+}
+
+/** Story 33: saved Staging reports, newest first. */
+export function getSavedStagingReports(): Promise<SavedStagingReport[]> {
+  return viaConvex('getSavedStagingReports', () => convex.getSavedStagingReports(), mockGetSavedStagingReports);
 }
 
 export function getCountyGap(): Promise<CountyGap> {

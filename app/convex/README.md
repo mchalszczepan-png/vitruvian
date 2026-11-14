@@ -16,6 +16,9 @@ Return shapes are exactly the types in `app/src/data/types.ts`. Convex functions
 | `templates:referral {cancer}` | query | `getReferralTemplate` | `ReferralTemplate` |
 | `templates:staging {cancer}` | query | `getStagingTemplate` | `StagingTemplate` |
 | `staging:demo {cancer}` | query | `getDemoStaging` | `StagingReport` |
+| `staging:draft {referralId}` | query | `getStagingDraft` | `StagingReport` (story 32: prefilled from the Referral and patient) |
+| `staging:save {report}` | mutation | `saveStagingReport` | `SavedStagingReport` (story 33: status from `checkStaging`, upsert by `referralId`, else `patientId` + `cancer`) |
+| `staging:saved` | query | `getSavedStagingReports` | `SavedStagingReport[]` newest first |
 | `county:get` | query | `getCountyGap` | `CountyGap` |
 | `referrals:send {referral}` | mutation | `sendReferral` | `Referral` (upsert by `id`) |
 | `referrals:list` | query | `getReferrals` | `Referral[]` newest first |

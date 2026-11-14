@@ -220,7 +220,35 @@ export interface StagingReport {
   cancer: CancerType;
   patientLabel: string;
   values: Record<string, string>;
+  /** story 32: set when the draft was built from a Referral */
+  referralId?: string;
+  patientId?: string;
+  /** story 32: keys whose value was copied from the patient record or the Referral, so the Specialist enters only the stage data */
+  prefilled?: string[];
 }
+
+/** Stories 31–33: what the Specialist still has to do before the report can go to the Cancer Registry. */
+export interface StagingCheck {
+  /** true when every required field is set and the stage matches T/N/M (or the FIGO substage) */
+  readyForRegistry: boolean;
+  /** required template fields with no value */
+  missingFields: { key: string; label: string }[];
+  /** stage group (or FIGO stage) worked out from T/N/M or the substage; null when not in the grid */
+  computedStage: string | null;
+  /** set when the report's stage differs from computedStage */
+  stageMismatch?: { computed: string; reported: string };
+}
+
+export type StagingStatus = 'draft' | 'ready-for-registry';
+
+/** Story 33: a Staging report the Specialist saved. The status comes from the server-side check, never from the client. */
+export interface SavedStagingReport extends StagingReport {
+  id: string;
+  status: StagingStatus;
+  check: StagingCheck;
+  savedAt: string;
+}
+
 
 export interface Figure {
   id: string;

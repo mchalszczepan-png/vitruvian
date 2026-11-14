@@ -292,3 +292,116 @@ describe.each(BACKENDS)('data API contract: %s backend', (backend) => {
     expect(listed?.statusReason).toBe('Needs CT chest first');
   });
 });
+
+// Stories 32 and 33 on the mock path only (the Convex path is covered by convex/staging.test.ts).
+// Mock-only so that the Convex-side behaviour (a client status is rejected by the validator) is not asserted here.
+describe('staging report seam: mock backend (stories 32, 33)', () => {
+  let api: Api;
+  let warn: ReturnType<typeof vi.spyOn>;
+
+  beforeAll(async () => {
+    vi.stubEnv('VITE_BACKEND', 'mock');
+    vi.resetModules();
+    api = await import('./api');
+  });
+
+  afterAll(() => {
+    vi.unstubAllEnvs();
+  });
+
+  beforeEach(() => {
+    warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+  });
+
+  afterEach(() => {
+    expect(warn).not.toHaveBeenCalled();
+    expect(api.activeBackend()).toBe('mock');
+    vi.restoreAllMocks();
+  });
+
+  /** Sends one Referral for SYN-001 through the mock store, and returns its id. */
+  async function sendOneReferral(id: string): Promise<string> {
+    const aid = await api.getAid('SYN-001');
+    const fields = await api.fillTemplateFromNote('SYN-001', 'lung', aid.matchedRules);
+    const referral: Referral = {
+      id,
+      patientId: 'SYN-001',
+      cancer: 'lung',
+      urgency: 'urgent',
+      decidedBy: 'GP',
+      decidedAt: '2026-11-14T12:00:00.000Z',
+      fields,
+      matchedRules: aid.matchedRules,
+      riskGradient: aid.riskGradient,
+      severity: aid.severity,
+    };
+    await api.sendReferral(referral);
+    return id;
+  }
+
+  it('draft (story 32): prefills only patientRef, with the made-up label; stage data is never invented', async () => {
+    const id = await sendOneReferral('REF-CONTRACT-MOCK-DRAFT');
+    const draft = await api.getStagingDraft(id);
+    expect(draft).toMatchObject({ cancer: 'lung', referralId: id, patientId: 'SYN-001', prefilled: ['patientRef'], values: { patientRef: 'SYN-001' } });
+    expect(draft.patientLabel).toMatch(/, SYN-001, \d+ \(made-up\)$/);
+    for (const key of ['clinicalT', 'clinicalN', 'clinicalM', 'stageGroup', 'diagnosisDate']) expect(draft.values).not.toHaveProperty(key);
+  });
+
+  it('draft (story 32): an unknown Referral is a clear error', async () => {
+    await expect(api.getStagingDraft('REF-NOPE')).rejects.toThrow(/Unknown Referral REF-NOPE/);
+  });
+
+  it('save (story 33): full demo values are ready-for-registry with a stage check and a stored id', async () => {
+    const demo = await api.getDemoStaging('lung');
+    const saved = await api.saveStagingReport(demo);
+    expect(saved.status).toBe('ready-for-registry');
+    expect(saved.check).toMatchObject({ readyForRegistry: true, missingFields: [], computedStage: 'IIB' });
+    expect(saved.id).toMatch(/^STG-MOCK-\d+$/);
+  });
+
+  it('save (story 33): a missing required field is draft; the status is always recomputed, never taken from the caller', async () => {
+    const demo = await api.getDemoStaging('lung');
+    const { reporter: _reporter, ...values } = demo.values;
+    const saved = await api.saveStagingReport({ ...demo, values, status: 'ready-for-registry' } as never);
+    expect(saved.status).toBe('draft');
+    expect(saved.check.missingFields).toEqual([{ key: 'reporter', label: 'Reporting Specialist' }]);
+    expect(saved.check.readyForRegistry).toBe(false);
+  });
+
+  it('save (story 33): a stage group that does not match T, N and M is draft, with stageMismatch set', async () => {
+    const demo = await api.getDemoStaging('lung');
+    const saved = await api.saveStagingReport({ ...demo, values: { ...demo.values, stageGroup: 'IA1' } });
+    expect(saved.status).toBe('draft');
+    expect(saved.check.stageMismatch).toEqual({ computed: 'IIB', reported: 'IA1' });
+  });
+
+  it('save (story 33): a second save for the same Referral keeps the same id (upsert)', async () => {
+    const id = await sendOneReferral('REF-CONTRACT-MOCK-UPSERT');
+    const draft = await api.getStagingDraft(id);
+    const first = await api.saveStagingReport(draft);
+    const second = await api.saveStagingReport({ ...draft, values: { ...draft.values, reporter: 'Dr Test' } });
+    expect(second.id).toBe(first.id);
+    const listed = (await api.getSavedStagingReports()).filter((r) => r.referralId === id);
+    expect(listed).toHaveLength(1);
+    expect(listed[0].values.reporter).toBe('Dr Test');
+  });
+
+  it('save (story 33): an unknown Referral is a clear error', async () => {
+    const demo = await api.getDemoStaging('lung');
+    await expect(api.saveStagingReport({ ...demo, referralId: 'REF-NOPE' })).rejects.toThrow(/Unknown Referral REF-NOPE/);
+  });
+
+  it('saved (story 33): newest first by savedAt', async () => {
+    const list = await api.getSavedStagingReports();
+    expect(list.length).toBeGreaterThan(1);
+    for (let i = 1; i < list.length; i++) expect(list[i - 1].savedAt >= list[i].savedAt).toBe(true);
+  });
+
+  it('checkStaging is exported from the seam and gives the same answer as the server-side check', () => {
+    const check = api.checkStaging(
+      { cancer: 'lung', title: 't', tnmEdition: 'x', source: { label: 'x', url: 'https://example.org/' }, fields: [{ key: 'reporter', label: 'Reporting Specialist', kind: 'text', required: true, group: 'registry' }] },
+      { reporter: '  ' },
+    );
+    expect(check).toEqual({ readyForRegistry: false, missingFields: [{ key: 'reporter', label: 'Reporting Specialist' }], computedStage: null });
+  });
+});

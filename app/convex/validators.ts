@@ -119,6 +119,35 @@ export const stagingReportV = v.object({
   values: v.record(v.string(), v.string()),
 });
 
+/** Story 32: the Staging report as the Specialist sees it. referralId, patientId and prefilled are set on a draft built from a Referral. */
+export const stagingReportFullV = v.object({
+  cancer: cancerV,
+  patientLabel: v.string(),
+  values: v.record(v.string(), v.string()),
+  referralId: v.optional(v.string()),
+  patientId: v.optional(v.string()),
+  prefilled: v.optional(v.array(v.string())),
+});
+
+/** Story 31–33: the server-side check. Mirrors StagingCheck in app/src/data/types.ts. */
+export const stagingCheckV = v.object({
+  readyForRegistry: v.boolean(),
+  missingFields: v.array(v.object({ key: v.string(), label: v.string() })),
+  computedStage: v.union(v.string(), v.null()),
+  stageMismatch: v.optional(v.object({ computed: v.string(), reported: v.string() })),
+});
+
+export const stagingStatusV = v.union(v.literal('draft'), v.literal('ready-for-registry'));
+
+/** Story 33: a saved Staging report. Mirrors SavedStagingReport in app/src/data/types.ts. */
+export const savedStagingReportV = v.object({
+  ...stagingReportFullV.fields,
+  id: v.string(),
+  status: stagingStatusV,
+  check: stagingCheckV,
+  savedAt: v.string(),
+});
+
 export const severityV = v.object({
   cancer: cancerV,
   fiveYearSurvivalPct: v.union(v.number(), v.null()),

@@ -8,6 +8,7 @@ import {
   referralV,
   referralStatusFieldsV,
   ruleV,
+  savedStagingReportV,
   severityV,
   stagingReportV,
   stagingTemplateV,
@@ -44,6 +45,14 @@ export default defineSchema({
   stagingTemplates: defineTable(stagingTemplateV).index('by_cancer', ['cancer']),
 
   stagingReports: defineTable(stagingReportV).index('by_cancer', ['cancer']),
+
+  // Story 33: Staging reports the Specialist saved. Kept by seed:run (not in its SEEDED_TABLES).
+  // by_report_id, not by_id: Convex reserves the by_id index name.
+  stagingSubmissions: defineTable(savedStagingReportV)
+    .index('by_report_id', ['id'])
+    .index('by_referral', ['referralId'])
+    .index('by_patient_and_cancer', ['patientId', 'cancer'])
+    .index('by_saved_at', ['savedAt']),
 
   severity: defineTable(severityV).index('by_cancer', ['cancer']),
 
