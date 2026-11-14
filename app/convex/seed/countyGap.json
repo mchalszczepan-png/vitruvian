@@ -26,7 +26,7 @@
       "value": "41.9%",
       "detail": "Spread data (TNM, stage or free text) recorded for 41.9% of solid cancers in 2024; 58.1% had none. Stage alone was 5.4%. Clinical notifications reach only about half of new cases.",
       "source": {
-        "label": "Cancer Registry 2024 factsheet",
+        "label": "Cancer Registry 2024 factsheet (figure not yet checked by hand)",
         "url": "https://syoparekisteri.fi/assets/themes/ssy3/factsheets/syopa_2024_tilastoraportti.html"
       }
     },

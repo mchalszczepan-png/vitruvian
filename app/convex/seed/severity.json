@@ -52,7 +52,7 @@
   {
     "cancer": "colorectal",
     "fiveYearSurvivalPct": 68,
-    "population": "Finland, colon only, both sexes, age-standardised, national, Sotkanet statistical year 2024 (indicator 3627, region 658). Rectum not covered.",
+    "population": "Finland, bowel cancer (as the indicator is titled), both sexes, age-standardised, national, Sotkanet statistical year 2024 (indicator 3627, region 658).",
     "breakdown": [
       {
         "label": "Men, aged 60–69, 2017–2021, age-specific (Johansson 2024)",
@@ -90,7 +90,7 @@
       }
     ],
     "source": {
-      "label": "THL Sotkanet indicator 3627 (colon cancer, Finland, 2024)",
+      "label": "THL Sotkanet indicator 3627 (bowel cancer, Finland, 2024)",
       "short": "THL Sotkanet 3627",
       "url": "https://sotkanet.fi/rest/1.1/json?indicator=3627&genders=total&years=2024&region=658"
     }
