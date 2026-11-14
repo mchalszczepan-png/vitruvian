@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { getPatients } from './data/api';
 import type { Patient } from './data/types';
 import { Mark } from './components/Icon';
+import { LangSwitch } from './components/LangSwitch';
 import { GpWorkspace } from './screens/GpWorkspace';
 import { ReferralDesk } from './screens/ReferralDesk';
 import { Specialist } from './screens/Specialist';
@@ -50,6 +51,7 @@ export default function App() {
                 <b>{role.label}</b> · {role.user}
               </span>
             )}
+            <LangSwitch />
             <button className="btn signout" onClick={() => go('login')}>
               Sign out
             </button>
