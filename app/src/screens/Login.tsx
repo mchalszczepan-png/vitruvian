@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Icon, Mark } from '../components/Icon';
-import { useBi } from '../components/lang';
+import { useT } from '../components/lang';
 import { LangSwitch } from '../components/LangSwitch';
 
 export type Role = 'gp' | 'desk' | 'specialist';
@@ -14,7 +14,7 @@ export const ROLES: { id: Role; label: string; place: string; user: string }[] =
 export function Login({ onSignIn }: { onSignIn: (r: Role) => void }) {
   const [user, setUser] = useState('');
   const [pass, setPass] = useState('');
-  const t = useBi();
+  const t = useT();
   return (
     <div className="login">
       <aside className="login-brand">
@@ -23,7 +23,7 @@ export function Login({ onSignIn }: { onSignIn: (r: Role) => void }) {
           <Mark />
         </span>
         <h1>Vitruvian</h1>
-        <p>Health-care sign-in</p>
+        <p>{t('Health-care sign-in')}</p>
       </aside>
       <form
         className="login-form"
@@ -33,18 +33,18 @@ export function Login({ onSignIn }: { onSignIn: (r: Role) => void }) {
         }}
       >
         <div className="login-head">
-          <h2>Sign in</h2>
+          <h2>{t('Sign in')}</h2>
           <LangSwitch />
         </div>
-        <input className="input" aria-label="Username" placeholder="Username" autoComplete="off" value={user} onChange={(e) => setUser(e.target.value)} />
-        <input className="input" aria-label="Password" placeholder="Password" type="password" autoComplete="off" value={pass} onChange={(e) => setPass(e.target.value)} />
-        <p className="login-hint">Any username and password work. Choose your role.</p>
+        <input className="input" aria-label={t('Username')} placeholder={t('Username')} autoComplete="off" value={user} onChange={(e) => setUser(e.target.value)} />
+        <input className="input" aria-label={t('Password')} placeholder={t('Password')} type="password" autoComplete="off" value={pass} onChange={(e) => setPass(e.target.value)} />
+        <p className="login-hint">{t('Any username and password work. Choose your role.')}</p>
         <ul className="login-roles">
           {ROLES.map((r) => (
             <li key={r.id}>
               <button type="button" onClick={() => onSignIn(r.id)}>
                 <span>
-                  <b>{r.label}</b>
+                  <b>{t(r.label)}</b>
                   <small>{t(r.place)}</small>
                 </span>
                 <Icon name="arrow" size={16} />

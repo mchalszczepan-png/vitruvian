@@ -37,10 +37,10 @@ export function ReferralDesk({ patients, focusId, onGoGp }: { patients: Patient[
     return (
       <div className="empty-state">
         <Icon name="doc" size={28} />
-        <h2>No Referrals yet</h2>
+        <h2>{t('No Referrals yet')}</h2>
         {onGoGp && (
           <button className="btn primary" onClick={onGoGp}>
-            Go to the GP view
+            {t('Go to the GP view')}
           </button>
         )}
       </div>
@@ -60,60 +60,63 @@ export function ReferralDesk({ patients, focusId, onGoGp }: { patients: Patient[
       setReturning(false);
       setReason('');
     } catch (e) {
-      setError(e instanceof Error ? e.message : 'Could not save the decision.');
+      setError(e instanceof Error ? e.message : t('Could not save the decision.'));
     } finally {
       setBusy(false);
     }
   };
   return (
     <div className="split">
-      <nav className="inbox" aria-label="Received Referrals">
-        <h2>Referral desk</h2>
+      <nav className="inbox" aria-label={t('Received Referrals')}>
+        <h2>{t('Referral desk')}</h2>
         <input
           type="search"
           className="input inbox-search"
-          placeholder="Search patients"
-          aria-label="Search patients by name"
+          placeholder={t('Search patients')}
+          aria-label={t('Search patients by name')}
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
-        {shown.length === 0 && <p className="inbox-empty">No patients match “{query}”.</p>}
+        {shown.length === 0 && <p className="inbox-empty">{t('No patient matches “{query}”.', { query })}</p>}
         {shown.map((r) => {
           const p = patients.find((x) => x.id === r.patientId);
           return (
             <button key={r.id} aria-current={r.id === openId} onClick={() => { setOpenId(r.id); setReturning(false); setReason(''); setError(''); }}>
               <span style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
                 <b style={{ fontWeight: 600 }}>{p?.name}</b>
-                {r.urgency === 'urgent' && <span className="tag urgent">Urgent</span>}
+                {r.urgency === 'urgent' && <span className="tag urgent">{t('Urgent')}</span>}
               </span>
               <small>
-                {cancerName[r.cancer]} · {fmtDate(r.decidedAt)} · {statusLabel[r.status ?? 'sent']}
+                {cancerName[r.cancer]} · {fmtDate(r.decidedAt)} · {t(statusLabel[r.status ?? 'sent'])}
               </small>
             </button>
           );
         })}
       </nav>
       {open && patient && (
-        <article className="doc" aria-label="Referral">
+        <article className="doc" aria-label={t('Referral')}>
           <header className="doc-head">
             <h1>
-              {open.urgency === 'urgent' ? 'Urgent' : 'Routine'} {cancerName[open.cancer].toLowerCase()} Referral
+              {t('{urgency} {cancer} Referral', {
+                urgency: t(open.urgency === 'urgent' ? 'Urgent' : 'Routine'),
+                cancer: cancerName[open.cancer].toLowerCase(),
+              })}
             </h1>
             {open.repeatVisit && (
               <div className="meta">
-                <span className="tag gp">Repeat visit: {open.repeatVisit.count} visits</span>
+                <span className="tag gp">{t('Repeat visit: {count} visits', { count: open.repeatVisit.count })}</span>
               </div>
             )}
           </header>
 
           <div className="summary-strip">
             <div>
-              <span className="l">Suspected cancer type</span>
+              <span className="l">{t('Suspected cancer type')}</span>
               <span className="v">{cancerName[open.cancer]}</span>
             </div>
             <div>
-              <span className="l">Severity</span>
-              <span className="v">{open.severity.fiveYearSurvivalPct === null ? 'Pending' : `${open.severity.fiveYearSurvivalPct}%`}</span>
+              <span className="l">{t('Severity')}</span>
+              <span className="v">{open.severity.fiveYearSurvivalPct === null ? t('Pending') : `${open.severity.fiveYearSurvivalPct}%`}</span>
               <Source source={open.severity.source} short />
             </div>
             <div className="desk-actions">
@@ -121,16 +124,16 @@ export function ReferralDesk({ patients, focusId, onGoGp }: { patients: Patient[
                 !returning && (
                   <>
                     <button className="btn primary" disabled={busy} onClick={() => decide('accepted')}>
-                      <Icon name="check" /> Accept
+                      <Icon name="check" /> {t('Accept')}
                     </button>
                     <button className="btn" disabled={busy} onClick={() => setReturning(true)}>
-                      Return to the GP
+                      {t('Return to the GP')}
                     </button>
                   </>
                 )
               ) : (
                 <span className={`tag ${open.status === 'accepted' ? 'gemma' : 'warn'}`}>
-                  {statusLabel[open.status]}
+                  {t(statusLabel[open.status])}
                   {open.statusAt && ` · ${fmtDate(open.statusAt)}`}
                 </span>
               )}
@@ -145,7 +148,7 @@ export function ReferralDesk({ patients, focusId, onGoGp }: { patients: Patient[
                 decide('returned');
               }}
             >
-              <label htmlFor="return-reason">Reason for the GP</label>
+              <label htmlFor="return-reason">{t('Reason for the GP')}</label>
               <textarea
                 id="return-reason"
                 rows={3}
@@ -156,17 +159,17 @@ export function ReferralDesk({ patients, focusId, onGoGp }: { patients: Patient[
               />
               <div className="return-actions">
                 <button className="btn primary" type="submit" disabled={busy || !reason.trim()}>
-                  Return
+                  {t('Return')}
                 </button>
                 <button className="btn" type="button" onClick={() => setReturning(false)}>
-                  Cancel
+                  {t('Cancel')}
                 </button>
               </div>
             </form>
           )}
           {open.status === 'returned' && open.statusReason && (
             <p className="return-reason">
-              <b>Reason:</b> {open.statusReason}
+              <b>{t('Reason:')}</b> {open.statusReason}
             </p>
           )}
           {error && (
@@ -178,7 +181,7 @@ export function ReferralDesk({ patients, focusId, onGoGp }: { patients: Patient[
           <ReferralSummary referral={open} patient={patient} />
 
           <section>
-            <h2>Referral template</h2>
+            <h2>{t('Referral template')}</h2>
             {template && (
               <dl className="kv">
                 {template.fields.filter((f) => f.key !== 'riskGradientAiEstimate').map((f) => {

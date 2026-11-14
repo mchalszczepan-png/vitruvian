@@ -6,6 +6,7 @@ import { Icon, Mark } from '../components/Icon';
 import { More } from '../components/More';
 import { Source } from '../components/Source';
 import { cancerName, fmtDate } from '../components/labels';
+import { getLang, useT } from '../components/lang';
 
 const techStep: Record<TechUsed['step'], string> = { facts: 'Facts', decisions: 'Decisions', risk: 'Risk', repeat: 'Repeat visit', fill: 'Fill' };
 const techProvider: Record<TechUsed['provider'], string> = {
@@ -20,7 +21,8 @@ const techProvider: Record<TechUsed['provider'], string> = {
 };
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-const shortDate = (iso: string) => `${Number(iso.slice(8, 10))} ${MONTHS[Number(iso.slice(5, 7)) - 1]}`;
+const shortDate = (iso: string) =>
+  getLang() === 'fi' ? `${Number(iso.slice(8, 10))}.${Number(iso.slice(5, 7))}.` : `${Number(iso.slice(8, 10))} ${MONTHS[Number(iso.slice(5, 7)) - 1]}`;
 
 type Urgency = 'urgent' | 'routine';
 
@@ -49,6 +51,7 @@ interface Props {
 
 /* Note-first GP screen (Michal, 14 Nov): the note is the main thing; Vitruvian is one small pointer card. */
 export function GpWorkspace({ patients, patientId, onPatient }: Props) {
+  const t = useT();
   const [drafts, setDrafts] = useState<Record<string, Draft>>({});
   const patient = patients.find((p) => p.id === patientId) ?? patients[0];
   const today = patient.visits.at(-1)!;
@@ -86,7 +89,7 @@ export function GpWorkspace({ patients, patientId, onPatient }: Props) {
     const aid = await getAid(id);
     const template = await getReferralTemplate(aid.suspectedCancer);
     update(id, { aid, template, checking: false });
-    if (!aid.noRuleMatched) setToast({ id, text: `${name}: ${cancerName[aid.suspectedCancer]} Rule matched. See the Vitruvian card.` });
+    if (!aid.noRuleMatched) setToast({ id, text: t('{name}: {cancer} Rule matched. See the Vitruvian card.', { name, cancer: cancerName[aid.suspectedCancer] }) });
   }
 
   async function startReferral(urgency: Urgency) {
@@ -124,26 +127,22 @@ export function GpWorkspace({ patients, patientId, onPatient }: Props) {
   const shown = q ? patients.filter((p) => `${p.name} ${p.id} ${p.visits.at(-1)?.reason ?? ''}`.toLowerCase().includes(q)) : patients;
   // After Save the note folds into a read-only box; the analysis shows on the right (Michal, 15 Nov).
   const collapsed = draft.saved !== undefined && draft.saved === draft.note && !draft.editing;
-  const status = draft.checking
-    ? 'Saved. Vitruvian is checking…'
-    : draft.saved === undefined
-      ? 'Ctrl + Enter to save'
-      : draft.saved === draft.note
-        ? 'Saved'
-        : 'Not saved yet';
+  const status = t(
+    draft.checking ? 'Saved. Vitruvian is checking…' : draft.saved === undefined ? 'Ctrl + Enter to save' : draft.saved === draft.note ? 'Saved' : 'Not saved yet',
+  );
 
   return (
     <div className="nf">
-      <nav className="nf-list" aria-label="Today's patients">
+      <nav className="nf-list" aria-label={t("Today's patients")}>
         <input
           type="search"
           className="nf-search"
-          placeholder="Search patients"
-          aria-label="Search patients"
+          placeholder={t('Search patients')}
+          aria-label={t('Search patients')}
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
-        {shown.length === 0 && <p className="nf-list-none">No patient matches.</p>}
+        {shown.length === 0 && <p className="nf-list-none">{t('No patient matches.')}</p>}
         {shown.map((p) => (
           <button key={p.id} aria-current={p.id === patient.id} onClick={() => onPatient(p.id)}>
             <span>{p.name}</span>
@@ -152,14 +151,14 @@ export function GpWorkspace({ patients, patientId, onPatient }: Props) {
         ))}
       </nav>
 
-      <section className="nf-main" aria-label="Today's visit">
+      <section className="nf-main" aria-label={t("Today's visit")}>
         <table className="nf-who">
           <thead>
             <tr>
-              <th scope="col">Patient</th>
-              <th scope="col">ID</th>
-              <th scope="col">Age</th>
-              <th scope="col">Sex</th>
+              <th scope="col">{t('Patient')}</th>
+              <th scope="col">{t('ID')}</th>
+              <th scope="col">{t('Age')}</th>
+              <th scope="col">{t('Sex')}</th>
             </tr>
           </thead>
           <tbody>
@@ -169,23 +168,23 @@ export function GpWorkspace({ patients, patientId, onPatient }: Props) {
               </td>
               <td className="num">{patient.id}</td>
               <td className="num">{patient.age}</td>
-              <td>{patient.sex === 'female' ? 'Female' : 'Male'}</td>
+              <td>{t(patient.sex === 'female' ? 'Female' : 'Male')}</td>
             </tr>
           </tbody>
         </table>
 
-        <ol className="nf-tl" aria-label="Visits, newest first">
+        <ol className="nf-tl" aria-label={t('Visits, newest first')}>
           <li className="nf-tl-today">
             {collapsed ? (
               <div className="nf-note nf-note-saved">
                 <p className="nf-note-label">
-                  Today <span className="num">· {fmtDate(today.date)}</span>
+                  {t('Today')} <span className="num">· {fmtDate(today.date)}</span>
                 </p>
                 <p className="nf-note-text">{draft.note}</p>
                 <div className="nf-note-foot">
                   <small role="status">{status}</small>
                   <button className="btn small" type="button" onClick={() => update(patient.id, { editing: true })}>
-                    Edit
+                    {t('Edit')}
                   </button>
                 </div>
               </div>
@@ -198,13 +197,13 @@ export function GpWorkspace({ patients, patientId, onPatient }: Props) {
                 }}
               >
                 <label htmlFor="nf-note-text">
-                  Today <span className="num">· {fmtDate(today.date)}</span>
+                  {t('Today')} <span className="num">· {fmtDate(today.date)}</span>
                 </label>
                 <textarea
                   id="nf-note-text"
                   ref={noteRef}
                   className="input"
-                  placeholder="Symptoms, findings, plan"
+                  placeholder={t('Symptoms, findings, plan')}
                   value={draft.note}
                   onChange={(e) => update(patient.id, { note: e.target.value })}
                   onKeyDown={(e) => {
@@ -217,7 +216,7 @@ export function GpWorkspace({ patients, patientId, onPatient }: Props) {
                 <div className="nf-note-foot">
                   <small role="status">{status}</small>
                   <button className="btn primary" type="submit" disabled={draft.checking || !draft.note.trim() || draft.saved === draft.note}>
-                    Save
+                    {t('Save')}
                   </button>
                 </div>
               </form>
@@ -283,6 +282,7 @@ function Pointer({
   onStart: (u: Urgency) => void;
   onDecide: (d: GpDecision) => void;
 }) {
+  const t = useT();
   const [why, setWhy] = useState(false);
   useEffect(() => setWhy(false), [patient.id]);
   const aid = draft.aid;
@@ -295,22 +295,22 @@ function Pointer({
       {!aid ? (
         draft.checking ? (
           <div className="nf-ptr-wait">
-            <p className="muted">Checking the note and earlier visits…</p>
+            <p className="muted">{t('Checking the note and earlier visits…')}</p>
             <i />
             <i />
             <i />
           </div>
         ) : (
-          <p className="muted">Save the note. Vitruvian checks it in the background.</p>
+          <p className="muted">{t('Save the note. Vitruvian checks it in the background.')}</p>
         )
       ) : (
         <>
           <p className="nf-ptr-head">
-            <b className="nf-ptr-cancer">{aid.noRuleMatched ? 'No cancer Rule matched' : cancerName[aid.suspectedCancer]}</b>
-            {!aid.noRuleMatched && <span className="nf-ptr-label">Suspected cancer type</span>}
+            <b className="nf-ptr-cancer">{aid.noRuleMatched ? t('No cancer Rule matched') : cancerName[aid.suspectedCancer]}</b>
+            {!aid.noRuleMatched && <span className="nf-ptr-label">{t('Suspected cancer type')}</span>}
           </p>
           <div className="nf-ptr-risk">
-            <div className="meter" aria-label={`Risk gradient ${aid.riskGradient} of 10, AI estimate, not validated`}>
+            <div className="meter" aria-label={t('Risk gradient {n} of 10, AI estimate, not validated', { n: aid.riskGradient })}>
               {Array.from({ length: 10 }, (_, i) => (
                 <i key={i} className={i < aid.riskGradient ? 'on' : ''} />
               ))}
@@ -318,63 +318,63 @@ function Pointer({
             <span className="num">
               <b>{aid.riskGradient}</b> / 10
             </span>
-            <span className="tag ai">AI estimate, not validated</span>
+            <span className="tag ai">{t('AI estimate, not validated')}</span>
           </div>
           <p className="nf-ptr-reason">{aid.riskReason}</p>
           {aid.publishedRisk && (
             <div className="nf-ptr-ppv">
               <p className="nf-ppv-row">
-                <span className="muted">Published risk</span>
+                <span className="muted">{t('Published risk')}</span>
                 <b className="num">
-                  {Math.round(aid.publishedRisk.pct * 10) / 10}%{aid.publishedRisk.isLowerBound ? ' or more' : ''}
+                  {Math.round(aid.publishedRisk.pct * 10) / 10}%{aid.publishedRisk.isLowerBound ? t(' or more') : ''}
                 </b>
               </p>
               <p className="nf-ppv-row">
-                {aid.publishedRisk.aboveNg12Threshold && <span className="tag">Above NG12 3%</span>}
+                {aid.publishedRisk.aboveNg12Threshold && <span className="tag">{t('Above NG12 3%')}</span>}
                 <Source
                   short
                   source={{ label: aid.publishedRisk.sourceLabel, short: aid.publishedRisk.sourceLabel.split(',')[0], url: aid.publishedRisk.sourceUrl }}
                 />
               </p>
-              <p className="muted nf-ppv-note">UK primary-care aggregate figure, not a personal probability. Matched by AI.</p>
+              <p className="muted nf-ppv-note">{t('UK primary-care aggregate figure, not a personal probability. Matched by AI.')}</p>
             </div>
           )}
 
           {aid.testNeeded && !draft.sent && (
             <p className="nf-ptr-gate">
-              <Icon name="alert" /> {aid.testNeeded.test} needed before a Referral
+              <Icon name="alert" /> {t('{test} needed before a Referral', { test: aid.testNeeded.test })}
             </p>
           )}
 
           {draft.sent ? (
             <p className="nf-ptr-done" role="status">
-              <Icon name="check" /> {draft.sent.urgency === 'urgent' ? 'Urgent' : 'Routine'} Referral sent to the Referral desk
+              <Icon name="check" /> {t(draft.sent.urgency === 'urgent' ? 'Urgent Referral sent to the Referral desk' : 'Routine Referral sent to the Referral desk')}
             </p>
           ) : (
-            <div className="nf-ptr-decide" role="group" aria-label="GP decides">
+            <div className="nf-ptr-decide" role="group" aria-label={t('GP decides')}>
               <button className="btn urgent" onClick={() => onStart('urgent')}>
-                <Icon name="send" /> Start urgent referral
+                <Icon name="send" /> {t('Start urgent referral')}
               </button>
               <div className="row">
                 <button className="btn small" onClick={() => onStart('routine')}>
-                  Routine
+                  {t('Routine')}
                 </button>
                 {aid.testNeeded && (
                   <button className="btn small" aria-pressed={draft.decision === 'order-test'} onClick={() => onDecide('order-test')}>
-                    Order {aid.testNeeded.test.replace(/^Urgent u/, 'u')} first
+                    {t('Order {test} first', { test: aid.testNeeded.test.replace(/^Urgent u/, 'u') })}
                   </button>
                 )}
                 <button className="btn small" aria-pressed={draft.decision === 'not-now'} onClick={() => onDecide('not-now')}>
-                  Not now
+                  {t('Not now')}
                 </button>
               </div>
-              {draft.decision === 'order-test' && <p className="muted">Noted. Vitruvian checks again when the result is in.</p>}
-              {draft.decision === 'not-now' && <p className="muted">Noted. No Referral sent.</p>}
+              {draft.decision === 'order-test' && <p className="muted">{t('Noted. Vitruvian checks again when the result is in.')}</p>}
+              {draft.decision === 'not-now' && <p className="muted">{t('Noted. No Referral sent.')}</p>}
             </div>
           )}
 
           <button className="linkbtn nf-why-btn" aria-expanded={why} onClick={() => setWhy(!why)}>
-            Why? <Icon name={why ? 'up' : 'down'} size={14} />
+            {t('Why?')} <Icon name={why ? 'up' : 'down'} size={14} />
           </button>
           {why && <Why patient={patient} aid={aid} onLight={onLight} />}
         </>
@@ -387,25 +387,26 @@ function Why({ patient, aid, onLight }: { patient: Patient; aid: AidResult; onLi
   const sev = aid.severity;
   const band = sev.ageBands?.find((b) => b.sex === patient.sex && patient.age >= b.min && patient.age <= b.max);
   const flag = repeatVisit(patient);
+  const tt = useT();
   return (
     <div className="nf-why">
       {flag && (
         <p className="nf-why-flag">
-          <Icon name="repeat" /> Repeat visit: visit {flag.count} for {flag.symptom} in {flag.windowMonths} months.
+          <Icon name="repeat" /> {tt('Repeat visit: visit {count} for {symptom} in {months} months.', { count: flag.count, symptom: flag.symptom, months: flag.windowMonths })}
         </p>
       )}
       {aid.testNeeded && (
         <div className="nf-why-item">
           <More>
             {aid.testNeeded.why}
-            {aid.testNeeded.threshold && ` Threshold ${aid.testNeeded.threshold}.`}
+            {aid.testNeeded.threshold && ` ${tt('Threshold {value}.', { value: aid.testNeeded.threshold })}`}
           </More>
           <Source source={aid.testNeeded.source} />
         </div>
       )}
       {aid.riskEvidence && aid.riskEvidence.length > 0 && (
         <div className="nf-why-item">
-          <p>Risk gradient read these words in the notes:</p>
+          <p>{tt('Risk gradient read these words in the notes:')}</p>
           <ul className="nf-evidence">
             {aid.riskEvidence.map((e) => (
               <li key={e}>
@@ -417,7 +418,7 @@ function Why({ patient, aid, onLight }: { patient: Patient; aid: AidResult; onLi
       )}
       {aid.publishedRisk && (
         <div className="nf-why-item">
-          <p>Published risk: {aid.publishedRisk.because}</p>
+          <p>{tt('Published risk: {because}', { because: aid.publishedRisk.because })}</p>
           {(aid.publishedRisk.studyPopulation || aid.publishedRisk.quote) && (
             <p className="muted">
               {aid.publishedRisk.studyPopulation}
@@ -428,11 +429,11 @@ function Why({ patient, aid, onLight }: { patient: Patient; aid: AidResult; onLi
       )}
       {aid.riskModelPointer && (
         <p className="nf-why-item muted">
-          The risk model guessed {aid.riskModelPointer === 'none' ? 'no cancer' : cancerName[aid.riskModelPointer]}. A note only: the Rules decide.
+          {tt('The risk model guessed {guess}. A note only: the Rules decide.', { guess: aid.riskModelPointer === 'none' ? tt('no cancer') : cancerName[aid.riskModelPointer] })}
         </p>
       )}
-      <h3>Matched Rules · {aid.matchedRules.length}</h3>
-      {aid.matchedRules.length === 0 && <p className="muted">No Rule matched the notes. The GP can still refer.</p>}
+      <h3>{tt('Matched Rules · {n}', { n: aid.matchedRules.length })}</h3>
+      {aid.matchedRules.length === 0 && <p className="muted">{tt('No Rule matched the notes. The GP can still refer.')}</p>}
       {aid.matchedRules.map((m) => (
         <div className="nf-why-item" key={m.rule.id} onMouseEnter={() => onLight(m.visits.map((v) => v.visitId))} onMouseLeave={() => onLight([])}>
           <p>
@@ -449,35 +450,40 @@ function Why({ patient, aid, onLight }: { patient: Patient; aid: AidResult; onLi
               </ul>
             }
           >
-            Because: {m.because}
+            {tt('Because: {because}', { because: m.because })}
           </More>
           <Source source={m.rule.source} />
         </div>
       ))}
-      <h3>Severity</h3>
+      <h3>{tt('Severity')}</h3>
       <div className="nf-why-item">
         <p>
-          <b>{sev.fiveYearSurvivalPct === null ? 'Pending' : `${sev.fiveYearSurvivalPct}%`}</b> 5-year survival. {sev.population.split('.')[0]}.
+          <b>{sev.fiveYearSurvivalPct === null ? tt('Pending') : `${sev.fiveYearSurvivalPct}%`}</b> {tt('5-year survival.')} {sev.population.split('.')[0]}.
         </p>
         {band && (
           <p>
-            Age {band.min === 0 ? `under ${band.max + 1}` : `${band.min}–${band.max}`}: {band.pct}% {band.sex === 'female' ? 'women' : 'men'}, {band.period}.{' '}
+            {tt('Age {range}: {pct}% {who}, {period}.', {
+              range: band.min === 0 ? tt('under {n}', { n: band.max + 1 }) : `${band.min}–${band.max}`,
+              pct: band.pct,
+              who: tt(band.sex === 'female' ? 'women' : 'men'),
+              period: band.period,
+            })}{' '}
             {band.source !== sev.source && <Source source={band.source} short />}
           </p>
         )}
         <Source source={sev.source} short />
       </div>
       {aid.techUsed && aid.techUsed.length > 0 && (
-        <ul className="tech-used" aria-label="Tech used">
+        <ul className="tech-used" aria-label={tt('Tech used')}>
           {aid.techUsed.map((t) => (
             <li key={t.step} className={`tag ${t.provider === 'stub' || t.provider === 'mock' ? 'record' : 'gemma'}`}>
-              {techStep[t.step]}: {t.detail ? "AI" : techProvider[t.provider]}
+              {tt(techStep[t.step])}: {t.detail ? tt('AI') : techProvider[t.provider]}
             </li>
           ))}
         </ul>
       )}
       <More className="notice">
-        {MOCK_NOTICE.gemma} {MOCK_NOTICE.gradient} Nothing is sent until the GP decides.
+        {MOCK_NOTICE.gemma} {MOCK_NOTICE.gradient} {tt('Nothing is sent until the GP decides.')}
       </More>
     </div>
   );
@@ -500,6 +506,7 @@ function ReferralSheet({
   onClose: () => void;
   onSend: () => void;
 }) {
+  const tt = useT();
   const t = draft.template;
   const missing = useMemo(() => t?.fields.filter((f) => f.required && !draft.fields?.[f.key]?.value) ?? [], [t, draft.fields]);
   const req = t?.fields.filter((f) => f.required).length ?? 0;
@@ -522,9 +529,9 @@ function ReferralSheet({
     <div className="nf-sheet-wrap" onClick={onClose}>
       <section className="nf-sheet" role="dialog" aria-modal="true" aria-labelledby="nf-sheet-h" onClick={(e) => e.stopPropagation()}>
         <header>
-          <h2 id="nf-sheet-h">{t?.title ?? 'Referral template'}</h2>
-          <button className="btn small" onClick={onClose} aria-label="Close the Referral">
-            Close
+          <h2 id="nf-sheet-h">{t?.title ?? tt('Referral template')}</h2>
+          <button className="btn small" onClick={onClose} aria-label={tt('Close the Referral')}>
+            {tt('Close')}
           </button>
         </header>
         {draft.filling || !draft.fields || !t ? (
@@ -537,9 +544,10 @@ function ReferralSheet({
           <div className="nf-sheet-body">
             <p className="nf-sheet-status">
               <span className="num">
-                {req - missing.length} of {req}
+                {tt('{done} of {req}', { done: req - missing.length, req })}
               </span>{' '}
-              required fields filled from the notes.{missing.length > 0 && <b> {missing.length} still empty.</b>}
+              {tt('required fields filled from the notes.')}
+              {missing.length > 0 && <b> {tt('{n} still empty.', { n: missing.length })}</b>}
             </p>
             <Source source={t.source} prefix="Template based on" />
             <div className="fields">
@@ -550,15 +558,15 @@ function ReferralSheet({
           </div>
         )}
         <footer>
-          <div className="row" role="radiogroup" aria-label="Urgency">
+          <div className="row" role="radiogroup" aria-label={tt('Urgency')}>
             {(['urgent', 'routine'] as const).map((u) => (
               <button key={u} role="radio" aria-checked={urgency === u} aria-pressed={urgency === u} className="btn small" onClick={() => onUrgency(u)}>
-                {u === 'urgent' ? 'Urgent' : 'Routine'}
+                {tt(u === 'urgent' ? 'Urgent' : 'Routine')}
               </button>
             ))}
           </div>
           <button className={`btn ${urgency === 'urgent' ? 'urgent' : 'primary'}`} disabled={!ready} onClick={onSend}>
-            <Icon name="send" /> Send {urgency} Referral
+            <Icon name="send" /> {tt(urgency === 'urgent' ? 'Send urgent Referral' : 'Send routine Referral')}
           </button>
         </footer>
       </section>
