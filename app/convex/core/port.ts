@@ -41,8 +41,8 @@ export interface RiskOutput {
   pointer?: CancerType | 'none';
   /** phrases copied from the notes that the triage model cited, for highlighting. Set only by a triage port. */
   evidence?: string[];
-  /** set only when the triage model was tried: 'modal-lora' answered it, 'gemma' is the prompted fallback. */
-  servedBy?: 'modal-lora' | 'gemma';
+  /** set only when a triage step was tried: 'medgemma' (MedGemma 27B) or 'modal-lora' (the E4B triage) answered it; 'gemma' is the prompted fallback. */
+  servedBy?: 'medgemma' | 'modal-lora' | 'gemma';
 }
 
 export interface FillInput {

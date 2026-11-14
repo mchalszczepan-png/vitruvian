@@ -1,6 +1,8 @@
 // Cache decorator for a ModelPort. Wraps extractFacts, decide, risk and fill (all run at temperature 0, so a replay is correct).
 // Keys: facts by (port, model id, sha(note)); decision by (rule, sha(question + facts)); risk by (port, model id, triage model id, sha(input)); fill by sha(input).
-// The triage model id (modal-lora with LORA_TRIAGE_MODEL) is in the risk key only, so facts, decisions and fills keep their keys.
+// The triage model ids (MEDGEMMA_TRIAGE_MODEL, then LORA_TRIAGE_MODEL) are in the risk key only, so facts, decisions and fills keep their keys.
+// A risk is stored only when the top of the configured triage chain answered it (riskPrimary): a fallback is never replayed as the
+// primary's answer, and a fallback leaves no row, so the primary is asked again next time.
 // Fill is keyed by its whole input (patient visits, facts, specs, matched Rules, risk), so a changed note or Rule misses the cache.
 // The Store is the decisionCache key/value table (lib/store.ts), with batched reads and writes.
 // Research prototype. Not a medical device. Not for clinical use.
@@ -27,7 +29,17 @@ function parse<T>(raw: string | undefined): T | undefined {
   }
 }
 
-export function withCache(port: ModelPort, store: Store, modelId: string, riskModelId?: string): ModelPort {
+/**
+ * riskModelId: the triage model ids, joined (in the risk key). riskPrimary: the top of the configured triage chain ('medgemma' when
+ * MedGemma is set, else 'modal-lora' when the E4B triage is set). Absent: no triage, so the risk is stored as before.
+ */
+export function withCache(
+  port: ModelPort,
+  store: Store,
+  modelId: string,
+  riskModelId?: string,
+  riskPrimary?: 'medgemma' | 'modal-lora',
+): ModelPort {
   const prefix = `${port.name}:${modelId}`;
   return {
     name: port.name,
@@ -69,8 +81,9 @@ export function withCache(port: ModelPort, store: Store, modelId: string, riskMo
       const hit = parse<RiskOutput>((await store.getMany([key]))[key]);
       if (hit && typeof hit.score === 'number') return hit;
       const out = await port.risk(input);
-      // A risk the triage port handed to the prompted fallback is not stored: under the triage key it would replay a Featherless answer as the triage.
-      if (out.servedBy !== 'gemma') await store.setMany([{ key, value: JSON.stringify(out) }]);
+      // Stored only when the top of the chain answered: a fallback (the E4B triage or the prompted gemma) under the primary's key would
+      // replay as the primary's answer. No triage configured: riskPrimary and servedBy are both absent, so it is stored as before.
+      if (out.servedBy === riskPrimary) await store.setMany([{ key, value: JSON.stringify(out) }]);
       return out;
     },
 

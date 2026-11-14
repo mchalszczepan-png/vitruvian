@@ -1,6 +1,7 @@
 // The live port for gemma and modal-lora. One implementation: they differ only in env (the chat endpoint and model id) and,
 // for modal-lora, the fill goes to the LoRA first (cfg.lora) and falls back to the gemma chat endpoint on any failure.
-// modal-lora's risk goes to the triage LoRA (cfg.triage, same endpoint as the fill LoRA) first, with the prompted risk as fallback.
+// modal-lora's risk is a chain: MedGemma (cfg.medgemma) first, then the triage LoRA (cfg.triage, same endpoint as the fill LoRA),
+// then the prompted risk. Each step is optional; a step that fails hands on to the next (risk below).
 // It owns the one chat client (model/openai.ts: 20 s timeout, one retry), the one JSON parser, the Gemini Decisions POST
 // and the contract fill call (model/contract.ts, unchanged). It throws on a bad reply with the HTTP status only: no silent
 // risk 0 and no silent empty Facts.
@@ -20,7 +21,9 @@ export interface LlmCfg {
   chat: ChatCfg;
   /** modal-lora only: the LoRA endpoint (LORA_*), which answers the fill alone. */
   lora?: ChatCfg;
-  /** modal-lora only: the triage LoRA (LORA_TRIAGE_MODEL on the same endpoint as lora). Its risk goes first; the prompted risk is the fallback. */
+  /** modal-lora only: MedGemma 27B triage (MEDGEMMA_TRIAGE_*). Its risk goes first, then the triage LoRA, then the prompted risk. */
+  medgemma?: ChatCfg;
+  /** modal-lora only: the triage LoRA (LORA_TRIAGE_MODEL on the same endpoint as lora). Its risk goes second; the prompted risk is the last fallback. */
   triage?: ChatCfg;
   /** GEMINI_API_KEY for the Decisions API */
   geminiKey: string;
@@ -36,6 +39,8 @@ export const YES_AT = 0.5;
  * is returned, not followed) or invalid output falls back to gemma at once.
  */
 export const LORA_LIMITS: CallLimits = { timeoutMs: 25_000, retry: false, manualRedirect: true };
+/** The MedGemma triage: 20 s, one request, no retry. A cold start (~4m20s) is a fallback to the E4B triage at once, never a wait. */
+export const MEDGEMMA_LIMITS: CallLimits = { timeoutMs: 20_000, retry: false, manualRedirect: true };
 const LORA_INVALID = 'LoRA reply was not valid fill output';
 const TRIAGE_CANCERS = ['lung', 'colorectal', 'ovarian', 'none'] as const;
 const clampScore = (x: number) => Math.min(10, Math.max(0, Math.round(x)));
@@ -54,10 +59,11 @@ function jsonObjectFrom(text: string): Record<string, unknown> | null {
 }
 
 /**
- * Reads the triage reply (ml/TRIAGE-CONTRACT.md). Throws on a missing or non-numeric score, or an empty riskReason, so the caller
- * falls back to the prompted risk. The Rules pick the cancer: score = scores[input.cancer], or the riskGradient when no Rule matched.
+ * Reads the triage reply (ml/TRIAGE-CONTRACT.md), from MedGemma or the E4B triage LoRA (same contract). Throws on a missing or
+ * non-numeric score, or an empty riskReason, so the caller falls to the next step. The Rules pick the cancer:
+ * score = scores[input.cancer], or the riskGradient when no Rule matched.
  */
-function parseTriage(text: string, input: RiskInput): RiskOutput {
+function parseTriage(text: string, input: RiskInput, servedBy: 'medgemma' | 'modal-lora'): RiskOutput {
   const obj = jsonObjectFrom(text);
   if (!obj) throw new Error('triage reply was not a JSON object');
   const scores = obj.scores as Record<string, unknown> | undefined;
@@ -78,8 +84,22 @@ function parseTriage(text: string, input: RiskInput): RiskOutput {
     reason: obj.riskReason.trim().split('\n')[0],
     pointer,
     evidence,
-    servedBy: 'modal-lora',
+    servedBy,
   };
+}
+
+/** One triage call (ml/TRIAGE-CONTRACT.md): the same messages, temperature 0 and 1024 tokens for MedGemma and the E4B triage. */
+async function triageRisk(
+  chat: ChatCfg,
+  input: RiskInput,
+  limits: CallLimits,
+  servedBy: 'medgemma' | 'modal-lora',
+  fetchImpl: typeof fetch | undefined,
+): Promise<RiskOutput> {
+  const { today, earlier } = input.notes;
+  const messages = buildTriageMessages(today, earlier, { age: input.history.age, sex: input.history.sex });
+  const text = await chatCompletion({ cfg: chat, messages, temperature: 0, maxTokens: 1024, limits, fetchImpl });
+  return parseTriage(text, input, servedBy);
 }
 
 export function llmPort(cfg: LlmCfg): ModelPort {
@@ -150,21 +170,29 @@ ${note}`;
     },
 
     /**
-     * modal-lora with cfg.triage: the triage LoRA first (LORA_LIMITS, one request). Any failure logs one line and runs the prompted
-     * risk, which returns servedBy 'gemma'. A gemma port, or modal-lora without the triage model, runs the prompted risk alone.
+     * modal-lora: MedGemma first (MEDGEMMA_LIMITS), then the triage LoRA (LORA_LIMITS), then the prompted risk. Each failure logs one
+     * line and hands on. servedBy names the step that answered; 'gemma' is the prompted fallback and is set only when a triage step
+     * is configured. A gemma port, or modal-lora with no triage step, runs the prompted risk alone (no servedBy).
      */
     async risk(input): Promise<RiskOutput> {
-      if (!cfg.triage) return promptedRisk(input);
-      try {
-        const { today, earlier } = input.notes;
-        const messages = buildTriageMessages(today, earlier, { age: input.history.age, sex: input.history.sex });
-        const text = await chatCompletion({ cfg: cfg.triage, messages, temperature: 0, maxTokens: 1024, limits: LORA_LIMITS, fetchImpl: cfg.fetchImpl });
-        return parseTriage(text, input);
-      } catch (e) {
-        // The error text names the HTTP status, the timeout or our own parse message only, never the body, URL or key.
-        console.log(`risk: triage failed (${e instanceof Error ? e.message : 'error'}), fell back to gemma`);
-        return { ...(await promptedRisk(input)), servedBy: 'gemma' };
+      if (!cfg.medgemma && !cfg.triage) return promptedRisk(input);
+      // The error text names the HTTP status, the timeout or our own parse message only, never the body, URL or key.
+      if (cfg.medgemma) {
+        try {
+          return await triageRisk(cfg.medgemma, input, MEDGEMMA_LIMITS, 'medgemma', cfg.fetchImpl);
+        } catch (e) {
+          const next = cfg.triage ? 'trying the E4B triage' : 'fell back to gemma';
+          console.log(`risk: medgemma failed (${e instanceof Error ? e.message : 'error'}), ${next}`);
+        }
       }
+      if (cfg.triage) {
+        try {
+          return await triageRisk(cfg.triage, input, LORA_LIMITS, 'modal-lora', cfg.fetchImpl);
+        } catch (e) {
+          console.log(`risk: triage failed (${e instanceof Error ? e.message : 'error'}), fell back to gemma`);
+        }
+      }
+      return { ...(await promptedRisk(input)), servedBy: 'gemma' };
     },
 
     /**
