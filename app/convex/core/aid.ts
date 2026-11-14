@@ -13,8 +13,11 @@ import type { RuleBook, RuleRow } from './rulebook';
 /** Visits read, and distinct fact sets decided, at most this many in flight. */
 const CONCURRENCY = 6;
 
-/** Where the Repeat flag came from: vector search (aid:get) or the symptom field (the default). */
-export type RepeatSource = 'convex-vector' | 'symptom-match';
+/**
+ * Where the Repeat flag came from: vector search with Gemini ('convex-vector'), vector search with EmbeddingGemma
+ * ('embeddinggemma'), or the symptom field (the default).
+ */
+export type RepeatSource = 'convex-vector' | 'embeddinggemma' | 'symptom-match';
 
 /** A Repeat flag the caller computed (aid:get runs vector search; core cannot call Convex). `flag: null` is a real answer: no Repeat. */
 export interface RepeatOverride {
@@ -87,7 +90,8 @@ export const TRIAGE_BADGE = 'Gemma 4 E4B, fine-tuned on synthetic GP notes, Gemi
  * the prompted risk (a triage fallback, or no triage model), shown as gemma.
  * The fill badge is static: the aid result is built without running the fill, and the FieldValues fill result has no tech field,
  * so a fallback is not shown here.
- * The repeat step names the source analyze() was given: vector search in aid:get, else the symptom field.
+ * The repeat step names the source analyze() was given: vector search (Gemini 'convex-vector' or 'embeddinggemma') in aid:get,
+ * else the symptom field.
  */
 export function techUsedFor(portName: string, repeatSource: RepeatSource = 'symptom-match', riskServedBy?: 'modal-lora' | 'gemma'): TechUsed[] {
   const port = portProvider(portName);

@@ -13,6 +13,7 @@ const techProvider: Record<TechUsed['provider'], string> = {
   'modal-lora': 'Gemma on Modal',
   gemini: 'Gemini',
   'convex-vector': 'Vector search',
+  embeddinggemma: 'EmbeddingGemma',
   'symptom-match': 'Symptom match',
   stub: 'No model',
   mock: 'No model',

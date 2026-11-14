@@ -127,7 +127,7 @@ export interface Severity {
 export interface TechUsed {
   step: 'facts' | 'decisions' | 'risk' | 'repeat' | 'fill';
   /** 'stub' and 'mock' mean no model ran (offline demo) */
-  provider: 'gemma' | 'modal-lora' | 'gemini' | 'convex-vector' | 'symptom-match' | 'stub' | 'mock';
+  provider: 'gemma' | 'modal-lora' | 'gemini' | 'convex-vector' | 'embeddinggemma' | 'symptom-match' | 'stub' | 'mock';
   /** badge text when the provider name alone is not honest enough (the triage LoRA's model card line) */
   detail?: string;
 }

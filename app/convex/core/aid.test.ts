@@ -82,6 +82,10 @@ describe('techUsedFor', () => {
     expect(repeatOf('convex-vector')).toBe('convex-vector');
   });
 
+  it('repeat step reports embeddinggemma when EmbeddingGemma served the vector search', () => {
+    expect(techUsedFor('stub', 'embeddinggemma').find((t) => t.step === 'repeat')).toEqual({ step: 'repeat', provider: 'embeddinggemma' });
+  });
+
   it('keeps the other four steps unchanged whatever the repeat source', () => {
     const steps = (src: RepeatSource) => techUsedFor('stub', src).filter((t) => t.step !== 'repeat');
     expect(steps('convex-vector')).toEqual(steps('symptom-match'));

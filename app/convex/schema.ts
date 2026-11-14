@@ -14,7 +14,11 @@ import {
   stagingTemplateV,
 } from './validators';
 
-/** Visit embeddings: Gemini gemini-embedding-001 at 768 dimensions (outputDimensionality 768). */
+/**
+ * Visit embeddings, 768 dims. Either EmbeddingGemma (google/embeddinggemma-300m, task prefixes from model/embed.ts) or
+ * Gemini gemini-embedding-001 (outputDimensionality 768). Never mixed in one index: after a switch, re-embed all rows
+ * (seed:embedVisits with { force: true }). The schema does not record which model made a vector.
+ */
 export const EMBEDDING_DIMS = 768;
 
 export default defineSchema({

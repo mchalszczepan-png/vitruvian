@@ -270,6 +270,7 @@ export const techUsedV = v.object({
     v.literal('modal-lora'),
     v.literal('gemini'),
     v.literal('convex-vector'),
+    v.literal('embeddinggemma'),
     v.literal('symptom-match'),
     v.literal('stub'),
     v.literal('mock'),
