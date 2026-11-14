@@ -46,6 +46,7 @@ const FI_SHARED: Record<string, string> = {
   'Placeholder source': 'Väliaikainen lähde',
   'Show more': 'Näytä lisää',
   'Show less': 'Näytä vähemmän',
+  'Show all': 'Näytä kaikki',
   'opens in new tab': 'avautuu uuteen välilehteen',
 
   // Referral field options

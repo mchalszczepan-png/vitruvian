@@ -4,6 +4,8 @@ import type { AidResult, TechUsed, FieldValues, GpDecision, Patient, Referral, R
 import { FieldInput } from '../components/FieldInput';
 import { Icon, Mark } from '../components/Icon';
 import { More } from '../components/More';
+import { FoldedNote, NoteText } from '../components/NoteText';
+import { continueList } from '../components/noteList';
 import { Source } from '../components/Source';
 import { cancerName, fmtDate } from '../components/labels';
 import { getLang, useT } from '../components/lang';
@@ -180,7 +182,7 @@ export function GpWorkspace({ patients, patientId, onPatient }: Props) {
                 <p className="nf-note-label">
                   {t('Today')} <span className="num">· {fmtDate(today.date)}</span>
                 </p>
-                <p className="nf-note-text">{draft.note}</p>
+                <FoldedNote key={patient.id} text={draft.note} />
                 <div className="nf-note-foot">
                   <small role="status">{status}</small>
                   <button className="btn small" type="button" onClick={() => update(patient.id, { editing: true })}>
@@ -207,6 +209,7 @@ export function GpWorkspace({ patients, patientId, onPatient }: Props) {
                   value={draft.note}
                   onChange={(e) => update(patient.id, { note: e.target.value })}
                   onKeyDown={(e) => {
+                    if (continueList(e, (note) => update(patient.id, { note }))) return;
                     if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
                       e.preventDefault();
                       save();
@@ -224,7 +227,7 @@ export function GpWorkspace({ patients, patientId, onPatient }: Props) {
           </li>
           {earlier.map((v) => (
             <li key={v.id} id={`visit-${v.id}`} className={lit.includes(v.id) ? 'lit' : undefined}>
-              <More key={`${patient.id}-${v.id}`} extra={<p className="nf-hist-note">{v.note}</p>}>
+              <More key={`${patient.id}-${v.id}`} extra={<NoteText className="nf-hist-note" text={v.note} />}>
                 <time className="num">{fmtDate(v.date)}</time> {v.reason}
               </More>
             </li>
