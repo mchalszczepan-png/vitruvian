@@ -1640,3 +1640,18 @@ textarea.input {
   padding: 4px;
   color: var(--muted);
 }
+
+/* Cancer risk row in the Patient Information table */
+.ehr-risk {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 600;
+}
+.ehr-risk .meter {
+  width: 160px;
+  flex: none;
+}
+.ehr-risk .tag {
+  font-weight: 400;
+}

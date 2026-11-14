@@ -67,7 +67,7 @@ export function GpWorkspace({ patients, patientId, onPatient, onOpenDesk }: Prop
 
   return (
     <div className="gp-layout">
-      <RecordSystem patients={patients} patient={patient} onPatient={onPatient} lit={lit} fed={fed} />
+      <RecordSystem patients={patients} patient={patient} onPatient={onPatient} lit={lit} fed={fed} aid={draft.aid} />
       <section className="dock" aria-label="Vitruvian panel">
         <header className="dock-head">
           <Mark size={20} />
@@ -143,12 +143,14 @@ function RecordSystem({
   onPatient,
   lit,
   fed,
+  aid,
 }: {
   patients: Patient[];
   patient: Patient;
   onPatient: (id: string) => void;
   lit: string[];
   fed: Map<string, string[]>;
+  aid?: AidResult;
 }) {
   const visits = [...patient.visits].reverse();
   const [query, setQuery] = useState('');
@@ -183,6 +185,24 @@ function RecordSystem({
                 <tr><th scope="row">Patient ID</th><td>{patient.id}</td></tr>
                 <tr><th scope="row">Age</th><td>{patient.age}</td></tr>
                 <tr><th scope="row">Sex</th><td>{patient.sex === 'female' ? 'Female' : 'Male'}</td></tr>
+                <tr>
+                  <th scope="row">Cancer risk</th>
+                  <td>
+                    {aid ? (
+                      <div className="ehr-risk">
+                        <div className="meter" role="img" aria-label={`Risk gradient ${aid.riskGradient} of 10, AI estimate`}>
+                          {Array.from({ length: 10 }, (_, i) => (
+                            <i key={i} className={i < aid.riskGradient ? 'on' : ''} />
+                          ))}
+                        </div>
+                        <span>{aid.riskGradient} / 10</span>
+                        <span className="tag ai">AI estimate</span>
+                      </div>
+                    ) : (
+                      <span className="grey">Reading the record…</span>
+                    )}
+                  </td>
+                </tr>
               </tbody>
             </table>
           </section>
