@@ -28,11 +28,21 @@ export interface RiskInput {
   cancer: CancerType;
   matched: { id: string; because: string }[];
   history: { visitCount: number; repeatVisit: boolean; lasting: number; age: number; sex: string; visits: { date: string; reason: string }[] };
+  /** true when no Rule of any cancer matched. The triage score is then the model's riskGradient, not scores[cancer]. */
+  noRuleMatched: boolean;
+  /** raw visit notes (not withoutSafetyNet): today's note and the earlier ones, oldest first. The triage model reads these. */
+  notes: { today: string; earlier: { date: string; note: string }[] };
 }
 
 export interface RiskOutput {
   score: number;
   reason: string;
+  /** the triage model's own cancer guess. A note only: the Rules pick the cancer (decision 14). Set only by a triage port. */
+  pointer?: CancerType | 'none';
+  /** phrases copied from the notes that the triage model cited, for highlighting. Set only by a triage port. */
+  evidence?: string[];
+  /** set only when the triage model was tried: 'modal-lora' answered it, 'gemma' is the prompted fallback. */
+  servedBy?: 'modal-lora' | 'gemma';
 }
 
 export interface FillInput {

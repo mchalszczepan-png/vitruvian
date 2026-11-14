@@ -1,5 +1,6 @@
 // The Aid pipeline (docs/SPEC.md "Aid pipeline"), pure: patient + Rule book + ModelPort in, AidResult out. No Convex, no env.
-// analyze() is the one place the pipeline order is written. The model sets only the Risk gradient and its reason.
+// analyze() is the one place the pipeline order is written. The model sets only the Risk gradient and its reason
+// (and, with modal-lora's triage LoRA, a note on the cancer and cited evidence; the Rules still pick the cancer).
 // Research prototype. Not a medical device. Not for clinical use.
 import type { AidResult, CancerType, MatchedRule, Patient, RepeatVisitFlag, TechUsed } from '../../src/data/types';
 import { overTimeMatch, type OverTime } from '../lib/overTime';
@@ -75,20 +76,28 @@ function portProvider(name: string): 'stub' | 'gemma' | 'modal-lora' {
   throw new Error(`Unknown model port "${name}"`);
 }
 
+/** The triage badge text (ml/TRIAGE-CONTRACT.md label). The one place the wording lives. */
+export const TRIAGE_BADGE = 'Gemma 4 E4B, fine-tuned on synthetic GP notes, Gemini-teacher labels, not clinically validated';
+
 /**
  * Story 40: which tech served each Aid step. Gemma and modal-lora answer the yes/no Rules on the Gemini Decisions API,
  * so the decisions step is 'gemini' there and 'stub' only for the stub port.
- * modal-lora runs only the fill on the LoRA: facts and risk stay on Featherless ('gemma'). The fill badge is static: the
- * aid result is built without running the fill, and the FieldValues fill result has no tech field, so a fallback is not shown here.
+ * modal-lora runs the fill on the LoRA, and the risk on the triage LoRA when it is configured. Facts stay on Featherless ('gemma').
+ * riskServedBy is the servedBy of the risk answer: 'modal-lora' gives the triage LoRA with TRIAGE_BADGE; 'gemma' or absent is
+ * the prompted risk (a triage fallback, or no triage model), shown as gemma.
+ * The fill badge is static: the aid result is built without running the fill, and the FieldValues fill result has no tech field,
+ * so a fallback is not shown here.
  * The repeat step names the source analyze() was given: vector search in aid:get, else the symptom field.
  */
-export function techUsedFor(portName: string, repeatSource: RepeatSource = 'symptom-match'): TechUsed[] {
+export function techUsedFor(portName: string, repeatSource: RepeatSource = 'symptom-match', riskServedBy?: 'modal-lora' | 'gemma'): TechUsed[] {
   const port = portProvider(portName);
   const chat = port === 'modal-lora' ? 'gemma' : port;
+  const risk: TechUsed =
+    riskServedBy === 'modal-lora' ? { step: 'risk', provider: 'modal-lora', detail: TRIAGE_BADGE } : { step: 'risk', provider: chat };
   return [
     { step: 'facts', provider: chat },
     { step: 'decisions', provider: port === 'stub' ? 'stub' : 'gemini' },
-    { step: 'risk', provider: chat },
+    risk,
     { step: 'repeat', provider: repeatSource },
     { step: 'fill', provider: port },
   ];
@@ -157,6 +166,8 @@ export async function analyze({ patient, book, model, repeat: override }: AidInp
   const repeatSource: RepeatSource = override ? override.source : 'symptom-match';
 
   // 5. Risk gradient (the only model output that reaches the Aid) and its one-line reason. Clamped once, here.
+  // The raw notes go to the triage model (not withoutSafetyNet: the contract wants the note as written).
+  const noRuleMatched = allMatched.length === 0;
   const risk = await model.risk({
     cancer,
     matched: matched.map((m) => ({ id: m.rule.id, because: m.because })),
@@ -168,8 +179,13 @@ export async function analyze({ patient, book, model, repeat: override }: AidInp
       sex: patient.sex,
       visits: visits.map((x) => ({ date: x.date, reason: x.reason })),
     },
+    noRuleMatched,
+    notes: { today: last.note, earlier: visits.slice(0, -1).map((x) => ({ date: x.date, note: x.note })) },
   });
   const riskGradient = Math.min(10, Math.max(0, Math.round(risk.score)));
+  // The triage model's cancer guess is a note only. Shown only when it differs from what the Rules say.
+  const rulesSay: CancerType | 'none' = noRuleMatched ? 'none' : cancer;
+  const triageSaid = risk.servedBy === 'modal-lora';
 
   // 6. Gates and the urgent ultrasound, on the facts known so far.
   const facts = cumulative[cumulative.length - 1];
@@ -182,10 +198,12 @@ export async function analyze({ patient, book, model, repeat: override }: AidInp
   return {
     aid: {
       suspectedCancer: cancer,
-      noRuleMatched: allMatched.length === 0,
-      techUsed: techUsedFor(model.name, repeatSource),
+      noRuleMatched,
+      techUsed: techUsedFor(model.name, repeatSource, risk.servedBy),
       riskGradient,
       riskReason: risk.reason,
+      ...(risk.pointer !== undefined && risk.pointer !== rulesSay ? { riskModelPointer: risk.pointer } : {}),
+      ...(triageSaid && risk.evidence?.length ? { riskEvidence: risk.evidence } : {}),
       matchedRules: matched,
       severity: severityForPatient(sev, patient.age, patient.sex),
       testNeeded,

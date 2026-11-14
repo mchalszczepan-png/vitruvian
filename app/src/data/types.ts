@@ -128,6 +128,8 @@ export interface TechUsed {
   step: 'facts' | 'decisions' | 'risk' | 'repeat' | 'fill';
   /** 'stub' and 'mock' mean no model ran (offline demo) */
   provider: 'gemma' | 'modal-lora' | 'gemini' | 'convex-vector' | 'symptom-match' | 'stub' | 'mock';
+  /** badge text when the provider name alone is not honest enough (the triage LoRA's model card line) */
+  detail?: string;
 }
 
 export interface AidResult {
@@ -139,6 +141,10 @@ export interface AidResult {
   techUsed?: TechUsed[];
   riskGradient: number; // 0–10, AI estimate
   riskReason: string;
+  /** the triage model's own cancer guess, set only when it differs from the Rules' answer. A note only: the Rules decide (decision 14). */
+  riskModelPointer?: CancerType | 'none';
+  /** phrases copied from the notes that the triage model cited, for highlighting */
+  riskEvidence?: string[];
   matchedRules: MatchedRule[];
   severity: Severity;
   /** set when a gate test is missing: the Aid shows "FIT needed" before "refer" */

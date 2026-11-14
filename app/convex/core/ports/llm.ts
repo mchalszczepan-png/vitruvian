@@ -1,5 +1,6 @@
 // The live port for gemma and modal-lora. One implementation: they differ only in env (the chat endpoint and model id) and,
 // for modal-lora, the fill goes to the LoRA first (cfg.lora) and falls back to the gemma chat endpoint on any failure.
+// modal-lora's risk goes to the triage LoRA (cfg.triage, same endpoint as the fill LoRA) first, with the prompted risk as fallback.
 // It owns the one chat client (model/openai.ts: 20 s timeout, one retry), the one JSON parser, the Gemini Decisions POST
 // and the contract fill call (model/contract.ts, unchanged). It throws on a bad reply with the HTTP status only: no silent
 // risk 0 and no silent empty Facts.
@@ -8,8 +9,10 @@
 // Research prototype. Not a medical device. Not for clinical use.
 import { chatCompletion, fetchRetry, type CallLimits, type ChatCfg } from '../../model/openai';
 import { fieldProblems, fillFromNote, recordFactsFor, type FillOutput } from '../../model/contract';
+import { buildTriageMessages } from '../../model/triagePrompt';
 import { coerceFacts, factsJson, FACT_KEYS } from '../facts';
-import type { Decision, FillInput, ModelPort, RiskOutput } from '../port';
+import type { CancerType } from '../../../src/data/types';
+import type { Decision, FillInput, ModelPort, RiskInput, RiskOutput } from '../port';
 
 export interface LlmCfg {
   name: 'gemma' | 'modal-lora';
@@ -17,6 +20,8 @@ export interface LlmCfg {
   chat: ChatCfg;
   /** modal-lora only: the LoRA endpoint (LORA_*), which answers the fill alone. */
   lora?: ChatCfg;
+  /** modal-lora only: the triage LoRA (LORA_TRIAGE_MODEL on the same endpoint as lora). Its risk goes first; the prompted risk is the fallback. */
+  triage?: ChatCfg;
   /** GEMINI_API_KEY for the Decisions API */
   geminiKey: string;
   fetchImpl?: typeof fetch;
@@ -32,6 +37,8 @@ export const YES_AT = 0.5;
  */
 export const LORA_LIMITS: CallLimits = { timeoutMs: 25_000, retry: false, manualRedirect: true };
 const LORA_INVALID = 'LoRA reply was not valid fill output';
+const TRIAGE_CANCERS = ['lung', 'colorectal', 'ovarian', 'none'] as const;
+const clampScore = (x: number) => Math.min(10, Math.max(0, Math.round(x)));
 
 /** Pulls the first JSON object out of a model reply (fenced or bare). Returns null when none parses. */
 function jsonObjectFrom(text: string): Record<string, unknown> | null {
@@ -44,6 +51,35 @@ function jsonObjectFrom(text: string): Record<string, unknown> | null {
   } catch {
     return null;
   }
+}
+
+/**
+ * Reads the triage reply (ml/TRIAGE-CONTRACT.md). Throws on a missing or non-numeric score, or an empty riskReason, so the caller
+ * falls back to the prompted risk. The Rules pick the cancer: score = scores[input.cancer], or the riskGradient when no Rule matched.
+ */
+function parseTriage(text: string, input: RiskInput): RiskOutput {
+  const obj = jsonObjectFrom(text);
+  if (!obj) throw new Error('triage reply was not a JSON object');
+  const scores = obj.scores as Record<string, unknown> | undefined;
+  const cancers = ['lung', 'colorectal', 'ovarian'] as const;
+  if (!scores || typeof scores !== 'object' || cancers.some((c) => typeof scores[c] !== 'number' || !Number.isFinite(scores[c]))) {
+    throw new Error('triage reply had no numeric scores');
+  }
+  const clean = Object.fromEntries(cancers.map((c) => [c, clampScore(scores[c] as number)])) as Record<(typeof cancers)[number], number>;
+  if (typeof obj.riskReason !== 'string' || !obj.riskReason.trim()) throw new Error('triage reply had no riskReason');
+  const riskGradient =
+    typeof obj.riskGradient === 'number' && Number.isFinite(obj.riskGradient) ? clampScore(obj.riskGradient) : Math.max(...Object.values(clean));
+  const pointer = (TRIAGE_CANCERS as readonly unknown[]).includes(obj.suspectedCancer) ? (obj.suspectedCancer as CancerType | 'none') : undefined;
+  const evidence = Array.isArray(obj.evidence)
+    ? obj.evidence.flatMap((x) => (typeof x === 'string' && x.trim() ? [x.trim()] : [])).slice(0, 4)
+    : [];
+  return {
+    score: input.noRuleMatched ? riskGradient : clean[input.cancer],
+    reason: obj.riskReason.trim().split('\n')[0],
+    pointer,
+    evidence,
+    servedBy: 'modal-lora',
+  };
 }
 
 export function llmPort(cfg: LlmCfg): ModelPort {
@@ -61,6 +97,19 @@ export function llmPort(cfg: LlmCfg): ModelPort {
     if (!obj) throw new Error(`model reply for ${what} was not a JSON object`);
     return obj;
   };
+
+  /** The prompted risk (gemma, and the modal-lora fallback). */
+  async function promptedRisk({ cancer, matched, history }: RiskInput): Promise<RiskOutput> {
+    const system = 'You give an AI risk gradient for a suspected cancer referral. Reply with one JSON object: {"score": integer 0 to 10, "reason": one line}. You never add or remove matched Rules.';
+    const user = `Suspected ${cancer} cancer. Matched Rules:\n${matched.map((m) => `- ${m.id}: ${m.because}`).join('\n') || '- none'}
+History: ${history.visitCount} visit(s); Repeat visit ${history.repeatVisit ? 'yes' : 'no'}; Rules seen on 2+ visits ${history.lasting}; age ${history.age}; sex ${history.sex}.
+Visits: ${history.visits.map((v) => `${v.date} ${v.reason}`).join('; ')}.
+Persistent or recurrent matches raise the score.`;
+    const raw = await chatJson(system, user, 'risk');
+    if (typeof raw.score !== 'number' || !Number.isFinite(raw.score)) throw new Error('model reply for risk had no numeric score');
+    const reason = typeof raw.reason === 'string' && raw.reason.trim() ? raw.reason.trim().split('\n')[0] : 'No reason returned by the model.';
+    return { score: raw.score, reason };
+  }
 
   return {
     name: cfg.name,
@@ -100,16 +149,22 @@ ${note}`;
       return out;
     },
 
-    async risk({ cancer, matched, history }): Promise<RiskOutput> {
-      const system = 'You give an AI risk gradient for a suspected cancer referral. Reply with one JSON object: {"score": integer 0 to 10, "reason": one line}. You never add or remove matched Rules.';
-      const user = `Suspected ${cancer} cancer. Matched Rules:\n${matched.map((m) => `- ${m.id}: ${m.because}`).join('\n') || '- none'}
-History: ${history.visitCount} visit(s); Repeat visit ${history.repeatVisit ? 'yes' : 'no'}; Rules seen on 2+ visits ${history.lasting}; age ${history.age}; sex ${history.sex}.
-Visits: ${history.visits.map((v) => `${v.date} ${v.reason}`).join('; ')}.
-Persistent or recurrent matches raise the score.`;
-      const raw = await chatJson(system, user, 'risk');
-      if (typeof raw.score !== 'number' || !Number.isFinite(raw.score)) throw new Error('model reply for risk had no numeric score');
-      const reason = typeof raw.reason === 'string' && raw.reason.trim() ? raw.reason.trim().split('\n')[0] : 'No reason returned by the model.';
-      return { score: raw.score, reason };
+    /**
+     * modal-lora with cfg.triage: the triage LoRA first (LORA_LIMITS, one request). Any failure logs one line and runs the prompted
+     * risk, which returns servedBy 'gemma'. A gemma port, or modal-lora without the triage model, runs the prompted risk alone.
+     */
+    async risk(input): Promise<RiskOutput> {
+      if (!cfg.triage) return promptedRisk(input);
+      try {
+        const { today, earlier } = input.notes;
+        const messages = buildTriageMessages(today, earlier, { age: input.history.age, sex: input.history.sex });
+        const text = await chatCompletion({ cfg: cfg.triage, messages, temperature: 0, maxTokens: 1024, limits: LORA_LIMITS, fetchImpl: cfg.fetchImpl });
+        return parseTriage(text, input);
+      } catch (e) {
+        // The error text names the HTTP status, the timeout or our own parse message only, never the body, URL or key.
+        console.log(`risk: triage failed (${e instanceof Error ? e.message : 'error'}), fell back to gemma`);
+        return { ...(await promptedRisk(input)), servedBy: 'gemma' };
+      }
     },
 
     /**
