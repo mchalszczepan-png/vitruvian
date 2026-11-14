@@ -52,6 +52,13 @@ export function Login({ onSignIn }: { onSignIn: (r: Role) => void }) {
             </li>
           ))}
         </ul>
+        <p className="login-terms">
+          Uses MedGemma under{' '}
+          <a href="https://developers.google.com/health-ai-developer-foundations/terms" target="_blank" rel="noreferrer">
+            Google's Health AI Developer Foundations Terms of Use
+          </a>
+          . Demo with made-up patients; not for clinical use.
+        </p>
       </form>
     </div>
   );
