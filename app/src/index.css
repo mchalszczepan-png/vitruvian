@@ -2470,7 +2470,7 @@ textarea.input {
 .nf-tl::before {
   content: '';
   position: absolute;
-  left: 7px;
+  left: 11px;
   top: 24px;
   bottom: 16px;
   width: 2px;
@@ -2487,7 +2487,7 @@ textarea.input {
 .nf-tl > li::before {
   content: '';
   position: absolute;
-  left: -33px;
+  left: -28px;
   top: 12px;
   width: 16px;
   height: 16px;
