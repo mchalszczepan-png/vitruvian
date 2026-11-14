@@ -169,13 +169,17 @@ function RecordSystem({
           ))}
         </nav>
         <div className="ehr-chart">
-          <h2>{patient.name}</h2>
-          <div className="ehr-meta">
-            <span>{patient.id}</span>
-            <span>
-              {patient.age} y, {patient.sex}
-            </span>
-          </div>
+          <section className="ehr-info" aria-labelledby="ehr-info-h">
+            <h2 id="ehr-info-h">Patient Information</h2>
+            <table>
+              <tbody>
+                <tr><th scope="row">Name</th><td>{patient.name}</td></tr>
+                <tr><th scope="row">Patient ID</th><td>{patient.id}</td></tr>
+                <tr><th scope="row">Age</th><td>{patient.age}</td></tr>
+                <tr><th scope="row">Sex</th><td>{patient.sex === 'female' ? 'Female' : 'Male'}</td></tr>
+              </tbody>
+            </table>
+          </section>
           {visits.map((v, i) => (
             <article key={v.id} id={`visit-${v.id}`} className={`ehr-visit${i === 0 ? ' today' : ''}${lit.includes(v.id) ? ' lit' : ''}`}>
               <header>

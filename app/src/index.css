@@ -1411,3 +1411,34 @@ textarea.input {
 .rule-top b {
   min-width: 0;
 }
+
+/* Patient Information table at the top of the record */
+.ehr-info {
+  background: #fff;
+  border-radius: 6px;
+  padding: 16px;
+  display: grid;
+  gap: 8px;
+}
+.ehr-info table {
+  border-collapse: collapse;
+  font-size: var(--fs-1);
+}
+.ehr-info th,
+.ehr-info td {
+  text-align: left;
+  padding: 8px 16px 8px 0;
+  border-top: 1px solid #e6e3e1;
+}
+.ehr-info tr:first-child th,
+.ehr-info tr:first-child td {
+  border-top: 0;
+}
+.ehr-info th {
+  width: 160px;
+  font-weight: 400;
+  color: #4d5257;
+}
+.ehr-info td {
+  font-weight: 600;
+}
