@@ -1,7 +1,9 @@
-// Cache decorator for a ModelPort. Wraps extractFacts, decide and risk (all run at temperature 0, so a replay is correct).
-// Fill is never cached. Keys: facts by (port, model id, sha(note)); decision by (rule, sha(question + facts)); risk by sha(input).
+// Cache decorator for a ModelPort. Wraps extractFacts, decide, risk and fill (all run at temperature 0, so a replay is correct).
+// Keys: facts by (port, model id, sha(note)); decision by (rule, sha(question + facts)); risk by sha(input); fill by sha(input).
+// Fill is keyed by its whole input (patient visits, facts, specs, matched Rules, risk), so a changed note or Rule misses the cache.
 // The Store is the decisionCache key/value table (lib/store.ts), with batched reads and writes.
 // Research prototype. Not a medical device. Not for clinical use.
+import type { FillOutput } from '../model/contract';
 import { factsJson } from './facts';
 import type { Decision, ModelPort, RiskOutput } from './port';
 
@@ -70,6 +72,13 @@ export function withCache(port: ModelPort, store: Store, modelId: string): Model
       return out;
     },
 
-    fill: (input) => port.fill(input),
+    async fill(input) {
+      const key = `fill:v1:${prefix}:${await sha256Hex(JSON.stringify(input))}`;
+      const hit = parse<FillOutput>((await store.getMany([key]))[key]);
+      if (hit && typeof hit.values === 'object' && hit.values !== null) return hit;
+      const out = await port.fill(input);
+      await store.setMany([{ key, value: JSON.stringify(out) }]);
+      return out;
+    },
   };
 }

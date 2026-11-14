@@ -55,6 +55,6 @@ export interface ModelPort {
   decide(args: { facts: Facts; who: Who; questions: Question[] }): Promise<Record<string, Decision>>;
   /** The Risk gradient. The only model output that reaches the Aid. The caller clamps it. */
   risk(input: RiskInput): Promise<RiskOutput>;
-  /** The Referral fields from the notes (ml/CONTRACT.md call). Never cached. */
+  /** The Referral fields from the notes (ml/CONTRACT.md call). The cache decorator keys it by its whole input. */
   fill(input: FillInput): Promise<FillOutput>;
 }

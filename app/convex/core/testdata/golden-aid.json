@@ -101,6 +101,7 @@
         ]
       }
     ],
+    "noRuleMatched": false,
     "riskGradient": 9,
     "riskReason": "4 matched Rules (2 seen on 2+ visits), Repeat visit, age 60+. Read from today's note and 2 earlier visits.",
     "severity": {
@@ -141,7 +142,29 @@
         "url": "https://dovepress.com/survival-in-lung-cancer-in-the-nordic-countries-through-a-half-century-peer-reviewed-fulltext-article-CLEP"
       }
     },
-    "suspectedCancer": "lung"
+    "suspectedCancer": "lung",
+    "techUsed": [
+      {
+        "provider": "stub",
+        "step": "facts"
+      },
+      {
+        "provider": "stub",
+        "step": "decisions"
+      },
+      {
+        "provider": "stub",
+        "step": "risk"
+      },
+      {
+        "provider": "symptom-match",
+        "step": "repeat"
+      },
+      {
+        "provider": "stub",
+        "step": "fill"
+      }
+    ]
   },
   "SYN-002": {
     "matchedRules": [
@@ -274,6 +297,7 @@
         ]
       }
     ],
+    "noRuleMatched": false,
     "riskGradient": 8,
     "riskReason": "4 matched Rules (3 seen on 2+ visits), Repeat visit. Read from today's note and 2 earlier visits.",
     "severity": {
@@ -297,7 +321,29 @@
         "url": "https://sotkanet.fi/rest/1.1/json?indicator=3627&genders=total&years=2024&region=658"
       }
     },
-    "suspectedCancer": "colorectal"
+    "suspectedCancer": "colorectal",
+    "techUsed": [
+      {
+        "provider": "stub",
+        "step": "facts"
+      },
+      {
+        "provider": "stub",
+        "step": "decisions"
+      },
+      {
+        "provider": "stub",
+        "step": "risk"
+      },
+      {
+        "provider": "symptom-match",
+        "step": "repeat"
+      },
+      {
+        "provider": "stub",
+        "step": "fill"
+      }
+    ]
   },
   "SYN-003": {
     "matchedRules": [
@@ -435,6 +481,7 @@
         ]
       }
     ],
+    "noRuleMatched": false,
     "riskGradient": 8,
     "riskReason": "4 matched Rules (3 seen on 2+ visits), Repeat visit. Read from today's note and 2 earlier visits.",
     "severity": {
@@ -484,6 +531,28 @@
       }
     },
     "suspectedCancer": "ovarian",
+    "techUsed": [
+      {
+        "provider": "stub",
+        "step": "facts"
+      },
+      {
+        "provider": "stub",
+        "step": "decisions"
+      },
+      {
+        "provider": "stub",
+        "step": "risk"
+      },
+      {
+        "provider": "symptom-match",
+        "step": "repeat"
+      },
+      {
+        "provider": "stub",
+        "step": "fill"
+      }
+    ],
     "testNeeded": {
       "source": {
         "label": "NICE NG12 1.5.9 and Table 1 [2026]",
@@ -496,6 +565,7 @@
   },
   "SYN-004": {
     "matchedRules": [],
+    "noRuleMatched": true,
     "riskGradient": 0,
     "riskReason": "0 matched Rules. Read from today's note and 2 earlier visits.",
     "severity": {
@@ -523,10 +593,33 @@
         "url": "https://dovepress.com/survival-in-lung-cancer-in-the-nordic-countries-through-a-half-century-peer-reviewed-fulltext-article-CLEP"
       }
     },
-    "suspectedCancer": "lung"
+    "suspectedCancer": "lung",
+    "techUsed": [
+      {
+        "provider": "stub",
+        "step": "facts"
+      },
+      {
+        "provider": "stub",
+        "step": "decisions"
+      },
+      {
+        "provider": "stub",
+        "step": "risk"
+      },
+      {
+        "provider": "symptom-match",
+        "step": "repeat"
+      },
+      {
+        "provider": "stub",
+        "step": "fill"
+      }
+    ]
   },
   "SYN-005": {
     "matchedRules": [],
+    "noRuleMatched": true,
     "riskGradient": 0,
     "riskReason": "0 matched Rules. Read from today's note and 2 earlier visits.",
     "severity": {
@@ -554,7 +647,29 @@
         "url": "https://dovepress.com/survival-in-lung-cancer-in-the-nordic-countries-through-a-half-century-peer-reviewed-fulltext-article-CLEP"
       }
     },
-    "suspectedCancer": "lung"
+    "suspectedCancer": "lung",
+    "techUsed": [
+      {
+        "provider": "stub",
+        "step": "facts"
+      },
+      {
+        "provider": "stub",
+        "step": "decisions"
+      },
+      {
+        "provider": "stub",
+        "step": "risk"
+      },
+      {
+        "provider": "symptom-match",
+        "step": "repeat"
+      },
+      {
+        "provider": "stub",
+        "step": "fill"
+      }
+    ]
   },
   "SYN-006": {
     "matchedRules": [
@@ -593,6 +708,7 @@
         ]
       }
     ],
+    "noRuleMatched": false,
     "riskGradient": 3,
     "riskReason": "1 matched Rule (1 seen on 2+ visits). Read from today's note and 1 earlier visit.",
     "severity": {
@@ -617,6 +733,28 @@
       }
     },
     "suspectedCancer": "colorectal",
+    "techUsed": [
+      {
+        "provider": "stub",
+        "step": "facts"
+      },
+      {
+        "provider": "stub",
+        "step": "decisions"
+      },
+      {
+        "provider": "stub",
+        "step": "risk"
+      },
+      {
+        "provider": "symptom-match",
+        "step": "repeat"
+      },
+      {
+        "provider": "stub",
+        "step": "fill"
+      }
+    ],
     "testNeeded": {
       "source": {
         "label": "NICE NG12 1.3.2 [2023]",
@@ -629,6 +767,7 @@
   },
   "SYN-007": {
     "matchedRules": [],
+    "noRuleMatched": true,
     "riskGradient": 0,
     "riskReason": "0 matched Rules. Read from today's note.",
     "severity": {
@@ -656,10 +795,33 @@
         "url": "https://dovepress.com/survival-in-lung-cancer-in-the-nordic-countries-through-a-half-century-peer-reviewed-fulltext-article-CLEP"
       }
     },
-    "suspectedCancer": "lung"
+    "suspectedCancer": "lung",
+    "techUsed": [
+      {
+        "provider": "stub",
+        "step": "facts"
+      },
+      {
+        "provider": "stub",
+        "step": "decisions"
+      },
+      {
+        "provider": "stub",
+        "step": "risk"
+      },
+      {
+        "provider": "symptom-match",
+        "step": "repeat"
+      },
+      {
+        "provider": "stub",
+        "step": "fill"
+      }
+    ]
   },
   "SYN-008": {
     "matchedRules": [],
+    "noRuleMatched": true,
     "riskGradient": 1,
     "riskReason": "0 matched Rules, age 60+. Read from today's note.",
     "severity": {
@@ -687,10 +849,33 @@
         "url": "https://dovepress.com/survival-in-lung-cancer-in-the-nordic-countries-through-a-half-century-peer-reviewed-fulltext-article-CLEP"
       }
     },
-    "suspectedCancer": "lung"
+    "suspectedCancer": "lung",
+    "techUsed": [
+      {
+        "provider": "stub",
+        "step": "facts"
+      },
+      {
+        "provider": "stub",
+        "step": "decisions"
+      },
+      {
+        "provider": "stub",
+        "step": "risk"
+      },
+      {
+        "provider": "symptom-match",
+        "step": "repeat"
+      },
+      {
+        "provider": "stub",
+        "step": "fill"
+      }
+    ]
   },
   "SYN-009": {
     "matchedRules": [],
+    "noRuleMatched": true,
     "riskGradient": 0,
     "riskReason": "0 matched Rules. Read from today's note.",
     "severity": {
@@ -718,10 +903,33 @@
         "url": "https://dovepress.com/survival-in-lung-cancer-in-the-nordic-countries-through-a-half-century-peer-reviewed-fulltext-article-CLEP"
       }
     },
-    "suspectedCancer": "lung"
+    "suspectedCancer": "lung",
+    "techUsed": [
+      {
+        "provider": "stub",
+        "step": "facts"
+      },
+      {
+        "provider": "stub",
+        "step": "decisions"
+      },
+      {
+        "provider": "stub",
+        "step": "risk"
+      },
+      {
+        "provider": "symptom-match",
+        "step": "repeat"
+      },
+      {
+        "provider": "stub",
+        "step": "fill"
+      }
+    ]
   },
   "SYN-010": {
     "matchedRules": [],
+    "noRuleMatched": true,
     "riskGradient": 0,
     "riskReason": "0 matched Rules. Read from today's note.",
     "severity": {
@@ -749,10 +957,33 @@
         "url": "https://dovepress.com/survival-in-lung-cancer-in-the-nordic-countries-through-a-half-century-peer-reviewed-fulltext-article-CLEP"
       }
     },
-    "suspectedCancer": "lung"
+    "suspectedCancer": "lung",
+    "techUsed": [
+      {
+        "provider": "stub",
+        "step": "facts"
+      },
+      {
+        "provider": "stub",
+        "step": "decisions"
+      },
+      {
+        "provider": "stub",
+        "step": "risk"
+      },
+      {
+        "provider": "symptom-match",
+        "step": "repeat"
+      },
+      {
+        "provider": "stub",
+        "step": "fill"
+      }
+    ]
   },
   "SYN-011": {
     "matchedRules": [],
+    "noRuleMatched": true,
     "riskGradient": 1,
     "riskReason": "0 matched Rules, age 60+. Read from today's note.",
     "severity": {
@@ -793,10 +1024,33 @@
         "url": "https://dovepress.com/survival-in-lung-cancer-in-the-nordic-countries-through-a-half-century-peer-reviewed-fulltext-article-CLEP"
       }
     },
-    "suspectedCancer": "lung"
+    "suspectedCancer": "lung",
+    "techUsed": [
+      {
+        "provider": "stub",
+        "step": "facts"
+      },
+      {
+        "provider": "stub",
+        "step": "decisions"
+      },
+      {
+        "provider": "stub",
+        "step": "risk"
+      },
+      {
+        "provider": "symptom-match",
+        "step": "repeat"
+      },
+      {
+        "provider": "stub",
+        "step": "fill"
+      }
+    ]
   },
   "SYN-012": {
     "matchedRules": [],
+    "noRuleMatched": true,
     "riskGradient": 0,
     "riskReason": "0 matched Rules. Read from today's note.",
     "severity": {
@@ -824,10 +1078,33 @@
         "url": "https://dovepress.com/survival-in-lung-cancer-in-the-nordic-countries-through-a-half-century-peer-reviewed-fulltext-article-CLEP"
       }
     },
-    "suspectedCancer": "lung"
+    "suspectedCancer": "lung",
+    "techUsed": [
+      {
+        "provider": "stub",
+        "step": "facts"
+      },
+      {
+        "provider": "stub",
+        "step": "decisions"
+      },
+      {
+        "provider": "stub",
+        "step": "risk"
+      },
+      {
+        "provider": "symptom-match",
+        "step": "repeat"
+      },
+      {
+        "provider": "stub",
+        "step": "fill"
+      }
+    ]
   },
   "SYN-013": {
     "matchedRules": [],
+    "noRuleMatched": true,
     "riskGradient": 1,
     "riskReason": "0 matched Rules, age 60+. Read from today's note.",
     "severity": {
@@ -855,10 +1132,33 @@
         "url": "https://dovepress.com/survival-in-lung-cancer-in-the-nordic-countries-through-a-half-century-peer-reviewed-fulltext-article-CLEP"
       }
     },
-    "suspectedCancer": "lung"
+    "suspectedCancer": "lung",
+    "techUsed": [
+      {
+        "provider": "stub",
+        "step": "facts"
+      },
+      {
+        "provider": "stub",
+        "step": "decisions"
+      },
+      {
+        "provider": "stub",
+        "step": "risk"
+      },
+      {
+        "provider": "symptom-match",
+        "step": "repeat"
+      },
+      {
+        "provider": "stub",
+        "step": "fill"
+      }
+    ]
   },
   "SYN-014": {
     "matchedRules": [],
+    "noRuleMatched": true,
     "riskGradient": 0,
     "riskReason": "0 matched Rules. Read from today's note.",
     "severity": {
@@ -886,10 +1186,33 @@
         "url": "https://dovepress.com/survival-in-lung-cancer-in-the-nordic-countries-through-a-half-century-peer-reviewed-fulltext-article-CLEP"
       }
     },
-    "suspectedCancer": "lung"
+    "suspectedCancer": "lung",
+    "techUsed": [
+      {
+        "provider": "stub",
+        "step": "facts"
+      },
+      {
+        "provider": "stub",
+        "step": "decisions"
+      },
+      {
+        "provider": "stub",
+        "step": "risk"
+      },
+      {
+        "provider": "symptom-match",
+        "step": "repeat"
+      },
+      {
+        "provider": "stub",
+        "step": "fill"
+      }
+    ]
   },
   "SYN-015": {
     "matchedRules": [],
+    "noRuleMatched": true,
     "riskGradient": 0,
     "riskReason": "0 matched Rules. Read from today's note.",
     "severity": {
@@ -917,6 +1240,28 @@
         "url": "https://dovepress.com/survival-in-lung-cancer-in-the-nordic-countries-through-a-half-century-peer-reviewed-fulltext-article-CLEP"
       }
     },
-    "suspectedCancer": "lung"
+    "suspectedCancer": "lung",
+    "techUsed": [
+      {
+        "provider": "stub",
+        "step": "facts"
+      },
+      {
+        "provider": "stub",
+        "step": "decisions"
+      },
+      {
+        "provider": "stub",
+        "step": "risk"
+      },
+      {
+        "provider": "symptom-match",
+        "step": "repeat"
+      },
+      {
+        "provider": "stub",
+        "step": "fill"
+      }
+    ]
   }
 }

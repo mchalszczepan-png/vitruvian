@@ -1,7 +1,7 @@
 // The Aid pipeline (docs/SPEC.md "Aid pipeline"), pure: patient + Rule book + ModelPort in, AidResult out. No Convex, no env.
 // analyze() is the one place the pipeline order is written. The model sets only the Risk gradient and its reason.
 // Research prototype. Not a medical device. Not for clinical use.
-import type { AidResult, CancerType, MatchedRule, Patient } from '../../src/data/types';
+import type { AidResult, CancerType, MatchedRule, Patient, TechUsed } from '../../src/data/types';
 import { overTimeMatch, type OverTime } from '../lib/overTime';
 import { repeatFlag } from '../lib/repeat';
 import { severityForPatient } from '../lib/severity';
@@ -56,6 +56,28 @@ export function pickCancer(
     return tied.sort((a, b) => catalogueCount[b] - catalogueCount[a])[0];
   }
   return lastSymptom === 'bowel change' ? 'colorectal' : lastSymptom === 'bloating' && sex === 'female' ? 'ovarian' : 'lung';
+}
+
+/** The model port names this module accepts. An unknown name is a bug, not a provider to guess. */
+function portProvider(name: string): 'stub' | 'gemma' | 'modal-lora' {
+  if (name === 'stub' || name === 'gemma' || name === 'modal-lora') return name;
+  throw new Error(`Unknown model port "${name}"`);
+}
+
+/**
+ * Story 40: which tech served each Aid step. Gemma and modal-lora answer the yes/no Rules on the Gemini Decisions API,
+ * so the decisions step is 'gemini' there and 'stub' only for the stub port.
+ * The Repeat flag here is the symptom-field count (aid:get never runs vector search), so repeat is always 'symptom-match'.
+ */
+export function techUsedFor(portName: string): TechUsed[] {
+  const port = portProvider(portName);
+  return [
+    { step: 'facts', provider: port },
+    { step: 'decisions', provider: port === 'stub' ? 'stub' : 'gemini' },
+    { step: 'risk', provider: port },
+    { step: 'repeat', provider: 'symptom-match' },
+    { step: 'fill', provider: port },
+  ];
 }
 
 /** Rules backed by more than one visit: the symptom has lasted. */
@@ -142,7 +164,16 @@ export async function analyze({ patient, book, model }: AidInput): Promise<Analy
   if (!sev) throw new Error(`No severity row for ${cancer}`);
 
   return {
-    aid: { suspectedCancer: cancer, riskGradient, riskReason: risk.reason, matchedRules: matched, severity: severityForPatient(sev, patient.age, patient.sex), testNeeded },
+    aid: {
+      suspectedCancer: cancer,
+      noRuleMatched: allMatched.length === 0,
+      techUsed: techUsedFor(model.name),
+      riskGradient,
+      riskReason: risk.reason,
+      matchedRules: matched,
+      severity: severityForPatient(sev, patient.age, patient.sex),
+      testNeeded,
+    },
     facts,
     allMatched,
     repeat,

@@ -6,6 +6,7 @@ import {
   patientV,
   referralTemplateV,
   referralV,
+  referralStatusFieldsV,
   ruleV,
   severityV,
   stagingReportV,
@@ -49,7 +50,7 @@ export default defineSchema({
   // Single row (the county screen is one document).
   countyGap: defineTable(countyGapV),
 
-  referrals: defineTable(referralV).index('by_referral_id', ['id']).index('by_decided_at', ['decidedAt']),
+  referrals: defineTable({ ...referralV.fields, ...referralStatusFieldsV }).index('by_referral_id', ['id']).index('by_decided_at', ['decidedAt']),
 
   // Decisions API answer cache: key -> JSON string. Written only by internal.cache.setMany.
   decisionCache: defineTable({ key: v.string(), value: v.string() }).index('by_key', ['key']),

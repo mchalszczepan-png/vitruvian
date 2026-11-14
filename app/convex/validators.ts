@@ -187,6 +187,14 @@ export const matchedRuleV = v.object({
   visits: v.array(v.object({ visitId: v.string(), date: v.string(), snippet: v.string() })),
 });
 
+/** Stories 29b/30: the Referral desk's answer. Stored on the row, never accepted from the GP's send arg. Missing means 'sent'. */
+export const referralStatusV = v.union(v.literal('sent'), v.literal('accepted'), v.literal('returned'));
+export const referralStatusFieldsV = {
+  status: v.optional(referralStatusV),
+  statusReason: v.optional(v.string()),
+  statusAt: v.optional(v.string()),
+};
+
 export const referralV = v.object({
   id: v.string(),
   patientId: v.string(),
@@ -225,6 +233,32 @@ export const referralSummaryV = v.object({
   missingFields: v.array(v.object({ key: v.string(), label: v.string() })),
 });
 
+/** Story 40: which tech served one Aid step. Mirrors TechUsed in app/src/data/types.ts. */
+export const techUsedV = v.object({
+  step: v.union(v.literal('facts'), v.literal('decisions'), v.literal('risk'), v.literal('repeat'), v.literal('fill')),
+  provider: v.union(
+    v.literal('gemma'),
+    v.literal('modal-lora'),
+    v.literal('gemini'),
+    v.literal('convex-vector'),
+    v.literal('symptom-match'),
+    v.literal('stub'),
+    v.literal('mock'),
+  ),
+});
+
+/** Mirrors AidResult in app/src/data/types.ts. Checkable facts plus the one model output (riskGradient). */
+export const aidResultV = v.object({
+  suspectedCancer: cancerV,
+  noRuleMatched: v.optional(v.boolean()),
+  techUsed: v.optional(v.array(techUsedV)),
+  riskGradient: v.number(),
+  riskReason: v.string(),
+  matchedRules: v.array(matchedRuleV),
+  severity: severityV,
+  testNeeded: v.optional(v.object({ test: v.string(), threshold: v.string(), why: v.string(), source: sourceV })),
+});
+
 /** Mirrors ReferralView in app/src/data/types.ts: referralV without riskGradient and matchedRules, plus summary. */
 export const referralViewV = v.object({
   id: v.string(),
@@ -237,4 +271,7 @@ export const referralViewV = v.object({
   severity: severityV,
   repeatVisit: v.optional(repeatVisitFlagV),
   summary: referralSummaryV,
+  status: referralStatusV,
+  statusReason: v.optional(v.string()),
+  statusAt: v.optional(v.string()),
 });

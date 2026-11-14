@@ -23,9 +23,10 @@ import type {
   SmokingStatus,
   StagingReport,
   StagingTemplate,
+  TechUsed,
   Visit,
 } from './types';
-import { toReferralView } from './referralSummary';
+import { STATUS_REASON_MAX, toReferralView, type ReferralRecord } from './referralSummary';
 
 const wait = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
@@ -166,7 +167,8 @@ function readFacts(p: Patient): Facts {
     breathless: /breathless/i.test(latest) && !neg(latest, 'breathless'),
     chestSigns: /reduced (air )?entry|dull/i.test(latest) ? sentenceWith(latest, /reduced (air )?entry|dull/i) : undefined,
     packYears: lastNum(all, /(\d+) pack-years/gi) ?? (/20 a day for 30 years/.test(all) ? 30 : undefined),
-    bowelChange: /bowel habit|bowel change|looser stools/i.test(all),
+    // Safety-net advice ("return if bowel habit changes") and negated sentences ("no change in bowel habit") are not findings.
+    bowelChange: withoutSafetyNet(all).split(/(?<=\.)\s+/).some((s) => /bowel habit|bowel change|looser stools/i.test(s) && !neg(s, 'change')),
     bowelWeeks: /bowel/i.test(latest) ? lastNum(latest, /(\d+) weeks/gi) : undefined,
     rectalBleeding: /rectal bleeding|blood on (toilet paper|glove)|bright red blood/i.test(latest),
     abdominalMass: /\bmass\b/i.test(latest) && !/no (palpable )?mass|no mass felt/i.test(latest),
@@ -177,7 +179,7 @@ function readFacts(p: Patient): Facts {
     ovarianSymptoms: [
       /bloat/i.test(latest) && 'bloating',
       /full (quickly|early)|early (fullness|satiety)|feels full/i.test(latest) && 'early fullness',
-      /(pelvic|abdominal) (pain|discomfort)/i.test(latest) && 'pelvic pain',
+      /(pelvic|abdominal) pain/i.test(latest) && 'pelvic pain',
       /urinary (urgency|frequency)|passing urine more often/i.test(latest) && !/no urinary/i.test(latest) && 'urinary urgency',
     ].filter(Boolean) as string[],
     ca125,
@@ -310,6 +312,9 @@ async function mockGetReferralTemplate(cancer: CancerType): Promise<ReferralTemp
   return referralTemplates[cancer];
 }
 
+/** Story 40: the mock runs no model, so every step is 'mock'. */
+const MOCK_TECH_USED: TechUsed[] = (['facts', 'decisions', 'risk', 'repeat', 'fill'] as const).map((step): TechUsed => ({ step, provider: 'mock' }));
+
 async function mockGetAid(patientId: string): Promise<AidResult> {
   await wait(500);
   const p = patients.find((x) => x.id === patientId)!;
@@ -342,6 +347,8 @@ async function mockGetAid(patientId: string): Promise<AidResult> {
       : undefined;
   return {
     suspectedCancer: cancer,
+    noRuleMatched: allMatched.length === 0,
+    techUsed: MOCK_TECH_USED,
     riskGradient,
     riskReason: `${matched.length} matched Rule${matched.length === 1 ? '' : 's'}${lasting(matched) ? ` (${lasting(matched)} seen on 2+ visits)` : ''}${repeat ? ', Repeat visit' : ''}${p.age >= 60 ? ', age 60+' : ''}. Read from ${p.visits.length === 1 ? "today's note" : `today's note and ${p.visits.length - 1} earlier visit${p.visits.length === 2 ? '' : 's'}`}.`,
     matchedRules: matched,
@@ -425,14 +432,25 @@ async function mockFillTemplateFromNote(patientId: string, cancer: CancerType, m
 
 /* ---------- Referral desk (in memory) ---------- */
 
-const sent: Referral[] = [];
+const sent: ReferralRecord[] = [];
 
 async function mockSendReferral(r: Referral): Promise<Referral> {
   await wait(400);
   const i = sent.findIndex((x) => x.id === r.id);
-  if (i >= 0) sent[i] = r;
+  // A re-send keeps the Referral desk's status, as the Convex send does.
+  if (i >= 0) sent[i] = { ...r, status: sent[i].status, statusReason: sent[i].statusReason, statusAt: sent[i].statusAt };
   else sent.unshift(r);
   return r;
+}
+
+async function mockSetReferralStatus(referralId: string, status: 'accepted' | 'returned', trimmedReason: string): Promise<ReferralView> {
+  await wait(300);
+  const i = sent.findIndex((x) => x.id === referralId);
+  if (i < 0) throw new Error(`Unknown Referral ${referralId}`);
+  sent[i] = { ...sent[i], status, statusAt: new Date().toISOString(), statusReason: status === 'returned' ? trimmedReason : undefined };
+  const r = sent[i];
+  const patient = patients.find((p) => p.id === r.patientId)!;
+  return toReferralView(r, { visits: patient.visits, template: referralTemplates[r.cancer], rules });
 }
 
 /** The Referral desk sees the view without the Risk gradient, built from the same visits, template and Rules as Convex. */
@@ -535,6 +553,17 @@ export function sendReferral(r: Referral): Promise<Referral> {
 
 export function getReferrals(): Promise<ReferralView[]> {
   return viaConvex('getReferrals', () => convex.getReferrals(), mockGetReferrals);
+}
+
+/**
+ * The Referral desk's answer (stories 29b/30): accepted, or returned with a reason.
+ * The input is checked here, before either backend, so a bad reason is a plain error and never a fall back to the mock.
+ */
+export async function setReferralStatus(referralId: string, status: 'accepted' | 'returned', reason?: string): Promise<ReferralView> {
+  const trimmed = (reason ?? '').trim();
+  if (status === 'returned' && trimmed === '') throw new Error('A returned Referral needs a reason');
+  if (trimmed.length > STATUS_REASON_MAX) throw new Error(`The reason is longer than ${STATUS_REASON_MAX} characters`);
+  return viaConvex('setReferralStatus', () => convex.setReferralStatus(referralId, status, trimmed), () => mockSetReferralStatus(referralId, status, trimmed));
 }
 
 export function getStagingTemplate(cancer: CancerType): Promise<StagingTemplate> {

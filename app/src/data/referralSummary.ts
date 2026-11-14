@@ -7,6 +7,7 @@ import type {
   FieldValues,
   GpDecision,
   Referral,
+  ReferralStatus,
   ReferralSummary,
   ReferralTemplate,
   ReferralTestValue,
@@ -14,6 +15,12 @@ import type {
   Rule,
   Visit,
 } from './types';
+
+/** A stored Referral plus the Referral desk's answer. A row without status counts as 'sent'. */
+export type ReferralRecord = Referral & { status?: ReferralStatus; statusReason?: string; statusAt?: string };
+
+/** Longest reason the Referral desk can give for a return (Convex and the mock both check it). */
+export const STATUS_REASON_MAX = 500;
 
 export interface ReferralViewContext {
   visits: Visit[];
@@ -34,10 +41,17 @@ const TEST_VALUE_FIELD_KEY: Record<string, string> = {
   'CA-125': 'ca125ValueIuPerMl',
 };
 
-export function toReferralView(referral: Referral, ctx: ReferralViewContext): ReferralView {
-  const { riskGradient: _riskGradient, matchedRules: _matchedRules, fields, ...rest } = referral;
+export function toReferralView(referral: ReferralRecord, ctx: ReferralViewContext): ReferralView {
+  const { riskGradient: _riskGradient, matchedRules: _matchedRules, fields, status, statusReason, statusAt, ...rest } = referral;
   const { riskGradientAiEstimate: _aiEstimate, ...fieldsWithoutRisk } = fields;
-  return { ...rest, fields: fieldsWithoutRisk, summary: buildSummary(referral, ctx) };
+  return {
+    ...rest,
+    fields: fieldsWithoutRisk,
+    summary: buildSummary(referral, ctx),
+    status: status ?? 'sent',
+    ...(statusReason !== undefined ? { statusReason } : {}),
+    ...(statusAt !== undefined ? { statusAt } : {}),
+  };
 }
 
 function buildSummary(referral: Referral, ctx: ReferralViewContext): ReferralSummary {

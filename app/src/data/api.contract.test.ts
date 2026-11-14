@@ -197,6 +197,7 @@ describe.each(BACKENDS)('data API contract: %s backend', (backend) => {
       ...referralWithoutRisk,
       fields: fieldsWithoutAiEstimate,
       summary: expect.any(Object),
+      status: 'sent',
     });
   });
 
@@ -233,5 +234,61 @@ describe.each(BACKENDS)('data API contract: %s backend', (backend) => {
       );
       expect(stored?.riskGradient).toBe(7);
     }
+  });
+
+  it('no-Rule patients (SYN-008, SYN-009, SYN-014): noRuleMatched is true and no Rule matched; SYN-001 has Rules so the flag is falsy', async () => {
+    for (const id of ['SYN-008', 'SYN-009', 'SYN-014']) {
+      const aid = await api.getAid(id);
+      expect(aid.noRuleMatched, id).toBe(true);
+      expect(aid.matchedRules, id).toEqual([]);
+    }
+    const matti = await api.getAid('SYN-001');
+    expect(matti.noRuleMatched).toBeFalsy();
+  });
+
+  it('techUsed lists all five steps (story 40); mock reports mock, Convex reports the stub port and symptom-match for repeat', async () => {
+    const aid = await api.getAid('SYN-001');
+    expect(aid.techUsed?.map((t) => t.step).sort()).toEqual(['decisions', 'facts', 'fill', 'repeat', 'risk']);
+    const byStep = Object.fromEntries((aid.techUsed ?? []).map((t) => [t.step, t.provider]));
+    if (backend === 'mock') {
+      expect(byStep).toEqual({ facts: 'mock', decisions: 'mock', risk: 'mock', repeat: 'mock', fill: 'mock' });
+    } else {
+      expect(byStep).toEqual({ facts: 'stub', decisions: 'stub', risk: 'stub', repeat: 'symptom-match', fill: 'stub' });
+    }
+  });
+
+  it('setReferralStatus: accepted clears the reason, returned keeps it, a returned Referral without a reason is rejected, the view has no Risk gradient', async () => {
+    const aid = await api.getAid('SYN-001');
+    const fields = await api.fillTemplateFromNote('SYN-001', 'lung', aid.matchedRules);
+    const id = `REF-CONTRACT-${backend}-STATUS`;
+    const referral: Referral = {
+      id,
+      patientId: 'SYN-001',
+      cancer: 'lung',
+      urgency: 'urgent',
+      decidedBy: 'GP',
+      decidedAt: '2026-11-14T12:00:00.000Z',
+      fields,
+      matchedRules: aid.matchedRules,
+      riskGradient: aid.riskGradient,
+      severity: aid.severity,
+    };
+    await api.sendReferral(referral);
+
+    const accepted = await api.setReferralStatus(id, 'accepted');
+    expect(accepted.status).toBe('accepted');
+    expect(accepted.statusReason).toBeUndefined();
+
+    const returned = await api.setReferralStatus(id, 'returned', 'Needs CT chest first');
+    expect(returned.status).toBe('returned');
+    expect(returned.statusReason).toBe('Needs CT chest first');
+    expect(JSON.stringify(returned)).not.toContain('riskGradient');
+
+    await expect(api.setReferralStatus(id, 'returned')).rejects.toThrow();
+    await expect(api.setReferralStatus(id, 'returned', '   ')).rejects.toThrow();
+
+    const listed = (await api.getReferrals()).find((r) => r.id === id);
+    expect(listed?.status).toBe('returned');
+    expect(listed?.statusReason).toBe('Needs CT chest first');
   });
 });

@@ -55,6 +55,7 @@ const refs = {
   countyGet: query<CountyGap>('county:get'),
   referralsList: query<ReferralView[]>('referrals:list'),
   referralsSend: mutation<Referral>('referrals:send'),
+  referralsSetStatus: mutation<ReferralView>('referrals:setStatus'),
   aidGet: action<AidResult>('aid:get'),
   fillFromNote: action<FieldValues>('fill:fromNote'),
 };
@@ -104,4 +105,8 @@ export async function sendReferral(referral: Referral): Promise<Referral> {
 
 export async function getReferrals(): Promise<ReferralView[]> {
   return run(refs.referralsList, {});
+}
+
+export async function setReferralStatus(referralId: string, status: 'accepted' | 'returned', reason?: string): Promise<ReferralView> {
+  return client().mutation(refs.referralsSetStatus, { referralId, status, ...(reason !== undefined ? { reason } : {}) });
 }
