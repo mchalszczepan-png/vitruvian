@@ -68,7 +68,7 @@ export default function App() {
           />
         )}
         {view === 'desk' && <ReferralDesk patients={patients} focusId={focusRef} onGoGp={() => go('gp')} />}
-        {view === 'specialist' && <Specialist />}
+        {view === 'specialist' && <Specialist patients={patients} />}
         {view === 'county' && <County />}
       </main>
     </div>

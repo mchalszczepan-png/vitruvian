@@ -367,7 +367,7 @@ button {
 /* ---------- GP workspace ---------- */
 .gp-layout {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 600px;
+  grid-template-columns: minmax(0, 1fr) clamp(440px, 40vw, 600px);
   gap: 20px;
   height: 100%;
   min-height: 0;
@@ -402,7 +402,7 @@ button {
 }
 .ehr-body {
   display: grid;
-  grid-template-columns: 250px minmax(0, 1fr);
+  grid-template-columns: clamp(190px, 16vw, 250px) minmax(0, 1fr);
   min-height: 0;
 }
 .ehr-list {
@@ -1803,3 +1803,25 @@ textarea.input {
 .county-data li { display: grid; grid-template-columns: minmax(0, 16em) minmax(0, 14em) minmax(0, 1fr); gap: 12px; align-items: center; padding-top: 8px; border-top: 1px solid #e4dfdc; }
 .county-data-gap { font-weight: 600; margin: 0 0 16px; }
 @media (max-width: 720px) { .county-data li { grid-template-columns: 1fr; gap: 4px; } }
+
+/* Specialist: Referral draft picker and saved Staging reports (stories 32, 33) */
+.stg-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+.stg-meta label { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; }
+.stg-meta select { font: inherit; padding: 4px 8px; border: 1px solid #c9c2bd; border-radius: var(--r); background: var(--paper); }
+.stg-saved ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.stg-saved li { display: grid; grid-template-columns: minmax(0, 14em) 8em 8em auto 1fr; gap: 12px; align-items: center; padding-top: 8px; border-top: 1px solid #e4dfdc; }
+.stg-saved li small { color: var(--muted); justify-self: end; }
+@media (max-width: 720px) { .stg-saved li { grid-template-columns: 1fr 1fr; } }
+
+/* County gaps: three sourced county comparisons */
+.county-gaps h3 {
+  font-size: var(--fs-1);
+  margin: 0 0 16px;
+}
+.county-gaps .bar-row {
+  grid-template-columns: 120px minmax(0, 1fr);
+}
+.county-ovarian {
+  margin: 32px 0 0;
+  color: var(--muted);
+}
