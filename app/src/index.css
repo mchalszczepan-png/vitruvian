@@ -1616,3 +1616,27 @@ textarea.input {
   left: auto;
   right: 6px;
 }
+
+/* Referral desk: patient search, rules with the source beside the box */
+.inbox-search {
+  width: 100%;
+  margin: 0 0 8px;
+  background: #fff;
+  border: 1px solid #d6d2cf;
+}
+.inbox-search:hover {
+  background: #fff;
+}
+.desk-rule {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(160px, 240px);
+  gap: 16px;
+  align-items: center;
+}
+.desk-rule .src {
+  align-self: center;
+}
+.inbox-empty {
+  padding: 4px;
+  color: var(--muted);
+}

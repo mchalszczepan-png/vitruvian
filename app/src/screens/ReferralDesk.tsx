@@ -13,6 +13,7 @@ export function ReferralDesk({ patients, focusId, onGoGp }: { patients: Patient[
   const [openId, setOpenId] = useState<string | undefined>(focusId);
   const [template, setTemplate] = useState<ReferralTemplate>();
   const [status, setStatus] = useState<Record<string, Status>>({});
+  const [query, setQuery] = useState('');
 
   useEffect(() => {
     getReferrals().then((r) => {
@@ -39,12 +40,23 @@ export function ReferralDesk({ patients, focusId, onGoGp }: { patients: Patient[
   }
 
   const patient = patients.find((p) => p.id === open?.patientId);
+  const q = query.trim().toLowerCase();
+  const shown = refs.filter((r) => !q || [patients.find((x) => x.id === r.patientId)?.name ?? '', r.patientId].some((t) => t.toLowerCase().includes(q)));
   const st = open ? (status[open.id] ?? 'new') : 'new';
   return (
     <div className="split">
       <nav className="inbox" aria-label="Received Referrals">
         <h2>Referral desk</h2>
-        {refs.map((r) => {
+        <input
+          type="search"
+          className="input inbox-search"
+          placeholder="Search patients"
+          aria-label="Search patients by name"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+        />
+        {shown.length === 0 && <p className="inbox-empty">No patients match “{query}”.</p>}
+        {shown.map((r) => {
           const p = patients.find((x) => x.id === r.patientId);
           return (
             <button key={r.id} aria-current={r.id === openId} onClick={() => setOpenId(r.id)}>
@@ -108,12 +120,14 @@ export function ReferralDesk({ patients, focusId, onGoGp }: { patients: Patient[
             <h2>Matched Rules</h2>
             <div className="rules">
               {open.matchedRules.map((m) => (
-                <div className="rule" key={m.rule.id}>
-                  <div className="rule-top">
-                    <b>{m.rule.text}</b>
-                    <span className="rule-id">{m.rule.id}</span>
+                <div className="desk-rule" key={m.rule.id}>
+                  <div className="rule">
+                    <div className="rule-top">
+                      <b>{m.rule.text}</b>
+                      <span className="rule-id">{m.rule.id}</span>
+                    </div>
+                    <More>Reason: {m.because}</More>
                   </div>
-                  <More>Because: {m.because}</More>
                   <Source source={m.rule.source} />
                 </div>
               ))}

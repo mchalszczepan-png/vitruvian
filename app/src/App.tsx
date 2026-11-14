@@ -12,7 +12,7 @@ const VIEWS: { id: View; label: string; who: string }[] = [
   { id: 'gp', label: 'GP', who: 'GP (yleislääkäri), health centre' },
   { id: 'desk', label: 'Referral desk', who: 'Referral desk (lähetekäsittely), hospital' },
   { id: 'specialist', label: 'Specialist', who: 'Specialist (erikoislääkäri), hospital' },
-  { id: 'county', label: 'County', who: 'Wellbeing services county (hyvinvointialue)' },
+  { id: 'county', label: 'Country data', who: 'Wellbeing services county (hyvinvointialue)' },
 ];
 
 function readHash(): View {
