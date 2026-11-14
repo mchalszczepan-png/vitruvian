@@ -2339,3 +2339,19 @@ textarea.input {
 .tech-used .tag {
   white-space: normal;
 }
+/* "None known" checkbox on empty text fields (Michal, 14 Nov) */
+.none-known {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  align-self: start;
+  width: fit-content;
+  cursor: pointer;
+}
+.none-known input {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  accent-color: var(--wine);
+  cursor: pointer;
+}

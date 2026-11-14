@@ -149,6 +149,22 @@ export interface AidResult {
   severity: Severity;
   /** set when a gate test is missing: the Aid shows "FIT needed" before "refer" */
   testNeeded?: { test: string; threshold: string; why: string; source: Source };
+  /**
+   * Published PPV from UK primary-care aggregate studies (not Finnish, not a personal probability). Evidence for the GP,
+   * not an automatic referral (decision 16: GP only). Absent when no evidence row applies or no Rule matched.
+   * aboveNg12Threshold: pct is at or above NICE NG12's 3%. The riskGradient is not changed by this.
+   */
+  publishedRisk?: {
+    pct: number;
+    isLowerBound: boolean;
+    rowId: string;
+    sourceLabel: string;
+    sourceUrl: string;
+    because: string;
+    aboveNg12Threshold: boolean;
+    studyPopulation: string;
+    quote: string;
+  };
 }
 
 export type GpDecision = 'refer-urgent' | 'refer-routine' | 'order-test' | 'not-now';

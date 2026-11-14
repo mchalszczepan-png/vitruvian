@@ -102,6 +102,17 @@
       }
     ],
     "noRuleMatched": false,
+    "publishedRisk": {
+      "aboveNg12Threshold": true,
+      "because": "Haemoptysis recorded.",
+      "isLowerBound": false,
+      "pct": 8.37,
+      "quote": "Haemoptysis <45 2 553 0.36 (0.04 to 1.30) 2 954 0.21 (0.03 to 7.55) 45-54 5 272 1.84 (0.60 to 4.24) 7 424 1.65 (0.67 to 3.37) 55 to 64 15 364 4.12 (2.32 to 6.71) 43 514 8.37 (6.12 to 11.1) 65 to 74 30 358 8.38 (5.73 to 11.8) 82 552 14.86 (12.0 to 18.1) 75 to 84 27 258 10.47 (7.01 to 14.9) 67 393 17.05 (13.5 to 21.1) ≥85 2 77 2.60 (0.32 to 9.07) 19 93 20.43 (12.8 to 30.1)",
+      "rowId": "LUNG-PPV-06",
+      "sourceLabel": "Jones 2007 BMJ, alarm symptoms in UK primary care (GPRD), PPV for cancer diagnosed within 3 years",
+      "sourceUrl": "https://pmc.ncbi.nlm.nih.gov/articles/PMC1871798/",
+      "studyPopulation": "first episode of the symptom in UK primary care (GPRD 1995-2000); cancer diagnosed within 3 years; outcome is respiratory tract cancer (lung is most of it)"
+    },
     "riskGradient": 9,
     "riskReason": "4 matched Rules (2 seen on 2+ visits), Repeat visit, age 60+. Read from today's note and 2 earlier visits.",
     "severity": {
@@ -298,6 +309,17 @@
       }
     ],
     "noRuleMatched": false,
+    "publishedRisk": {
+      "aboveNg12Threshold": true,
+      "because": "Iron deficiency with Hb below the sex cut-off.",
+      "isLowerBound": false,
+      "pct": 7.7,
+      "quote": "for women with a haemoglobin <10 g dl −1 and iron deficiency, the positive predictive value was 7.7% (5.7, 11)",
+      "rowId": "COLO-PPV-14",
+      "sourceLabel": "Hamilton 2008 Br J Cancer, anaemia and iron deficiency and colorectal cancer (THIN primary care)",
+      "sourceUrl": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2361444/",
+      "studyPopulation": "UK primary care (THIN), same study as above"
+    },
     "riskGradient": 8,
     "riskReason": "4 matched Rules (3 seen on 2+ visits), Repeat visit. Read from today's note and 2 earlier visits.",
     "severity": {
@@ -482,6 +504,17 @@
       }
     ],
     "noRuleMatched": false,
+    "publishedRisk": {
+      "aboveNg12Threshold": true,
+      "because": "CA-125 35 U/mL or more.",
+      "isLowerBound": false,
+      "pct": 12.5,
+      "quote": "2025: 12.5 (11.9, 13.1)",
+      "rowId": "OVAR-PPV-10",
+      "sourceLabel": "NICE NG12 evidence review B (CA125), April 2026: Arendse 2025, invasive ovarian cancer within 12 months of a CA-125 test",
+      "sourceUrl": "https://www.nice.org.uk/guidance/ng12/evidence/b-dual-testing-with-serum-ca125-and-ultrasound-scan-compared-to-serum-ca125-alone-and-age-and-serum-pdf-15669144110",
+      "studyPopulation": "UK CPRD, serum CA-125 >=35 U/ml, invasive ovarian cancer within 12 months of test (NICE evidence review B, pooled from Arendse 2025 and Funston 2020); pooled sensitivity analysis, 2 studies, n=230066"
+    },
     "riskGradient": 8,
     "riskReason": "4 matched Rules (3 seen on 2+ visits), Repeat visit. Read from today's note and 2 earlier visits.",
     "severity": {
