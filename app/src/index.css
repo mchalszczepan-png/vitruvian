@@ -1991,3 +1991,295 @@ textarea.input {
   color: #5b6066;
   font-size: var(--fs-1);
 }
+
+/* ---------- Note-first GP screen (14 Nov) ----------
+   Patients · today's note (the main thing) · one small Vitruvian pointer card.
+   The Referral opens in a side sheet only when the GP starts one. */
+.muted {
+  color: var(--muted);
+}
+.nf {
+  position: relative;
+  display: grid;
+  grid-template-columns: clamp(180px, 15vw, 240px) minmax(0, 1fr) clamp(300px, 26vw, 380px);
+  gap: 24px;
+  height: 100%;
+  min-height: 0;
+}
+.nf-list {
+  overflow: auto;
+  background: #e4e1df;
+  border-radius: var(--r);
+  font-family: var(--sans);
+}
+.nf-list button {
+  width: 100%;
+  text-align: left;
+  border: 0;
+  border-bottom: 1px solid #cfcac6;
+  background: none;
+  padding: 12px 16px;
+  font-size: var(--fs-1);
+  cursor: pointer;
+  display: grid;
+}
+.nf-list button:hover {
+  background: #d9d6d3;
+}
+.nf-list button[aria-current='true'] {
+  background: var(--amber-soft);
+  box-shadow: inset 4px 0 0 var(--amber);
+}
+.nf-list small {
+  color: #5b6066;
+  font-size: var(--fs-1);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.nf-main {
+  min-height: 0;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.nf-who {
+  display: flex;
+  gap: 16px;
+  align-items: baseline;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+}
+.nf-who b {
+  font-family: var(--title);
+  font-weight: 600;
+}
+.nf-who span {
+  color: var(--muted);
+}
+.nf-note {
+  flex: 1 0 auto;
+  min-height: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+  background: #fff;
+  border: 2px solid var(--ink);
+  border-radius: var(--r);
+  box-shadow: var(--shadow);
+}
+.nf-note label {
+  font-family: var(--title);
+  font-weight: 600;
+}
+.nf-note textarea {
+  flex: 1;
+  resize: none;
+  font: inherit;
+  line-height: 1.6;
+  padding: 16px;
+  background: #fff;
+  border: 1px solid #e3dfdc;
+}
+.nf-note textarea:focus {
+  outline: 2px solid var(--amber);
+  outline-offset: 1px;
+}
+.nf-note-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+.nf-note-foot small {
+  font-size: var(--fs-1);
+  color: var(--muted);
+}
+.nf-hist {
+  flex-shrink: 0;
+}
+.nf-hist h2,
+.nf-why h3 {
+  font-family: var(--title);
+  font-size: var(--fs-1);
+  font-weight: 600;
+  margin: 0 0 8px;
+}
+.nf-hist ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.nf-hist li {
+  padding: 4px 8px;
+  border-bottom: 1px solid var(--paper-2);
+  border-radius: 6px;
+  transition: background 180ms var(--ease);
+}
+.nf-hist li.lit {
+  background: var(--amber-soft);
+}
+.nf-hist time {
+  font-weight: 600;
+  margin-right: 8px;
+}
+.nf-hist-note {
+  white-space: pre-wrap;
+  color: var(--slate);
+  margin: 4px 0 8px;
+}
+.nf-ptr {
+  align-self: start;
+  max-height: 100%;
+  overflow: auto;
+  background: var(--card);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.nf-ptr header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.nf-ptr-label {
+  color: var(--muted);
+}
+.nf-ptr-cancer {
+  font-family: var(--title);
+  font-size: var(--fs-2);
+  line-height: 1.2;
+  font-weight: 600;
+}
+.nf-ptr-risk {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.nf-ptr-risk .meter {
+  width: 160px;
+}
+.nf-ptr-gate,
+.nf-ptr-done,
+.nf-why-flag {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: var(--r-sm);
+  background: var(--amber-soft);
+}
+.nf-ptr-done {
+  background: var(--lilac-soft);
+  font-weight: 600;
+}
+.nf-ptr-decide {
+  display: grid;
+  gap: 8px;
+  margin-top: 8px;
+}
+.nf-ptr-decide .row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.nf-why-btn {
+  align-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.nf-why {
+  display: grid;
+  gap: 8px;
+  border-top: 1px solid var(--paper-2);
+  padding-top: 16px;
+}
+.nf-why-item {
+  background: var(--paper);
+  border-radius: var(--r);
+  padding: 12px 16px;
+  display: grid;
+  gap: 4px;
+}
+.nf-why-item p {
+  margin: 0;
+}
+.nf-sheet-wrap {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  z-index: 20;
+  background: rgb(24 37 33 / 0.25);
+  display: flex;
+  justify-content: flex-end;
+}
+.nf-sheet {
+  width: min(640px, 100%);
+  height: 100%;
+  background: var(--card);
+  box-shadow: var(--shadow);
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  animation: nf-in 320ms var(--ease);
+}
+@keyframes nf-in {
+  from {
+    transform: translateX(48px);
+    opacity: 0;
+  }
+}
+.nf-sheet header,
+.nf-sheet footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 24px;
+}
+.nf-sheet header {
+  border-bottom: 1px solid var(--paper-2);
+}
+.nf-sheet header h2 {
+  font-family: var(--title);
+  font-size: var(--fs-1);
+  font-weight: 600;
+  margin: 0;
+}
+.nf-sheet footer {
+  border-top: 1px solid var(--paper-2);
+}
+.nf-sheet footer .row {
+  display: flex;
+  gap: 8px;
+}
+.nf-sheet-body,
+.nf-sheet > .loading {
+  overflow: auto;
+  padding: 16px 24px;
+  display: grid;
+  gap: 12px;
+  align-content: start;
+}
+.nf-sheet-status {
+  margin: 0;
+}
+.nf-sheet-status b {
+  color: var(--wine);
+}
+@media (max-width: 1100px) {
+  .nf {
+    grid-template-columns: minmax(0, 1fr) clamp(280px, 34vw, 360px);
+  }
+  .nf-list {
+    display: none;
+  }
+}
