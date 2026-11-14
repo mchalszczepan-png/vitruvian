@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getCountyGap } from '../data/api';
 import { S } from '../data/mock/sources';
-import type { CountyGap, Source as Src } from '../data/types';
+import type { CancerType, CountyGap, Patient, Source as Src } from '../data/types';
 import { More } from '../components/More';
 import { Source, SourceIcon } from '../components/Source';
 
@@ -101,20 +101,13 @@ function Bar({ label, value, max, display, tone, target }: { label: string; valu
   );
 }
 
-export function County() {
-  const [gap, setGap] = useState<CountyGap>();
-  useEffect(() => {
-    getCountyGap().then(setGap);
-  }, []);
-  if (!gap) return <div className="loading" aria-busy><i /><i /><i /></div>;
+/** Everything behind the headline: national figures, other county gaps, Goal 3 list, data sources. */
+function Method({ gap }: { gap: CountyGap }) {
   const fig = (id: string) => gap.headline.find((f) => f.id === id)!;
   const route = fig('route-gap-lymphoma');
 
   return (
-    <div className="county">
-      <header className="county-head">
-        <h1>Finland Cancer Statistics</h1>
-      </header>
+    <div className="county-method">
 
       <div className="two">
         <section className="panel">
@@ -194,46 +187,6 @@ export function County() {
         </div>
       </section>
 
-      <section className="next">
-        <header className="next-head">
-          <h2>What a county does next</h2>
-          <span>
-            Goal 3 is 49.73 M€ of the 139.1 M€ roadmap
-            <SourceIcon source={roadmap('106, 109')} />
-          </span>
-        </header>
-        {gap.nextActions.map((a) => {
-          const fixedSource = a.id === 'A3' && a.source?.url.includes('selv_2010_6') ? ohjaus : a.source;
-          return (
-            <div className="action" key={a.id}>
-              <span className="k">{a.id}</span>
-              <div>
-                <b>{a.title}</b>
-                <More>{a.detail}</More>
-                {a.id === 'A3' && (
-                  <More className="target-times">
-                    Target times: colorectal 3 weeks, breast 4, prostate 4–6. None for lung or ovarian. The guide is marked outdated.
-                  </More>
-                )}
-                <small>Owner: {a.owner}</small>
-                <ul className="roadmap-ties">
-                  {(ROADMAP[a.id] ?? []).map((r) => (
-                    <li key={r.action}>
-                      <b>Roadmap {r.action}</b>
-                      <span>
-                        {r.owner} · {r.years} · {r.cost}
-                      </span>
-                      <SourceIcon source={r.source} />
-                    </li>
-                  ))}
-                </ul>
-                <div>{fixedSource && <Source source={fixedSource} />}</div>
-              </div>
-            </div>
-          );
-        })}
-      </section>
-
       <section className="panel county-data">
         <h2>Where county data lives</h2>
         <p className="county-data-gap">No public county cancer wait data exists.</p>
@@ -250,3 +203,146 @@ export function County() {
     </div>
   );
 }
+
+/* Every wellbeing services county, checked 14 Nov 2026: docs/research/data/county-cancer-data.md. */
+const LUNG_CURATIVE: Record<string, number> = {
+  Helsinki: 33.0, 'Vantaa-Kerava': 35.6, 'Länsi-Uusimaa': 31.9, 'Keski-Uusimaa': 33.7, 'Itä-Uusimaa': 28.3, 'Varsinais-Suomi': 24.3,
+  Satakunta: 24.5, 'Kanta-Häme': 23.4, Pirkanmaa: 31.9, 'Päijät-Häme': 29.6, Kymenlaakso: 19.3, 'Etelä-Karjala': 18.9, 'Etelä-Savo': 23.4,
+  'Pohjois-Savo': 24.5, 'Pohjois-Karjala': 21.4, 'Keski-Suomi': 27.2, 'Etelä-Pohjanmaa': 30.6, Pohjanmaa: 27.8, 'Keski-Pohjanmaa': 22.3,
+  'Pohjois-Pohjanmaa': 23.6, Kainuu: 20.8, Lappi: 18.5,
+};
+const COLONOSCOPY: Record<string, number> = {
+  Helsinki: 67.8, 'Vantaa-Kerava': 73.0, 'Länsi-Uusimaa': 74.5, 'Keski-Uusimaa': 70.2, 'Itä-Uusimaa': 65.5, 'Varsinais-Suomi': 78.1,
+  Satakunta: 72.0, 'Kanta-Häme': 74.6, Pirkanmaa: 70.2, 'Päijät-Häme': 71.2, Kymenlaakso: 62.1, 'Etelä-Karjala': 75.7, 'Etelä-Savo': 76.9,
+  'Pohjois-Savo': 69.4, 'Pohjois-Karjala': 79.5, 'Keski-Suomi': 75.6, 'Etelä-Pohjanmaa': 81.8, Pohjanmaa: 73.7, 'Keski-Pohjanmaa': 74.4,
+  'Pohjois-Pohjanmaa': 73.6, Kainuu: 65.0, Lappi: 72.7,
+};
+type Measure = { what: string; table: Record<string, number>; finland: number; source: Src };
+const MEASURE: Partial<Record<CancerType, Measure>> = {
+  lung: { what: 'Lung cancer patients treated with curative intent, 2019–2023', table: LUNG_CURATIVE, finland: 27.0, source: COUNTY_GAPS[0].source },
+  colorectal: { what: 'Colonoscopy after a positive bowel screening test, 2024', table: COLONOSCOPY, finland: 72.7, source: COUNTY_GAPS[1].source },
+};
+
+/** Three county moves, each tied to a national roadmap action. Text fixed per brief audit B1–B2. */
+const MOVES = (cancer: string) => [
+  { id: 'A1', title: `Use one structured ${cancer} Referral template`, detail: 'Required stage, spread and route fields, so Referrals stop bouncing back.' },
+  { id: 'A3', title: 'Start a county cancer wait clock', detail: 'Measure days from first visit to treatment and publish them monthly. No county cancer wait is published today.' },
+  { id: 'A2', title: 'Record stage at diagnosis entry', detail: 'Pirkanmaa took clinical notifications from 42% to 80% this way. The national target is 90% automated by 2030.' },
+];
+const lower: Record<CancerType, string> = { lung: 'lung', colorectal: 'colorectal', ovarian: 'ovarian' };
+
+export function County({ patient, cancer }: { patient: Patient; cancer?: CancerType }) {
+  const [gap, setGap] = useState<CountyGap>();
+  useEffect(() => {
+    getCountyGap().then(setGap);
+  }, []);
+  if (!gap) return <div className="loading" aria-busy><i /><i /><i /></div>;
+
+  const county = patient.county;
+  const m = cancer ? MEASURE[cancer] : undefined;
+  const value = m?.table[county];
+  const behind = value !== undefined && m ? value < m.finland : false;
+  const first = patient.visits[0]?.date;
+  const day = (iso: string) => (first ? Math.round((Date.parse(iso) - Date.parse(first)) / 86_400_000) : 0);
+  const g3 = gap.goal3.find((g) => g.id === 'G3-1') ?? gap.goal3[0];
+
+  return (
+    <div className="county">
+      <header className="county-head">
+        <h1>{county}: your gap</h1>
+      </header>
+
+      <section className="panel county-headline">
+        {m && value !== undefined ? (
+          <>
+            <h2>{m.what}</h2>
+            <div className="county-vs">
+              <span className={`v ${behind ? 'behind' : ''}`}>{value.toFixed(1)}%</span>
+              <span className="vs">
+                {county}, against Finland {m.finland.toFixed(1)}%
+              </span>
+            </div>
+            <div className="bars">
+              <Bar label={county} value={value} max={100} display={`${value.toFixed(1)}%`} tone={behind ? 'hi' : 'lo'} />
+              <Bar label="Finland" value={m.finland} max={100} display={`${m.finland.toFixed(1)}%`} />
+            </div>
+            <Source source={m.source} short />
+          </>
+        ) : cancer === 'ovarian' ? (
+          <>
+            <h2>Ovarian cancer</h2>
+            <div className="county-vs">
+              <span className="v behind">No public county data</span>
+            </div>
+            <p className="county-ovarian">That is the gap: {county} cannot compare itself. Finland only: 610 new cases in 2024, 48% 5-year survival.</p>
+            <Source source={ovarianSource} short />
+          </>
+        ) : (
+          <p className="county-ovarian">No county figure for this patient yet. See Sources and method below.</p>
+        )}
+      </section>
+
+      <section className="panel">
+        <h2>{patient.name.split(' ')[0]}: Day 0 to Day {patient.visits.length ? day(patient.visits[patient.visits.length - 1].date) : 0}</h2>
+        <ol className="timeline">
+          {patient.visits.map((v) => (
+            <li key={v.id}>
+              <span className="d">Day {day(v.date)}</span>
+              <span>{v.reason}</span>
+            </li>
+          ))}
+        </ol>
+        <p className="county-ovarian">Made-up patient. Visit dates from the patient record.</p>
+      </section>
+
+      <section className="next">
+        <header className="next-head">
+          <h2>What {county} does next</h2>
+          <span>
+            Goal 3 is 49.73 M€ of the 139.1 M€ roadmap
+            <SourceIcon source={roadmap('106, 109')} />
+          </span>
+        </header>
+        {MOVES(cancer ? lower[cancer] : 'cancer').map((a, i) => (
+          <div className="action" key={a.id}>
+            <span className="k">{i + 1}</span>
+            <div>
+              <b>{a.title}</b>
+              <More>{a.detail}</More>
+              {a.id === 'A3' && (
+                <More className="target-times">
+                  Target times: colorectal 3 weeks, breast 4, prostate 4–6. None for lung or ovarian. The guide is marked outdated.
+                  <SourceIcon source={ohjaus} />
+                </More>
+              )}
+              <ul className="roadmap-ties">
+                {(ROADMAP[a.id] ?? []).map((r) => (
+                  <li key={r.action}>
+                    <b>Roadmap {r.action}</b>
+                    <span>
+                      {r.owner} · {r.years} · {r.cost}
+                    </span>
+                    <SourceIcon source={r.source} />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        ))}
+      </section>
+
+      {g3 && (
+        <p className="goal3-line">
+          <b>Goal 3 indicator (Tavoite 3):</b> <span lang="fi">{g3.name}</span>
+          <SourceIcon source={g3.source} />
+        </p>
+      )}
+
+      <details className="method">
+        <summary>Sources and method</summary>
+        <Method gap={gap} />
+      </details>
+    </div>
+  );
+}
+

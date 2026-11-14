@@ -9,7 +9,7 @@ import { cancerName, fmtDate, optionLabel, originLabel } from '../components/lab
 
 const statusLabel: Record<ReferralStatus, string> = { sent: 'New', accepted: 'Accepted', returned: 'Returned to the GP' };
 
-export function ReferralDesk({ patients, focusId, onGoGp }: { patients: Patient[]; focusId?: string; onGoGp: () => void }) {
+export function ReferralDesk({ patients, focusId, patientId, onGoGp }: { patients: Patient[]; focusId?: string; patientId?: string; onGoGp: () => void }) {
   const [refs, setRefs] = useState<ReferralView[] | null>(null);
   const [openId, setOpenId] = useState<string | undefined>(focusId);
   const [template, setTemplate] = useState<ReferralTemplate>();
@@ -22,7 +22,7 @@ export function ReferralDesk({ patients, focusId, onGoGp }: { patients: Patient[
   useEffect(() => {
     getReferrals().then((r) => {
       setRefs(r);
-      setOpenId((id) => id ?? r[0]?.id);
+      setOpenId((id) => id ?? r.find((x) => x.patientId === patientId)?.id ?? r[0]?.id);
     });
   }, []);
   const open = refs?.find((r) => r.id === openId);

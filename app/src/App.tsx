@@ -1,41 +1,66 @@
 import { useEffect, useState } from 'react';
-import { getPatients } from './data/api';
-import type { Patient } from './data/types';
-import { Mark } from './components/Icon';
+import { getAid, getPatients } from './data/api';
+import type { CancerType, Patient } from './data/types';
+import { Icon, Mark } from './components/Icon';
 import { GpWorkspace } from './screens/GpWorkspace';
 import { ReferralDesk } from './screens/ReferralDesk';
 import { Specialist } from './screens/Specialist';
 import { County } from './screens/County';
 
-type View = 'gp' | 'desk' | 'specialist' | 'county';
-const VIEWS: { id: View; label: string; who: string }[] = [
-  { id: 'gp', label: 'GP', who: 'GP (yleislääkäri), health centre' },
-  { id: 'desk', label: 'Referral desk', who: 'Referral desk (lähetekäsittely), hospital: sorting and completeness check' },
-  { id: 'specialist', label: 'Specialist', who: 'Specialist (erikoislääkäri), hospital' },
-  { id: 'county', label: 'Country data', who: 'Wellbeing services county (hyvinvointialue)' },
+/* One patient journey: the same patient moves through four steps (Michal, 14 Nov). */
+type Step = 'gp' | 'desk' | 'specialist' | 'county';
+const STEPS: { id: Step; label: string; problem: string }[] = [
+  { id: 'gp', label: 'GP visit', problem: 'Symptoms spread over many visits get missed.' },
+  { id: 'desk', label: 'Referral desk', problem: 'Incomplete Referrals bounce back.' },
+  { id: 'specialist', label: 'Specialist', problem: 'The Specialist needs checkable evidence.' },
+  { id: 'county', label: 'County', problem: "The county can't see where its patients lose time." },
 ];
 
-function readHash(): View {
-  const h = location.hash.replace('#', '').split('/')[0] as View;
-  return VIEWS.some((v) => v.id === h) ? h : 'gp';
+function readHash(): Step {
+  const h = location.hash.replace('#', '').split('/')[0] as Step;
+  return STEPS.some((s) => s.id === h) ? h : 'gp';
 }
 
+const DAY = 86_400_000;
+const dayOf = (p: Patient, iso: string) => Math.round((Date.parse(iso) - Date.parse(p.visits[0].date)) / DAY);
+
 export default function App() {
-  const [view, setView] = useState<View>(readHash);
+  const [step, setStep] = useState<Step>(readHash);
   const [patients, setPatients] = useState<Patient[]>([]);
   const [patientId, setPatientId] = useState('SYN-001');
   const [focusRef, setFocusRef] = useState<string>();
+  const [cancer, setCancer] = useState<CancerType>();
 
   useEffect(() => {
     getPatients().then(setPatients);
-    const onHash = () => setView(readHash());
+    const onHash = () => setStep(readHash());
     addEventListener('hashchange', onHash);
     return () => removeEventListener('hashchange', onHash);
   }, []);
-  const go = (v: View) => {
-    location.hash = v;
-    setView(v);
+  useEffect(() => {
+    let live = true;
+    setCancer(undefined);
+    getAid(patientId)
+      .then((a) => live && setCancer(a.noRuleMatched ? undefined : a.suspectedCancer))
+      .catch(() => undefined);
+    return () => {
+      live = false;
+    };
+  }, [patientId]);
+
+  const go = (s: Step) => {
+    location.hash = s;
+    setStep(s);
+    scrollTo(0, 0);
   };
+  const pickPatient = (id: string) => {
+    setPatientId(id);
+    setFocusRef(undefined);
+  };
+  const patient = patients.find((p) => p.id === patientId);
+  const at = STEPS.findIndex((s) => s.id === step);
+  const next = STEPS[at + 1];
+  const lastDay = patient && patient.visits.length > 0 ? dayOf(patient, patient.visits[patient.visits.length - 1].date) : 0;
 
   return (
     <div className="shell">
@@ -46,30 +71,49 @@ export default function App() {
         <span className="wordmark">
           <Mark /> Vitruvian
         </span>
-        <nav className="ptabs" role="tablist" aria-label="Who is using Vitruvian">
-          {VIEWS.map((v) => (
-            <button key={v.id} role="tab" className="ptab" aria-selected={view === v.id} onClick={() => go(v.id)}>
-              {v.label}
+        <nav className="ptabs journey" aria-label="Patient journey">
+          {STEPS.map((s, i) => (
+            <button key={s.id} className={`ptab${i < at ? ' done' : ''}`} aria-current={step === s.id ? 'step' : undefined} aria-selected={step === s.id} onClick={() => go(s.id)}>
+              <span className="n">{i + 1}</span>
+              {s.label}
             </button>
           ))}
         </nav>
-        <span className="who">Viewing as: {VIEWS.find((v) => v.id === view)!.who}</span>
       </header>
+
+      {patient && (
+        <section className="journey-strip" aria-label="Patient">
+          <b>{patient.name}</b>
+          <span>{patient.age}</span>
+          <span>{patient.county}</span>
+          <span className="journey-days">
+            Day 0 <Icon name="arrow" size={16} /> Day {lastDay}
+          </span>
+          <span className="journey-problem">{STEPS[at].problem}</span>
+          {next && (
+            <button className="btn primary journey-next" onClick={() => go(next.id)}>
+              Next: {next.label}
+              <Icon name="arrow" size={16} />
+            </button>
+          )}
+        </section>
+      )}
+
       <main className="main">
-        {patients.length > 0 && view === 'gp' && (
+        {patients.length > 0 && step === 'gp' && (
           <GpWorkspace
             patients={patients}
             patientId={patientId}
-            onPatient={setPatientId}
+            onPatient={pickPatient}
             onOpenDesk={(id) => {
               setFocusRef(id);
               go('desk');
             }}
           />
         )}
-        {view === 'desk' && <ReferralDesk patients={patients} focusId={focusRef} onGoGp={() => go('gp')} />}
-        {view === 'specialist' && <Specialist patients={patients} />}
-        {view === 'county' && <County />}
+        {step === 'desk' && <ReferralDesk patients={patients} focusId={focusRef} patientId={patientId} onGoGp={() => go('gp')} />}
+        {step === 'specialist' && <Specialist patients={patients} patientId={patientId} />}
+        {step === 'county' && patient && <County patient={patient} cancer={cancer} />}
       </main>
     </div>
   );

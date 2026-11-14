@@ -112,7 +112,7 @@ button {
 /* ---------- Shell ---------- */
 .shell {
   display: grid;
-  grid-template-rows: auto auto 1fr;
+  grid-template-rows: auto auto auto minmax(0, 1fr);
   height: 100dvh;
 }
 .disclaimer {
@@ -1824,4 +1824,105 @@ textarea.input {
 .county-ovarian {
   margin: 32px 0 0;
   color: var(--muted);
+}
+
+/* ---------- One patient journey (14 Nov) ---------- */
+.journey .n {
+  font-family: var(--title);
+}
+.journey-strip {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  margin: 0 28px 16px;
+  padding: 12px 20px;
+  background: var(--card);
+  border-radius: var(--r);
+  box-shadow: var(--shadow);
+}
+.journey-strip b {
+  font-family: var(--title);
+}
+.journey-days {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+.journey-problem {
+  margin-left: auto;
+  color: var(--wine);
+  font-weight: 600;
+}
+.journey-strip {
+  align-items: center;
+}
+.journey-next {
+  padding: 6px 18px;
+}
+.county-headline .county-vs {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin: 8px 0 16px;
+}
+.county-vs .v {
+  font-family: var(--title);
+  font-size: var(--fs-3);
+  font-weight: 600;
+  line-height: 1;
+}
+.county-vs .v.behind {
+  color: var(--wine);
+}
+.county-vs .vs {
+  color: var(--muted);
+}
+.county-headline .bar-row,
+.method .county-gaps .bar-row {
+  grid-template-columns: 160px minmax(0, 1fr);
+}
+.timeline {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+.timeline li {
+  display: grid;
+  grid-template-columns: 80px minmax(0, 1fr);
+  gap: 16px;
+  padding-left: 16px;
+  border-left: 2px solid var(--lilac);
+}
+.timeline li:last-child {
+  border-left-color: var(--wine);
+}
+.timeline .d {
+  font-family: var(--title);
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+.goal3-line {
+  margin: 24px 0;
+}
+.method {
+  margin-top: 32px;
+}
+.method > summary {
+  cursor: pointer;
+  font-family: var(--title);
+  font-weight: 600;
+  padding: 12px 0;
+}
+.method[open] > summary {
+  margin-bottom: 16px;
+}
+.county-method {
+  display: grid;
+  gap: 24px;
 }

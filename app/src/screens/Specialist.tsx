@@ -14,7 +14,7 @@ const GROUPS: { key: StagingField['group']; title: string }[] = [
 ];
 
 /** Stories 31–33: Staging report. Opens a draft from a Referral (story 32), checks it, saves it as "ready for registry" (story 33). */
-export function Specialist({ patients }: { patients: Patient[] }) {
+export function Specialist({ patients, patientId }: { patients: Patient[]; patientId?: string }) {
   const [cancer, setCancer] = useState<CancerType>('lung');
   const [referralId, setReferralId] = useState<string>();
   const [refs, setRefs] = useState<ReferralView[]>([]);
@@ -26,7 +26,16 @@ export function Specialist({ patients }: { patients: Patient[] }) {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    getReferrals().then(setRefs).catch(() => setRefs([]));
+    getReferrals()
+      .then((r) => {
+        setRefs(r);
+        const mine = r.find((x) => x.patientId === patientId);
+        if (mine) {
+          setCancer(mine.cancer);
+          setReferralId(mine.id);
+        }
+      })
+      .catch(() => setRefs([]));
     getSavedStagingReports().then(setSaved).catch(() => setSaved([]));
   }, []);
 
