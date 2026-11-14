@@ -98,12 +98,11 @@ export function FieldInput({ field, value, onChange, showOrigin = true }: Props)
         {showOrigin && <span className={`tag ${origin}`}>{originLabel[origin]}</span>}
       </div>
       {control}
-      {missing && field.kind === 'text' && (
-        <div className="toolbar">
-          <button type="button" className="linkbtn" onClick={() => onChange('None known')}>
-            Set to “None known”
-          </button>
-        </div>
+      {field.kind === 'text' && (missing || value?.value === 'None known') && (
+        <label className="none-known">
+          <input type="checkbox" checked={value?.value === 'None known'} onChange={(e) => onChange(e.target.checked ? 'None known' : '')} />
+          None known
+        </label>
       )}
       {value?.evidence && origin === 'gemma' && (
         <More className="evidence">
