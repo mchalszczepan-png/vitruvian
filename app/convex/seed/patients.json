@@ -5,7 +5,7 @@
     "age": 62,
     "sex": "male",
     "smokingStatus": "former",
-    "county": "Pirkanmaa"
+    "county": "Lappi"
   },
   {
     "id": "SYN-002",
@@ -13,7 +13,7 @@
     "age": 58,
     "sex": "female",
     "smokingStatus": "never",
-    "county": "Varsinais-Suomi"
+    "county": "Kymenlaakso"
   },
   {
     "id": "SYN-003",

@@ -6,7 +6,7 @@
     "age": 62,
     "sex": "male",
     "smokingStatus": "former",
-    "wellbeingServicesCounty": "Pirkanmaa",
+    "wellbeingServicesCounty": "Lappi",
     "visits": [
       {
         "date": "2026-09-03",
@@ -32,7 +32,7 @@
     "age": 58,
     "sex": "female",
     "smokingStatus": "never",
-    "wellbeingServicesCounty": "Varsinais-Suomi",
+    "wellbeingServicesCounty": "Kymenlaakso",
     "visits": [
       {
         "date": "2026-08-18",
