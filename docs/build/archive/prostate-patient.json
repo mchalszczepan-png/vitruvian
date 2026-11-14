@@ -1,0 +1,28 @@
+[
+  {
+    "patientId": "SYN-003",
+    "synthetic": true,
+    "name": "Pekka Kuvitelma",
+    "age": 67,
+    "sex": "male",
+    "smokingStatus": "former",
+    "wellbeingServicesCounty": "Pohjois-Pohjanmaa",
+    "visits": [
+      {
+        "date": "2026-07-14",
+        "reason": "Night-time urination, weak stream",
+        "gpNote": "67M. Nocturia 3 to 4 times a night for about 6 months, weak stream, hesitancy, feels bladder not emptying fully. No dysuria, no fever, no haematuria noticed. Ex-smoker, 10 pack-years, quit 2005. No known family history of prostate cancer. BP 146/88, afebrile. DRE: prostate enlarged, smooth, not tender, no obvious nodule. IPSS 16. Plan: PSA, urine dipstick (negative), review in 8 weeks, urology referral if symptoms persist."
+      },
+      {
+        "date": "2026-09-09",
+        "reason": "PSA result, urinary symptoms unchanged",
+        "gpNote": "Nocturia still 3 times, stream still weak. PSA back today: 6.1 µg/L. Previous PSA 4.2 µg/L in 2025. Not on any 5-alpha reductase or antibiotics. DRE: prostate mildly enlarged, slightly firmer on left than right, no clear nodule. BP 142/86, afebrile. Plan: start tamsulosin 0.4 mg at night, repeat PSA in 6 weeks, review after that. Discussed that a rising PSA needs follow-up."
+      },
+      {
+        "date": "2026-10-20",
+        "reason": "PSA rising, firm nodule on DRE",
+        "gpNote": "Repeat PSA 11.2 µg/L, up from 6.1 in September. Still on tamsulosin, still getting up 3 times a night to pass urine, stream still weak. No bone pain reported, no haematuria, no weight loss, appetite good. Ex-smoker, 10 pack-years. DRE today: prostate firm and nodular on left side, asymmetric, not tender. BP 140/84, afebrile. Plan: urgent prostate cancer pathway referral, ALP, calcium, creatinine, FBC sent, MRI prostate requested. Discussed with patient."
+      }
+    ]
+  }
+]

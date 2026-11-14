@@ -1,0 +1,176 @@
+{
+  "model": "gemini-decision-1",
+  "input": [
+    {
+      "type": "image",
+      "data": "__FRAME_JPEG_BASE64__",
+      "mime_type": "image/jpeg",
+      "resolution": "medium"
+    },
+    {
+      "type": "text",
+      "text": "Glasses point-of-view frame. The camera is on the wearer's face, so the wearer is the person whose hands and food are most likely in view."
+    }
+  ],
+  "questions": {
+    "scene_has_food": {
+      "type": "noul",
+      "instructions": "Is food or a drink visible on a plate, table, in a hand, or in front of the wearer?"
+    },
+    "image_quality_ok": {
+      "type": "noul",
+      "instructions": "Is the image sharp and bright enough to judge the foods, drinks, cigarettes, and sun exposure in view?"
+    },
+    "child_visible": {
+      "type": "noul",
+      "instructions": "Is a child or teenager clearly visible in the frame?"
+    },
+    "scene_setting": {
+      "type": "choice",
+      "instructions": "Where is the wearer most likely right now?",
+      "criteria": {
+        "kitchen_or_home": "Inside a home kitchen, dining room, or living room.",
+        "restaurant_or_cafe": "Inside a restaurant, cafe, canteen, or bar.",
+        "outdoors": "Outside, on a street, park, beach, or terrace.",
+        "workplace_or_office": "Inside an office, workshop, or work site.",
+        "vehicle": "Inside a car, bus, or train.",
+        "other": "Anything else, or unclear."
+      }
+    },
+    "wearer_outdoors": {
+      "type": "noul",
+      "instructions": "Is the wearer outdoors right now?"
+    },
+    "cigarette_visible": {
+      "type": "noul",
+      "instructions": "Is a cigarette, cigar, or pipe visible in someone's hand or mouth?",
+      "criteria": {
+        "true_description": "A tobacco product is held, lit, or being smoked.",
+        "false_description": "Pens, sticks, food, straws, or nothing similar."
+      }
+    },
+    "smoke_nearby": {
+      "type": "noul",
+      "instructions": "Is someone smoking within about two metres of the wearer, with a cigarette or visible smoke?"
+    },
+    "vape_visible": {
+      "type": "noul",
+      "instructions": "Is an e-cigarette or vape device visible in someone's hand or mouth?"
+    },
+    "alcohol_visible": {
+      "type": "noul",
+      "instructions": "Is a glass, can, or bottle of an alcoholic drink (beer, wine, cider, spirits, or a cocktail) visible?",
+      "criteria": {
+        "true_description": "Beer, wine, cider, spirits, or a cocktail in a glass, can, or bottle.",
+        "false_description": "Water, soft drinks, coffee, tea, juice, or a drink labelled alcohol-free."
+      }
+    },
+    "alcohol_nonalcoholic_label": {
+      "type": "noul",
+      "instructions": "Is the visible drink clearly labelled or coloured as non-alcoholic, such as '0.0', 'alcohol-free', or a soft drink in a beer glass?"
+    },
+    "alcohol_being_drunk": {
+      "type": "noul",
+      "instructions": "Is the wearer drinking, or about to drink, an alcoholic beverage?"
+    },
+    "processed_meat_visible": {
+      "type": "noul",
+      "instructions": "Is a processed meat (sausage, hot dog, bacon, ham, salami, cold cuts, or smoked or cured meat) visible on a plate, in a bun, or in a hand?"
+    },
+    "processed_meat_being_eaten": {
+      "type": "noul",
+      "instructions": "Is the wearer eating, or about to eat, a processed meat product?"
+    },
+    "main_meat_type": {
+      "type": "choice",
+      "instructions": "Which category best describes the most prominent meat in view?",
+      "criteria": {
+        "processed_meat": "Sausage, hot dog, bacon, ham, salami, cold cuts, or cured or smoked meat.",
+        "red_meat_unprocessed": "Beef, pork, lamb, veal, steak, roast, or minced beef or pork, not cured.",
+        "poultry": "Chicken, turkey, or duck.",
+        "fish_or_seafood": "Fish or seafood.",
+        "no_meat_visible": "No meat is visible.",
+        "other": "Anything else, or unclear."
+      }
+    },
+    "red_meat_visible": {
+      "type": "noul",
+      "instructions": "Is unprocessed beef, pork, lamb, or minced meat visible, raw or cooked, on a plate, grill, or in a hand?",
+      "criteria": {
+        "true_description": "Beef, pork, lamb, veal, steak, roast, or a burger patty made from them.",
+        "false_description": "Chicken, turkey, fish, vegetables, legumes, tofu, or no meat."
+      }
+    },
+    "red_meat_portion": {
+      "type": "score",
+      "instructions": "How large is the red meat portion in view compared with the plate?",
+      "criteria": [
+        "No red meat visible.",
+        "A small side portion of red meat.",
+        "About a quarter to a half of the plate, or one large piece of red meat.",
+        "Most of the plate, or a whole large cut of red meat."
+      ]
+    },
+    "charred_food": {
+      "type": "noul",
+      "instructions": "Is any food visibly blackened, charred, or burnt on a grill, barbecue, or pan?"
+    },
+    "open_flame_cooking": {
+      "type": "noul",
+      "instructions": "Is food being cooked over an open flame, a barbecue, or a grill right now?"
+    },
+    "hot_drink_visible": {
+      "type": "noul",
+      "instructions": "Is the wearer holding a hot beverage such as coffee, tea, cocoa, or hot water, with steam visibly rising from it?"
+    },
+    "hot_drink_being_sipped": {
+      "type": "noul",
+      "instructions": "Is the wearer drinking, or lifting to drink, a hot beverage right now?"
+    },
+    "sun_exposed_skin": {
+      "type": "noul",
+      "instructions": "Is the wearer's bare skin (arms, shoulders, neck, or face) in direct bright sunlight?",
+      "criteria": {
+        "true_description": "Bright direct sunlight falls on bare skin.",
+        "false_description": "Indoors, in shade, or with the skin covered by clothing."
+      }
+    },
+    "sun_protection_used": {
+      "type": "choice",
+      "instructions": "What sun protection is the wearer using right now?",
+      "criteria": {
+        "none_visible": "No hat, shade, long clothing, or sunscreen is visible.",
+        "hat_or_cap": "A hat or cap shades the face.",
+        "shade_or_umbrella": "The wearer is under a tree, roof, awning, or umbrella.",
+        "long_sleeves": "Long sleeves or a shirt covers the arms and shoulders.",
+        "other": "Anything else, or unclear."
+      }
+    },
+    "sunbed_visible": {
+      "type": "noul",
+      "instructions": "Is a sunbed, tanning booth, or UV tanning lamp panel visible?",
+      "criteria": {
+        "true_description": "An enclosed tanning bed or lamp panel that emits UV light for tanning.",
+        "false_description": "A nail UV lamp, a curing lamp, a phone light, or ordinary room lighting."
+      }
+    },
+    "sunburn_visible": {
+      "type": "noul",
+      "instructions": "Is visible sunburn, meaning red or peeling skin, on the wearer's exposed skin?"
+    },
+    "vegetables_share": {
+      "type": "score",
+      "instructions": "How much of the visible plate is vegetables, salad, fruit, berries, or legumes?",
+      "criteria": [
+        "No vegetables, fruit, or legumes visible.",
+        "A small garnish or side.",
+        "About a quarter of the plate.",
+        "Half the plate or more."
+      ]
+    },
+    "sugary_drink_visible": {
+      "type": "noul",
+      "instructions": "Is a sugary soft drink, energy drink, or sweetened juice visible in a hand or on a table?"
+    }
+  }
+}
