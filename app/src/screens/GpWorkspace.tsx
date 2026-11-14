@@ -351,7 +351,7 @@ function Why({ patient, aid, onLight }: { patient: Patient; aid: AidResult; onLi
         <ul className="tech-used" aria-label="Tech used">
           {aid.techUsed.map((t) => (
             <li key={t.step} className={`tag ${t.provider === 'stub' || t.provider === 'mock' ? 'record' : 'gemma'}`}>
-              {techStep[t.step]}: {t.detail ?? techProvider[t.provider]}
+              {techStep[t.step]}: {t.detail ? "AI" : techProvider[t.provider]}
             </li>
           ))}
         </ul>
