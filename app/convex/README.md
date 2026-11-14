@@ -30,7 +30,7 @@ Internal functions: `internal.data.aidInputs {patientId}` (patient with visits, 
 
 ## Aid pipeline layout
 
-`aid.ts` and `fill.ts` are shells. The pipeline is `core/aid.ts` (`analyze`, `runAid`) and `core/fill.ts` (`fillReferral`), pure over a Rule book (`core/rulebook.ts`, built from the seed Rules and `docs/build/rule-extras.json`) and one `ModelPort` (`core/port.ts`). `core/ports/index.ts` `makePort(env, store?)` is the only env reader. See `core/DESIGN.md`.
+Published risk (`publishedRisk`): the suspected cancer's PPV evidence rows, answered by the same decide port; UK primary-care aggregate figures for the GP, not a personal probability and not an automatic referral. `aid.ts` and `fill.ts` are shells. The pipeline is `core/aid.ts` (`analyze`, `runAid`) and `core/fill.ts` (`fillReferral`), pure over a Rule book (`core/rulebook.ts`, built from the seed Rules and `docs/build/rule-extras.json`) and one `ModelPort` (`core/port.ts`). `core/ports/index.ts` `makePort(env, store?)` is the only env reader. See `core/DESIGN.md`.
 
 ## Rule IDs
 
