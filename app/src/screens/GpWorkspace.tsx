@@ -33,6 +33,8 @@ type Urgency = 'urgent' | 'routine';
 interface TodayNote {
   id: string;
   text: string;
+  /** text before this edit: the prefilled note, or empty for an added one */
+  orig?: string;
   /** the text as last saved */
   saved?: string;
   /** GP reopened a saved note */
@@ -68,7 +70,7 @@ export function GpWorkspace({ patients, patientId, onPatient }: Props) {
   const [drafts, setDrafts] = useState<Record<string, Draft>>({});
   const patient = patients.find((p) => p.id === patientId) ?? patients[0];
   const today = patient.visits.at(-1)!;
-  const fresh = (p: Patient): Draft => ({ notes: [{ id: 'n1', text: p.visits.at(-1)!.note }], checking: false, filling: false });
+  const fresh = (p: Patient): Draft => ({ notes: [{ id: 'n1', text: p.visits.at(-1)!.note, orig: p.visits.at(-1)!.note }], checking: false, filling: false });
   const draft: Draft = drafts[patient.id] ?? fresh(patient);
   const update = (id: string, d: Partial<Draft> | ((cur: Draft) => Partial<Draft>)) =>
     setDrafts((all) => {
@@ -82,6 +84,22 @@ export function GpWorkspace({ patients, patientId, onPatient }: Props) {
   function addNote() {
     update(patient.id, (cur) => ({ notes: [{ id: `n${Date.now()}`, text: '' }, ...cur.notes.map((n) => ({ ...n, furled: true }))] }));
   }
+  // Delete asks once: the bin turns into a "Delete note?" button (Michal, 15 Nov).
+  const [confirmDel, setConfirmDel] = useState<string | null>(null);
+  const removeNote = (noteId: string) => {
+    setConfirmDel(null);
+    update(patient.id, (cur) => {
+      const notes = cur.notes.filter((n) => n.id !== noteId);
+      // The last note left opens again.
+      return { notes: notes.length === 1 ? [{ ...notes[0], furled: false }] : notes };
+    });
+  };
+  // Cancel drops this edit: back to the saved text, or the note goes if it was a new blank one.
+  const cancelNote = (n: TodayNote) => {
+    const base = n.saved ?? n.orig ?? '';
+    if (!base.trim() && draft.notes.length > 1) removeNote(n.id);
+    else setNote(n.id, { text: base, editing: false });
+  };
   const noteStatus = (n: TodayNote) =>
     t(
       draft.checking && draft.checkingNote === n.id
@@ -223,9 +241,22 @@ export function GpWorkspace({ patients, patientId, onPatient }: Props) {
                 </li>
               );
             const furl = (
-              <button type="button" className="icon-btn" aria-expanded aria-label={t('Fold note')} title={t('Fold note')} onClick={() => setNote(n.id, { furled: true })}>
-                <Icon name="up" size={16} />
-              </button>
+              <span className="nf-note-tools">
+                {draft.notes.length > 1 &&
+                  (confirmDel === n.id ? (
+                    // eslint-disable-next-line jsx-a11y/no-autofocus -- the confirm takes over the bin's focus
+                    <button type="button" className="btn small danger" autoFocus onBlur={() => setConfirmDel(null)} onClick={() => removeNote(n.id)}>
+                      {t('Delete note?')}
+                    </button>
+                  ) : (
+                    <button type="button" className="icon-btn" aria-label={t('Delete note')} title={t('Delete note')} onClick={() => setConfirmDel(n.id)}>
+                      <Icon name="trash" size={16} />
+                    </button>
+                  ))}
+                <button type="button" className="icon-btn" aria-expanded aria-label={t('Fold note')} title={t('Fold note')} onClick={() => setNote(n.id, { furled: true })}>
+                  <Icon name="up" size={16} />
+                </button>
+              </span>
             );
             return (
               <li key={n.id} className="nf-tl-today">
@@ -272,10 +303,20 @@ export function GpWorkspace({ patients, patientId, onPatient }: Props) {
                       }}
                     />
                     <div className="nf-note-foot">
-                      <small role="status">{status}</small>
-                      <button className="btn primary" type="submit" disabled={draft.checking || !n.text.trim() || n.saved === n.text}>
-                        {t('Save')}
+                      <button
+                        className="btn"
+                        type="button"
+                        disabled={n.text === (n.saved ?? n.orig ?? '') && !n.editing && !(draft.notes.length > 1 && !n.text.trim())}
+                        onClick={() => cancelNote(n)}
+                      >
+                        {t('Cancel')}
                       </button>
+                      <div className="nf-note-save">
+                        <button className="btn primary" type="submit" disabled={draft.checking || !n.text.trim() || n.saved === n.text}>
+                          {t('Save')}
+                        </button>
+                        <small role="status">{status}</small>
+                      </div>
                     </div>
                   </form>
                 )}

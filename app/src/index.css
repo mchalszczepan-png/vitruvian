@@ -2159,7 +2159,7 @@ textarea.input {
 .nf-note-foot {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   gap: 16px;
 }
 .nf-note-foot small {
@@ -2620,6 +2620,23 @@ textarea.input {
   align-items: center;
   justify-content: space-between;
   gap: 16px;
+}
+.nf-note-tools {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.nf-note-tools .btn.danger {
+  color: var(--wine);
+}
+/* Cancel bottom left; Save bottom right with its hint in small text under it (Michal, 15 Nov) */
+.nf-note-save {
+  display: grid;
+  justify-items: end;
+  gap: 4px;
+}
+.nf-note-foot .nf-note-save small {
+  font-size: 13px;
 }
 .nf-note-head .icon-btn {
   display: inline-grid;
