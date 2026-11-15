@@ -1,0 +1,301 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "urn:vitruvian:referral-template:ovarian:v1",
+ "title": "Ovarian Referral template",
+ "type": "object",
+ "additionalProperties": false,
+ "required": [
+  "patientId",
+  "age",
+  "sex",
+  "smokingStatus",
+  "mainSymptom",
+  "symptomDurationWeeks",
+  "symptomVisitCount",
+  "examFindings",
+  "generalCondition",
+  "testsDone",
+  "currentMedicines",
+  "otherIllnesses",
+  "suspectedDiagnosis",
+  "suspectedCancerType",
+  "gpQuestion",
+  "urgency",
+  "referralDate",
+  "referringGpId",
+  "bloatingOrDistension",
+  "earlySatietyOrAppetiteLoss",
+  "pelvicOrAbdominalPain",
+  "urinarySymptoms",
+  "symptomDaysPerMonth",
+  "ascites",
+  "palpableMass",
+  "ca125Done",
+  "pelvicUltrasoundResult",
+  "menopausalStatus",
+  "familyHistoryBreastOrOvarianCancer",
+  "brcaStatus"
+ ],
+ "properties": {
+  "patientId": {
+   "type": "string",
+   "pattern": "^SYN-[0-9]{3}$",
+   "description": "Made-up demo ID only."
+  },
+  "age": {
+   "type": "integer",
+   "minimum": 0,
+   "maximum": 120
+  },
+  "sex": {
+   "type": "string",
+   "enum": [
+    "female",
+    "male",
+    "other",
+    "unknown"
+   ]
+  },
+  "smokingStatus": {
+   "type": "string",
+   "enum": [
+    "never",
+    "former",
+    "current",
+    "unknown"
+   ]
+  },
+  "packYears": {
+   "type": "number",
+   "minimum": 0
+  },
+  "mainSymptom": {
+   "type": "string",
+   "minLength": 1
+  },
+  "symptomDurationWeeks": {
+   "type": "integer",
+   "minimum": 0
+  },
+  "symptomVisitCount": {
+   "type": "integer",
+   "minimum": 0
+  },
+  "examFindings": {
+   "type": "string",
+   "minLength": 1
+  },
+  "generalCondition": {
+   "type": "string",
+   "minLength": 1
+  },
+  "weightLossKg": {
+   "type": "number",
+   "minimum": 0
+  },
+  "testsDone": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+     "name",
+     "result"
+    ],
+    "properties": {
+     "name": {
+      "type": "string",
+      "minLength": 1
+     },
+     "date": {
+      "type": "string",
+      "format": "date"
+     },
+     "result": {
+      "type": "string",
+      "minLength": 1
+     }
+    }
+   }
+  },
+  "currentMedicines": {
+   "type": "array",
+   "items": {
+    "type": "string"
+   }
+  },
+  "otherIllnesses": {
+   "type": "array",
+   "items": {
+    "type": "string"
+   }
+  },
+  "priorCancer": {
+   "type": [
+    "object",
+    "null"
+   ],
+   "additionalProperties": false,
+   "required": [
+    "type",
+    "yearDiagnosed",
+    "treatment"
+   ],
+   "properties": {
+    "type": {
+     "type": "string"
+    },
+    "yearDiagnosed": {
+     "type": "integer"
+    },
+    "treatment": {
+     "type": "string"
+    }
+   }
+  },
+  "suspectedDiagnosis": {
+   "type": "string",
+   "minLength": 1
+  },
+  "suspectedCancerType": {
+   "const": "ovarian"
+  },
+  "gpQuestion": {
+   "type": "string",
+   "minLength": 1
+  },
+  "urgency": {
+   "type": "string",
+   "enum": [
+    "urgent_2_week",
+    "urgent"
+   ]
+  },
+  "referralDate": {
+   "type": "string",
+   "format": "date"
+  },
+  "referringGpId": {
+   "type": "string",
+   "minLength": 1
+  },
+  "matchedRuleIds": {
+   "type": "array",
+   "items": {
+    "type": "string"
+   }
+  },
+  "riskGradientAiEstimate": {
+   "type": "integer",
+   "minimum": 0,
+   "maximum": 10
+  },
+  "bloatingOrDistension": {
+   "type": "boolean"
+  },
+  "earlySatietyOrAppetiteLoss": {
+   "type": "boolean"
+  },
+  "pelvicOrAbdominalPain": {
+   "type": "boolean"
+  },
+  "urinarySymptoms": {
+   "type": "boolean"
+  },
+  "symptomDaysPerMonth": {
+   "type": "integer",
+   "minimum": 0,
+   "maximum": 31
+  },
+  "ascites": {
+   "type": "boolean"
+  },
+  "palpableMass": {
+   "type": "boolean"
+  },
+  "ca125Done": {
+   "type": "boolean"
+  },
+  "ca125ValueIuPerMl": {
+   "type": "number",
+   "minimum": 0
+  },
+  "ca125Date": {
+   "type": "string",
+   "format": "date"
+  },
+  "pelvicUltrasoundResult": {
+   "type": "string",
+   "enum": [
+    "normal",
+    "abnormal",
+    "not_done"
+   ]
+  },
+  "pelvicUltrasoundFindings": {
+   "type": "string",
+   "minLength": 1
+  },
+  "pelvicUltrasoundDate": {
+   "type": "string",
+   "format": "date"
+  },
+  "menopausalStatus": {
+   "type": "string",
+   "enum": [
+    "premenopausal",
+    "postmenopausal",
+    "unknown"
+   ]
+  },
+  "familyHistoryBreastOrOvarianCancer": {
+   "type": "boolean"
+  },
+  "brcaStatus": {
+   "type": "string",
+   "enum": [
+    "pathogenic_variant",
+    "no_pathogenic_variant",
+    "not_tested",
+    "unknown"
+   ]
+  }
+ },
+ "allOf": [
+  {
+   "if": {
+    "properties": {
+     "ca125Done": {
+      "const": true
+     }
+    },
+    "required": [
+     "ca125Done"
+    ]
+   },
+   "then": {
+    "required": [
+     "ca125ValueIuPerMl",
+     "ca125Date"
+    ]
+   }
+  },
+  {
+   "if": {
+    "properties": {
+     "pelvicUltrasoundResult": {
+      "const": "abnormal"
+     }
+    },
+    "required": [
+     "pelvicUltrasoundResult"
+    ]
+   },
+   "then": {
+    "required": [
+     "pelvicUltrasoundFindings"
+    ]
+   }
+  }
+ ]
+}
