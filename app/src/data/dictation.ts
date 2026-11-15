@@ -1,6 +1,6 @@
 // Dictation helpers with no React and no browser APIs, so tests can run them. The component is components/Dictation.tsx.
 // Research prototype. Not a medical device. Not for clinical use.
-import type { Dictation, DictationMode, TermFlag } from './types';
+import type { Dictation, DictationMode, TermCheck, TermFlag } from './types';
 
 /** Gemini's note goes after what is already typed, with one blank line between. */
 export function appendNote(current: string, addition: string): string {
@@ -63,4 +63,26 @@ export async function insertDictation(args: {
   const d = await args.transcribe(args.audioBase64, args.mimeType, args.mode);
   args.onText(appendNote(args.getText(), d.note));
   return d;
+}
+
+/** A pre-recorded dictation with the result of one real run saved next to it (data/samples). For the demo; never live. */
+export interface SampleDictation {
+  patientId: string;
+  audioUrl: string;
+  provenance: string;
+  result: Dictation;
+  check: TermCheck;
+}
+
+/** The sample for this patient, if there is one. Only Matti (SYN-001) has one. */
+export const sampleDictationFor = (patientId: string, samples: SampleDictation[]): SampleDictation | undefined =>
+  samples.find((s) => s.patientId === patientId);
+
+/** What the sample puts on screen: the cached note added to the field, the translation (Finnish only) and the cached flags. No network. */
+export function applySample(text: string, s: SampleDictation): { text: string; english: string; check: TermCheck | undefined } {
+  return {
+    text: appendNote(text, s.result.note),
+    english: s.result.language === 'fi' ? s.result.english : '',
+    check: s.check.flags.length ? s.check : undefined,
+  };
 }

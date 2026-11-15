@@ -1,0 +1,14 @@
+{
+  "patientId": "SYN-001",
+  "audioUrl": "/samples/matti-dictation.mp3",
+  "provenance": "Synthetic voice (Gemini 3.8 Flash TTS, prebuilt voice Kore), 15.7 s Finnish. Result from one real run on 2026-11-15: dictation:transcribe (gemini-4-hydrogen) then dictation:checkTerms (google/medgemma-27b-text-it).",
+  "result": {
+    "english": "Cough has lasted 10 weeks. Coughed up blood this morning. Weight has dropped 4 kg. Former smoker, 30 pack-years. Urgent chest X-ray and referral to the pulmonary clinic.",
+    "language": "fi",
+    "note": "Yskä jatkunut 10 viikkoa. Tänä aamuna yskinyt verta. Paino laskenut 4 kiloa. Entinen tupakoitsija, 30 askivuotta. Kiireellinen keuhkokuva ja lähete keuhkopolille."
+  },
+  "check": {
+    "flags": [],
+    "model": "google/medgemma-27b-text-it"
+  }
+}
