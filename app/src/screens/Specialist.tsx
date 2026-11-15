@@ -98,7 +98,7 @@ export function Specialist({ patients }: { patients: Patient[] }) {
   };
 
   return (
-    <div className="doc" style={{ height: '100%' }}>
+    <div className="doc stg" style={{ height: '100%' }}>
       <header className="doc-head">
         <div className="ptabs" role="tablist" aria-label={t('Cancer type')} style={{ marginBottom: 12 }}>
           {ORDER.map((c) => (
@@ -150,7 +150,7 @@ export function Specialist({ patients }: { patients: Patient[] }) {
           </div>
         </div>
         {calc && report.values[stageKey] !== calc && (
-          <button className="linkbtn" style={{ marginTop: 10 }} onClick={() => set(stageKey, calc)}>
+          <button className="linkbtn stg-use" onClick={() => set(stageKey, calc)}>
             {figo ? t('Use {calc} as the FIGO stage', { calc }) : t('Use {calc} as the stage group', { calc })}
           </button>
         )}
