@@ -2849,7 +2849,8 @@ img.mark {
 .nf-sheet .field.wide {
   grid-column: 1 / -1;
 }
-.nf-sheet .field:not(.missing) {
+.nf-sheet .field:not(.missing),
+.stg .field:not(.missing) {
   background: var(--paper);
 }
 .field .input:focus,
@@ -2857,7 +2858,8 @@ img.mark {
   outline: 2px solid var(--amber);
   outline-offset: 1px;
 }
-.nf-sheet .field .input {
+.nf-sheet .field .input,
+.stg .field .input {
   background: #fff;
   border: 1px solid #e3dfdc;
 }
@@ -3109,3 +3111,8 @@ img.mark {
     gap: 16px;
   }
 }
+
+/* Staging report: same field tiles as the GP referral form (Michal, 15 Nov) */
+.stg .fields { gap: 8px; }
+.stg .stage-result .v { font-size: var(--fs-2); }
+.stg-use { margin-top: 8px; }
