@@ -2353,7 +2353,14 @@ textarea.input {
 .nf-sheet-status b {
   color: var(--wine);
 }
+/* Narrow windows keep the patient list (it is how the GP finds patients and adds one), just slimmer. */
 @media (max-width: 1100px) {
+  .nf {
+    grid-template-columns: 176px minmax(0, 1fr) clamp(260px, 30vw, 340px);
+    gap: 16px;
+  }
+}
+@media (max-width: 900px) {
   .nf {
     grid-template-columns: minmax(0, 1fr) clamp(280px, 34vw, 360px);
   }
