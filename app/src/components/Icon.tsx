@@ -15,6 +15,7 @@ const paths = {
   send: 'M3 10 17 3l-4 14-3-6-7-1Zm7 1 7-8',
   pencil: 'M13 3l4 4-9 9H4v-4l9-9Z',
   spark: 'M10 2v4m0 8v4M2 10h4m8 0h4M4.5 4.5l2.5 2.5m6 6 2.5 2.5m0-11-2.5 2.5m-6 6-2.5 2.5',
+  mic: 'M10 2.5a2.5 2.5 0 0 0-2.5 2.5v5a2.5 2.5 0 0 0 5 0V5A2.5 2.5 0 0 0 10 2.5ZM5 9.5a5 5 0 0 0 10 0M10 14.5v3',
 } as const;
 
 export type IconName = keyof typeof paths;

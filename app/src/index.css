@@ -2935,3 +2935,120 @@ img.mark {
     gap: 4px;
   }
 }
+
+/* Dictation under the note field (components/Dictation.tsx). Same buttons as the note foot; one quiet line of status. */
+.dict {
+  display: grid;
+  gap: 6px;
+}
+.dict-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+}
+.dict-mic.on {
+  color: #fff;
+}
+.dict-mic.on::before {
+  background: var(--wine);
+}
+.dict-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #fff;
+  animation: dict-pulse 1.2s ease-in-out infinite;
+}
+@keyframes dict-pulse {
+  50% {
+    opacity: 0.3;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dict-dot {
+    animation: none;
+  }
+}
+.dict-modes {
+  display: inline-flex;
+  border: 1px solid #e3dfdc;
+  border-radius: var(--r-sm);
+  overflow: hidden;
+}
+.dict-modes button {
+  border: 0;
+  background: #fff;
+  padding: 5px 10px;
+  font: inherit;
+  font-size: 14px;
+  color: var(--muted);
+  cursor: pointer;
+}
+.dict-modes button[aria-pressed='true'] {
+  background: var(--ink);
+  color: var(--paper);
+}
+.dict-modes button:disabled {
+  cursor: not-allowed;
+}
+.nf-note .dict-consent {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-family: var(--sans);
+  font-weight: 400;
+}
+.dict-note {
+  font-size: 13px;
+  color: var(--muted);
+}
+.dict-en summary {
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--muted);
+}
+.dict-en p {
+  margin: 6px 0 0;
+  padding: 8px 12px;
+  background: var(--paper);
+  border-radius: var(--r-sm);
+  white-space: pre-wrap;
+  line-height: 1.5;
+}
+.dict-flags {
+  padding: 8px 12px;
+  background: var(--amber-soft);
+  border-radius: var(--r-sm);
+}
+.dict-flags > small {
+  font-size: 13px;
+  color: var(--slate);
+}
+.dict-flags ul {
+  list-style: none;
+  margin: 4px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 6px;
+}
+.dict-flags li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px 12px;
+}
+.dict-flags mark {
+  background: none;
+  text-decoration: underline wavy var(--wine);
+  text-underline-offset: 3px;
+}
+.dict-flags li small {
+  color: var(--muted);
+}
+.dict-flag-act {
+  display: inline-flex;
+  gap: 6px;
+}
