@@ -54,6 +54,7 @@ export function Dictation({
   const [english, setEnglish] = useState('');
   const [check, setCheck] = useState<TermCheck>();
   const [answered, setAnswered] = useState<string[]>([]);
+  const [played, setPlayed] = useState(false);
   const textRef = useRef(text);
   useEffect(() => {
     textRef.current = text;
@@ -165,6 +166,7 @@ export function Dictation({
     onText(r.text);
     setEnglish(r.english);
     setCheck(r.check);
+    setPlayed(true);
   }
 
   const allowed = canRecord(mode, consent);
@@ -197,7 +199,8 @@ export function Dictation({
             </button>
           ))}
         </div>
-        {sample && (
+        {/* Only on an empty note, so the sample never lands under an earlier note. */}
+        {sample && !played && !text.trim() && (
           <button type="button" className="btn small dict-sample" disabled={phase !== 'idle'} onClick={() => playSample(sample)}>
             <Icon name="play" /> {t('Play sample dictation')}
           </button>
@@ -215,7 +218,11 @@ export function Dictation({
           : error ||
             (mode === 'visit' ? t('Visit note drafted by Gemini from the recording. Check before saving.') : t('Dictation by Gemini. Check before saving.'))}
       </small>
-      {sample && <small className="dict-note">{t('Sample dictation, result pre-computed with Gemini')}</small>}
+      {sample && (played || !text.trim()) && (
+        <p className="dict-sample-note">
+          <Icon name="play" size={16} /> {t('Sample dictation, result pre-computed with Gemini')}
+        </p>
+      )}
       {english && (
         <details className="dict-en">
           <summary>{t('English translation (Gemini), check before use')}</summary>
