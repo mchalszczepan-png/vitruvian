@@ -28,6 +28,7 @@ export function useLang(): Lang {
   return useSyncExternalStore(
     (f) => (subs.add(f), () => subs.delete(f)),
     () => lang,
+    () => lang, // server render (tests)
   );
 }
 

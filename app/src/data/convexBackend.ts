@@ -17,7 +17,7 @@ import type {
   StagingReport,
   StagingTemplate,
 } from './types';
-import type { SavedStagingReport } from './types';
+import type { Dictation, DictationMode, SavedStagingReport, TermCheck } from './types';
 
 /** The part of ConvexHttpClient (or convex-test's client) this adapter uses. */
 export type ConvexLike = Pick<ConvexHttpClient, 'query' | 'mutation' | 'action'>;
@@ -62,6 +62,8 @@ const refs = {
   referralsSetStatus: mutation<ReferralView>('referrals:setStatus'),
   aidGet: action<AidResult>('aid:get'),
   fillFromNote: action<FieldValues>('fill:fromNote'),
+  dictationTranscribe: action<Dictation>('dictation:transcribe'),
+  dictationCheckTerms: action<TermCheck>('dictation:checkTerms'),
 };
 
 const run = <R>(ref: FunctionReference<'query' | 'mutation' | 'action', 'public', Args, R>, args: Args): Promise<R> =>
@@ -128,4 +130,12 @@ export async function getReferrals(): Promise<ReferralView[]> {
 
 export async function setReferralStatus(referralId: string, status: 'accepted' | 'returned', reason?: string): Promise<ReferralView> {
   return client().mutation(refs.referralsSetStatus, { referralId, status, ...(reason !== undefined ? { reason } : {}) });
+}
+
+export async function transcribeDictation(audioBase64: string, mimeType: string, mode: DictationMode): Promise<Dictation> {
+  return client().action(refs.dictationTranscribe, { audioBase64, mimeType, mode });
+}
+
+export async function checkMedicineTerms(note: string): Promise<TermCheck> {
+  return client().action(refs.dictationCheckTerms, { note });
 }

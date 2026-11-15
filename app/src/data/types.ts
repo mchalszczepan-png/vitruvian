@@ -318,3 +318,24 @@ export interface CountyGap {
   goal3: Goal3Indicator[];
   nextActions: NextAction[];
 }
+
+// ---- Dictation (dictation:transcribe, dictation:checkTerms) ----
+/** 'dictate': the GP dictates the note. 'visit': the GP records the visit and Gemini drafts the note. */
+export type DictationMode = 'dictate' | 'visit';
+export interface Dictation {
+  language: 'fi' | 'en';
+  note: string;
+  /** faithful English translation; the note itself when spoken in English; '' when there is none */
+  english: string;
+}
+/** One doubtful medicine or medical term in the note. text is an exact span of the note. */
+export interface TermFlag {
+  text: string;
+  suggestion: string;
+  reason: string;
+}
+export interface TermCheck {
+  /** the model that ran the check */
+  model: string;
+  flags: TermFlag[];
+}

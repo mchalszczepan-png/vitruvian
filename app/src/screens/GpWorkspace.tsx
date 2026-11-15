@@ -6,6 +6,7 @@ import { Icon, Mark } from '../components/Icon';
 import { More } from '../components/More';
 import { FoldedNote, NoteText } from '../components/NoteText';
 import { continueList } from '../components/noteList';
+import { Dictation } from '../components/Dictation';
 import { Source } from '../components/Source';
 import { cancerName, fmtDate } from '../components/labels';
 import { getLang, useT } from '../components/lang';
@@ -302,6 +303,7 @@ export function GpWorkspace({ patients, patientId, onPatient }: Props) {
                         }
                       }}
                     />
+                    <Dictation text={n.text} onText={(text) => setNote(n.id, { text })} />
                     <div className="nf-note-foot">
                       <button
                         className="btn"

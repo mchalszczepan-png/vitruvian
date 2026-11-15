@@ -161,4 +161,27 @@ const FI_SHARED: Record<string, string> = {
   Fill: 'Täyttö',
 };
 
-export const FI: Record<string, string> = { ...FI_SHARED, ...FI_DESK, ...FI_SPECIALIST, ...FI_COUNTY };
+const FI_DICTATION: Record<string, string> = {
+  Dictate: 'Sanele',
+  Stop: 'Lopeta',
+  'Cleaning up…': 'Siistitään…',
+  'Dictate my note': 'Sanelen merkinnän',
+  'Record the visit': 'Tallenna käynti',
+  'Dictation mode': 'Sanelutila',
+  'Patient agreed to recording': 'Potilas suostui tallennukseen',
+  'Tick patient consent first': 'Merkitse ensin potilaan suostumus',
+  'Recording. Press Stop when done.': 'Tallennetaan. Paina Lopeta, kun olet valmis.',
+  'Dictation by Gemini. Check before saving.': 'Sanelu: Gemini. Tarkista ennen tallennusta.',
+  'Visit note drafted by Gemini from the recording. Check before saving.': 'Gemini laati käyntimerkinnän tallenteesta. Tarkista ennen tallennusta.',
+  'English translation (Gemini), check before use': 'Englanninkielinen käännös (Gemini), tarkista ennen käyttöä',
+  'Medicine check by {model}': 'Lääketarkistus: {model}',
+  'Did you mean {s}?': 'Tarkoititko {s}?',
+  Accept: 'Hyväksy',
+  Ignore: 'Ohita',
+  'This browser cannot record. Type the note instead.': 'Tämä selain ei voi tallentaa. Kirjoita merkintä.',
+  'No microphone access. Type the note instead.': 'Ei mikrofonin käyttöoikeutta. Kirjoita merkintä.',
+  'Nothing was recorded. Try again or type the note.': 'Mitään ei tallentunut. Yritä uudelleen tai kirjoita merkintä.',
+  'Dictation failed. Your note is unchanged; type it or try again.': 'Sanelu epäonnistui. Merkintä ei muuttunut; kirjoita se tai yritä uudelleen.',
+};
+
+export const FI: Record<string, string> = { ...FI_DICTATION, ...FI_SHARED, ...FI_DESK, ...FI_SPECIALIST, ...FI_COUNTY };

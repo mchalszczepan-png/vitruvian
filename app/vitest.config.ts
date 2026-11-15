@@ -6,7 +6,7 @@ export default defineConfig({
   test: {
     environment: 'edge-runtime',
     // convex/model tests and scripts/schemas.test.ts run in node (per-file docblock): fetch mocks, golden file, ml/ copy check.
-    include: ['src/**/*.contract.test.ts', 'convex/model/**/*.test.ts', 'convex/core/**/*.test.ts', 'convex/staging.test.ts', 'scripts/schemas.test.ts'],
+    include: ['src/**/*.contract.test.ts', 'src/**/*.ui.test.tsx', 'convex/model/**/*.test.ts', 'convex/core/**/*.test.ts', 'convex/staging.test.ts', 'scripts/schemas.test.ts'],
     testTimeout: 30_000,
     hookTimeout: 30_000,
   },

@@ -29,7 +29,7 @@ import type {
 import { STATUS_REASON_MAX, toReferralView, type ReferralRecord } from './referralSummary';
 import { buildStagingDraft } from './stagingDraft';
 import { checkStaging } from './stagingCheck';
-import type { SavedStagingReport, StagingStatus } from './types';
+import type { Dictation, DictationMode, SavedStagingReport, StagingStatus, TermCheck } from './types';
 
 // Story 31–33 check, re-exported so screens can run it on a report they hold.
 export { checkStaging } from './stagingCheck';
@@ -637,4 +637,23 @@ export function getSavedStagingReports(): Promise<SavedStagingReport[]> {
 
 export function getCountyGap(): Promise<CountyGap> {
   return viaConvex('getCountyGap', () => convex.getCountyGap(), mockGetCountyGap);
+}
+
+/**
+ * Dictation needs the live backend (Gemini); there is no mock transcript. The audio is sent once and not stored.
+ * Not via viaConvex: a failure must reach the UI as an error, not fall back to made-up text.
+ */
+export function transcribeDictation(audioBase64: string, mimeType: string, mode: DictationMode): Promise<Dictation> {
+  if (backend() === 'mock') return Promise.reject(new Error('Dictation needs the live backend'));
+  return convex.transcribeDictation(audioBase64, mimeType, mode);
+}
+
+/** MedGemma medicine check on the cleaned note. Any failure: no flags (the note stays as Gemini wrote it). */
+export async function checkMedicineTerms(note: string): Promise<TermCheck | undefined> {
+  if (backend() === 'mock') return undefined;
+  try {
+    return await convex.checkMedicineTerms(note);
+  } catch {
+    return undefined;
+  }
 }
