@@ -3124,3 +3124,17 @@ img.mark {
   .login-form { width: calc(100% - 32px); padding: 24px 0; }
   .login-brand { padding: 24px 16px; }
 }
+
+/* County: GP rules (Michal, 15 Nov). 32px page title, 24px panels and gaps, figures stack on phones. */
+.county-head h1 { font-size: var(--fs-2); line-height: 1.2; }
+.county .two { gap: 24px; }
+.county .panel, .county .next { padding: 24px; }
+.county .fact { grid-template-columns: 170px minmax(0, 1fr); }
+.bars-after { margin-top: 8px; }
+.bars-apart { margin-top: 32px; }
+@media (max-width: 720px) {
+  .county .fact { grid-template-columns: minmax(0, 1fr); }
+  .county .panel, .county .next { padding: 24px 16px; }
+  .county .bar-row { grid-template-columns: minmax(0, 1fr); gap: 4px; }
+  .county .bar-row:has(.bar-target) .bar-track { margin-top: 24px; }
+}

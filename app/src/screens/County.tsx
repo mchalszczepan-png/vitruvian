@@ -125,7 +125,7 @@ export function County() {
             {['lung-days-total', 'lung-days-primary-care', 'route-gap-lymphoma'].map((id) => {
               const f = fig(id);
               return (
-                <div className="fact" key={f.id} style={{ gridTemplateColumns: '170px minmax(0,1fr)' }}>
+                <div className="fact" key={f.id}>
                   <span className="v">{f.value}</span>
                   <div>
                     <b className="study">
@@ -137,7 +137,7 @@ export function County() {
               );
             })}
           </div>
-          <div className="bars" style={{ marginTop: 8 }}>
+          <div className="bars bars-after">
             <Bar label={t('Primary healthcare route')} value={127} max={140} display={t('{n} days', { n: 127 })} tone="hi" />
             <Bar label={t('Private or occupational route')} value={76} max={140} display={t('{n} days', { n: 76 })} tone="lo" />
           </div>
@@ -151,7 +151,7 @@ export function County() {
             <Bar label={t('Pirkanmaa, clinical notifications, 2024')} value={80} max={100} display="80%" tone="hi" />
           </div>
           <Source source={fig('notifications-pirkanmaa').source} prefix={t('Pirkanmaa, wellbeing services county')} />
-          <div className="bars" style={{ marginTop: 32 }}>
+          <div className="bars bars-apart">
             <Bar label={t('Finland, spread data recorded, solid cancers, 2024')} value={41.9} max={100} display="41.9%" target={{ at: 90, label: t('90% coverage target') }} />
           </div>
           <More className="evidence">{fig('stage-recorded-national').detail}</More>
