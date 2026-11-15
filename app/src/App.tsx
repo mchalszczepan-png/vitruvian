@@ -63,7 +63,7 @@ export default function App() {
           </header>
           <main className="main">
             {patients.length > 0 && view === 'gp' && <GpWorkspace patients={patients} patientId={patientId} onPatient={setPatientId} />}
-            {view === 'desk' && <ReferralDesk patients={patients} />}
+            {view === 'desk' && <ReferralDesk patients={patients} onGoGp={() => go('gp')} />}
             {view === 'specialist' && <Specialist patients={patients} />}
             {view === 'county' && <County />}
           </main>

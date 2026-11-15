@@ -3,6 +3,7 @@ import { checkStaging, getDemoStaging, getReferrals, getSavedStagingReports, get
 import type { CancerType, Patient, ReferralView, SavedStagingReport, StagingField, StagingReport, StagingTemplate } from '../data/types';
 import { FieldInput } from '../components/FieldInput';
 import { Icon } from '../components/Icon';
+import { ReferralSummary } from '../components/ReferralSummary';
 import { Source } from '../components/Source';
 import { cancerName, fmtDate } from '../components/labels';
 import { getLang, tr, useT } from '../components/lang';
@@ -28,7 +29,17 @@ export function Specialist({ patients }: { patients: Patient[] }) {
   const t = useT();
 
   useEffect(() => {
-    getReferrals().then(setRefs).catch(() => setRefs([]));
+    getReferrals()
+      .then((rs) => {
+        setRefs(rs);
+        // Open on Matti's Referral when there is one (the demo patient, SYN-001), not the blank demo draft.
+        const matti = rs.find((r) => r.patientId === 'SYN-001');
+        if (matti) {
+          setCancer(matti.cancer);
+          setReferralId(matti.id);
+        }
+      })
+      .catch(() => setRefs([]));
     getSavedStagingReports().then(setSaved).catch(() => setSaved([]));
   }, []);
 
@@ -82,6 +93,8 @@ export function Specialist({ patients }: { patients: Patient[] }) {
   const tnmFields = tpl.fields.filter((f) => f.group === 'tnm');
   const name = (r: { patientId?: string }) => patients.find((p) => p.id === r.patientId)?.name;
   const mine = refs.filter((r) => r.cancer === cancer);
+  const picked = refs.find((r) => r.id === referralId);
+  const pickedPatient = patients.find((p) => p.id === picked?.patientId);
 
   const save = async () => {
     setBusy(true);
@@ -130,6 +143,8 @@ export function Specialist({ patients }: { patients: Patient[] }) {
           <Source source={tpl.source} short />
         </div>
       </header>
+
+      {picked && pickedPatient && <ReferralSummary referral={picked} patient={pickedPatient} />}
 
       <section>
         <h2>{figo ? t('FIGO stage') : t('TNM and stage group')}</h2>

@@ -113,7 +113,7 @@ export function ReferralDesk({ patients, focusId, onGoGp }: { patients: Patient[
               <span className="v">{cancerName[open.cancer]}</span>
             </div>
             <div>
-              <span className="l">{t('Severity')}</span>
+              <span className="l">{t('5-year survival')}</span>
               <span className="v">{open.severity.fiveYearSurvivalPct === null ? t('Pending') : `${open.severity.fiveYearSurvivalPct}%`}</span>
               <Source source={open.severity.source} short />
             </div>
