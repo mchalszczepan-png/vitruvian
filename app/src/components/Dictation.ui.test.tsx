@@ -104,3 +104,42 @@ describe('medicine check flags', () => {
     expect(applyFlag('no such span', flag)).toBe('no such span');
   });
 });
+
+describe('sample dictation (Matti only)', () => {
+  it('only Matti has a sample, and the control renders with its honest label', async () => {
+    const { SAMPLE_DICTATIONS } = await import('../data/samples');
+    const { sampleDictationFor } = await import('../data/dictation');
+    expect(sampleDictationFor('SYN-002', SAMPLE_DICTATIONS)).toBeUndefined();
+    const s = sampleDictationFor('SYN-001', SAMPLE_DICTATIONS)!;
+    expect(s.result.language).toBe('fi');
+    expect(s.check.model).toBe('google/medgemma-27b-text-it');
+    const html = renderToStaticMarkup(<Dictation text="" onText={() => {}} initialMode="dictate" sample={s} />);
+    expect(html).toContain('Play sample dictation');
+    expect(html).toContain('Sample dictation, result pre-computed with Gemini');
+    expect(renderToStaticMarkup(<Dictation text="" onText={() => {}} initialMode="dictate" />)).not.toContain('Play sample dictation');
+  });
+
+  it('shows the cached note and translation at once, with no network call', async () => {
+    const { SAMPLE_DICTATIONS } = await import('../data/samples');
+    const { applySample } = await import('../data/dictation');
+    const calls: unknown[] = [];
+    const realFetch = globalThis.fetch;
+    globalThis.fetch = ((...a: unknown[]) => {
+      calls.push(a);
+      return Promise.reject(new Error('no network in this test'));
+    }) as typeof fetch;
+    try {
+      const s = SAMPLE_DICTATIONS[0];
+      const r = applySample('Typed.', s);
+      expect(r.text).toBe(`Typed.\n\n${s.result.note}`);
+      expect(r.english).toBe(s.result.english);
+      expect(r.text).toMatch(/10 viikkoa/);
+      expect(r.text).toMatch(/verta/);
+      expect(r.text).toMatch(/4 kiloa/);
+      expect(r.text).toMatch(/30 askivuotta/);
+    } finally {
+      globalThis.fetch = realFetch;
+    }
+    expect(calls).toHaveLength(0);
+  });
+});

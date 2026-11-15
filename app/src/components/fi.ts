@@ -178,6 +178,8 @@ const FI_DICTATION: Record<string, string> = {
   'Did you mean {s}?': 'Tarkoititko {s}?',
   Accept: 'Hyväksy',
   Ignore: 'Ohita',
+  'Play sample dictation': 'Toista esimerkkisanelu',
+  'Sample dictation, result pre-computed with Gemini': 'Esimerkkisanelu, tulos laskettu etukäteen Geminillä',
   'This browser cannot record. Type the note instead.': 'Tämä selain ei voi tallentaa. Kirjoita merkintä.',
   'No microphone access. Type the note instead.': 'Ei mikrofonin käyttöoikeutta. Kirjoita merkintä.',
   'Nothing was recorded. Try again or type the note.': 'Mitään ei tallentunut. Yritä uudelleen tai kirjoita merkintä.',

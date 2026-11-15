@@ -4,7 +4,7 @@
 // Research prototype. Not a medical device. Not for clinical use.
 import { useEffect, useRef, useState } from 'react';
 import { checkMedicineTerms, transcribeDictation } from '../data/api';
-import { applyFlag, canRecord, insertDictation, loadMode, MAX_RECORDING_MS, openFlags, pickMimeType, saveMode } from '../data/dictation';
+import { applyFlag, applySample, canRecord, insertDictation, loadMode, MAX_RECORDING_MS, openFlags, pickMimeType, saveMode, type SampleDictation } from '../data/dictation';
 import type { DictationMode, TermCheck } from '../data/types';
 import { Icon } from './Icon';
 import { useT } from './lang';
@@ -33,7 +33,18 @@ const clock = (ms: number) => {
   return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
 };
 
-export function Dictation({ text, onText, initialMode }: { text: string; onText: (text: string) => void; initialMode?: DictationMode }) {
+export function Dictation({
+  text,
+  onText,
+  initialMode,
+  sample,
+}: {
+  text: string;
+  onText: (text: string) => void;
+  initialMode?: DictationMode;
+  /** a pre-computed sample (Matti only): plays the audio and shows the saved result at once */
+  sample?: SampleDictation;
+}) {
   const t = useT();
   const [mode, setMode] = useState<DictationMode>(() => initialMode ?? loadMode(storage()));
   const [consent, setConsent] = useState(false);
@@ -142,6 +153,20 @@ export function Dictation({ text, onText, initialMode }: { text: string; onText:
     }
   }
 
+  function playSample(sm: SampleDictation) {
+    setError('');
+    setAnswered([]);
+    try {
+      void new Audio(sm.audioUrl).play().catch(() => {});
+    } catch {
+      /* no audio: the text still shows */
+    }
+    const r = applySample(text, sm);
+    onText(r.text);
+    setEnglish(r.english);
+    setCheck(r.check);
+  }
+
   const allowed = canRecord(mode, consent);
   const busy = phase === 'starting' || phase === 'cleaning';
   const flags = check ? openFlags(text, check.flags, answered) : [];
@@ -172,6 +197,11 @@ export function Dictation({ text, onText, initialMode }: { text: string; onText:
             </button>
           ))}
         </div>
+        {sample && (
+          <button type="button" className="btn small dict-sample" disabled={phase !== 'idle'} onClick={() => playSample(sample)}>
+            <Icon name="play" /> {t('Play sample dictation')}
+          </button>
+        )}
         {mode === 'visit' && (
           <label className="dict-consent">
             <input type="checkbox" checked={consent} disabled={phase !== 'idle'} onChange={(e) => setConsent(e.target.checked)} />{' '}
@@ -185,6 +215,7 @@ export function Dictation({ text, onText, initialMode }: { text: string; onText:
           : error ||
             (mode === 'visit' ? t('Visit note drafted by Gemini from the recording. Check before saving.') : t('Dictation by Gemini. Check before saving.'))}
       </small>
+      {sample && <small className="dict-note">{t('Sample dictation, result pre-computed with Gemini')}</small>}
       {english && (
         <details className="dict-en">
           <summary>{t('English translation (Gemini), check before use')}</summary>
