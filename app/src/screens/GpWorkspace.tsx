@@ -191,9 +191,18 @@ export function GpWorkspace({ patients, patientId, onPatient, onPatientSaved }: 
   const earlier = [...patient.visits].slice(0, -1).reverse();
   const q = query.trim().toLowerCase();
   const shown = q ? patients.filter((p) => `${p.name} ${p.id} ${p.visits.at(-1)?.reason ?? ''}`.toLowerCase().includes(q)) : patients;
+  // The patient list folds away with the menu button. Open on wide screens; under 900px it opens over the note.
+  const narrow = () => window.matchMedia('(max-width: 900px)').matches;
+  const [listOpen, setListOpen] = useState(() => !narrow());
+  const pick = (id: string) => {
+    onPatient(id);
+    if (narrow()) setListOpen(false);
+  };
   return (
-    <div className="nf">
+    <div className={`nf${listOpen ? '' : ' nf-list-shut'}`}>
+      {listOpen && <button className="nf-list-scrim" type="button" aria-label={t('Close the patient list')} onClick={() => setListOpen(false)} />}
       <SearchList
+        id="nf-patients"
         label={t("Today's patients")}
         placeholder={t('Search patients')}
         searchLabel={t('Search patients')}
@@ -207,7 +216,7 @@ export function GpWorkspace({ patients, patientId, onPatient, onPatientSaved }: 
           </span>
         </button>
         {shown.map((p) => (
-          <button key={p.id} aria-current={p.id === patient.id} onClick={() => onPatient(p.id)}>
+          <button key={p.id} aria-current={p.id === patient.id} onClick={() => pick(p.id)}>
             <span>{p.name}</span>
             <small>{p.visits.at(-1)?.reason}</small>
           </button>
@@ -215,6 +224,18 @@ export function GpWorkspace({ patients, patientId, onPatient, onPatientSaved }: 
       </SearchList>
 
       <section className="nf-main" aria-label={t("Today's visit")}>
+        <div className="nf-who-row">
+          <button
+            type="button"
+            className="btn small nf-menu"
+            aria-expanded={listOpen}
+            aria-controls="nf-patients"
+            aria-label={t(listOpen ? 'Hide the patient list' : 'Show the patient list')}
+            title={t(listOpen ? 'Hide the patient list' : 'Show the patient list')}
+            onClick={() => setListOpen(!listOpen)}
+          >
+            <Icon name="menu" size={16} />
+          </button>
         <table className="nf-who">
           <thead>
             <tr>
@@ -235,6 +256,7 @@ export function GpWorkspace({ patients, patientId, onPatient, onPatientSaved }: 
             </tr>
           </tbody>
         </table>
+        </div>
 
         <button className="btn small nf-add" type="button" disabled={hasBlank} onClick={addNote}>
           <Icon name="plus" size={16} /> {t('Add note')}

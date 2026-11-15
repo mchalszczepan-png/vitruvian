@@ -11,6 +11,7 @@ export function SearchList({
   onQuery,
   empty,
   children,
+  id,
 }: {
   label: string;
   placeholder: string;
@@ -20,9 +21,10 @@ export function SearchList({
   /** shown when nothing matches the search */
   empty?: string;
   children: ReactNode;
+  id?: string;
 }) {
   return (
-    <nav className="nf-list" aria-label={label}>
+    <nav className="nf-list" id={id} aria-label={label}>
       <div className="nf-search-wrap">
         <Icon name="search" size={16} />
         <input type="search" className="nf-search" placeholder={placeholder} aria-label={searchLabel} value={query} onChange={(e) => onQuery(e.target.value)} />
