@@ -7,6 +7,7 @@ import { More } from '../components/More';
 import { FoldedNote, NoteText } from '../components/NoteText';
 import { continueList } from '../components/noteList';
 import { Dictation } from '../components/Dictation';
+import { SearchList } from '../components/SearchList';
 import { sampleDictationFor } from '../data/dictation';
 import { SAMPLE_DICTATIONS } from '../data/samples';
 import { Source } from '../components/Source';
@@ -177,26 +178,21 @@ export function GpWorkspace({ patients, patientId, onPatient }: Props) {
   const shown = q ? patients.filter((p) => `${p.name} ${p.id} ${p.visits.at(-1)?.reason ?? ''}`.toLowerCase().includes(q)) : patients;
   return (
     <div className="nf">
-      <nav className="nf-list" aria-label={t("Today's patients")}>
-        <div className="nf-search-wrap">
-          <Icon name="search" size={16} />
-          <input
-            type="search"
-            className="nf-search"
-            placeholder={t('Search patients')}
-            aria-label={t('Search patients')}
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-          />
-        </div>
-        {shown.length === 0 && <p className="nf-list-none">{t('No patient matches.')}</p>}
+      <SearchList
+        label={t("Today's patients")}
+        placeholder={t('Search patients')}
+        searchLabel={t('Search patients')}
+        query={query}
+        onQuery={setQuery}
+        empty={shown.length === 0 ? t('No patient matches.') : undefined}
+      >
         {shown.map((p) => (
           <button key={p.id} aria-current={p.id === patient.id} onClick={() => onPatient(p.id)}>
             <span>{p.name}</span>
             <small>{p.visits.at(-1)?.reason}</small>
           </button>
         ))}
-      </nav>
+      </SearchList>
 
       <section className="nf-main" aria-label={t("Today's visit")}>
         <table className="nf-who">

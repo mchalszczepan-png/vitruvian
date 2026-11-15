@@ -980,8 +980,9 @@ textarea.input {
   gap: 8px;
 }
 .doc-head h1 {
-  font-size: var(--fs-3);
-  line-height: 1.05;
+  /* 32px like the GP card's key figure; the GP screen has no 48px heading */
+  font-size: var(--fs-2);
+  line-height: 1.2;
 }
 .doc-head .meta {
   display: flex;
@@ -3071,4 +3072,40 @@ img.mark {
 .dict-flag-act {
   display: inline-flex;
   gap: 6px;
+}
+
+/* Referral desk uses the GP patient list (SearchList), so the two screens match */
+.split.desk {
+  grid-template-columns: clamp(220px, 18vw, 280px) minmax(0, 1fr);
+}
+.desk-row-name {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+/* The GP hides its list below 1100px; the desk keeps it, since it is the only way to switch Referrals. */
+@media (max-width: 1100px) {
+  .split.desk .nf-list {
+    display: block;
+  }
+}
+@media (max-width: 720px) {
+  .split.desk {
+    grid-template-columns: minmax(0, 1fr);
+    height: auto;
+  }
+  .split.desk .nf-list {
+    overflow: visible;
+  }
+  .split.desk .doc {
+    overflow: visible;
+  }
+  .rsum-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+  }
+  .summary-strip {
+    gap: 16px;
+  }
 }
