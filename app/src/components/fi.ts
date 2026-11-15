@@ -50,6 +50,8 @@ const FI_SHARED: Record<string, string> = {
   'Add note': 'Lisää merkintä',
   'Note {n}': 'Merkintä {n}',
   'Fold note': 'Pienennä merkintä',
+  'Delete note': 'Poista merkintä',
+  'Delete note?': 'Poistetaanko merkintä?',
   'Empty note': 'Tyhjä merkintä',
   'opens in new tab': 'avautuu uuteen välilehteen',
 
