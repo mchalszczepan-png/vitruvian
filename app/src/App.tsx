@@ -30,6 +30,10 @@ export default function App() {
     addEventListener('hashchange', onHash);
     return () => removeEventListener('hashchange', onHash);
   }, []);
+  const savePatient = (p: Patient) => {
+    setPatients((ps) => (ps.some((x) => x.id === p.id) ? ps.map((x) => (x.id === p.id ? p : x)) : [...ps, p]));
+    setPatientId(p.id);
+  };
   const go = (v: View) => {
     location.hash = v === 'login' ? '' : v;
     setView(v);
@@ -62,7 +66,7 @@ export default function App() {
             </button>
           </header>
           <main className="main">
-            {patients.length > 0 && view === 'gp' && <GpWorkspace patients={patients} patientId={patientId} onPatient={setPatientId} />}
+            {patients.length > 0 && view === 'gp' && <GpWorkspace patients={patients} patientId={patientId} onPatient={setPatientId} onPatientSaved={savePatient} />}
             {view === 'desk' && <ReferralDesk patients={patients} onGoGp={() => go('gp')} />}
             {view === 'specialist' && <Specialist patients={patients} />}
             {view === 'county' && <County />}

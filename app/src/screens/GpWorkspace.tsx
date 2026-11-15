@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
-import { MOCK_NOTICE, fillTemplateFromNote, getAid, getReferralTemplate, getReferrals, repeatVisit, sendReferral } from '../data/api';
-import type { AidResult, TechUsed, FieldValues, GpDecision, Patient, Referral, ReferralTemplate, ReferralView } from '../data/types';
+import { MOCK_NOTICE, fillTemplateFromNote, getAid, getReferralTemplate, getReferrals, repeatVisit, sendReferral, addPatient, editVisit } from '../data/api';
+import type { AidResult, TechUsed, FieldValues, GpDecision, NewPatient, Patient, Referral, ReferralTemplate, ReferralView, Visit } from '../data/types';
 import { FieldInput } from '../components/FieldInput';
 import { Icon, Mark } from '../components/Icon';
 import { More } from '../components/More';
@@ -66,10 +66,12 @@ interface Props {
   patients: Patient[];
   patientId: string;
   onPatient: (id: string) => void;
+  /** A patient was added or changed: App swaps it into the list and selects it. */
+  onPatientSaved: (p: Patient) => void;
 }
 
 /* Note-first GP screen (Michal, 14 Nov): the note is the main thing; Vitruvian is one small pointer card. */
-export function GpWorkspace({ patients, patientId, onPatient }: Props) {
+export function GpWorkspace({ patients, patientId, onPatient, onPatientSaved }: Props) {
   const t = useT();
   const [drafts, setDrafts] = useState<Record<string, Draft>>({});
   const patient = patients.find((p) => p.id === patientId) ?? patients[0];
@@ -143,6 +145,19 @@ export function GpWorkspace({ patients, patientId, onPatient }: Props) {
     if (!aid.noRuleMatched) setToast({ id, text: t('{name}: {cancer} Rule matched. See the Vitruvian card.', { name, cancer: cancerName[aid.suspectedCancer] }) });
   }
 
+  const [adding, setAdding] = useState(false);
+  // A corrected earlier note: swap in the saved patient, then run the check again if it already ran, so the card follows the record.
+  async function saveEarlier(visitId: string, note: string) {
+    const id = patient.id;
+    const p = await editVisit(id, visitId, note);
+    onPatientSaved(p);
+    if (!draft.aid) return;
+    update(id, { checking: true, fields: undefined });
+    const aid = await getAid(id);
+    const template = await getReferralTemplate(aid.suspectedCancer);
+    update(id, { aid, template, checking: false });
+  }
+
   async function startReferral(urgency: Urgency) {
     const id = patient.id;
     update(id, { sheet: urgency });
@@ -186,6 +201,11 @@ export function GpWorkspace({ patients, patientId, onPatient }: Props) {
         onQuery={setQuery}
         empty={shown.length === 0 ? t('No patient matches.') : undefined}
       >
+        <button className="nf-list-add" type="button" onClick={() => setAdding(true)}>
+          <span>
+            <Icon name="plus" size={16} /> {t('Add patient')}
+          </span>
+        </button>
         {shown.map((p) => (
           <button key={p.id} aria-current={p.id === patient.id} onClick={() => onPatient(p.id)}>
             <span>{p.name}</span>
@@ -325,9 +345,7 @@ export function GpWorkspace({ patients, patientId, onPatient }: Props) {
           })}
           {earlier.map((v) => (
             <li key={v.id} id={`visit-${v.id}`} className={lit.includes(v.id) ? 'lit' : undefined}>
-              <More key={`${patient.id}-${v.id}`} extra={<NoteText className="nf-hist-note" text={v.note} />}>
-                <time className="num">{fmtDate(v.date)}</time> {v.reason}
-              </More>
+              <EarlierVisit key={`${patient.id}-${v.id}`} visit={v} onSave={(note) => saveEarlier(v.id, note)} />
             </li>
           ))}
         </ol>
@@ -352,6 +370,17 @@ export function GpWorkspace({ patients, patientId, onPatient }: Props) {
         >
           <Mark size={16} /> {toast.text}
         </button>
+      )}
+
+      {adding && (
+        <AddPatientSheet
+          onClose={() => setAdding(false)}
+          onAdd={async (np) => {
+            const p = await addPatient(np);
+            onPatientSaved(p);
+            setAdding(false);
+          }}
+        />
       )}
 
       {draft.sheet && draft.aid && (
@@ -692,6 +721,195 @@ function ReferralSheet({
           </button>
         </footer>
       </section>
+    </div>
+  );
+}
+
+/* ---------- An earlier visit: read, or correct its note. A correction keeps the old text in the edit history. ---------- */
+
+function EarlierVisit({ visit: v, onSave }: { visit: Visit; onSave: (note: string) => Promise<void> }) {
+  const t = useT();
+  const [text, setText] = useState<string>();
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState('');
+  const history = v.history ?? [];
+  const edited = history.at(-1);
+
+  if (text !== undefined) {
+    const save = async () => {
+      if (!text.trim() || busy) return;
+      setBusy(true);
+      setError('');
+      try {
+        await onSave(text);
+        setText(undefined);
+      } catch (e) {
+        setError(e instanceof Error ? e.message : t('Could not save the note.'));
+      } finally {
+        setBusy(false);
+      }
+    };
+    return (
+      <form
+        className="nf-note nf-hist-form"
+        onSubmit={(e) => {
+          e.preventDefault();
+          save();
+        }}
+      >
+        <div className="nf-note-head">
+          <label htmlFor={`nf-hist-${v.id}`}>
+            <time className="num">{fmtDate(v.date)}</time> {v.reason}
+          </label>
+        </div>
+        <textarea
+          id={`nf-hist-${v.id}`}
+          // eslint-disable-next-line jsx-a11y/no-autofocus -- opens straight into typing after Edit
+          autoFocus
+          className="input"
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
+              e.preventDefault();
+              save();
+            }
+          }}
+        />
+        {error && (
+          <p className="form-error" role="alert">
+            {error}
+          </p>
+        )}
+        <div className="nf-note-foot">
+          <button className="btn" type="button" onClick={() => setText(undefined)}>
+            {t('Cancel')}
+          </button>
+          <div className="nf-note-save">
+            <button className="btn primary" type="submit" disabled={busy || !text.trim() || text.trim() === v.note}>
+              {t('Save')}
+            </button>
+            <small role="status">{t('The earlier version is kept.')}</small>
+          </div>
+        </div>
+      </form>
+    );
+  }
+
+  return (
+    <More
+      extra={
+        <div className="nf-hist-body">
+          <NoteText className="nf-hist-note" text={v.note} />
+          {history.length > 0 && (
+            <details className="nf-hist-versions">
+              <summary>{t('Earlier versions')}</summary>
+              <ol>
+                {[...history].reverse().map((h) => (
+                  <li key={h.replacedAt}>
+                    <small className="num">{t('Replaced {date}', { date: fmtDate(h.replacedAt.slice(0, 10)) })}</small>
+                    <NoteText className="nf-hist-note" text={h.note} />
+                  </li>
+                ))}
+              </ol>
+            </details>
+          )}
+          <button className="btn small nf-hist-edit" type="button" onClick={() => setText(v.note)}>
+            <Icon name="pencil" size={16} /> {t('Edit')}
+          </button>
+        </div>
+      }
+    >
+      <time className="num">{fmtDate(v.date)}</time> {v.reason}
+      {edited && <span className="nf-hist-edited"> · {t('Edited {date}', { date: fmtDate(edited.replacedAt.slice(0, 10)) })}</span>}
+    </More>
+  );
+}
+
+/* ---------- Add a made-up patient: the fewest fields the record needs, plus today's note. ---------- */
+
+function AddPatientSheet({ onClose, onAdd }: { onClose: () => void; onAdd: (p: NewPatient) => Promise<void> }) {
+  const t = useT();
+  const [p, setP] = useState<NewPatient>({ name: '', age: 50, sex: 'female', county: 'Pirkanmaa', note: '' });
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState('');
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose();
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [onClose]);
+  const ready = p.name.trim() !== '' && p.note.trim() !== '' && Number.isInteger(p.age) && p.age >= 18 && p.age <= 110;
+  const submit = async () => {
+    if (!ready || busy) return;
+    setBusy(true);
+    setError('');
+    try {
+      await onAdd(p);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : t('Could not add the patient.'));
+      setBusy(false);
+    }
+  };
+  return (
+    <div className="nf-sheet-wrap" onClick={onClose}>
+      <form
+        className="nf-sheet"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="np-h"
+        onClick={(e) => e.stopPropagation()}
+        onSubmit={(e) => {
+          e.preventDefault();
+          submit();
+        }}
+      >
+        <header>
+          <h2 id="np-h">{t('Add patient')}</h2>
+          <button className="btn small" type="button" onClick={onClose}>
+            {t('Close')}
+          </button>
+        </header>
+        <div className="nf-sheet-body">
+          <p className="muted">{t('Made-up patients only.')}</p>
+          <div className="fields">
+            <div className="field wide">
+              <label htmlFor="np-name">{t('Name')}</label>
+              {/* eslint-disable-next-line jsx-a11y/no-autofocus -- the sheet opens to type the name */}
+              <input id="np-name" className="input" autoFocus maxLength={80} value={p.name} onChange={(e) => setP({ ...p, name: e.target.value })} />
+            </div>
+            <div className="field">
+              <label htmlFor="np-age">{t('Age')}</label>
+              <input id="np-age" className="input" type="number" min={18} max={110} value={Number.isNaN(p.age) ? '' : p.age} onChange={(e) => setP({ ...p, age: e.target.valueAsNumber })} />
+            </div>
+            <div className="field">
+              <label htmlFor="np-sex">{t('Sex')}</label>
+              <select id="np-sex" className="input" value={p.sex} onChange={(e) => setP({ ...p, sex: e.target.value as NewPatient['sex'] })}>
+                <option value="female">{t('Female')}</option>
+                <option value="male">{t('Male')}</option>
+              </select>
+            </div>
+            <div className="field wide">
+              <label htmlFor="np-county">{t('Wellbeing services county')}</label>
+              <input id="np-county" className="input" maxLength={60} value={p.county} onChange={(e) => setP({ ...p, county: e.target.value })} />
+            </div>
+            <div className="field wide">
+              <label htmlFor="np-note">{t("Today's note")}</label>
+              <textarea id="np-note" className="input" rows={5} placeholder={t('Symptoms, findings, plan')} value={p.note} onChange={(e) => setP({ ...p, note: e.target.value })} />
+            </div>
+          </div>
+          {error && (
+            <p className="form-error" role="alert">
+              {error}
+            </p>
+          )}
+        </div>
+        <footer>
+          <span />
+          <button className="btn primary" type="submit" disabled={!ready || busy}>
+            <Icon name="plus" size={16} /> {t('Add patient')}
+          </button>
+        </footer>
+      </form>
     </div>
   );
 }

@@ -29,7 +29,7 @@ import type {
 import { STATUS_REASON_MAX, toReferralView, type ReferralRecord } from './referralSummary';
 import { buildStagingDraft } from './stagingDraft';
 import { checkStaging } from './stagingCheck';
-import type { Dictation, DictationMode, SavedStagingReport, StagingStatus, TermCheck } from './types';
+import type { Dictation, DictationMode, NewPatient, SavedStagingReport, StagingStatus, TermCheck } from './types';
 
 // Story 31–33 check, re-exported so screens can run it on a report they hold.
 export { checkStaging } from './stagingCheck';
@@ -656,4 +656,32 @@ export async function checkMedicineTerms(note: string): Promise<TermCheck | unde
   } catch {
     return undefined;
   }
+}
+
+/** Add a made-up patient with today's note as the open visit. */
+export function addPatient(p: NewPatient): Promise<Patient> {
+  return viaConvex('addPatient', () => convex.addPatient(p), async () => {
+    const id = `NEW-${Date.now().toString(36).toUpperCase()}`;
+    const reason = p.note.trim().split('\n')[0].slice(0, 60);
+    const made: Patient = {
+      id, name: p.name.trim(), age: p.age, sex: p.sex, smokingStatus: 'unknown', county: p.county.trim() || 'Pirkanmaa',
+      visits: [{ id: `${id}-v1`, date: new Date().toISOString().slice(0, 10), reason, symptom: symptomOf(reason), note: p.note.trim() }],
+    };
+    patients.push(made);
+    return made;
+  });
+}
+
+/** Correct a visit's note. The old text is kept in the visit's history. */
+export function editVisit(patientId: string, visitId: string, note: string): Promise<Patient> {
+  return viaConvex('editVisit', () => convex.editVisit(patientId, visitId, note), async () => {
+    const p = patients.find((x) => x.id === patientId)!;
+    const vi = p.visits.find((x) => x.id === visitId)!;
+    if (vi.note !== note.trim()) {
+      vi.history = [...(vi.history ?? []), { note: vi.note, replacedAt: new Date().toISOString() }];
+      vi.note = note.trim();
+      delete vi.gpNoteFi;
+    }
+    return p;
+  });
 }

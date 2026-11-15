@@ -26,6 +26,8 @@ export interface Visit {
   reasonFi?: string;
   /** Finnish translation of `note`, for display only (the Aid reads English `note`) */
   gpNoteFi?: string;
+  /** earlier versions of `note`, oldest first (a correction keeps the original readable) */
+  history?: { note: string; replacedAt: string }[];
 }
 
 export type SmokingStatus = 'never' | 'former' | 'current' | 'unknown';
@@ -40,6 +42,15 @@ export interface Patient {
   county: string;
   /** oldest first; the last one is today's open visit */
   visits: Visit[];
+}
+
+/** What the GP types to add a made-up patient. */
+export interface NewPatient {
+  name: string;
+  age: number;
+  sex: 'male' | 'female';
+  county: string;
+  note: string;
 }
 
 export interface RepeatVisitFlag {

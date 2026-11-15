@@ -20,6 +20,7 @@ export const visitInputV = v.object({
   note: v.string(),
   reasonFi: v.optional(v.string()),
   gpNoteFi: v.optional(v.string()),
+  history: v.optional(v.array(v.object({ note: v.string(), replacedAt: v.string() }))),
 });
 
 export const patientV = v.object({
