@@ -17,7 +17,7 @@ import type {
   StagingReport,
   StagingTemplate,
 } from './types';
-import type { Dictation, DictationMode, SavedStagingReport, TermCheck } from './types';
+import type { Dictation, DictationMode, NewPatient, SavedStagingReport, TermCheck } from './types';
 
 /** The part of ConvexHttpClient (or convex-test's client) this adapter uses. */
 export type ConvexLike = Pick<ConvexHttpClient, 'query' | 'mutation' | 'action'>;
@@ -59,6 +59,8 @@ const refs = {
   countyGet: query<CountyGap>('county:get'),
   referralsList: query<ReferralView[]>('referrals:list'),
   referralsSend: mutation<Referral>('referrals:send'),
+  patientsAdd: mutation<Patient>('patients:add'),
+  patientsEditVisit: mutation<Patient>('patients:editVisit'),
   referralsSetStatus: mutation<ReferralView>('referrals:setStatus'),
   aidGet: action<AidResult>('aid:get'),
   fillFromNote: action<FieldValues>('fill:fromNote'),
@@ -138,4 +140,12 @@ export async function transcribeDictation(audioBase64: string, mimeType: string,
 
 export async function checkMedicineTerms(note: string): Promise<TermCheck> {
   return client().action(refs.dictationCheckTerms, { note });
+}
+
+export async function addPatient(p: NewPatient): Promise<Patient> {
+  return client().mutation(refs.patientsAdd, { ...p });
+}
+
+export async function editVisit(patientId: string, visitId: string, note: string): Promise<Patient> {
+  return client().mutation(refs.patientsEditVisit, { patientId, visitId, note });
 }

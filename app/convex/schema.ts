@@ -36,6 +36,8 @@ export default defineSchema({
     note: v.string(),
     reasonFi: v.optional(v.string()),
     gpNoteFi: v.optional(v.string()),
+    // Edit history: earlier versions of `note`, oldest first. A correction keeps the original readable.
+    history: v.optional(v.array(v.object({ note: v.string(), replacedAt: v.string() }))),
     embedding: v.optional(v.array(v.float64())),
   })
     .index('by_patient', ['patientId', 'order'])

@@ -24,6 +24,7 @@ export async function readVisits(db: DatabaseReader, patientId: string): Promise
     note: r.note,
     ...(r.reasonFi !== undefined ? { reasonFi: r.reasonFi } : {}),
     ...(r.gpNoteFi !== undefined ? { gpNoteFi: r.gpNoteFi } : {}),
+    ...(r.history !== undefined ? { history: r.history } : {}),
   }));
 }
 

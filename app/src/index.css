@@ -3156,3 +3156,41 @@ img.mark {
   color: var(--muted);
   margin: 0;
 }
+
+/* Add patient: the first row of the patient list */
+.nf-list button.nf-list-add {
+  font-weight: 600;
+  color: var(--wine);
+}
+.nf-list-add span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+/* Earlier visits: correct a note; the edit history stays readable */
+.nf-hist-body {
+  display: grid;
+  gap: 8px;
+  justify-items: start;
+}
+.nf-hist-edited {
+  color: var(--muted);
+}
+.nf-hist-versions summary {
+  cursor: pointer;
+  color: var(--muted);
+}
+.nf-hist-versions ol {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0 0 0 16px;
+  border-left: 1px solid #e3dfdc;
+  display: grid;
+  gap: 8px;
+}
+.nf-hist-versions .nf-hist-note {
+  color: var(--muted);
+}
+.nf-tl .nf-hist-form {
+  width: 100%;
+}
