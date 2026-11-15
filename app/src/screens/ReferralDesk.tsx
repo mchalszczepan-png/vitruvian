@@ -37,8 +37,8 @@ export function ReferralDesk({ patients, focusId, onGoGp }: { patients: Patient[
   if (refs.length === 0) {
     return (
       <div className="empty-state">
-        <Icon name="doc" size={28} />
-        <h2>{t('No Referrals yet')}</h2>
+        <Icon name="doc" size={20} />
+        <h2>{t('No Referrals yet.')}</h2>
         {onGoGp && (
           <button className="btn primary" onClick={onGoGp}>
             {t('Go to the GP view')}
