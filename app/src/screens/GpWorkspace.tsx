@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
-import { MOCK_NOTICE, fillTemplateFromNote, getAid, getReferralTemplate, repeatVisit, sendReferral } from '../data/api';
-import type { AidResult, TechUsed, FieldValues, GpDecision, Patient, Referral, ReferralTemplate } from '../data/types';
+import { MOCK_NOTICE, fillTemplateFromNote, getAid, getReferralTemplate, getReferrals, repeatVisit, sendReferral } from '../data/api';
+import type { AidResult, TechUsed, FieldValues, GpDecision, Patient, Referral, ReferralTemplate, ReferralView } from '../data/types';
 import { FieldInput } from '../components/FieldInput';
 import { Icon, Mark } from '../components/Icon';
 import { More } from '../components/More';
@@ -386,6 +386,18 @@ function Pointer({
   const t = useT();
   const [why, setWhy] = useState(false);
   useEffect(() => setWhy(false), [patient.id]);
+  // What the Referral desk did with this patient's Referral (accepted or returned), so the GP sees it.
+  const [desk, setDesk] = useState<ReferralView>();
+  useEffect(() => {
+    let live = true;
+    setDesk(undefined);
+    getReferrals()
+      .then((rs) => live && setDesk(rs.find((r) => r.patientId === patient.id && r.status !== 'sent')))
+      .catch(() => undefined);
+    return () => {
+      live = false;
+    };
+  }, [patient.id, draft.sent]);
   const aid = draft.aid;
 
   return (
@@ -444,6 +456,15 @@ function Pointer({
           {aid.testNeeded && !draft.sent && (
             <p className="nf-ptr-gate">
               <Icon name="alert" /> {t('{test} needed before a Referral', { test: aid.testNeeded.test })}
+            </p>
+          )}
+
+          {desk && !draft.sent && (
+            <p className="nf-ptr-done" role="status">
+              <Icon name={desk.status === 'accepted' ? 'check' : 'alert'} />{' '}
+              {desk.status === 'accepted'
+                ? t('Accepted by the Referral desk · {date}', { date: fmtDate(desk.statusAt ?? desk.decidedAt) })
+                : t('Returned · {reason} · {date}', { reason: desk.statusReason ?? '', date: fmtDate(desk.statusAt ?? desk.decidedAt) })}
             </p>
           )}
 
