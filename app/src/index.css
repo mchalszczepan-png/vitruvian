@@ -2859,7 +2859,8 @@ img.mark {
   outline-offset: 1px;
 }
 .nf-sheet .field .input,
-.stg .field .input {
+.stg .field .input,
+.login-form .input {
   background: #fff;
   border: 1px solid #e3dfdc;
 }
@@ -3116,3 +3117,10 @@ img.mark {
 .stg .fields { gap: 8px; }
 .stg .stage-result .v { font-size: var(--fs-2); }
 .stg-use { margin-top: 8px; }
+
+/* Login: GP rules (Michal, 15 Nov). Role names in the title font; phone gutter 16px. */
+.login-roles b { font-family: var(--title); font-weight: 600; }
+@media (max-width: 760px) {
+  .login-form { width: calc(100% - 32px); padding: 24px 0; }
+  .login-brand { padding: 24px 16px; }
+}
