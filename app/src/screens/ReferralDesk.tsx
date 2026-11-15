@@ -5,6 +5,7 @@ import { Icon } from '../components/Icon';
 import { ReferralSummary } from '../components/ReferralSummary';
 import { STATUS_REASON_MAX } from '../data/referralSummary';
 import { Source } from '../components/Source';
+import { SearchList } from '../components/SearchList';
 import { cancerName, fmtDate, optionLabel, originLabel } from '../components/labels';
 import { useBi } from '../components/lang';
 
@@ -66,24 +67,21 @@ export function ReferralDesk({ patients, focusId, onGoGp }: { patients: Patient[
     }
   };
   return (
-    <div className="split">
-      <nav className="inbox" aria-label={t('Received Referrals')}>
-        <h2>{t('Referral desk')}</h2>
-        <input
-          type="search"
-          className="input inbox-search"
-          placeholder={t('Search patients')}
-          aria-label={t('Search patients by name')}
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-        />
-        {shown.length === 0 && <p className="inbox-empty">{t('No patient matches “{query}”.', { query })}</p>}
+    <div className="split desk">
+      <SearchList
+        label={t('Received Referrals')}
+        placeholder={t('Search patients')}
+        searchLabel={t('Search patients by name')}
+        query={query}
+        onQuery={setQuery}
+        empty={shown.length === 0 ? t('No patient matches “{query}”.', { query }) : undefined}
+      >
         {shown.map((r) => {
           const p = patients.find((x) => x.id === r.patientId);
           return (
             <button key={r.id} aria-current={r.id === openId} onClick={() => { setOpenId(r.id); setReturning(false); setReason(''); setError(''); }}>
-              <span style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-                <b style={{ fontWeight: 600 }}>{p?.name}</b>
+              <span className="desk-row-name">
+                {p?.name}
                 {r.urgency === 'urgent' && <span className="tag urgent">{t('Urgent')}</span>}
               </span>
               <small>
@@ -92,7 +90,7 @@ export function ReferralDesk({ patients, focusId, onGoGp }: { patients: Patient[
             </button>
           );
         })}
-      </nav>
+      </SearchList>
       {open && patient && (
         <article className="doc" aria-label={t('Referral')}>
           <header className="doc-head">
