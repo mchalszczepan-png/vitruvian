@@ -2979,9 +2979,9 @@ img.mark {
 .dict-modes button {
   border: 0;
   background: #fff;
-  padding: 5px 10px;
+  padding: 6px 12px;
   font: inherit;
-  font-size: 14px;
+  font-size: var(--fs-1);
   color: var(--muted);
   cursor: pointer;
 }
@@ -2995,14 +2995,34 @@ img.mark {
 .nf-note .dict-consent {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  font-size: 14px;
+  gap: 8px;
+  font-size: var(--fs-1);
   font-family: var(--sans);
   font-weight: 400;
 }
 .dict-note {
   font-size: 13px;
   color: var(--muted);
+}
+/* The sample is never live: say so in full-strength text, not hint grey. */
+.dict-sample-note {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-size: var(--fs-1);
+  color: var(--ink);
+}
+.dict-sample-note svg {
+  flex-shrink: 0;
+}
+@media (max-width: 720px) {
+  .dict-modes {
+    order: -1;
+    flex-basis: 100%;
+    width: max-content;
+    flex-grow: 0;
+  }
 }
 .dict-en summary {
   cursor: pointer;
