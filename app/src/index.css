@@ -2364,8 +2364,15 @@ textarea.input {
   .nf {
     grid-template-columns: minmax(0, 1fr) clamp(280px, 34vw, 360px);
   }
+  /* Under 900px the open list slides over the note, with a scrim to close it. */
   .nf-list {
-    display: none;
+    position: absolute;
+    z-index: 15;
+    top: 56px;
+    left: 0;
+    bottom: 0;
+    width: min(300px, 85%);
+    box-shadow: var(--shadow);
   }
 }
 
@@ -3200,4 +3207,54 @@ img.mark {
 }
 .nf-tl .nf-hist-form {
   width: 100%;
+}
+
+/* Menu button: folds the patient list away and back */
+.nf-who-row {
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+  min-width: 0;
+}
+.nf-who-row .nf-who {
+  flex: 1;
+  min-width: 0;
+}
+.nf-who-row .nf-menu {
+  position: relative;
+  z-index: 16;
+  flex: none;
+  align-self: flex-start;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  justify-content: center;
+}
+.nf.nf-list-shut {
+  grid-template-columns: minmax(0, 1fr) clamp(300px, 26vw, 380px);
+}
+.nf.nf-list-shut .nf-list {
+  display: none;
+}
+.nf-list-scrim {
+  display: none;
+  position: absolute;
+  inset: 0;
+  z-index: 14;
+  border: 0;
+  border-radius: var(--r-lg);
+  background: rgb(24 37 33 / 0.25);
+}
+@media (max-width: 900px) {
+  .nf-list-scrim {
+    display: block;
+  }
+  .nf.nf-list-shut {
+    grid-template-columns: minmax(0, 1fr) clamp(280px, 34vw, 360px);
+  }
+}
+@media (max-width: 420px) {
+  .nf.nf-list-shut {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }

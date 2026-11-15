@@ -7,6 +7,7 @@ const paths = {
   down: 'M5 8l5 5 5-5',
   up: 'M5 12l5-5 5 5',
   plus: 'M10 4v12M4 10h12',
+  menu: 'M3 5h14M3 10h14M3 15h14',
   trash: 'M4 6h12M8 6V4h4v2M6 6l1 10h6l1-10',
   search: 'M9 3a6 6 0 1 0 0 12A6 6 0 0 0 9 3Zm4.5 10.5L17 17',
   repeat: 'M4 8a6 6 0 0 1 10.5-3.5L16 6M16 2v4h-4M16 12a6 6 0 0 1-10.5 3.5L4 14m0 4v-4h4',
