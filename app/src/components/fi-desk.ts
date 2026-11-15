@@ -4,7 +4,7 @@ export const FI_DESK: Record<string, string> = {
   New: 'Uusi',
   Accepted: 'Hyväksytty',
   'Returned to the GP': 'Palautettu yleislääkärille',
-  'No Referrals yet': 'Ei vielä lähetteitä',
+  'No Referrals yet.': 'Ei vielä lähetteitä.',
   'Go to the GP view': 'Siirry yleislääkärinäkymään',
   'Could not save the decision.': 'Päätöstä ei voitu tallentaa.',
   'Received Referrals': 'Saapuneet lähetteet',

@@ -1823,7 +1823,7 @@ textarea.input {
 .stg-saved ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
 .stg-saved li { display: grid; grid-template-columns: minmax(0, 14em) 8em 8em auto 1fr; gap: 12px; align-items: center; padding-top: 8px; border-top: 1px solid #e4dfdc; }
 .stg-saved li small { color: var(--muted); justify-self: end; }
-@media (max-width: 720px) { .stg-saved li { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 720px) { .stg-saved li { grid-template-columns: minmax(0, 1fr); gap: 4px; } .stg-saved li small { justify-self: start; } }
 
 /* County gaps: three sourced county comparisons */
 .county-gaps h3 {
@@ -3137,4 +3137,22 @@ img.mark {
   .county .panel, .county .next { padding: 24px 16px; }
   .county .bar-row { grid-template-columns: minmax(0, 1fr); gap: 4px; }
   .county .bar-row:has(.bar-target) .bar-track { margin-top: 24px; }
+}
+
+/* Empty state: a GP-style card with one muted sentence (Michal, 15 Nov) */
+.empty-state {
+  width: min(420px, 100%);
+  margin: 24px auto;
+  padding: 24px;
+  background: var(--card);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow);
+  gap: 16px;
+}
+.empty-state h2 {
+  font-family: var(--sans);
+  font-size: var(--fs-1);
+  font-weight: 400;
+  color: var(--muted);
+  margin: 0;
 }
