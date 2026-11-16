@@ -1,0 +1,4223 @@
+{
+  "label": "prompted-gemma-3-4b-it",
+  "model": "google/gemma-3-4b-it",
+  "base_url": "https://api.featherless.ai/v1",
+  "data": "ml/data/eval.jsonl",
+  "dry_run": false,
+  "started": "2026-11-14T18:11:40",
+  "summary": {
+    "overall": {
+      "records": 25,
+      "field_accuracy": 0.0,
+      "field_accuracy_present": 0.0,
+      "json_valid_rate": 0.0,
+      "schema_valid_rate": 0.0,
+      "format_miss_rate": 0.0,
+      "evidence_grounded_rate": null,
+      "mean_latency_s": 0.4832984670426231,
+      "errors": 25,
+      "prompt_tokens_total": null,
+      "completion_tokens_total": null
+    },
+    "per_field": {
+      "abdominalMass": {
+        "correct": 0,
+        "total": 8,
+        "accuracy": 0.0
+      },
+      "age": {
+        "correct": 0,
+        "total": 25,
+        "accuracy": 0.0
+      },
+      "asbestosExposure": {
+        "correct": 0,
+        "total": 9,
+        "accuracy": 0.0
+      },
+      "ascites": {
+        "correct": 0,
+        "total": 8,
+        "accuracy": 0.0
+      },
+      "bloatingOrDistension": {
+        "correct": 0,
+        "total": 8,
+        "accuracy": 0.0
+      },
+      "bowelHabitChange": {
+        "correct": 0,
+        "total": 8,
+        "accuracy": 0.0
+      },
+      "brcaStatus": {
+        "correct": 0,
+        "total": 8,
+        "accuracy": 0.0
+      },
+      "ca125Date": {
+        "correct": 0,
+        "total": 8,
+        "accuracy": 0.0
+      },
+      "ca125Done": {
+        "correct": 0,
+        "total": 8,
+        "accuracy": 0.0
+      },
+      "ca125ValueIuPerMl": {
+        "correct": 0,
+        "total": 8,
+        "accuracy": 0.0
+      },
+      "chestXrayDate": {
+        "correct": 0,
+        "total": 9,
+        "accuracy": 0.0
+      },
+      "chestXrayFindings": {
+        "correct": 0,
+        "total": 9,
+        "accuracy": 0.0
+      },
+      "chestXrayResult": {
+        "correct": 0,
+        "total": 9,
+        "accuracy": 0.0
+      },
+      "currentMedicines": {
+        "correct": 0,
+        "total": 25,
+        "accuracy": 0.0
+      },
+      "earlySatietyOrAppetiteLoss": {
+        "correct": 0,
+        "total": 8,
+        "accuracy": 0.0
+      },
+      "examFindings": {
+        "correct": 0,
+        "total": 25,
+        "accuracy": 0.0
+      },
+      "familyHistoryBreastOrOvarianCancer": {
+        "correct": 0,
+        "total": 8,
+        "accuracy": 0.0
+      },
+      "fitDone": {
+        "correct": 0,
+        "total": 8,
+        "accuracy": 0.0
+      },
+      "fitValueUgHbPerG": {
+        "correct": 0,
+        "total": 8,
+        "accuracy": 0.0
+      },
+      "generalCondition": {
+        "correct": 0,
+        "total": 25,
+        "accuracy": 0.0
+      },
+      "gpQuestion": {
+        "correct": 0,
+        "total": 25,
+        "accuracy": 0.0
+      },
+      "haemoglobinGPerL": {
+        "correct": 0,
+        "total": 8,
+        "accuracy": 0.0
+      },
+      "haemoptysis": {
+        "correct": 0,
+        "total": 9,
+        "accuracy": 0.0
+      },
+      "ironDeficiencyAnaemia": {
+        "correct": 0,
+        "total": 8,
+        "accuracy": 0.0
+      },
+      "lungSymptoms": {
+        "correct": 0,
+        "total": 9,
+        "accuracy": 0.0
+      },
+      "mainSymptom": {
+        "correct": 0,
+        "total": 25,
+        "accuracy": 0.0
+      },
+      "matchedRuleIds": {
+        "correct": 0,
+        "total": 25,
+        "accuracy": 0.0
+      },
+      "menopausalStatus": {
+        "correct": 0,
+        "total": 8,
+        "accuracy": 0.0
+      },
+      "otherIllnesses": {
+        "correct": 0,
+        "total": 25,
+        "accuracy": 0.0
+      },
+      "packYears": {
+        "correct": 0,
+        "total": 25,
+        "accuracy": 0.0
+      },
+      "palpableMass": {
+        "correct": 0,
+        "total": 8,
+        "accuracy": 0.0
+      },
+      "patientId": {
+        "correct": 0,
+        "total": 25,
+        "accuracy": 0.0
+      },
+      "pelvicOrAbdominalPain": {
+        "correct": 0,
+        "total": 8,
+        "accuracy": 0.0
+      },
+      "pelvicUltrasoundDate": {
+        "correct": 0,
+        "total": 8,
+        "accuracy": 0.0
+      },
+      "pelvicUltrasoundFindings": {
+        "correct": 0,
+        "total": 8,
+        "accuracy": 0.0
+      },
+      "pelvicUltrasoundResult": {
+        "correct": 0,
+        "total": 8,
+        "accuracy": 0.0
+      },
+      "priorCancer": {
+        "correct": 0,
+        "total": 25,
+        "accuracy": 0.0
+      },
+      "rectalBleeding": {
+        "correct": 0,
+        "total": 8,
+        "accuracy": 0.0
+      },
+      "rectalExamResult": {
+        "correct": 0,
+        "total": 8,
+        "accuracy": 0.0
+      },
+      "referralDate": {
+        "correct": 0,
+        "total": 25,
+        "accuracy": 0.0
+      },
+      "referringGpId": {
+        "correct": 0,
+        "total": 25,
+        "accuracy": 0.0
+      },
+      "riskGradientAiEstimate": {
+        "correct": 0,
+        "total": 25,
+        "accuracy": 0.0
+      },
+      "sex": {
+        "correct": 0,
+        "total": 25,
+        "accuracy": 0.0
+      },
+      "smokingStatus": {
+        "correct": 0,
+        "total": 25,
+        "accuracy": 0.0
+      },
+      "suspectedCancerType": {
+        "correct": 0,
+        "total": 25,
+        "accuracy": 0.0
+      },
+      "suspectedDiagnosis": {
+        "correct": 0,
+        "total": 25,
+        "accuracy": 0.0
+      },
+      "symptomDaysPerMonth": {
+        "correct": 0,
+        "total": 8,
+        "accuracy": 0.0
+      },
+      "symptomDurationWeeks": {
+        "correct": 0,
+        "total": 25,
+        "accuracy": 0.0
+      },
+      "symptomVisitCount": {
+        "correct": 0,
+        "total": 25,
+        "accuracy": 0.0
+      },
+      "testsDone": {
+        "correct": 0,
+        "total": 25,
+        "accuracy": 0.0
+      },
+      "urgency": {
+        "correct": 0,
+        "total": 25,
+        "accuracy": 0.0
+      },
+      "urinarySymptoms": {
+        "correct": 0,
+        "total": 8,
+        "accuracy": 0.0
+      },
+      "weightLossKg": {
+        "correct": 0,
+        "total": 25,
+        "accuracy": 0.0
+      }
+    },
+    "per_cancer": {
+      "colorectal": {
+        "records": 8,
+        "field_accuracy": 0.0,
+        "field_accuracy_present": 0.0,
+        "json_valid_rate": 0.0,
+        "schema_valid_rate": 0.0,
+        "format_miss_rate": 0.0,
+        "evidence_grounded_rate": null,
+        "mean_latency_s": 0.4523537375025626,
+        "errors": 8,
+        "prompt_tokens_total": null,
+        "completion_tokens_total": null
+      },
+      "lung": {
+        "records": 9,
+        "field_accuracy": 0.0,
+        "field_accuracy_present": 0.0,
+        "json_valid_rate": 0.0,
+        "schema_valid_rate": 0.0,
+        "format_miss_rate": 0.0,
+        "evidence_grounded_rate": null,
+        "mean_latency_s": 0.6029215050026929,
+        "errors": 9,
+        "prompt_tokens_total": null,
+        "completion_tokens_total": null
+      },
+      "ovarian": {
+        "records": 8,
+        "field_accuracy": 0.0,
+        "field_accuracy_present": 0.0,
+        "json_valid_rate": 0.0,
+        "schema_valid_rate": 0.0,
+        "format_miss_rate": 0.0,
+        "evidence_grounded_rate": null,
+        "mean_latency_s": 0.379667278877605,
+        "errors": 8,
+        "prompt_tokens_total": null,
+        "completion_tokens_total": null
+      }
+    },
+    "per_language": {
+      "en": {
+        "records": 14,
+        "field_accuracy": 0.0,
+        "field_accuracy_present": 0.0,
+        "json_valid_rate": 0.0,
+        "schema_valid_rate": 0.0,
+        "format_miss_rate": 0.0,
+        "evidence_grounded_rate": null,
+        "mean_latency_s": 0.49432515950216577,
+        "errors": 14,
+        "prompt_tokens_total": null,
+        "completion_tokens_total": null
+      },
+      "fi": {
+        "records": 11,
+        "field_accuracy": 0.0,
+        "field_accuracy_present": 0.0,
+        "json_valid_rate": 0.0,
+        "schema_valid_rate": 0.0,
+        "format_miss_rate": 0.0,
+        "evidence_grounded_rate": null,
+        "mean_latency_s": 0.46926449482138693,
+        "errors": 11,
+        "prompt_tokens_total": null,
+        "completion_tokens_total": null
+      }
+    },
+    "per_kind": {
+      "cancer": {
+        "records": 22,
+        "field_accuracy": 0.0,
+        "field_accuracy_present": 0.0,
+        "json_valid_rate": 0.0,
+        "schema_valid_rate": 0.0,
+        "format_miss_rate": 0.0,
+        "evidence_grounded_rate": null,
+        "mean_latency_s": 0.4961186832303859,
+        "errors": 22,
+        "prompt_tokens_total": null,
+        "completion_tokens_total": null
+      },
+      "control": {
+        "records": 3,
+        "field_accuracy": 0.0,
+        "field_accuracy_present": 0.0,
+        "json_valid_rate": 0.0,
+        "schema_valid_rate": 0.0,
+        "format_miss_rate": 0.0,
+        "evidence_grounded_rate": null,
+        "mean_latency_s": 0.3892835483323627,
+        "errors": 3,
+        "prompt_tokens_total": null,
+        "completion_tokens_total": null
+      }
+    }
+  },
+  "records": [
+    {
+      "id": "eval-lung-fi-007",
+      "cancer": "lung",
+      "language": "fi",
+      "kind": "cancer",
+      "json_valid": false,
+      "format_miss": false,
+      "schema_valid": false,
+      "schema_errors": [
+        "no parsable reply"
+      ],
+      "field_scores": {
+        "age": {
+          "correct": false,
+          "present": true
+        },
+        "asbestosExposure": {
+          "correct": false,
+          "present": false
+        },
+        "chestXrayDate": {
+          "correct": false,
+          "present": false
+        },
+        "chestXrayFindings": {
+          "correct": false,
+          "present": false
+        },
+        "chestXrayResult": {
+          "correct": false,
+          "present": true
+        },
+        "currentMedicines": {
+          "correct": false,
+          "present": true
+        },
+        "examFindings": {
+          "correct": false,
+          "present": true
+        },
+        "generalCondition": {
+          "correct": false,
+          "present": true
+        },
+        "gpQuestion": {
+          "correct": false,
+          "present": true
+        },
+        "haemoptysis": {
+          "correct": false,
+          "present": true
+        },
+        "lungSymptoms": {
+          "correct": false,
+          "present": true
+        },
+        "mainSymptom": {
+          "correct": false,
+          "present": true
+        },
+        "matchedRuleIds": {
+          "correct": false,
+          "present": false
+        },
+        "otherIllnesses": {
+          "correct": false,
+          "present": true
+        },
+        "packYears": {
+          "correct": false,
+          "present": false
+        },
+        "patientId": {
+          "correct": false,
+          "present": true
+        },
+        "priorCancer": {
+          "correct": false,
+          "present": false
+        },
+        "referralDate": {
+          "correct": false,
+          "present": true
+        },
+        "referringGpId": {
+          "correct": false,
+          "present": true
+        },
+        "riskGradientAiEstimate": {
+          "correct": false,
+          "present": false
+        },
+        "sex": {
+          "correct": false,
+          "present": true
+        },
+        "smokingStatus": {
+          "correct": false,
+          "present": true
+        },
+        "suspectedCancerType": {
+          "correct": false,
+          "present": true
+        },
+        "suspectedDiagnosis": {
+          "correct": false,
+          "present": true
+        },
+        "symptomDurationWeeks": {
+          "correct": false,
+          "present": true
+        },
+        "symptomVisitCount": {
+          "correct": false,
+          "present": true
+        },
+        "testsDone": {
+          "correct": false,
+          "present": true
+        },
+        "urgency": {
+          "correct": false,
+          "present": true
+        },
+        "weightLossKg": {
+          "correct": false,
+          "present": false
+        }
+      },
+      "evidence_total": 0,
+      "evidence_grounded": 0,
+      "latency_s": 0.7098197199811693,
+      "attempts": 1,
+      "usage": {},
+      "error": "RuntimeError: HTTP 403 from model endpoint",
+      "parse_problem": "",
+      "raw_reply": ""
+    },
+    {
+      "id": "eval-lung-en-005",
+      "cancer": "lung",
+      "language": "en",
+      "kind": "cancer",
+      "json_valid": false,
+      "format_miss": false,
+      "schema_valid": false,
+      "schema_errors": [
+        "no parsable reply"
+      ],
+      "field_scores": {
+        "age": {
+          "correct": false,
+          "present": true
+        },
+        "asbestosExposure": {
+          "correct": false,
+          "present": false
+        },
+        "chestXrayDate": {
+          "correct": false,
+          "present": false
+        },
+        "chestXrayFindings": {
+          "correct": false,
+          "present": false
+        },
+        "chestXrayResult": {
+          "correct": false,
+          "present": true
+        },
+        "currentMedicines": {
+          "correct": false,
+          "present": true
+        },
+        "examFindings": {
+          "correct": false,
+          "present": true
+        },
+        "generalCondition": {
+          "correct": false,
+          "present": true
+        },
+        "gpQuestion": {
+          "correct": false,
+          "present": true
+        },
+        "haemoptysis": {
+          "correct": false,
+          "present": true
+        },
+        "lungSymptoms": {
+          "correct": false,
+          "present": true
+        },
+        "mainSymptom": {
+          "correct": false,
+          "present": true
+        },
+        "matchedRuleIds": {
+          "correct": false,
+          "present": false
+        },
+        "otherIllnesses": {
+          "correct": false,
+          "present": true
+        },
+        "packYears": {
+          "correct": false,
+          "present": true
+        },
+        "patientId": {
+          "correct": false,
+          "present": true
+        },
+        "priorCancer": {
+          "correct": false,
+          "present": false
+        },
+        "referralDate": {
+          "correct": false,
+          "present": true
+        },
+        "referringGpId": {
+          "correct": false,
+          "present": true
+        },
+        "riskGradientAiEstimate": {
+          "correct": false,
+          "present": false
+        },
+        "sex": {
+          "correct": false,
+          "present": true
+        },
+        "smokingStatus": {
+          "correct": false,
+          "present": true
+        },
+        "suspectedCancerType": {
+          "correct": false,
+          "present": true
+        },
+        "suspectedDiagnosis": {
+          "correct": false,
+          "present": true
+        },
+        "symptomDurationWeeks": {
+          "correct": false,
+          "present": true
+        },
+        "symptomVisitCount": {
+          "correct": false,
+          "present": true
+        },
+        "testsDone": {
+          "correct": false,
+          "present": true
+        },
+        "urgency": {
+          "correct": false,
+          "present": true
+        },
+        "weightLossKg": {
+          "correct": false,
+          "present": true
+        }
+      },
+      "evidence_total": 0,
+      "evidence_grounded": 0,
+      "latency_s": 0.6966603040054906,
+      "attempts": 1,
+      "usage": {},
+      "error": "RuntimeError: HTTP 403 from model endpoint",
+      "parse_problem": "",
+      "raw_reply": ""
+    },
+    {
+      "id": "eval-lung-en-006",
+      "cancer": "lung",
+      "language": "en",
+      "kind": "cancer",
+      "json_valid": false,
+      "format_miss": false,
+      "schema_valid": false,
+      "schema_errors": [
+        "no parsable reply"
+      ],
+      "field_scores": {
+        "age": {
+          "correct": false,
+          "present": true
+        },
+        "asbestosExposure": {
+          "correct": false,
+          "present": false
+        },
+        "chestXrayDate": {
+          "correct": false,
+          "present": false
+        },
+        "chestXrayFindings": {
+          "correct": false,
+          "present": false
+        },
+        "chestXrayResult": {
+          "correct": false,
+          "present": true
+        },
+        "currentMedicines": {
+          "correct": false,
+          "present": true
+        },
+        "examFindings": {
+          "correct": false,
+          "present": true
+        },
+        "generalCondition": {
+          "correct": false,
+          "present": true
+        },
+        "gpQuestion": {
+          "correct": false,
+          "present": true
+        },
+        "haemoptysis": {
+          "correct": false,
+          "present": true
+        },
+        "lungSymptoms": {
+          "correct": false,
+          "present": true
+        },
+        "mainSymptom": {
+          "correct": false,
+          "present": true
+        },
+        "matchedRuleIds": {
+          "correct": false,
+          "present": false
+        },
+        "otherIllnesses": {
+          "correct": false,
+          "present": true
+        },
+        "packYears": {
+          "correct": false,
+          "present": false
+        },
+        "patientId": {
+          "correct": false,
+          "present": true
+        },
+        "priorCancer": {
+          "correct": false,
+          "present": false
+        },
+        "referralDate": {
+          "correct": false,
+          "present": true
+        },
+        "referringGpId": {
+          "correct": false,
+          "present": true
+        },
+        "riskGradientAiEstimate": {
+          "correct": false,
+          "present": false
+        },
+        "sex": {
+          "correct": false,
+          "present": true
+        },
+        "smokingStatus": {
+          "correct": false,
+          "present": true
+        },
+        "suspectedCancerType": {
+          "correct": false,
+          "present": true
+        },
+        "suspectedDiagnosis": {
+          "correct": false,
+          "present": true
+        },
+        "symptomDurationWeeks": {
+          "correct": false,
+          "present": true
+        },
+        "symptomVisitCount": {
+          "correct": false,
+          "present": true
+        },
+        "testsDone": {
+          "correct": false,
+          "present": true
+        },
+        "urgency": {
+          "correct": false,
+          "present": true
+        },
+        "weightLossKg": {
+          "correct": false,
+          "present": false
+        }
+      },
+      "evidence_total": 0,
+      "evidence_grounded": 0,
+      "latency_s": 0.7008146590087563,
+      "attempts": 1,
+      "usage": {},
+      "error": "RuntimeError: HTTP 403 from model endpoint",
+      "parse_problem": "",
+      "raw_reply": ""
+    },
+    {
+      "id": "eval-lung-fi-008",
+      "cancer": "lung",
+      "language": "fi",
+      "kind": "cancer",
+      "json_valid": false,
+      "format_miss": false,
+      "schema_valid": false,
+      "schema_errors": [
+        "no parsable reply"
+      ],
+      "field_scores": {
+        "age": {
+          "correct": false,
+          "present": true
+        },
+        "asbestosExposure": {
+          "correct": false,
+          "present": false
+        },
+        "chestXrayDate": {
+          "correct": false,
+          "present": false
+        },
+        "chestXrayFindings": {
+          "correct": false,
+          "present": false
+        },
+        "chestXrayResult": {
+          "correct": false,
+          "present": true
+        },
+        "currentMedicines": {
+          "correct": false,
+          "present": true
+        },
+        "examFindings": {
+          "correct": false,
+          "present": true
+        },
+        "generalCondition": {
+          "correct": false,
+          "present": true
+        },
+        "gpQuestion": {
+          "correct": false,
+          "present": true
+        },
+        "haemoptysis": {
+          "correct": false,
+          "present": true
+        },
+        "lungSymptoms": {
+          "correct": false,
+          "present": true
+        },
+        "mainSymptom": {
+          "correct": false,
+          "present": true
+        },
+        "matchedRuleIds": {
+          "correct": false,
+          "present": false
+        },
+        "otherIllnesses": {
+          "correct": false,
+          "present": true
+        },
+        "packYears": {
+          "correct": false,
+          "present": false
+        },
+        "patientId": {
+          "correct": false,
+          "present": true
+        },
+        "priorCancer": {
+          "correct": false,
+          "present": false
+        },
+        "referralDate": {
+          "correct": false,
+          "present": true
+        },
+        "referringGpId": {
+          "correct": false,
+          "present": true
+        },
+        "riskGradientAiEstimate": {
+          "correct": false,
+          "present": false
+        },
+        "sex": {
+          "correct": false,
+          "present": true
+        },
+        "smokingStatus": {
+          "correct": false,
+          "present": true
+        },
+        "suspectedCancerType": {
+          "correct": false,
+          "present": true
+        },
+        "suspectedDiagnosis": {
+          "correct": false,
+          "present": true
+        },
+        "symptomDurationWeeks": {
+          "correct": false,
+          "present": true
+        },
+        "symptomVisitCount": {
+          "correct": false,
+          "present": true
+        },
+        "testsDone": {
+          "correct": false,
+          "present": true
+        },
+        "urgency": {
+          "correct": false,
+          "present": true
+        },
+        "weightLossKg": {
+          "correct": false,
+          "present": false
+        }
+      },
+      "evidence_total": 0,
+      "evidence_grounded": 0,
+      "latency_s": 0.6940200969984289,
+      "attempts": 1,
+      "usage": {},
+      "error": "RuntimeError: HTTP 403 from model endpoint",
+      "parse_problem": "",
+      "raw_reply": ""
+    },
+    {
+      "id": "eval-lung-en-003",
+      "cancer": "lung",
+      "language": "en",
+      "kind": "cancer",
+      "json_valid": false,
+      "format_miss": false,
+      "schema_valid": false,
+      "schema_errors": [
+        "no parsable reply"
+      ],
+      "field_scores": {
+        "age": {
+          "correct": false,
+          "present": true
+        },
+        "asbestosExposure": {
+          "correct": false,
+          "present": true
+        },
+        "chestXrayDate": {
+          "correct": false,
+          "present": true
+        },
+        "chestXrayFindings": {
+          "correct": false,
+          "present": true
+        },
+        "chestXrayResult": {
+          "correct": false,
+          "present": true
+        },
+        "currentMedicines": {
+          "correct": false,
+          "present": true
+        },
+        "examFindings": {
+          "correct": false,
+          "present": true
+        },
+        "generalCondition": {
+          "correct": false,
+          "present": true
+        },
+        "gpQuestion": {
+          "correct": false,
+          "present": true
+        },
+        "haemoptysis": {
+          "correct": false,
+          "present": true
+        },
+        "lungSymptoms": {
+          "correct": false,
+          "present": true
+        },
+        "mainSymptom": {
+          "correct": false,
+          "present": true
+        },
+        "matchedRuleIds": {
+          "correct": false,
+          "present": false
+        },
+        "otherIllnesses": {
+          "correct": false,
+          "present": true
+        },
+        "packYears": {
+          "correct": false,
+          "present": false
+        },
+        "patientId": {
+          "correct": false,
+          "present": true
+        },
+        "priorCancer": {
+          "correct": false,
+          "present": false
+        },
+        "referralDate": {
+          "correct": false,
+          "present": true
+        },
+        "referringGpId": {
+          "correct": false,
+          "present": true
+        },
+        "riskGradientAiEstimate": {
+          "correct": false,
+          "present": false
+        },
+        "sex": {
+          "correct": false,
+          "present": true
+        },
+        "smokingStatus": {
+          "correct": false,
+          "present": true
+        },
+        "suspectedCancerType": {
+          "correct": false,
+          "present": true
+        },
+        "suspectedDiagnosis": {
+          "correct": false,
+          "present": true
+        },
+        "symptomDurationWeeks": {
+          "correct": false,
+          "present": true
+        },
+        "symptomVisitCount": {
+          "correct": false,
+          "present": true
+        },
+        "testsDone": {
+          "correct": false,
+          "present": true
+        },
+        "urgency": {
+          "correct": false,
+          "present": true
+        },
+        "weightLossKg": {
+          "correct": false,
+          "present": false
+        }
+      },
+      "evidence_total": 0,
+      "evidence_grounded": 0,
+      "latency_s": 0.4004406510211993,
+      "attempts": 1,
+      "usage": {},
+      "error": "RuntimeError: HTTP 403 from model endpoint",
+      "parse_problem": "",
+      "raw_reply": ""
+    },
+    {
+      "id": "eval-lung-fi-004",
+      "cancer": "lung",
+      "language": "fi",
+      "kind": "cancer",
+      "json_valid": false,
+      "format_miss": false,
+      "schema_valid": false,
+      "schema_errors": [
+        "no parsable reply"
+      ],
+      "field_scores": {
+        "age": {
+          "correct": false,
+          "present": true
+        },
+        "asbestosExposure": {
+          "correct": false,
+          "present": true
+        },
+        "chestXrayDate": {
+          "correct": false,
+          "present": false
+        },
+        "chestXrayFindings": {
+          "correct": false,
+          "present": true
+        },
+        "chestXrayResult": {
+          "correct": false,
+          "present": true
+        },
+        "currentMedicines": {
+          "correct": false,
+          "present": true
+        },
+        "examFindings": {
+          "correct": false,
+          "present": true
+        },
+        "generalCondition": {
+          "correct": false,
+          "present": true
+        },
+        "gpQuestion": {
+          "correct": false,
+          "present": true
+        },
+        "haemoptysis": {
+          "correct": false,
+          "present": true
+        },
+        "lungSymptoms": {
+          "correct": false,
+          "present": true
+        },
+        "mainSymptom": {
+          "correct": false,
+          "present": true
+        },
+        "matchedRuleIds": {
+          "correct": false,
+          "present": false
+        },
+        "otherIllnesses": {
+          "correct": false,
+          "present": true
+        },
+        "packYears": {
+          "correct": false,
+          "present": false
+        },
+        "patientId": {
+          "correct": false,
+          "present": true
+        },
+        "priorCancer": {
+          "correct": false,
+          "present": false
+        },
+        "referralDate": {
+          "correct": false,
+          "present": true
+        },
+        "referringGpId": {
+          "correct": false,
+          "present": true
+        },
+        "riskGradientAiEstimate": {
+          "correct": false,
+          "present": false
+        },
+        "sex": {
+          "correct": false,
+          "present": true
+        },
+        "smokingStatus": {
+          "correct": false,
+          "present": true
+        },
+        "suspectedCancerType": {
+          "correct": false,
+          "present": true
+        },
+        "suspectedDiagnosis": {
+          "correct": false,
+          "present": true
+        },
+        "symptomDurationWeeks": {
+          "correct": false,
+          "present": true
+        },
+        "symptomVisitCount": {
+          "correct": false,
+          "present": true
+        },
+        "testsDone": {
+          "correct": false,
+          "present": true
+        },
+        "urgency": {
+          "correct": false,
+          "present": true
+        },
+        "weightLossKg": {
+          "correct": false,
+          "present": false
+        }
+      },
+      "evidence_total": 0,
+      "evidence_grounded": 0,
+      "latency_s": 0.40368038599262945,
+      "attempts": 1,
+      "usage": {},
+      "error": "RuntimeError: HTTP 403 from model endpoint",
+      "parse_problem": "",
+      "raw_reply": ""
+    },
+    {
+      "id": "eval-lung-en-001",
+      "cancer": "lung",
+      "language": "en",
+      "kind": "cancer",
+      "json_valid": false,
+      "format_miss": false,
+      "schema_valid": false,
+      "schema_errors": [
+        "no parsable reply"
+      ],
+      "field_scores": {
+        "age": {
+          "correct": false,
+          "present": true
+        },
+        "asbestosExposure": {
+          "correct": false,
+          "present": true
+        },
+        "chestXrayDate": {
+          "correct": false,
+          "present": true
+        },
+        "chestXrayFindings": {
+          "correct": false,
+          "present": true
+        },
+        "chestXrayResult": {
+          "correct": false,
+          "present": true
+        },
+        "currentMedicines": {
+          "correct": false,
+          "present": true
+        },
+        "examFindings": {
+          "correct": false,
+          "present": true
+        },
+        "generalCondition": {
+          "correct": false,
+          "present": true
+        },
+        "gpQuestion": {
+          "correct": false,
+          "present": true
+        },
+        "haemoptysis": {
+          "correct": false,
+          "present": true
+        },
+        "lungSymptoms": {
+          "correct": false,
+          "present": true
+        },
+        "mainSymptom": {
+          "correct": false,
+          "present": true
+        },
+        "matchedRuleIds": {
+          "correct": false,
+          "present": false
+        },
+        "otherIllnesses": {
+          "correct": false,
+          "present": true
+        },
+        "packYears": {
+          "correct": false,
+          "present": true
+        },
+        "patientId": {
+          "correct": false,
+          "present": true
+        },
+        "priorCancer": {
+          "correct": false,
+          "present": false
+        },
+        "referralDate": {
+          "correct": false,
+          "present": true
+        },
+        "referringGpId": {
+          "correct": false,
+          "present": true
+        },
+        "riskGradientAiEstimate": {
+          "correct": false,
+          "present": false
+        },
+        "sex": {
+          "correct": false,
+          "present": true
+        },
+        "smokingStatus": {
+          "correct": false,
+          "present": true
+        },
+        "suspectedCancerType": {
+          "correct": false,
+          "present": true
+        },
+        "suspectedDiagnosis": {
+          "correct": false,
+          "present": true
+        },
+        "symptomDurationWeeks": {
+          "correct": false,
+          "present": true
+        },
+        "symptomVisitCount": {
+          "correct": false,
+          "present": true
+        },
+        "testsDone": {
+          "correct": false,
+          "present": true
+        },
+        "urgency": {
+          "correct": false,
+          "present": true
+        },
+        "weightLossKg": {
+          "correct": false,
+          "present": false
+        }
+      },
+      "evidence_total": 0,
+      "evidence_grounded": 0,
+      "latency_s": 0.7039017479983158,
+      "attempts": 1,
+      "usage": {},
+      "error": "RuntimeError: HTTP 403 from model endpoint",
+      "parse_problem": "",
+      "raw_reply": ""
+    },
+    {
+      "id": "eval-lung-fi-002",
+      "cancer": "lung",
+      "language": "fi",
+      "kind": "cancer",
+      "json_valid": false,
+      "format_miss": false,
+      "schema_valid": false,
+      "schema_errors": [
+        "no parsable reply"
+      ],
+      "field_scores": {
+        "age": {
+          "correct": false,
+          "present": true
+        },
+        "asbestosExposure": {
+          "correct": false,
+          "present": false
+        },
+        "chestXrayDate": {
+          "correct": false,
+          "present": true
+        },
+        "chestXrayFindings": {
+          "correct": false,
+          "present": true
+        },
+        "chestXrayResult": {
+          "correct": false,
+          "present": true
+        },
+        "currentMedicines": {
+          "correct": false,
+          "present": true
+        },
+        "examFindings": {
+          "correct": false,
+          "present": true
+        },
+        "generalCondition": {
+          "correct": false,
+          "present": true
+        },
+        "gpQuestion": {
+          "correct": false,
+          "present": true
+        },
+        "haemoptysis": {
+          "correct": false,
+          "present": true
+        },
+        "lungSymptoms": {
+          "correct": false,
+          "present": true
+        },
+        "mainSymptom": {
+          "correct": false,
+          "present": true
+        },
+        "matchedRuleIds": {
+          "correct": false,
+          "present": false
+        },
+        "otherIllnesses": {
+          "correct": false,
+          "present": true
+        },
+        "packYears": {
+          "correct": false,
+          "present": false
+        },
+        "patientId": {
+          "correct": false,
+          "present": true
+        },
+        "priorCancer": {
+          "correct": false,
+          "present": false
+        },
+        "referralDate": {
+          "correct": false,
+          "present": true
+        },
+        "referringGpId": {
+          "correct": false,
+          "present": true
+        },
+        "riskGradientAiEstimate": {
+          "correct": false,
+          "present": false
+        },
+        "sex": {
+          "correct": false,
+          "present": true
+        },
+        "smokingStatus": {
+          "correct": false,
+          "present": true
+        },
+        "suspectedCancerType": {
+          "correct": false,
+          "present": true
+        },
+        "suspectedDiagnosis": {
+          "correct": false,
+          "present": true
+        },
+        "symptomDurationWeeks": {
+          "correct": false,
+          "present": true
+        },
+        "symptomVisitCount": {
+          "correct": false,
+          "present": true
+        },
+        "testsDone": {
+          "correct": false,
+          "present": true
+        },
+        "urgency": {
+          "correct": false,
+          "present": true
+        },
+        "weightLossKg": {
+          "correct": false,
+          "present": false
+        }
+      },
+      "evidence_total": 0,
+      "evidence_grounded": 0,
+      "latency_s": 0.7235503010160755,
+      "attempts": 1,
+      "usage": {},
+      "error": "RuntimeError: HTTP 403 from model endpoint",
+      "parse_problem": "",
+      "raw_reply": ""
+    },
+    {
+      "id": "eval-colorectal-en-004",
+      "cancer": "colorectal",
+      "language": "en",
+      "kind": "cancer",
+      "json_valid": false,
+      "format_miss": false,
+      "schema_valid": false,
+      "schema_errors": [
+        "no parsable reply"
+      ],
+      "field_scores": {
+        "abdominalMass": {
+          "correct": false,
+          "present": true
+        },
+        "age": {
+          "correct": false,
+          "present": true
+        },
+        "bowelHabitChange": {
+          "correct": false,
+          "present": true
+        },
+        "currentMedicines": {
+          "correct": false,
+          "present": true
+        },
+        "examFindings": {
+          "correct": false,
+          "present": true
+        },
+        "fitDone": {
+          "correct": false,
+          "present": true
+        },
+        "fitValueUgHbPerG": {
+          "correct": false,
+          "present": false
+        },
+        "generalCondition": {
+          "correct": false,
+          "present": true
+        },
+        "gpQuestion": {
+          "correct": false,
+          "present": true
+        },
+        "haemoglobinGPerL": {
+          "correct": false,
+          "present": false
+        },
+        "ironDeficiencyAnaemia": {
+          "correct": false,
+          "present": true
+        },
+        "mainSymptom": {
+          "correct": false,
+          "present": true
+        },
+        "matchedRuleIds": {
+          "correct": false,
+          "present": false
+        },
+        "otherIllnesses": {
+          "correct": false,
+          "present": true
+        },
+        "packYears": {
+          "correct": false,
+          "present": false
+        },
+        "patientId": {
+          "correct": false,
+          "present": true
+        },
+        "priorCancer": {
+          "correct": false,
+          "present": false
+        },
+        "rectalBleeding": {
+          "correct": false,
+          "present": true
+        },
+        "rectalExamResult": {
+          "correct": false,
+          "present": false
+        },
+        "referralDate": {
+          "correct": false,
+          "present": true
+        },
+        "referringGpId": {
+          "correct": false,
+          "present": true
+        },
+        "riskGradientAiEstimate": {
+          "correct": false,
+          "present": false
+        },
+        "sex": {
+          "correct": false,
+          "present": true
+        },
+        "smokingStatus": {
+          "correct": false,
+          "present": true
+        },
+        "suspectedCancerType": {
+          "correct": false,
+          "present": true
+        },
+        "suspectedDiagnosis": {
+          "correct": false,
+          "present": true
+        },
+        "symptomDurationWeeks": {
+          "correct": false,
+          "present": true
+        },
+        "symptomVisitCount": {
+          "correct": false,
+          "present": true
+        },
+        "testsDone": {
+          "correct": false,
+          "present": true
+        },
+        "urgency": {
+          "correct": false,
+          "present": true
+        },
+        "weightLossKg": {
+          "correct": false,
+          "present": false
+        }
+      },
+      "evidence_total": 0,
+      "evidence_grounded": 0,
+      "latency_s": 0.3606547589879483,
+      "attempts": 1,
+      "usage": {},
+      "error": "RuntimeError: HTTP 403 from model endpoint",
+      "parse_problem": "",
+      "raw_reply": ""
+    },
+    {
+      "id": "eval-colorectal-fi-003",
+      "cancer": "colorectal",
+      "language": "fi",
+      "kind": "cancer",
+      "json_valid": false,
+      "format_miss": false,
+      "schema_valid": false,
+      "schema_errors": [
+        "no parsable reply"
+      ],
+      "field_scores": {
+        "abdominalMass": {
+          "correct": false,
+          "present": true
+        },
+        "age": {
+          "correct": false,
+          "present": true
+        },
+        "bowelHabitChange": {
+          "correct": false,
+          "present": true
+        },
+        "currentMedicines": {
+          "correct": false,
+          "present": true
+        },
+        "examFindings": {
+          "correct": false,
+          "present": true
+        },
+        "fitDone": {
+          "correct": false,
+          "present": true
+        },
+        "fitValueUgHbPerG": {
+          "correct": false,
+          "present": true
+        },
+        "generalCondition": {
+          "correct": false,
+          "present": true
+        },
+        "gpQuestion": {
+          "correct": false,
+          "present": true
+        },
+        "haemoglobinGPerL": {
+          "correct": false,
+          "present": false
+        },
+        "ironDeficiencyAnaemia": {
+          "correct": false,
+          "present": true
+        },
+        "mainSymptom": {
+          "correct": false,
+          "present": true
+        },
+        "matchedRuleIds": {
+          "correct": false,
+          "present": false
+        },
+        "otherIllnesses": {
+          "correct": false,
+          "present": true
+        },
+        "packYears": {
+          "correct": false,
+          "present": false
+        },
+        "patientId": {
+          "correct": false,
+          "present": true
+        },
+        "priorCancer": {
+          "correct": false,
+          "present": false
+        },
+        "rectalBleeding": {
+          "correct": false,
+          "present": true
+        },
+        "rectalExamResult": {
+          "correct": false,
+          "present": true
+        },
+        "referralDate": {
+          "correct": false,
+          "present": true
+        },
+        "referringGpId": {
+          "correct": false,
+          "present": true
+        },
+        "riskGradientAiEstimate": {
+          "correct": false,
+          "present": false
+        },
+        "sex": {
+          "correct": false,
+          "present": true
+        },
+        "smokingStatus": {
+          "correct": false,
+          "present": true
+        },
+        "suspectedCancerType": {
+          "correct": false,
+          "present": true
+        },
+        "suspectedDiagnosis": {
+          "correct": false,
+          "present": true
+        },
+        "symptomDurationWeeks": {
+          "correct": false,
+          "present": true
+        },
+        "symptomVisitCount": {
+          "correct": false,
+          "present": true
+        },
+        "testsDone": {
+          "correct": false,
+          "present": true
+        },
+        "urgency": {
+          "correct": false,
+          "present": true
+        },
+        "weightLossKg": {
+          "correct": false,
+          "present": false
+        }
+      },
+      "evidence_total": 0,
+      "evidence_grounded": 0,
+      "latency_s": 0.36235527801909484,
+      "attempts": 1,
+      "usage": {},
+      "error": "RuntimeError: HTTP 403 from model endpoint",
+      "parse_problem": "",
+      "raw_reply": ""
+    },
+    {
+      "id": "eval-lung-ctrl-fi-001",
+      "cancer": "lung",
+      "language": "fi",
+      "kind": "control",
+      "json_valid": false,
+      "format_miss": false,
+      "schema_valid": false,
+      "schema_errors": [
+        "no parsable reply"
+      ],
+      "field_scores": {
+        "age": {
+          "correct": false,
+          "present": true
+        },
+        "asbestosExposure": {
+          "correct": false,
+          "present": false
+        },
+        "chestXrayDate": {
+          "correct": false,
+          "present": false
+        },
+        "chestXrayFindings": {
+          "correct": false,
+          "present": true
+        },
+        "chestXrayResult": {
+          "correct": false,
+          "present": true
+        },
+        "currentMedicines": {
+          "correct": false,
+          "present": true
+        },
+        "examFindings": {
+          "correct": false,
+          "present": true
+        },
+        "generalCondition": {
+          "correct": false,
+          "present": true
+        },
+        "gpQuestion": {
+          "correct": false,
+          "present": true
+        },
+        "haemoptysis": {
+          "correct": false,
+          "present": true
+        },
+        "lungSymptoms": {
+          "correct": false,
+          "present": true
+        },
+        "mainSymptom": {
+          "correct": false,
+          "present": true
+        },
+        "matchedRuleIds": {
+          "correct": false,
+          "present": false
+        },
+        "otherIllnesses": {
+          "correct": false,
+          "present": true
+        },
+        "packYears": {
+          "correct": false,
+          "present": false
+        },
+        "patientId": {
+          "correct": false,
+          "present": true
+        },
+        "priorCancer": {
+          "correct": false,
+          "present": false
+        },
+        "referralDate": {
+          "correct": false,
+          "present": true
+        },
+        "referringGpId": {
+          "correct": false,
+          "present": true
+        },
+        "riskGradientAiEstimate": {
+          "correct": false,
+          "present": false
+        },
+        "sex": {
+          "correct": false,
+          "present": true
+        },
+        "smokingStatus": {
+          "correct": false,
+          "present": true
+        },
+        "suspectedCancerType": {
+          "correct": false,
+          "present": true
+        },
+        "suspectedDiagnosis": {
+          "correct": false,
+          "present": true
+        },
+        "symptomDurationWeeks": {
+          "correct": false,
+          "present": true
+        },
+        "symptomVisitCount": {
+          "correct": false,
+          "present": true
+        },
+        "testsDone": {
+          "correct": false,
+          "present": true
+        },
+        "urgency": {
+          "correct": false,
+          "present": true
+        },
+        "weightLossKg": {
+          "correct": false,
+          "present": false
+        }
+      },
+      "evidence_total": 0,
+      "evidence_grounded": 0,
+      "latency_s": 0.3934056790021714,
+      "attempts": 1,
+      "usage": {},
+      "error": "RuntimeError: HTTP 403 from model endpoint",
+      "parse_problem": "",
+      "raw_reply": ""
+    },
+    {
+      "id": "eval-colorectal-en-002",
+      "cancer": "colorectal",
+      "language": "en",
+      "kind": "cancer",
+      "json_valid": false,
+      "format_miss": false,
+      "schema_valid": false,
+      "schema_errors": [
+        "no parsable reply"
+      ],
+      "field_scores": {
+        "abdominalMass": {
+          "correct": false,
+          "present": true
+        },
+        "age": {
+          "correct": false,
+          "present": true
+        },
+        "bowelHabitChange": {
+          "correct": false,
+          "present": true
+        },
+        "currentMedicines": {
+          "correct": false,
+          "present": true
+        },
+        "examFindings": {
+          "correct": false,
+          "present": true
+        },
+        "fitDone": {
+          "correct": false,
+          "present": true
+        },
+        "fitValueUgHbPerG": {
+          "correct": false,
+          "present": false
+        },
+        "generalCondition": {
+          "correct": false,
+          "present": true
+        },
+        "gpQuestion": {
+          "correct": false,
+          "present": true
+        },
+        "haemoglobinGPerL": {
+          "correct": false,
+          "present": true
+        },
+        "ironDeficiencyAnaemia": {
+          "correct": false,
+          "present": true
+        },
+        "mainSymptom": {
+          "correct": false,
+          "present": true
+        },
+        "matchedRuleIds": {
+          "correct": false,
+          "present": false
+        },
+        "otherIllnesses": {
+          "correct": false,
+          "present": true
+        },
+        "packYears": {
+          "correct": false,
+          "present": false
+        },
+        "patientId": {
+          "correct": false,
+          "present": true
+        },
+        "priorCancer": {
+          "correct": false,
+          "present": false
+        },
+        "rectalBleeding": {
+          "correct": false,
+          "present": true
+        },
+        "rectalExamResult": {
+          "correct": false,
+          "present": true
+        },
+        "referralDate": {
+          "correct": false,
+          "present": true
+        },
+        "referringGpId": {
+          "correct": false,
+          "present": true
+        },
+        "riskGradientAiEstimate": {
+          "correct": false,
+          "present": false
+        },
+        "sex": {
+          "correct": false,
+          "present": true
+        },
+        "smokingStatus": {
+          "correct": false,
+          "present": true
+        },
+        "suspectedCancerType": {
+          "correct": false,
+          "present": true
+        },
+        "suspectedDiagnosis": {
+          "correct": false,
+          "present": true
+        },
+        "symptomDurationWeeks": {
+          "correct": false,
+          "present": true
+        },
+        "symptomVisitCount": {
+          "correct": false,
+          "present": true
+        },
+        "testsDone": {
+          "correct": false,
+          "present": true
+        },
+        "urgency": {
+          "correct": false,
+          "present": true
+        },
+        "weightLossKg": {
+          "correct": false,
+          "present": true
+        }
+      },
+      "evidence_total": 0,
+      "evidence_grounded": 0,
+      "latency_s": 0.3698247990105301,
+      "attempts": 1,
+      "usage": {},
+      "error": "RuntimeError: HTTP 403 from model endpoint",
+      "parse_problem": "",
+      "raw_reply": ""
+    },
+    {
+      "id": "eval-colorectal-en-001",
+      "cancer": "colorectal",
+      "language": "en",
+      "kind": "cancer",
+      "json_valid": false,
+      "format_miss": false,
+      "schema_valid": false,
+      "schema_errors": [
+        "no parsable reply"
+      ],
+      "field_scores": {
+        "abdominalMass": {
+          "correct": false,
+          "present": true
+        },
+        "age": {
+          "correct": false,
+          "present": true
+        },
+        "bowelHabitChange": {
+          "correct": false,
+          "present": true
+        },
+        "currentMedicines": {
+          "correct": false,
+          "present": true
+        },
+        "examFindings": {
+          "correct": false,
+          "present": true
+        },
+        "fitDone": {
+          "correct": false,
+          "present": true
+        },
+        "fitValueUgHbPerG": {
+          "correct": false,
+          "present": false
+        },
+        "generalCondition": {
+          "correct": false,
+          "present": true
+        },
+        "gpQuestion": {
+          "correct": false,
+          "present": true
+        },
+        "haemoglobinGPerL": {
+          "correct": false,
+          "present": true
+        },
+        "ironDeficiencyAnaemia": {
+          "correct": false,
+          "present": true
+        },
+        "mainSymptom": {
+          "correct": false,
+          "present": true
+        },
+        "matchedRuleIds": {
+          "correct": false,
+          "present": false
+        },
+        "otherIllnesses": {
+          "correct": false,
+          "present": true
+        },
+        "packYears": {
+          "correct": false,
+          "present": false
+        },
+        "patientId": {
+          "correct": false,
+          "present": true
+        },
+        "priorCancer": {
+          "correct": false,
+          "present": false
+        },
+        "rectalBleeding": {
+          "correct": false,
+          "present": true
+        },
+        "rectalExamResult": {
+          "correct": false,
+          "present": true
+        },
+        "referralDate": {
+          "correct": false,
+          "present": true
+        },
+        "referringGpId": {
+          "correct": false,
+          "present": true
+        },
+        "riskGradientAiEstimate": {
+          "correct": false,
+          "present": false
+        },
+        "sex": {
+          "correct": false,
+          "present": true
+        },
+        "smokingStatus": {
+          "correct": false,
+          "present": true
+        },
+        "suspectedCancerType": {
+          "correct": false,
+          "present": true
+        },
+        "suspectedDiagnosis": {
+          "correct": false,
+          "present": true
+        },
+        "symptomDurationWeeks": {
+          "correct": false,
+          "present": true
+        },
+        "symptomVisitCount": {
+          "correct": false,
+          "present": true
+        },
+        "testsDone": {
+          "correct": false,
+          "present": true
+        },
+        "urgency": {
+          "correct": false,
+          "present": true
+        },
+        "weightLossKg": {
+          "correct": false,
+          "present": true
+        }
+      },
+      "evidence_total": 0,
+      "evidence_grounded": 0,
+      "latency_s": 0.6733042999985628,
+      "attempts": 1,
+      "usage": {},
+      "error": "RuntimeError: HTTP 403 from model endpoint",
+      "parse_problem": "",
+      "raw_reply": ""
+    },
+    {
+      "id": "eval-colorectal-en-006",
+      "cancer": "colorectal",
+      "language": "en",
+      "kind": "cancer",
+      "json_valid": false,
+      "format_miss": false,
+      "schema_valid": false,
+      "schema_errors": [
+        "no parsable reply"
+      ],
+      "field_scores": {
+        "abdominalMass": {
+          "correct": false,
+          "present": true
+        },
+        "age": {
+          "correct": false,
+          "present": true
+        },
+        "bowelHabitChange": {
+          "correct": false,
+          "present": true
+        },
+        "currentMedicines": {
+          "correct": false,
+          "present": true
+        },
+        "examFindings": {
+          "correct": false,
+          "present": true
+        },
+        "fitDone": {
+          "correct": false,
+          "present": true
+        },
+        "fitValueUgHbPerG": {
+          "correct": false,
+          "present": true
+        },
+        "generalCondition": {
+          "correct": false,
+          "present": true
+        },
+        "gpQuestion": {
+          "correct": false,
+          "present": true
+        },
+        "haemoglobinGPerL": {
+          "correct": false,
+          "present": false
+        },
+        "ironDeficiencyAnaemia": {
+          "correct": false,
+          "present": true
+        },
+        "mainSymptom": {
+          "correct": false,
+          "present": true
+        },
+        "matchedRuleIds": {
+          "correct": false,
+          "present": false
+        },
+        "otherIllnesses": {
+          "correct": false,
+          "present": true
+        },
+        "packYears": {
+          "correct": false,
+          "present": true
+        },
+        "patientId": {
+          "correct": false,
+          "present": true
+        },
+        "priorCancer": {
+          "correct": false,
+          "present": false
+        },
+        "rectalBleeding": {
+          "correct": false,
+          "present": true
+        },
+        "rectalExamResult": {
+          "correct": false,
+          "present": true
+        },
+        "referralDate": {
+          "correct": false,
+          "present": true
+        },
+        "referringGpId": {
+          "correct": false,
+          "present": true
+        },
+        "riskGradientAiEstimate": {
+          "correct": false,
+          "present": false
+        },
+        "sex": {
+          "correct": false,
+          "present": true
+        },
+        "smokingStatus": {
+          "correct": false,
+          "present": true
+        },
+        "suspectedCancerType": {
+          "correct": false,
+          "present": true
+        },
+        "suspectedDiagnosis": {
+          "correct": false,
+          "present": true
+        },
+        "symptomDurationWeeks": {
+          "correct": false,
+          "present": true
+        },
+        "symptomVisitCount": {
+          "correct": false,
+          "present": true
+        },
+        "testsDone": {
+          "correct": false,
+          "present": true
+        },
+        "urgency": {
+          "correct": false,
+          "present": true
+        },
+        "weightLossKg": {
+          "correct": false,
+          "present": true
+        }
+      },
+      "evidence_total": 0,
+      "evidence_grounded": 0,
+      "latency_s": 0.7117679959919769,
+      "attempts": 1,
+      "usage": {},
+      "error": "RuntimeError: HTTP 403 from model endpoint",
+      "parse_problem": "",
+      "raw_reply": ""
+    },
+    {
+      "id": "eval-colorectal-en-005",
+      "cancer": "colorectal",
+      "language": "en",
+      "kind": "cancer",
+      "json_valid": false,
+      "format_miss": false,
+      "schema_valid": false,
+      "schema_errors": [
+        "no parsable reply"
+      ],
+      "field_scores": {
+        "abdominalMass": {
+          "correct": false,
+          "present": true
+        },
+        "age": {
+          "correct": false,
+          "present": true
+        },
+        "bowelHabitChange": {
+          "correct": false,
+          "present": true
+        },
+        "currentMedicines": {
+          "correct": false,
+          "present": true
+        },
+        "examFindings": {
+          "correct": false,
+          "present": true
+        },
+        "fitDone": {
+          "correct": false,
+          "present": true
+        },
+        "fitValueUgHbPerG": {
+          "correct": false,
+          "present": false
+        },
+        "generalCondition": {
+          "correct": false,
+          "present": true
+        },
+        "gpQuestion": {
+          "correct": false,
+          "present": true
+        },
+        "haemoglobinGPerL": {
+          "correct": false,
+          "present": false
+        },
+        "ironDeficiencyAnaemia": {
+          "correct": false,
+          "present": true
+        },
+        "mainSymptom": {
+          "correct": false,
+          "present": true
+        },
+        "matchedRuleIds": {
+          "correct": false,
+          "present": false
+        },
+        "otherIllnesses": {
+          "correct": false,
+          "present": true
+        },
+        "packYears": {
+          "correct": false,
+          "present": false
+        },
+        "patientId": {
+          "correct": false,
+          "present": true
+        },
+        "priorCancer": {
+          "correct": false,
+          "present": false
+        },
+        "rectalBleeding": {
+          "correct": false,
+          "present": true
+        },
+        "rectalExamResult": {
+          "correct": false,
+          "present": true
+        },
+        "referralDate": {
+          "correct": false,
+          "present": true
+        },
+        "referringGpId": {
+          "correct": false,
+          "present": true
+        },
+        "riskGradientAiEstimate": {
+          "correct": false,
+          "present": false
+        },
+        "sex": {
+          "correct": false,
+          "present": true
+        },
+        "smokingStatus": {
+          "correct": false,
+          "present": true
+        },
+        "suspectedCancerType": {
+          "correct": false,
+          "present": true
+        },
+        "suspectedDiagnosis": {
+          "correct": false,
+          "present": true
+        },
+        "symptomDurationWeeks": {
+          "correct": false,
+          "present": true
+        },
+        "symptomVisitCount": {
+          "correct": false,
+          "present": true
+        },
+        "testsDone": {
+          "correct": false,
+          "present": true
+        },
+        "urgency": {
+          "correct": false,
+          "present": true
+        },
+        "weightLossKg": {
+          "correct": false,
+          "present": true
+        }
+      },
+      "evidence_total": 0,
+      "evidence_grounded": 0,
+      "latency_s": 0.38962247100425884,
+      "attempts": 1,
+      "usage": {},
+      "error": "RuntimeError: HTTP 403 from model endpoint",
+      "parse_problem": "",
+      "raw_reply": ""
+    },
+    {
+      "id": "eval-colorectal-en-007",
+      "cancer": "colorectal",
+      "language": "en",
+      "kind": "cancer",
+      "json_valid": false,
+      "format_miss": false,
+      "schema_valid": false,
+      "schema_errors": [
+        "no parsable reply"
+      ],
+      "field_scores": {
+        "abdominalMass": {
+          "correct": false,
+          "present": true
+        },
+        "age": {
+          "correct": false,
+          "present": true
+        },
+        "bowelHabitChange": {
+          "correct": false,
+          "present": true
+        },
+        "currentMedicines": {
+          "correct": false,
+          "present": true
+        },
+        "examFindings": {
+          "correct": false,
+          "present": true
+        },
+        "fitDone": {
+          "correct": false,
+          "present": true
+        },
+        "fitValueUgHbPerG": {
+          "correct": false,
+          "present": false
+        },
+        "generalCondition": {
+          "correct": false,
+          "present": true
+        },
+        "gpQuestion": {
+          "correct": false,
+          "present": true
+        },
+        "haemoglobinGPerL": {
+          "correct": false,
+          "present": true
+        },
+        "ironDeficiencyAnaemia": {
+          "correct": false,
+          "present": true
+        },
+        "mainSymptom": {
+          "correct": false,
+          "present": true
+        },
+        "matchedRuleIds": {
+          "correct": false,
+          "present": false
+        },
+        "otherIllnesses": {
+          "correct": false,
+          "present": true
+        },
+        "packYears": {
+          "correct": false,
+          "present": false
+        },
+        "patientId": {
+          "correct": false,
+          "present": true
+        },
+        "priorCancer": {
+          "correct": false,
+          "present": false
+        },
+        "rectalBleeding": {
+          "correct": false,
+          "present": true
+        },
+        "rectalExamResult": {
+          "correct": false,
+          "present": true
+        },
+        "referralDate": {
+          "correct": false,
+          "present": true
+        },
+        "referringGpId": {
+          "correct": false,
+          "present": true
+        },
+        "riskGradientAiEstimate": {
+          "correct": false,
+          "present": false
+        },
+        "sex": {
+          "correct": false,
+          "present": true
+        },
+        "smokingStatus": {
+          "correct": false,
+          "present": true
+        },
+        "suspectedCancerType": {
+          "correct": false,
+          "present": true
+        },
+        "suspectedDiagnosis": {
+          "correct": false,
+          "present": true
+        },
+        "symptomDurationWeeks": {
+          "correct": false,
+          "present": true
+        },
+        "symptomVisitCount": {
+          "correct": false,
+          "present": true
+        },
+        "testsDone": {
+          "correct": false,
+          "present": true
+        },
+        "urgency": {
+          "correct": false,
+          "present": true
+        },
+        "weightLossKg": {
+          "correct": false,
+          "present": true
+        }
+      },
+      "evidence_total": 0,
+      "evidence_grounded": 0,
+      "latency_s": 0.36888244599686004,
+      "attempts": 1,
+      "usage": {},
+      "error": "RuntimeError: HTTP 403 from model endpoint",
+      "parse_problem": "",
+      "raw_reply": ""
+    },
+    {
+      "id": "eval-colorectal-ctrl-en-001",
+      "cancer": "colorectal",
+      "language": "en",
+      "kind": "control",
+      "json_valid": false,
+      "format_miss": false,
+      "schema_valid": false,
+      "schema_errors": [
+        "no parsable reply"
+      ],
+      "field_scores": {
+        "abdominalMass": {
+          "correct": false,
+          "present": true
+        },
+        "age": {
+          "correct": false,
+          "present": true
+        },
+        "bowelHabitChange": {
+          "correct": false,
+          "present": true
+        },
+        "currentMedicines": {
+          "correct": false,
+          "present": true
+        },
+        "examFindings": {
+          "correct": false,
+          "present": true
+        },
+        "fitDone": {
+          "correct": false,
+          "present": true
+        },
+        "fitValueUgHbPerG": {
+          "correct": false,
+          "present": false
+        },
+        "generalCondition": {
+          "correct": false,
+          "present": true
+        },
+        "gpQuestion": {
+          "correct": false,
+          "present": true
+        },
+        "haemoglobinGPerL": {
+          "correct": false,
+          "present": false
+        },
+        "ironDeficiencyAnaemia": {
+          "correct": false,
+          "present": true
+        },
+        "mainSymptom": {
+          "correct": false,
+          "present": true
+        },
+        "matchedRuleIds": {
+          "correct": false,
+          "present": false
+        },
+        "otherIllnesses": {
+          "correct": false,
+          "present": true
+        },
+        "packYears": {
+          "correct": false,
+          "present": false
+        },
+        "patientId": {
+          "correct": false,
+          "present": true
+        },
+        "priorCancer": {
+          "correct": false,
+          "present": false
+        },
+        "rectalBleeding": {
+          "correct": false,
+          "present": true
+        },
+        "rectalExamResult": {
+          "correct": false,
+          "present": true
+        },
+        "referralDate": {
+          "correct": false,
+          "present": true
+        },
+        "referringGpId": {
+          "correct": false,
+          "present": true
+        },
+        "riskGradientAiEstimate": {
+          "correct": false,
+          "present": false
+        },
+        "sex": {
+          "correct": false,
+          "present": true
+        },
+        "smokingStatus": {
+          "correct": false,
+          "present": true
+        },
+        "suspectedCancerType": {
+          "correct": false,
+          "present": true
+        },
+        "suspectedDiagnosis": {
+          "correct": false,
+          "present": true
+        },
+        "symptomDurationWeeks": {
+          "correct": false,
+          "present": true
+        },
+        "symptomVisitCount": {
+          "correct": false,
+          "present": true
+        },
+        "testsDone": {
+          "correct": false,
+          "present": true
+        },
+        "urgency": {
+          "correct": false,
+          "present": true
+        },
+        "weightLossKg": {
+          "correct": false,
+          "present": false
+        }
+      },
+      "evidence_total": 0,
+      "evidence_grounded": 0,
+      "latency_s": 0.3824178510112688,
+      "attempts": 1,
+      "usage": {},
+      "error": "RuntimeError: HTTP 403 from model endpoint",
+      "parse_problem": "",
+      "raw_reply": ""
+    },
+    {
+      "id": "eval-ovarian-fi-001",
+      "cancer": "ovarian",
+      "language": "fi",
+      "kind": "cancer",
+      "json_valid": false,
+      "format_miss": false,
+      "schema_valid": false,
+      "schema_errors": [
+        "no parsable reply"
+      ],
+      "field_scores": {
+        "age": {
+          "correct": false,
+          "present": true
+        },
+        "ascites": {
+          "correct": false,
+          "present": true
+        },
+        "bloatingOrDistension": {
+          "correct": false,
+          "present": true
+        },
+        "brcaStatus": {
+          "correct": false,
+          "present": true
+        },
+        "ca125Date": {
+          "correct": false,
+          "present": false
+        },
+        "ca125Done": {
+          "correct": false,
+          "present": true
+        },
+        "ca125ValueIuPerMl": {
+          "correct": false,
+          "present": false
+        },
+        "currentMedicines": {
+          "correct": false,
+          "present": true
+        },
+        "earlySatietyOrAppetiteLoss": {
+          "correct": false,
+          "present": true
+        },
+        "examFindings": {
+          "correct": false,
+          "present": true
+        },
+        "familyHistoryBreastOrOvarianCancer": {
+          "correct": false,
+          "present": true
+        },
+        "generalCondition": {
+          "correct": false,
+          "present": true
+        },
+        "gpQuestion": {
+          "correct": false,
+          "present": true
+        },
+        "mainSymptom": {
+          "correct": false,
+          "present": true
+        },
+        "matchedRuleIds": {
+          "correct": false,
+          "present": false
+        },
+        "menopausalStatus": {
+          "correct": false,
+          "present": true
+        },
+        "otherIllnesses": {
+          "correct": false,
+          "present": true
+        },
+        "packYears": {
+          "correct": false,
+          "present": false
+        },
+        "palpableMass": {
+          "correct": false,
+          "present": true
+        },
+        "patientId": {
+          "correct": false,
+          "present": true
+        },
+        "pelvicOrAbdominalPain": {
+          "correct": false,
+          "present": true
+        },
+        "pelvicUltrasoundDate": {
+          "correct": false,
+          "present": false
+        },
+        "pelvicUltrasoundFindings": {
+          "correct": false,
+          "present": false
+        },
+        "pelvicUltrasoundResult": {
+          "correct": false,
+          "present": true
+        },
+        "priorCancer": {
+          "correct": false,
+          "present": false
+        },
+        "referralDate": {
+          "correct": false,
+          "present": true
+        },
+        "referringGpId": {
+          "correct": false,
+          "present": true
+        },
+        "riskGradientAiEstimate": {
+          "correct": false,
+          "present": false
+        },
+        "sex": {
+          "correct": false,
+          "present": true
+        },
+        "smokingStatus": {
+          "correct": false,
+          "present": true
+        },
+        "suspectedCancerType": {
+          "correct": false,
+          "present": true
+        },
+        "suspectedDiagnosis": {
+          "correct": false,
+          "present": true
+        },
+        "symptomDaysPerMonth": {
+          "correct": false,
+          "present": true
+        },
+        "symptomDurationWeeks": {
+          "correct": false,
+          "present": true
+        },
+        "symptomVisitCount": {
+          "correct": false,
+          "present": true
+        },
+        "testsDone": {
+          "correct": false,
+          "present": true
+        },
+        "urgency": {
+          "correct": false,
+          "present": true
+        },
+        "urinarySymptoms": {
+          "correct": false,
+          "present": true
+        },
+        "weightLossKg": {
+          "correct": false,
+          "present": false
+        }
+      },
+      "evidence_total": 0,
+      "evidence_grounded": 0,
+      "latency_s": 0.3710839799896348,
+      "attempts": 1,
+      "usage": {},
+      "error": "RuntimeError: HTTP 403 from model endpoint",
+      "parse_problem": "",
+      "raw_reply": ""
+    },
+    {
+      "id": "eval-ovarian-fi-002",
+      "cancer": "ovarian",
+      "language": "fi",
+      "kind": "cancer",
+      "json_valid": false,
+      "format_miss": false,
+      "schema_valid": false,
+      "schema_errors": [
+        "no parsable reply"
+      ],
+      "field_scores": {
+        "age": {
+          "correct": false,
+          "present": true
+        },
+        "ascites": {
+          "correct": false,
+          "present": true
+        },
+        "bloatingOrDistension": {
+          "correct": false,
+          "present": true
+        },
+        "brcaStatus": {
+          "correct": false,
+          "present": true
+        },
+        "ca125Date": {
+          "correct": false,
+          "present": false
+        },
+        "ca125Done": {
+          "correct": false,
+          "present": true
+        },
+        "ca125ValueIuPerMl": {
+          "correct": false,
+          "present": false
+        },
+        "currentMedicines": {
+          "correct": false,
+          "present": true
+        },
+        "earlySatietyOrAppetiteLoss": {
+          "correct": false,
+          "present": true
+        },
+        "examFindings": {
+          "correct": false,
+          "present": true
+        },
+        "familyHistoryBreastOrOvarianCancer": {
+          "correct": false,
+          "present": true
+        },
+        "generalCondition": {
+          "correct": false,
+          "present": true
+        },
+        "gpQuestion": {
+          "correct": false,
+          "present": true
+        },
+        "mainSymptom": {
+          "correct": false,
+          "present": true
+        },
+        "matchedRuleIds": {
+          "correct": false,
+          "present": false
+        },
+        "menopausalStatus": {
+          "correct": false,
+          "present": true
+        },
+        "otherIllnesses": {
+          "correct": false,
+          "present": true
+        },
+        "packYears": {
+          "correct": false,
+          "present": false
+        },
+        "palpableMass": {
+          "correct": false,
+          "present": true
+        },
+        "patientId": {
+          "correct": false,
+          "present": true
+        },
+        "pelvicOrAbdominalPain": {
+          "correct": false,
+          "present": true
+        },
+        "pelvicUltrasoundDate": {
+          "correct": false,
+          "present": false
+        },
+        "pelvicUltrasoundFindings": {
+          "correct": false,
+          "present": true
+        },
+        "pelvicUltrasoundResult": {
+          "correct": false,
+          "present": true
+        },
+        "priorCancer": {
+          "correct": false,
+          "present": false
+        },
+        "referralDate": {
+          "correct": false,
+          "present": true
+        },
+        "referringGpId": {
+          "correct": false,
+          "present": true
+        },
+        "riskGradientAiEstimate": {
+          "correct": false,
+          "present": false
+        },
+        "sex": {
+          "correct": false,
+          "present": true
+        },
+        "smokingStatus": {
+          "correct": false,
+          "present": true
+        },
+        "suspectedCancerType": {
+          "correct": false,
+          "present": true
+        },
+        "suspectedDiagnosis": {
+          "correct": false,
+          "present": true
+        },
+        "symptomDaysPerMonth": {
+          "correct": false,
+          "present": true
+        },
+        "symptomDurationWeeks": {
+          "correct": false,
+          "present": true
+        },
+        "symptomVisitCount": {
+          "correct": false,
+          "present": true
+        },
+        "testsDone": {
+          "correct": false,
+          "present": true
+        },
+        "urgency": {
+          "correct": false,
+          "present": true
+        },
+        "urinarySymptoms": {
+          "correct": false,
+          "present": true
+        },
+        "weightLossKg": {
+          "correct": false,
+          "present": false
+        }
+      },
+      "evidence_total": 0,
+      "evidence_grounded": 0,
+      "latency_s": 0.3487098810146563,
+      "attempts": 1,
+      "usage": {},
+      "error": "RuntimeError: HTTP 403 from model endpoint",
+      "parse_problem": "",
+      "raw_reply": ""
+    },
+    {
+      "id": "eval-ovarian-en-006",
+      "cancer": "ovarian",
+      "language": "en",
+      "kind": "cancer",
+      "json_valid": false,
+      "format_miss": false,
+      "schema_valid": false,
+      "schema_errors": [
+        "no parsable reply"
+      ],
+      "field_scores": {
+        "age": {
+          "correct": false,
+          "present": true
+        },
+        "ascites": {
+          "correct": false,
+          "present": true
+        },
+        "bloatingOrDistension": {
+          "correct": false,
+          "present": true
+        },
+        "brcaStatus": {
+          "correct": false,
+          "present": true
+        },
+        "ca125Date": {
+          "correct": false,
+          "present": false
+        },
+        "ca125Done": {
+          "correct": false,
+          "present": true
+        },
+        "ca125ValueIuPerMl": {
+          "correct": false,
+          "present": false
+        },
+        "currentMedicines": {
+          "correct": false,
+          "present": true
+        },
+        "earlySatietyOrAppetiteLoss": {
+          "correct": false,
+          "present": true
+        },
+        "examFindings": {
+          "correct": false,
+          "present": true
+        },
+        "familyHistoryBreastOrOvarianCancer": {
+          "correct": false,
+          "present": true
+        },
+        "generalCondition": {
+          "correct": false,
+          "present": true
+        },
+        "gpQuestion": {
+          "correct": false,
+          "present": true
+        },
+        "mainSymptom": {
+          "correct": false,
+          "present": true
+        },
+        "matchedRuleIds": {
+          "correct": false,
+          "present": false
+        },
+        "menopausalStatus": {
+          "correct": false,
+          "present": true
+        },
+        "otherIllnesses": {
+          "correct": false,
+          "present": true
+        },
+        "packYears": {
+          "correct": false,
+          "present": false
+        },
+        "palpableMass": {
+          "correct": false,
+          "present": true
+        },
+        "patientId": {
+          "correct": false,
+          "present": true
+        },
+        "pelvicOrAbdominalPain": {
+          "correct": false,
+          "present": true
+        },
+        "pelvicUltrasoundDate": {
+          "correct": false,
+          "present": false
+        },
+        "pelvicUltrasoundFindings": {
+          "correct": false,
+          "present": false
+        },
+        "pelvicUltrasoundResult": {
+          "correct": false,
+          "present": true
+        },
+        "priorCancer": {
+          "correct": false,
+          "present": false
+        },
+        "referralDate": {
+          "correct": false,
+          "present": true
+        },
+        "referringGpId": {
+          "correct": false,
+          "present": true
+        },
+        "riskGradientAiEstimate": {
+          "correct": false,
+          "present": false
+        },
+        "sex": {
+          "correct": false,
+          "present": true
+        },
+        "smokingStatus": {
+          "correct": false,
+          "present": true
+        },
+        "suspectedCancerType": {
+          "correct": false,
+          "present": true
+        },
+        "suspectedDiagnosis": {
+          "correct": false,
+          "present": true
+        },
+        "symptomDaysPerMonth": {
+          "correct": false,
+          "present": true
+        },
+        "symptomDurationWeeks": {
+          "correct": false,
+          "present": true
+        },
+        "symptomVisitCount": {
+          "correct": false,
+          "present": true
+        },
+        "testsDone": {
+          "correct": false,
+          "present": true
+        },
+        "urgency": {
+          "correct": false,
+          "present": true
+        },
+        "urinarySymptoms": {
+          "correct": false,
+          "present": true
+        },
+        "weightLossKg": {
+          "correct": false,
+          "present": false
+        }
+      },
+      "evidence_total": 0,
+      "evidence_grounded": 0,
+      "latency_s": 0.38393478401121683,
+      "attempts": 1,
+      "usage": {},
+      "error": "RuntimeError: HTTP 403 from model endpoint",
+      "parse_problem": "",
+      "raw_reply": ""
+    },
+    {
+      "id": "eval-ovarian-fi-004",
+      "cancer": "ovarian",
+      "language": "fi",
+      "kind": "cancer",
+      "json_valid": false,
+      "format_miss": false,
+      "schema_valid": false,
+      "schema_errors": [
+        "no parsable reply"
+      ],
+      "field_scores": {
+        "age": {
+          "correct": false,
+          "present": true
+        },
+        "ascites": {
+          "correct": false,
+          "present": true
+        },
+        "bloatingOrDistension": {
+          "correct": false,
+          "present": true
+        },
+        "brcaStatus": {
+          "correct": false,
+          "present": true
+        },
+        "ca125Date": {
+          "correct": false,
+          "present": true
+        },
+        "ca125Done": {
+          "correct": false,
+          "present": true
+        },
+        "ca125ValueIuPerMl": {
+          "correct": false,
+          "present": true
+        },
+        "currentMedicines": {
+          "correct": false,
+          "present": true
+        },
+        "earlySatietyOrAppetiteLoss": {
+          "correct": false,
+          "present": true
+        },
+        "examFindings": {
+          "correct": false,
+          "present": true
+        },
+        "familyHistoryBreastOrOvarianCancer": {
+          "correct": false,
+          "present": true
+        },
+        "generalCondition": {
+          "correct": false,
+          "present": true
+        },
+        "gpQuestion": {
+          "correct": false,
+          "present": true
+        },
+        "mainSymptom": {
+          "correct": false,
+          "present": true
+        },
+        "matchedRuleIds": {
+          "correct": false,
+          "present": false
+        },
+        "menopausalStatus": {
+          "correct": false,
+          "present": true
+        },
+        "otherIllnesses": {
+          "correct": false,
+          "present": true
+        },
+        "packYears": {
+          "correct": false,
+          "present": false
+        },
+        "palpableMass": {
+          "correct": false,
+          "present": true
+        },
+        "patientId": {
+          "correct": false,
+          "present": true
+        },
+        "pelvicOrAbdominalPain": {
+          "correct": false,
+          "present": true
+        },
+        "pelvicUltrasoundDate": {
+          "correct": false,
+          "present": true
+        },
+        "pelvicUltrasoundFindings": {
+          "correct": false,
+          "present": true
+        },
+        "pelvicUltrasoundResult": {
+          "correct": false,
+          "present": true
+        },
+        "priorCancer": {
+          "correct": false,
+          "present": false
+        },
+        "referralDate": {
+          "correct": false,
+          "present": true
+        },
+        "referringGpId": {
+          "correct": false,
+          "present": true
+        },
+        "riskGradientAiEstimate": {
+          "correct": false,
+          "present": false
+        },
+        "sex": {
+          "correct": false,
+          "present": true
+        },
+        "smokingStatus": {
+          "correct": false,
+          "present": true
+        },
+        "suspectedCancerType": {
+          "correct": false,
+          "present": true
+        },
+        "suspectedDiagnosis": {
+          "correct": false,
+          "present": true
+        },
+        "symptomDaysPerMonth": {
+          "correct": false,
+          "present": true
+        },
+        "symptomDurationWeeks": {
+          "correct": false,
+          "present": true
+        },
+        "symptomVisitCount": {
+          "correct": false,
+          "present": true
+        },
+        "testsDone": {
+          "correct": false,
+          "present": true
+        },
+        "urgency": {
+          "correct": false,
+          "present": true
+        },
+        "urinarySymptoms": {
+          "correct": false,
+          "present": true
+        },
+        "weightLossKg": {
+          "correct": false,
+          "present": false
+        }
+      },
+      "evidence_total": 0,
+      "evidence_grounded": 0,
+      "latency_s": 0.34097645300789736,
+      "attempts": 1,
+      "usage": {},
+      "error": "RuntimeError: HTTP 403 from model endpoint",
+      "parse_problem": "",
+      "raw_reply": ""
+    },
+    {
+      "id": "eval-ovarian-fi-005",
+      "cancer": "ovarian",
+      "language": "fi",
+      "kind": "cancer",
+      "json_valid": false,
+      "format_miss": false,
+      "schema_valid": false,
+      "schema_errors": [
+        "no parsable reply"
+      ],
+      "field_scores": {
+        "age": {
+          "correct": false,
+          "present": true
+        },
+        "ascites": {
+          "correct": false,
+          "present": true
+        },
+        "bloatingOrDistension": {
+          "correct": false,
+          "present": true
+        },
+        "brcaStatus": {
+          "correct": false,
+          "present": true
+        },
+        "ca125Date": {
+          "correct": false,
+          "present": true
+        },
+        "ca125Done": {
+          "correct": false,
+          "present": true
+        },
+        "ca125ValueIuPerMl": {
+          "correct": false,
+          "present": true
+        },
+        "currentMedicines": {
+          "correct": false,
+          "present": true
+        },
+        "earlySatietyOrAppetiteLoss": {
+          "correct": false,
+          "present": true
+        },
+        "examFindings": {
+          "correct": false,
+          "present": true
+        },
+        "familyHistoryBreastOrOvarianCancer": {
+          "correct": false,
+          "present": true
+        },
+        "generalCondition": {
+          "correct": false,
+          "present": true
+        },
+        "gpQuestion": {
+          "correct": false,
+          "present": true
+        },
+        "mainSymptom": {
+          "correct": false,
+          "present": true
+        },
+        "matchedRuleIds": {
+          "correct": false,
+          "present": false
+        },
+        "menopausalStatus": {
+          "correct": false,
+          "present": true
+        },
+        "otherIllnesses": {
+          "correct": false,
+          "present": true
+        },
+        "packYears": {
+          "correct": false,
+          "present": false
+        },
+        "palpableMass": {
+          "correct": false,
+          "present": true
+        },
+        "patientId": {
+          "correct": false,
+          "present": true
+        },
+        "pelvicOrAbdominalPain": {
+          "correct": false,
+          "present": true
+        },
+        "pelvicUltrasoundDate": {
+          "correct": false,
+          "present": true
+        },
+        "pelvicUltrasoundFindings": {
+          "correct": false,
+          "present": true
+        },
+        "pelvicUltrasoundResult": {
+          "correct": false,
+          "present": true
+        },
+        "priorCancer": {
+          "correct": false,
+          "present": false
+        },
+        "referralDate": {
+          "correct": false,
+          "present": true
+        },
+        "referringGpId": {
+          "correct": false,
+          "present": true
+        },
+        "riskGradientAiEstimate": {
+          "correct": false,
+          "present": false
+        },
+        "sex": {
+          "correct": false,
+          "present": true
+        },
+        "smokingStatus": {
+          "correct": false,
+          "present": true
+        },
+        "suspectedCancerType": {
+          "correct": false,
+          "present": true
+        },
+        "suspectedDiagnosis": {
+          "correct": false,
+          "present": true
+        },
+        "symptomDaysPerMonth": {
+          "correct": false,
+          "present": true
+        },
+        "symptomDurationWeeks": {
+          "correct": false,
+          "present": true
+        },
+        "symptomVisitCount": {
+          "correct": false,
+          "present": true
+        },
+        "testsDone": {
+          "correct": false,
+          "present": true
+        },
+        "urgency": {
+          "correct": false,
+          "present": true
+        },
+        "urinarySymptoms": {
+          "correct": false,
+          "present": true
+        },
+        "weightLossKg": {
+          "correct": false,
+          "present": true
+        }
+      },
+      "evidence_total": 0,
+      "evidence_grounded": 0,
+      "latency_s": 0.41044162900652736,
+      "attempts": 1,
+      "usage": {},
+      "error": "RuntimeError: HTTP 403 from model endpoint",
+      "parse_problem": "",
+      "raw_reply": ""
+    },
+    {
+      "id": "eval-ovarian-fi-003",
+      "cancer": "ovarian",
+      "language": "fi",
+      "kind": "cancer",
+      "json_valid": false,
+      "format_miss": false,
+      "schema_valid": false,
+      "schema_errors": [
+        "no parsable reply"
+      ],
+      "field_scores": {
+        "age": {
+          "correct": false,
+          "present": true
+        },
+        "ascites": {
+          "correct": false,
+          "present": true
+        },
+        "bloatingOrDistension": {
+          "correct": false,
+          "present": true
+        },
+        "brcaStatus": {
+          "correct": false,
+          "present": true
+        },
+        "ca125Date": {
+          "correct": false,
+          "present": true
+        },
+        "ca125Done": {
+          "correct": false,
+          "present": true
+        },
+        "ca125ValueIuPerMl": {
+          "correct": false,
+          "present": true
+        },
+        "currentMedicines": {
+          "correct": false,
+          "present": true
+        },
+        "earlySatietyOrAppetiteLoss": {
+          "correct": false,
+          "present": true
+        },
+        "examFindings": {
+          "correct": false,
+          "present": true
+        },
+        "familyHistoryBreastOrOvarianCancer": {
+          "correct": false,
+          "present": true
+        },
+        "generalCondition": {
+          "correct": false,
+          "present": true
+        },
+        "gpQuestion": {
+          "correct": false,
+          "present": true
+        },
+        "mainSymptom": {
+          "correct": false,
+          "present": true
+        },
+        "matchedRuleIds": {
+          "correct": false,
+          "present": false
+        },
+        "menopausalStatus": {
+          "correct": false,
+          "present": true
+        },
+        "otherIllnesses": {
+          "correct": false,
+          "present": true
+        },
+        "packYears": {
+          "correct": false,
+          "present": false
+        },
+        "palpableMass": {
+          "correct": false,
+          "present": true
+        },
+        "patientId": {
+          "correct": false,
+          "present": true
+        },
+        "pelvicOrAbdominalPain": {
+          "correct": false,
+          "present": true
+        },
+        "pelvicUltrasoundDate": {
+          "correct": false,
+          "present": true
+        },
+        "pelvicUltrasoundFindings": {
+          "correct": false,
+          "present": true
+        },
+        "pelvicUltrasoundResult": {
+          "correct": false,
+          "present": true
+        },
+        "priorCancer": {
+          "correct": false,
+          "present": true
+        },
+        "referralDate": {
+          "correct": false,
+          "present": true
+        },
+        "referringGpId": {
+          "correct": false,
+          "present": true
+        },
+        "riskGradientAiEstimate": {
+          "correct": false,
+          "present": false
+        },
+        "sex": {
+          "correct": false,
+          "present": true
+        },
+        "smokingStatus": {
+          "correct": false,
+          "present": true
+        },
+        "suspectedCancerType": {
+          "correct": false,
+          "present": true
+        },
+        "suspectedDiagnosis": {
+          "correct": false,
+          "present": true
+        },
+        "symptomDaysPerMonth": {
+          "correct": false,
+          "present": true
+        },
+        "symptomDurationWeeks": {
+          "correct": false,
+          "present": true
+        },
+        "symptomVisitCount": {
+          "correct": false,
+          "present": true
+        },
+        "testsDone": {
+          "correct": false,
+          "present": true
+        },
+        "urgency": {
+          "correct": false,
+          "present": true
+        },
+        "urinarySymptoms": {
+          "correct": false,
+          "present": true
+        },
+        "weightLossKg": {
+          "correct": false,
+          "present": false
+        }
+      },
+      "evidence_total": 0,
+      "evidence_grounded": 0,
+      "latency_s": 0.4038660390069708,
+      "attempts": 1,
+      "usage": {},
+      "error": "RuntimeError: HTTP 403 from model endpoint",
+      "parse_problem": "",
+      "raw_reply": ""
+    },
+    {
+      "id": "eval-ovarian-en-007",
+      "cancer": "ovarian",
+      "language": "en",
+      "kind": "cancer",
+      "json_valid": false,
+      "format_miss": false,
+      "schema_valid": false,
+      "schema_errors": [
+        "no parsable reply"
+      ],
+      "field_scores": {
+        "age": {
+          "correct": false,
+          "present": true
+        },
+        "ascites": {
+          "correct": false,
+          "present": true
+        },
+        "bloatingOrDistension": {
+          "correct": false,
+          "present": true
+        },
+        "brcaStatus": {
+          "correct": false,
+          "present": true
+        },
+        "ca125Date": {
+          "correct": false,
+          "present": true
+        },
+        "ca125Done": {
+          "correct": false,
+          "present": true
+        },
+        "ca125ValueIuPerMl": {
+          "correct": false,
+          "present": true
+        },
+        "currentMedicines": {
+          "correct": false,
+          "present": true
+        },
+        "earlySatietyOrAppetiteLoss": {
+          "correct": false,
+          "present": true
+        },
+        "examFindings": {
+          "correct": false,
+          "present": true
+        },
+        "familyHistoryBreastOrOvarianCancer": {
+          "correct": false,
+          "present": true
+        },
+        "generalCondition": {
+          "correct": false,
+          "present": true
+        },
+        "gpQuestion": {
+          "correct": false,
+          "present": true
+        },
+        "mainSymptom": {
+          "correct": false,
+          "present": true
+        },
+        "matchedRuleIds": {
+          "correct": false,
+          "present": false
+        },
+        "menopausalStatus": {
+          "correct": false,
+          "present": true
+        },
+        "otherIllnesses": {
+          "correct": false,
+          "present": true
+        },
+        "packYears": {
+          "correct": false,
+          "present": false
+        },
+        "palpableMass": {
+          "correct": false,
+          "present": true
+        },
+        "patientId": {
+          "correct": false,
+          "present": true
+        },
+        "pelvicOrAbdominalPain": {
+          "correct": false,
+          "present": true
+        },
+        "pelvicUltrasoundDate": {
+          "correct": false,
+          "present": true
+        },
+        "pelvicUltrasoundFindings": {
+          "correct": false,
+          "present": true
+        },
+        "pelvicUltrasoundResult": {
+          "correct": false,
+          "present": true
+        },
+        "priorCancer": {
+          "correct": false,
+          "present": false
+        },
+        "referralDate": {
+          "correct": false,
+          "present": true
+        },
+        "referringGpId": {
+          "correct": false,
+          "present": true
+        },
+        "riskGradientAiEstimate": {
+          "correct": false,
+          "present": false
+        },
+        "sex": {
+          "correct": false,
+          "present": true
+        },
+        "smokingStatus": {
+          "correct": false,
+          "present": true
+        },
+        "suspectedCancerType": {
+          "correct": false,
+          "present": true
+        },
+        "suspectedDiagnosis": {
+          "correct": false,
+          "present": true
+        },
+        "symptomDaysPerMonth": {
+          "correct": false,
+          "present": true
+        },
+        "symptomDurationWeeks": {
+          "correct": false,
+          "present": true
+        },
+        "symptomVisitCount": {
+          "correct": false,
+          "present": true
+        },
+        "testsDone": {
+          "correct": false,
+          "present": true
+        },
+        "urgency": {
+          "correct": false,
+          "present": true
+        },
+        "urinarySymptoms": {
+          "correct": false,
+          "present": true
+        },
+        "weightLossKg": {
+          "correct": false,
+          "present": false
+        }
+      },
+      "evidence_total": 0,
+      "evidence_grounded": 0,
+      "latency_s": 0.38629835000028834,
+      "attempts": 1,
+      "usage": {},
+      "error": "RuntimeError: HTTP 403 from model endpoint",
+      "parse_problem": "",
+      "raw_reply": ""
+    },
+    {
+      "id": "eval-ovarian-ctrl-en-001",
+      "cancer": "ovarian",
+      "language": "en",
+      "kind": "control",
+      "json_valid": false,
+      "format_miss": false,
+      "schema_valid": false,
+      "schema_errors": [
+        "no parsable reply"
+      ],
+      "field_scores": {
+        "age": {
+          "correct": false,
+          "present": true
+        },
+        "ascites": {
+          "correct": false,
+          "present": true
+        },
+        "bloatingOrDistension": {
+          "correct": false,
+          "present": true
+        },
+        "brcaStatus": {
+          "correct": false,
+          "present": true
+        },
+        "ca125Date": {
+          "correct": false,
+          "present": false
+        },
+        "ca125Done": {
+          "correct": false,
+          "present": true
+        },
+        "ca125ValueIuPerMl": {
+          "correct": false,
+          "present": false
+        },
+        "currentMedicines": {
+          "correct": false,
+          "present": true
+        },
+        "earlySatietyOrAppetiteLoss": {
+          "correct": false,
+          "present": true
+        },
+        "examFindings": {
+          "correct": false,
+          "present": true
+        },
+        "familyHistoryBreastOrOvarianCancer": {
+          "correct": false,
+          "present": true
+        },
+        "generalCondition": {
+          "correct": false,
+          "present": true
+        },
+        "gpQuestion": {
+          "correct": false,
+          "present": true
+        },
+        "mainSymptom": {
+          "correct": false,
+          "present": true
+        },
+        "matchedRuleIds": {
+          "correct": false,
+          "present": false
+        },
+        "menopausalStatus": {
+          "correct": false,
+          "present": true
+        },
+        "otherIllnesses": {
+          "correct": false,
+          "present": true
+        },
+        "packYears": {
+          "correct": false,
+          "present": false
+        },
+        "palpableMass": {
+          "correct": false,
+          "present": true
+        },
+        "patientId": {
+          "correct": false,
+          "present": true
+        },
+        "pelvicOrAbdominalPain": {
+          "correct": false,
+          "present": true
+        },
+        "pelvicUltrasoundDate": {
+          "correct": false,
+          "present": true
+        },
+        "pelvicUltrasoundFindings": {
+          "correct": false,
+          "present": true
+        },
+        "pelvicUltrasoundResult": {
+          "correct": false,
+          "present": true
+        },
+        "priorCancer": {
+          "correct": false,
+          "present": false
+        },
+        "referralDate": {
+          "correct": false,
+          "present": true
+        },
+        "referringGpId": {
+          "correct": false,
+          "present": true
+        },
+        "riskGradientAiEstimate": {
+          "correct": false,
+          "present": false
+        },
+        "sex": {
+          "correct": false,
+          "present": true
+        },
+        "smokingStatus": {
+          "correct": false,
+          "present": true
+        },
+        "suspectedCancerType": {
+          "correct": false,
+          "present": true
+        },
+        "suspectedDiagnosis": {
+          "correct": false,
+          "present": true
+        },
+        "symptomDaysPerMonth": {
+          "correct": false,
+          "present": true
+        },
+        "symptomDurationWeeks": {
+          "correct": false,
+          "present": true
+        },
+        "symptomVisitCount": {
+          "correct": false,
+          "present": true
+        },
+        "testsDone": {
+          "correct": false,
+          "present": true
+        },
+        "urgency": {
+          "correct": false,
+          "present": true
+        },
+        "urinarySymptoms": {
+          "correct": false,
+          "present": true
+        },
+        "weightLossKg": {
+          "correct": false,
+          "present": false
+        }
+      },
+      "evidence_total": 0,
+      "evidence_grounded": 0,
+      "latency_s": 0.39202711498364806,
+      "attempts": 1,
+      "usage": {},
+      "error": "RuntimeError: HTTP 403 from model endpoint",
+      "parse_problem": "",
+      "raw_reply": ""
+    }
+  ]
+}

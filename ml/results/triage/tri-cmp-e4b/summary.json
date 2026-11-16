@@ -1,0 +1,44 @@
+{
+  "tag": "tri-cmp-e4b",
+  "task": "triage",
+  "base_model": "google/gemma-4-E4B-it",
+  "data": "eval",
+  "container": {
+    "MODAL_REGION": "eu-south",
+    "MODAL_CLOUD_PROVIDER": "CLOUD_PROVIDER_UNSPECIFIED"
+  },
+  "summaries": {
+    "tri-e4b-r16-ep3": {
+      "n": 78,
+      "n_cancer": 44,
+      "n_control": 34,
+      "accuracy": 0.9230769230769231,
+      "sensitivity": 0.9772727272727273,
+      "specificity": 0.8529411764705882,
+      "right_cancer": 1.0,
+      "auroc_risk": 0.9572192513368984,
+      "auroc_truth": 0.9857397504456328,
+      "score_mae": 0.19658119658119658,
+      "valid_json": 1.0,
+      "grounded": 1.0,
+      "mean_latency_s": 2.187948717948718,
+      "errors": 0
+    },
+    "google/gemma-4-E4B-it": {
+      "n": 78,
+      "n_cancer": 44,
+      "n_control": 34,
+      "accuracy": 0.7948717948717948,
+      "sensitivity": 0.8409090909090909,
+      "specificity": 0.7352941176470589,
+      "right_cancer": 1.0,
+      "auroc_risk": 0.8900401069518716,
+      "auroc_truth": 0.9598930481283422,
+      "score_mae": 0.517094017094017,
+      "valid_json": 1.0,
+      "grounded": 1.0,
+      "mean_latency_s": 2.0965384615384615,
+      "errors": 0
+    }
+  }
+}
